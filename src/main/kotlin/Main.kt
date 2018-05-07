@@ -1,10 +1,3 @@
-import io.jenetics.BitChromosome
-import io.jenetics.BitGene
-import io.jenetics.Genotype
-import io.jenetics.engine.Engine
-import io.jenetics.engine.EvolutionResult
-import io.jenetics.util.Factory
-
 object SimpleGeneticAlgorithm {
 
 //    fun eval(gt: Genotype<BitGene?>?): Int {
