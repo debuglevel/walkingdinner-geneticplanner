@@ -246,6 +246,11 @@ public class Main {
          final EvolutionResult<EnumGene<Team>, Double> result = engine.stream()
                  .limit(1000)
                  //.limit(Limits.bySteadyFitness(500))
+//                 .peek(g -> {
+//                     if (g.getGeneration() % 100 == 0) {
+//                         System.out.println("Generation: " + g.getGeneration() + "\t| Best Fitness: " + g.getBestFitness());
+//                     }
+//                 })
                  .peek(statistics)
                  .collect(EvolutionResult.toBestEvolutionResult());
 
@@ -265,10 +270,12 @@ public class Main {
          /*
           * print the results
           */
-         System.out.println("Finished");
+         System.out.println();
          System.out.println("-----------------");
-         System.out.println("Generation: " + result.getGeneration());
-         System.out.println("Fitness: " + result.getBestFitness());
+         System.out.println("Best in Generation: " + result.getGeneration());
+         System.out.println("Best with Fitness: " + result.getBestFitness());
+
+         System.out.println(statistics);
     }
 
     private ISeq<Team> getTeams() {
