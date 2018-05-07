@@ -1,11 +1,15 @@
 import io.jenetics.*;
 import io.jenetics.engine.Engine;
 import io.jenetics.engine.EvolutionResult;
+import io.jenetics.engine.EvolutionStatistics;
 import io.jenetics.engine.Limits;
 import io.jenetics.util.Factory;
+import io.jenetics.util.ISeq;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import static io.jenetics.engine.EvolutionResult.toBestPhenotype;
 
 public class Main {
     private Database database;
@@ -22,37 +26,38 @@ public class Main {
         int teamCount = this.database.getTeams().size();
 
         int[] course1 = new int[teamCount];
-        int[] course2 = new int[teamCount];
-        int[] course3 = new int[teamCount];
+//        int[] course2 = new int[teamCount];
+//        int[] course3 = new int[teamCount];
 
-        chromosomeToArrays(gt, teamCount, course1, course2, course3);
+        chromosomeToArrays(gt, teamCount, course1 /*, course2, course3*/);
 
         int invalidGenotypeMalus = 0;
         if (isValidCourse(course1) == false)
         {
             invalidGenotypeMalus -= 5;
-        }if (isValidCourse(course2) == false)
-        {
-            invalidGenotypeMalus -= 5;
-        }if (isValidCourse(course3) == false)
-        {
-            invalidGenotypeMalus -= 5;
         }
+//        if (isValidCourse(course2) == false)
+//        {
+//            invalidGenotypeMalus -= 5;
+//        }if (isValidCourse(course3) == false)
+//        {
+//            invalidGenotypeMalus -= 5;
+//        }
 
 
 
-        return evaluateCourse(course1, "Vorspeise")+evaluateCourse(course2, "Hauptgericht")+evaluateCourse(course3, "Dessert")
+        return evaluateCourse(course1, "Vorspeise") //+evaluateCourse(course2, "Hauptgericht")+evaluateCourse(course3, "Dessert")
                 +invalidGenotypeMalus;
     }
 
-    private void chromosomeToArrays(Genotype<IntegerGene> gt, int teamCount, int[] course1, int[] course2, int[] course3) {
+    private void chromosomeToArrays(Genotype<IntegerGene> gt, int teamCount, int[] course1 /*, int[] course2, int[] course3*/) {
         IntegerChromosome chromosome = gt.getChromosome()
                 .as(IntegerChromosome.class);
         int[] chromosomeArray = chromosome.toArray();
 
         System.arraycopy(chromosomeArray, 0*teamCount, course1, 0, teamCount);
-        System.arraycopy(chromosomeArray, 1*teamCount, course2, 0, teamCount);
-        System.arraycopy(chromosomeArray, 2*teamCount, course3, 0, teamCount);
+//        System.arraycopy(chromosomeArray, 1*teamCount, course2, 0, teamCount);
+//        System.arraycopy(chromosomeArray, 2*teamCount, course3, 0, teamCount);
     }
 
     private boolean isValidGenotype(Genotype<IntegerGene> gt)
@@ -63,7 +68,7 @@ public class Main {
         int[] course2 = new int[teamCount];
         int[] course3 = new int[teamCount];
 
-        chromosomeToArrays(gt, teamCount, course1, course2, course3);
+        chromosomeToArrays(gt, teamCount, course1 /*, course2, course3*/);
 
         return isValidCourse(course1) && isValidCourse(course2) && isValidCourse(course3);
     }
@@ -91,20 +96,44 @@ public class Main {
         return true;
     }
 
-    private void print(Genotype<IntegerGene> gt)
+    private void print(Genotype<EnumGene<Team>> gt)
     {
-        int teamCount = this.database.getTeams().size();
+        for (int i = 0; i < gt.getChromosome().length(); i++) {
+            if (i%3 == 0)
+            {
+                System.out.println();
+            }
 
-        int[] course1 = new int[teamCount];
-        int[] course2 = new int[teamCount];
-        int[] course3 = new int[teamCount];
+            System.out.print(gt.getChromosome().getGene(i) + " ");
+        }
 
-        chromosomeToArrays(gt, teamCount, course1, course2, course3);
-
-        printCourse(course1, "Vorspeise");
-        printCourse(course2, "Hauptgericht");
-        printCourse(course3, "Nachspeise");
+//        int teamCount = this.database.getTeams().size();
+//
+//        int[] course1 = new int[teamCount];
+////        int[] course2 = new int[teamCount];
+////        int[] course3 = new int[teamCount];
+//
+//        chromosomeToArrays(gt, teamCount, course1 /*, course2, course3*/);
+//
+//        printCourse(course1, "Vorspeise");
+////        printCourse(course2, "Hauptgericht");
+////        printCourse(course3, "Nachspeise");
     }
+
+//    private void print(Genotype<IntegerGene> gt)
+//    {
+//        int teamCount = this.database.getTeams().size();
+//
+//        int[] course1 = new int[teamCount];
+////        int[] course2 = new int[teamCount];
+////        int[] course3 = new int[teamCount];
+//
+//        chromosomeToArrays(gt, teamCount, course1 /*, course2, course3*/);
+//
+//        printCourse(course1, "Vorspeise");
+////        printCourse(course2, "Hauptgericht");
+////        printCourse(course3, "Nachspeise");
+//    }
 
     private void printCourse(int[] course, String name)
     {
@@ -177,7 +206,7 @@ public class Main {
     void run()
     {
         this.initialize();
-        this.printDatabase();
+//        this.printDatabase();
         this.compute();
     }
 
@@ -190,30 +219,46 @@ public class Main {
         // 1.) Define the genotype (factory) suitable
         //     for the problem.
 
-         int courses = 3;
-         int length = database.getTeams().size()*courses;
-        Factory<Genotype<IntegerGene>> genotypeFactory =
-                Genotype.of(IntegerChromosome.of(0, database.getTeams().size()-1, length));
+//         int courses = 3;
+//         int length = database.getTeams().size()*courses;
+//        Factory<Genotype<IntegerGene>> genotypeFactory =
+//                Genotype.of(IntegerChromosome.of(0, database.getTeams().size()-1, length));
+
+         CourseProblem problem = new CourseProblem(getTeams());
 
         // 3.) Create the execution environment.
-        Engine<IntegerGene, Integer> engine = Engine
-                .builder(this::eval, genotypeFactory)
-                .populationSize(1000)
+        Engine<EnumGene<Team>, Double> engine = Engine
+                .builder(problem)
+                .optimize(Optimize.MINIMUM)
+//                .populationSize(1000)
 //                .alterers(new SinglePointCrossover<>(1), new Mutator<>(0.01))
+                .alterers(new SwapMutator<>(0.15),
+                          new PartiallyMatchedCrossover<>(0.15))
 //                .selector(new RouletteWheelSelector<>())
 //                .genotypeValidator(this::isValidGenotype)
                 .build();
 
-        // 4.) Start the execution (evolution) and
-        //     collect the result.
-         EvolutionResult<IntegerGene, Integer> result = engine.stream()
-                .limit(Limits.bySteadyFitness(50000))
-                .peek(g -> {
-                    if (g.getGeneration() % 100 == 1) {
-                        System.out.println("Generation: " + g.getGeneration() + "\t| Best Fitness: " + g.getBestFitness());
-                    }
-                })
-                .collect(EvolutionResult.toBestEvolutionResult());
+
+         // Create evolution statistics consumer.
+         final EvolutionStatistics<Double, ?>
+                 statistics = EvolutionStatistics.ofNumber();
+
+         final EvolutionResult<EnumGene<Team>, Double> result = engine.stream()
+                 .limit(1000)
+                 //.limit(Limits.bySteadyFitness(500))
+                 .peek(statistics)
+                 .collect(EvolutionResult.toBestEvolutionResult());
+
+//        // 4.) Start the execution (evolution) and
+//        //     collect the result.
+//         EvolutionResult<IntegerGene, Integer> result = engine.stream()
+//                .limit(Limits.bySteadyFitness(500))
+//                .peek(g -> {
+//                    if (g.getGeneration() % 100 == 1) {
+//                        System.out.println("Generation: " + g.getGeneration() + "\t| Best Fitness: " + g.getBestFitness());
+//                    }
+//                })
+//                .collect(EvolutionResult.toBestEvolutionResult());
 
         print(result.getBestPhenotype().getGenotype());
 
@@ -224,6 +269,10 @@ public class Main {
          System.out.println("-----------------");
          System.out.println("Generation: " + result.getGeneration());
          System.out.println("Fitness: " + result.getBestFitness());
+    }
+
+    private ISeq<Team> getTeams() {
+        return ISeq.of(this.database.getTeams());
     }
 
 }
