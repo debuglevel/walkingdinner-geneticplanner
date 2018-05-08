@@ -1,10 +1,9 @@
 import io.jenetics.*;
-import io.jenetics.engine.Engine;
-import io.jenetics.engine.EvolutionResult;
-import io.jenetics.engine.EvolutionStatistics;
+import io.jenetics.engine.*;
 import io.jenetics.util.ISeq;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -107,13 +106,22 @@ public class Main {
 //    }
 
     private void print(Genotype<EnumGene<Team>> gt) {
-        for (int i = 0; i < gt.getChromosome().length(); i++) {
-            if (i % 3 == 0) {
-                System.out.println();
+
+        for (int idxChromosome = 0; idxChromosome < 3; idxChromosome++) {
+            System.out.println("== Chromosom "+idxChromosome);
+
+            for (int i = 0; i < gt.getChromosome(idxChromosome).length(); i++) {
+                if (i % 3 == 0) {
+                    System.out.println();
+                }
+
+                System.out.print(gt.getChromosome(idxChromosome).getGene(i) + " ");
             }
 
-            System.out.print(gt.getChromosome().getGene(i) + " ");
+            System.out.println();
         }
+
+
 
 //        int teamCount = this.database.getTeams().size();
 //
@@ -205,7 +213,7 @@ public class Main {
 //        Factory<Genotype<IntegerGene>> genotypeFactory =
 //                Genotype.of(IntegerChromosome.of(0, database.getTeams().size()-1, length));
 
-        CourseProblem problem = new CourseProblem(getTeams());
+        CoursesProblem problem = new CoursesProblem(getTeams());
 
         // 3.) Create the execution environment.
         Engine<EnumGene<Team>, Double> engine = Engine
@@ -225,13 +233,14 @@ public class Main {
                 statistics = EvolutionStatistics.ofNumber();
 
         final EvolutionResult<EnumGene<Team>, Double> result = engine.stream()
-                .limit(1000)
-                //.limit(Limits.bySteadyFitness(500))
-//                 .peek(g -> {
-//                     if (g.getGeneration() % 100 == 0) {
-//                         System.out.println("Generation: " + g.getGeneration() + "\t| Best Fitness: " + g.getBestFitness());
-//                     }
-//                 })
+//                .limit(1000)
+                .limit(Limits.bySteadyFitness(10000))
+//                .limit(Limits.byFitnessThreshold(0.5d))
+                 .peek(g -> {
+                     if (g.getGeneration() % 500 == 0) {
+                         System.out.println("Generation: " + g.getGeneration() + "\t| Best Fitness: " + g.getBestFitness());
+                     }
+                 })
                 .peek(statistics)
                 .collect(EvolutionResult.toBestEvolutionResult());
 
@@ -258,6 +267,11 @@ public class Main {
 
         System.out.println(statistics);
     }
+
+//    private boolean byFitnessThreshold(EvolutionResult<EnumGene<Team>, Double> enumGeneDoubleEvolutionResult) {
+//        return true;
+//    }
+
 
     private ISeq<Team> getTeams() {
         return ISeq.of(this.database.getTeams());
