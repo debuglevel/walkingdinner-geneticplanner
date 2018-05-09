@@ -2,7 +2,7 @@ import io.jenetics.*;
 import io.jenetics.engine.*;
 import io.jenetics.util.ISeq;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -105,20 +105,49 @@ public class Main {
 ////        printCourse(course3, "Nachspeise");
 //    }
 
+    private Set<Meeting> chromosomeToMeetings(Chromosome<EnumGene<Team>> chromosome, String name)
+    {
+        List<Team> teams = chromosome.stream()
+                .map(g -> g.getAllele())
+                .collect(Collectors.toList());
+
+        Set<Meeting> meetings = new HashSet<>();
+
+        int mettingsCount = teams.size() / 3;
+        for (int i = 0; i < mettingsCount; i++) {
+            Team[] meetingTeams = {
+                    teams.get(i * 3 + 0),
+                    teams.get(i * 3 + 1),
+                    teams.get(i * 3 + 2)
+            };
+            meetings.add(new Meeting(meetingTeams, name));
+        }
+
+        return meetings;
+    }
+
     private void print(Genotype<EnumGene<Team>> gt) {
 
         for (int idxChromosome = 0; idxChromosome < 3; idxChromosome++) {
+            System.out.println();
             System.out.println("== Chromosom "+idxChromosome);
 
-            for (int i = 0; i < gt.getChromosome(idxChromosome).length(); i++) {
-                if (i % 3 == 0) {
-                    System.out.println();
-                }
+            Set<Meeting> meetings = chromosomeToMeetings(gt.getChromosome(idxChromosome), "Gang "+idxChromosome);
 
-                System.out.print(gt.getChromosome(idxChromosome).getGene(i) + " ");
+            for (Meeting meeting : meetings)
+            {
+                System.out.println(meeting);
             }
 
-            System.out.println();
+//            for (int i = 0; i < gt.getChromosome(idxChromosome).length(); i++) {
+//                if (i % 3 == 0) {
+//                    System.out.println();
+//                }
+//
+//
+//                EnumGene<Team> team = gt.getChromosome(idxChromosome).getGene(i);
+//                System.out.print(team + "\t");
+//            }
         }
 
 
@@ -234,7 +263,7 @@ public class Main {
 
         final EvolutionResult<EnumGene<Team>, Double> result = engine.stream()
 //                .limit(1000)
-                .limit(Limits.bySteadyFitness(10000))
+                .limit(Limits.bySteadyFitness(40_000))
 //                .limit(Limits.byFitnessThreshold(0.5d))
                  .peek(g -> {
                      if (g.getGeneration() % 500 == 0) {

@@ -1,6 +1,9 @@
 import java.util.*
+import java.util.stream.Collectors
 
 data class Meeting(val teams: Array<Team>, val course: String) {
+
+    fun getCookingTeam(): Team = teams.first()
 
     fun areCompatibleTeams(): Boolean {
         return teams.all { it.isCompatibleDiet(teams.first()) }
@@ -24,7 +27,13 @@ data class Meeting(val teams: Array<Team>, val course: String) {
         return result
     }
 
+    fun isCook(team: Team): Boolean
+            = this.getCookingTeam() == team
+
     override fun toString(): String {
-        return "$course (${Arrays.toString(teams)})"
+        val teams = Arrays.stream(teams)
+                .map { it -> if (isCook(it)) "[$it]" else it.toString()}
+                .collect(Collectors.joining("\t"))
+        return "$teams"
     }
 }

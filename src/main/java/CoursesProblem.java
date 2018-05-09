@@ -5,8 +5,7 @@ import io.jenetics.engine.Codec;
 import io.jenetics.engine.Problem;
 import io.jenetics.util.ISeq;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -52,6 +51,36 @@ public class CoursesProblem implements Problem<CoursesProblem.Courses, EnumGene<
 //        return Codecs.ofPermutation(_teams);
     }
 
+    public Double fitness(Courses courses)
+    {
+        List<Team> teams = new ArrayList<>();
+        teams.addAll(courses.course_1.asList());
+        teams.addAll(courses.course_2.asList());
+        teams.addAll(courses.course_3.asList());
+
+        List<Meeting> meetings = new ArrayList<>();
+
+        int mettingsCount = teams.size() / 3;
+        for (int i = 0; i < mettingsCount; i++) {
+            Team[] meetingTeams = {
+                    teams.get(i * 3 + 0),
+                    teams.get(i * 3 + 1),
+                    teams.get(i * 3 + 2)
+            };
+            meetings.add(new Meeting(meetingTeams, "x"));
+        }
+
+        Map<Team, Long> teamCookings = meetings.stream()
+                .map(m -> m.getCookingTeam())
+                .collect(Collectors.groupingBy(t -> t, Collectors.counting()));
+        Long multipleCookings = teamCookings.entrySet().stream()
+                .filter(kv -> kv.getValue() > 1)
+                .map(kv -> kv.getValue())
+                .collect(Collectors.summingLong(value -> value.longValue()));
+
+        return multipleCookings.doubleValue();
+    }
+
     public Double fitness(ISeq<Team> teams, String name) {
             List<Meeting> meetings = new ArrayList<>();
 
@@ -65,10 +94,14 @@ public class CoursesProblem implements Problem<CoursesProblem.Courses, EnumGene<
                 meetings.add(new Meeting(meetingTeams, name));
             }
 
-            return meetings.stream()
+            double incompatibleTeams = meetings.stream()
                     .filter(m -> m.areCompatibleTeams() == false)
                     .collect(Collectors.counting())
                     .doubleValue();
+
+
+
+            return incompatibleTeams;
 
     }
 
@@ -77,7 +110,8 @@ public class CoursesProblem implements Problem<CoursesProblem.Courses, EnumGene<
         return courses -> {
             return fitness(courses.course_1, "Vorspeise")
                     + fitness(courses.course_2, "Hauptgericht")
-                    + fitness(courses.course_3, "Dessert");
+                    + fitness(courses.course_3, "Dessert")
+                    + fitness(courses);
         };
     }
 }
