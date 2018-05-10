@@ -5,7 +5,8 @@ import io.jenetics.engine.Codec;
 import io.jenetics.engine.Problem;
 import io.jenetics.util.ISeq;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -59,12 +60,6 @@ public class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> 
     @Override
     public Function<Courses, Double> fitness() {
         return courses -> {
-
-//            System.out.println(calculateFitness(courses.getCourse1teams(), "Vorspeise")+" "+
-//                    calculateFitness(courses.getCourse2teams(), "Hauptgericht")+" "+
-//                            calculateFitness(courses.getCourse3teams(), "Dessert")+" "+
-//                            calculateFitness(courses));
-
             return calculateFitness(courses.getCourse1teams(), "Vorspeise")
                     + calculateFitness(courses.getCourse2teams(), "Hauptgericht")
                     + calculateFitness(courses.getCourse3teams(), "Dessert")
