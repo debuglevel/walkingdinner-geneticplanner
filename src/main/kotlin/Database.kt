@@ -5,11 +5,12 @@ import java.io.FileReader
 import java.io.IOException
 
 class Database {
+    lateinit var teams: List<Team>
 
-    var teams: MutableList<Team> = mutableListOf()
+    fun print()=
+        teams.forEach { println(it) }
 
-    fun initializeTeams()
-    {
+    fun initializeTeams() {
         var fileReader: BufferedReader? = null
         var csvToBean: CsvToBean<Team>?
 
@@ -24,13 +25,10 @@ class Database {
             val teams = csvToBean.parse()
 
             for ((index, team) in teams.withIndex()) {
-                team.id = index.toLong()+1
+                team.id = index.toLong() + 1
             }
 
-            for (team in teams) {
-                println(team)
-            }
-            this.teams.addAll(teams);
+            this.teams = teams;
         } catch (e: Exception) {
             println("Reading CSV Error!")
             e.printStackTrace()
@@ -43,27 +41,4 @@ class Database {
             }
         }
     }
-
-//    fun initializeTeams() {
-//        var index = 0
-//        teams.add(Team("Team " + (++index), "vegan"))
-//        teams.add(Team("Team " + (++index), "vegan"))
-//        teams.add(Team("Team " + (++index), "vegan"))
-//        teams.add(Team("Team " + (++index), "vegan"))
-//        teams.add(Team("Team " + (++index), "vegan"))
-//        teams.add(Team("Team " + (++index), "vegan"))
-//        teams.add(Team("Team " + (++index), "vegetarisch"))
-//        teams.add(Team("Team " + (++index), "vegetarisch"))
-//        teams.add(Team("Team " + (++index), "vegetarisch"))
-//        teams.add(Team("Team " + (++index), "vegetarisch"))
-//        teams.add(Team("Team " + (++index), "vegetarisch"))
-//        teams.add(Team("Team " + (++index), "vegetarisch"))
-//        teams.add(Team("Team " + (++index), "omnivore"))
-//        teams.add(Team("Team " + (++index), "omnivore"))
-//        teams.add(Team("Team " + (++index), "omnivore"))
-//        teams.add(Team("Team " + (++index), "omnivore"))
-//        teams.add(Team("Team " + (++index), "omnivore"))
-//        teams.add(Team("Team " + (++index), "omnivore"))
-//
-//    }
 }

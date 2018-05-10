@@ -27,12 +27,11 @@ data class Meeting(val teams: Array<Team>, val course: String) {
         return result
     }
 
-    fun isCook(team: Team): Boolean
-            = this.getCookingTeam() == team
+    fun isCook(team: Team): Boolean = this.getCookingTeam() == team
 
     override fun toString(): String {
         val teams = Arrays.stream(teams)
-                .map { it -> if (isCook(it)) "[$it]" else it.toString()}
+                .map { it -> if (isCook(it)) "[$it]" else it.toString() }
                 .collect(Collectors.joining("\t"))
         return "$teams"
     }
