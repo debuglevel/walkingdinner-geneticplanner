@@ -1,10 +1,10 @@
 import io.jenetics.Chromosome
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
-import java.util.HashSet
+import java.util.*
 import java.util.stream.Collectors
 
-class ChromosomeHelper {
+class ChromosomeUtils {
     companion object {
         fun toMeetings(chromosome: Chromosome<EnumGene<Team>>, name: String): Set<Meeting> {
             val teams = chromosome.stream()
@@ -30,7 +30,7 @@ class ChromosomeHelper {
                 println()
                 println("== Course $idxChromosome")
 
-                val meetings = ChromosomeHelper.toMeetings(
+                val meetings = ChromosomeUtils.toMeetings(
                         gt.getChromosome(idxChromosome),
                         "Gang $idxChromosome")
 

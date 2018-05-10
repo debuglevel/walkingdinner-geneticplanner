@@ -51,7 +51,7 @@ public class GeneticDinnerPlanner {
                 .peek(statistics)
                 .collect(EvolutionResult.toBestEvolutionResult());
 
-        ChromosomeHelper.Companion.print(result.getBestPhenotype().getGenotype());
+        ChromosomeUtils.Companion.print(result.getBestPhenotype().getGenotype());
 
         /*
          * print the results
