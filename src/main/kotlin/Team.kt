@@ -22,7 +22,9 @@ class Team {
     @CsvBindByName(column = "Diet")
     var diet: String = ""
 
-    constructor() {}
+    lateinit var location: Location
+
+    constructor()
     constructor(cook1: String, cook2: String, address: String, diet: String) {
         this.cook1 = cook1
         this.cook2 = cook2

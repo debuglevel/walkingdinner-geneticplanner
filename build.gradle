@@ -23,6 +23,10 @@ dependencies {
     compile 'io.jenetics:jenetics:4.1.0'
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
     compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
+
+    // Google Maps Services
+    compile 'com.google.maps:google-maps-services:0.2.7'
+    compile 'org.slf4j:slf4j-nop:1.7.25'
 }
 
 compileKotlin {
