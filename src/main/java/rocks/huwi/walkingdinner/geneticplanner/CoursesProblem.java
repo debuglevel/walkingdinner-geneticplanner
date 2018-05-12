@@ -37,9 +37,9 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
     }
 
     private double calculateOverallDistance(Team team, Map<String, List<Meeting>> courseMeetings) {
-        Location location1 = getCookingLocation(team, courseMeetings, "Vorspeise");
-        Location location2 = getCookingLocation(team, courseMeetings, "Hauptspeise");
-        Location location3 = getCookingLocation(team, courseMeetings, "Dessert");
+        Location location1 = getCookingLocation(team, courseMeetings, Courses.course1name);
+        Location location2 = getCookingLocation(team, courseMeetings, Courses.course2name);
+        Location location3 = getCookingLocation(team, courseMeetings, Courses.course3name);
 
         return location1.calculateDistance(location2) + location2.calculateDistance(location3);
     }
@@ -94,9 +94,9 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
     public Function<Courses, Double> fitness() {
         return courses ->
                 (1 * calculateMultipleCookingTeams(courses))
-                        + (1 * calculateIncompatibleTeams(courses.getCourse1teams(), "Vorspeise"))
-                        + (1 * calculateIncompatibleTeams(courses.getCourse2teams(), "Hauptgericht"))
-                        + (1 * calculateIncompatibleTeams(courses.getCourse3teams(), "Dessert"))
+                        + (1 * calculateIncompatibleTeams(courses.getCourse1teams(), Courses.course1name))
+                        + (1 * calculateIncompatibleTeams(courses.getCourse2teams(), Courses.course2name))
+                        + (1 * calculateIncompatibleTeams(courses.getCourse3teams(), Courses.course3name))
                         + (0.00001 * calculateOverallDistance(courses));
     }
 }
