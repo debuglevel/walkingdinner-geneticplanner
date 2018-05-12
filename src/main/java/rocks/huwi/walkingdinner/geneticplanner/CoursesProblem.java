@@ -97,6 +97,7 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
                         + (1 * calculateIncompatibleTeams(courses.getCourse1teams(), Courses.course1name))
                         + (1 * calculateIncompatibleTeams(courses.getCourse2teams(), Courses.course2name))
                         + (1 * calculateIncompatibleTeams(courses.getCourse3teams(), Courses.course3name))
-                        + (0.00001 * calculateOverallDistance(courses));
+//                        + (0.00001 * calculateOverallDistance(courses));
+                ;
     }
 }
