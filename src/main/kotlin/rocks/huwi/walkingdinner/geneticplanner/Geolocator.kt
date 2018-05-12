@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner
+
 import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
 

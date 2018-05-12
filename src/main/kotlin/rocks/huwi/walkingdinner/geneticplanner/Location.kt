@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner
+
 data class Location(val lng: Double, val lat: Double) {
     fun calculateDistance(lng: Double, lat: Double) = GeoUtils.calculateDistanceInKilometer(this.lat, this.lng, lat, lng)
 

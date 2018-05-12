@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner
+
 import io.jenetics.Chromosome
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
@@ -30,7 +32,7 @@ class ChromosomeUtils {
                 println()
                 println("== Course $idxChromosome")
 
-                val meetings = ChromosomeUtils.toMeetings(
+                val meetings = toMeetings(
                         gt.getChromosome(idxChromosome),
                         "Gang $idxChromosome")
 

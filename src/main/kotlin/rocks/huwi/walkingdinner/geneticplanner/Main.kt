@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner
+
 object SimpleGeneticAlgorithm {
 
 //    fun eval(gt: Genotype<BitGene?>?): Int {

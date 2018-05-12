@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner
+
 import java.util.*
 import java.util.stream.Collectors
 

@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner
+
 import com.opencsv.bean.CsvBindByName
 import java.util.*
 

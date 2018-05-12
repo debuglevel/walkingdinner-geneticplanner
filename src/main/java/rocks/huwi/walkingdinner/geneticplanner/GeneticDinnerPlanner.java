@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner;
+
 import io.jenetics.EnumGene;
 import io.jenetics.Optimize;
 import io.jenetics.PartiallyMatchedCrossover;

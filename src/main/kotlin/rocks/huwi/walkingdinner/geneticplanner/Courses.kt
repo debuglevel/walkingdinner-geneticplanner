@@ -1,3 +1,5 @@
+package rocks.huwi.walkingdinner.geneticplanner
+
 import io.jenetics.util.ISeq
 import java.util.*
 
