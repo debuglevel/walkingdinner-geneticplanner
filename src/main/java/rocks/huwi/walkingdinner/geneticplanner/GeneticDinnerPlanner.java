@@ -45,7 +45,8 @@ class GeneticDinnerPlanner {
 //                .limit(Limits.bySteadyFitness(40_000))
                 // TODO: right now, jenetics seems to have a bug which discards the final best result: https://github.com/jenetics/jenetics/issues/343
 //                .limit(Limits.byFitnessThreshold(0d))
-                .limit(FitnessThresholdLimiter.byFitnessThreshold(0.1d))
+//                .limit(FitnessLimits.byFitnessThreshold(0.001d))
+                .limit(FitnessLimits.byFitnessThresholdAndSteadyFitness(0.001d, 40_000))
                 .peek(g -> {
                     if (g.getGeneration() % 500 == 0) {
                         System.out.println("Generation: " + g.getGeneration() + "\t| Best Fitness: " + g.getBestFitness());

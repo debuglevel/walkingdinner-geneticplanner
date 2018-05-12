@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 import static java.util.Objects.requireNonNull;
 
 // TODO: remove as soon as https://github.com/jenetics/jenetics/issues/343 is fixed and released
+// TODO: cannot be removed, as the original is package-private but this one is used in FitnessThresholdAndSteadyFitnessLimit.
+// TODO: the logic of this class should probably be moved into FitnessThresholdAndSteadyFitnessLimit if the bug above does not get fixed.
 final class FitnessThresholdLimit<C extends Comparable<? super C>>
         implements Predicate<EvolutionResult<?, C>> {
 
