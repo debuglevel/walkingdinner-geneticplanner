@@ -8,8 +8,8 @@ import java.io.IOException
 class Database {
     lateinit var teams: List<Team>
 
-    fun print()=
-        teams.forEach { println(it) }
+    fun print() =
+            teams.forEach { println(it) }
 
     fun initializeTeams() {
         importCsv("Teams_aufbereitet.csv")

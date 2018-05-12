@@ -40,8 +40,7 @@ class Team {
             for (team in teams) {
                 meetingTeams.add(team)
 
-                if (meetingTeams.size == 3)
-                {
+                if (meetingTeams.size == 3) {
                     meetings.add(Meeting(meetingTeams.toTypedArray(), courseName))
                     meetingTeams.clear()
                 }

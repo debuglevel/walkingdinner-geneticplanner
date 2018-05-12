@@ -1,5 +1,5 @@
 import io.jenetics.util.ISeq
-import java.util.HashSet
+import java.util.*
 
 data class Courses(val course1teams: ISeq<Team>,
                    val course2teams: ISeq<Team>,

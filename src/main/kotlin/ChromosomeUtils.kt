@@ -26,7 +26,7 @@ class ChromosomeUtils {
         }
 
         fun print(gt: Genotype<EnumGene<Team>>) {
-            for (idxChromosome in 0..(gt.length()-1)) {
+            for (idxChromosome in 0..(gt.length() - 1)) {
                 println()
                 println("== Course $idxChromosome")
 
