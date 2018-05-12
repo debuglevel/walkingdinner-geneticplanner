@@ -9,7 +9,7 @@ import io.jenetics.engine.EvolutionResult;
 import io.jenetics.engine.EvolutionStatistics;
 import io.jenetics.util.ISeq;
 
-public class GeneticDinnerPlanner {
+class GeneticDinnerPlanner {
     private Database database;
 
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class GeneticDinnerPlanner {
         this.database.print();
     }
 
-    public void run() {
+    private void run() {
         this.initialize();
         this.compute();
     }

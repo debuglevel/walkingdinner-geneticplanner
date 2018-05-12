@@ -14,10 +14,10 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
+class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
     private final ISeq<Team> teams;
 
-    public CoursesProblem(final ISeq<Team> teams) {
+    CoursesProblem(final ISeq<Team> teams) {
         this.teams = teams;
     }
 
@@ -56,24 +56,27 @@ public class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> 
     private double calculateOverallDistance(Courses courses) {
         Set<Meeting> meetings = courses.toMeetings();
         Map<String, List<Meeting>> courseMeetings = meetings.stream()
-                .collect(Collectors.groupingBy(m -> m.getCourse()));
+                .collect(Collectors.groupingBy(Meeting::getCourse));
         List<Double> distances = this.teams.stream()
                 .map(team -> calculateOverallDistance(team, courseMeetings))
                 .collect(Collectors.toList());
 
-        return distances.stream().collect(Collectors.summingDouble(d -> d));
+        return distances.stream()
+                .mapToDouble(d -> d)
+                .sum();
     }
 
     private double calculateMultipleCookingTeams(Courses courses) {
         Set<Meeting> meetings = courses.toMeetings();
 
         Map<Team, Long> teamCookings = meetings.stream()
-                .map(m -> m.getCookingTeam())
+                .map(Meeting::getCookingTeam)
                 .collect(Collectors.groupingBy(t -> t, Collectors.counting()));
         Long countMultipleCookingTeams = teamCookings.entrySet().stream()
                 .filter(kv -> kv.getValue() > 1)
-                .map(kv -> kv.getValue())
-                .collect(Collectors.summingLong(value -> value.longValue()));
+                .map(Map.Entry::getValue)
+                .mapToLong(value -> value)
+                .sum();
 
         return countMultipleCookingTeams.doubleValue();
     }
@@ -81,23 +84,19 @@ public class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> 
     private double calculateIncompatibleTeams(ISeq<Team> teams, String courseName) {
         Set<Meeting> meetings = Team.Companion.toMeetings(teams, courseName);
 
-        double incompatibleTeams = meetings.stream()
-                .filter(m -> m.areCompatibleTeams() == false)
-                .collect(Collectors.counting())
+        return ((Long) meetings.stream()
+                .filter(m -> !m.areCompatibleTeams())
+                .count())
                 .doubleValue();
-
-        return incompatibleTeams;
     }
 
     @Override
     public Function<Courses, Double> fitness() {
-        return courses -> {
-            return 1 * calculateMultipleCookingTeams(courses)
-                    + 1 * calculateIncompatibleTeams(courses.getCourse1teams(), "Vorspeise")
-                    + 1 * calculateIncompatibleTeams(courses.getCourse2teams(), "Hauptgericht")
-                    + 1 * calculateIncompatibleTeams(courses.getCourse3teams(), "Dessert")
-                    + 0.00001 * calculateOverallDistance(courses)
-                    ;
-        };
+        return courses ->
+                (1 * calculateMultipleCookingTeams(courses))
+                        + (1 * calculateIncompatibleTeams(courses.getCourse1teams(), "Vorspeise"))
+                        + (1 * calculateIncompatibleTeams(courses.getCourse2teams(), "Hauptgericht"))
+                        + (1 * calculateIncompatibleTeams(courses.getCourse3teams(), "Dessert"))
+                        + (0.00001 * calculateOverallDistance(courses));
     }
 }

@@ -22,17 +22,9 @@ class Team {
     var address: String = ""
 
     @CsvBindByName(column = "Diet")
-    var diet: String = ""
+    private var diet: String = ""
 
     lateinit var location: Location
-
-    constructor()
-    constructor(cook1: String, cook2: String, address: String, diet: String) {
-        this.cook1 = cook1
-        this.cook2 = cook2
-        this.address = address
-        this.diet = diet
-    }
 
     companion object {
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {

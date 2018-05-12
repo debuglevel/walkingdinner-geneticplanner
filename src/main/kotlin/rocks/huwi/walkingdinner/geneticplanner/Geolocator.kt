@@ -5,11 +5,11 @@ import com.google.maps.GeocodingApi
 
 class Geolocator {
     companion object {
-        val context = GeoApiContext.Builder()
+        private val context = GeoApiContext.Builder()
                 .apiKey("AIzaSyChROm89xSBYdbVenzTr1F3r0MUEhBX6Xc")
                 .build()
 
-        val city = "Bamberg, Germany"
+        private const val city = "Bamberg, Germany"
 
         fun initializeLocation(team: Team) {
             val results = GeocodingApi

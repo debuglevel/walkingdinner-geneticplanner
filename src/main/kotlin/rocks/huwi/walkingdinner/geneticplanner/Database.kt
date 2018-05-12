@@ -24,7 +24,7 @@ class Database {
 
     private fun importCsv(filename: String) {
         var fileReader: BufferedReader? = null
-        var csvToBean: CsvToBean<Team>?
+        val csvToBean: CsvToBean<Team>?
 
         try {
             fileReader = BufferedReader(FileReader(filename))

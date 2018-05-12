@@ -2,7 +2,7 @@ package rocks.huwi.walkingdinner.geneticplanner
 
 class GeoUtils {
     companion object {
-        private val AVERAGE_RADIUS_OF_EARTH_KM = 6371.0
+        private const val AVERAGE_RADIUS_OF_EARTH_KM = 6371.0
         fun calculateDistanceInKilometer(sourceLat: Double, sourceLng: Double,
                                          destionationLat: Double, destionationLng: Double): Double {
 

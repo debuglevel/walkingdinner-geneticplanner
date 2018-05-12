@@ -8,7 +8,7 @@ import java.util.stream.Collectors
 
 class ChromosomeUtils {
     companion object {
-        fun toMeetings(chromosome: Chromosome<EnumGene<Team>>, name: String): Set<Meeting> {
+        private fun toMeetings(chromosome: Chromosome<EnumGene<Team>>, name: String): Set<Meeting> {
             val teams = chromosome.stream()
                     .map { g -> g.allele }
                     .collect(Collectors.toList())
