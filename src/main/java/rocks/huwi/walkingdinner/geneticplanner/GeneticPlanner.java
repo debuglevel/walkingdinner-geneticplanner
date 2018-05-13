@@ -10,7 +10,7 @@ import io.jenetics.engine.EvolutionStatistics;
 import io.jenetics.engine.Limits;
 import io.jenetics.util.ISeq;
 
-class GeneticDinnerPlanner {
+class GeneticPlanner {
     private Database database;
 
     private void initialize() {
