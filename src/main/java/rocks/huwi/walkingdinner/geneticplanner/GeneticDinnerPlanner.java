@@ -13,17 +13,13 @@ import io.jenetics.util.ISeq;
 class GeneticDinnerPlanner {
     private Database database;
 
-    public static void main(String[] args) {
-        new GeneticDinnerPlanner().run();
-    }
-
     private void initialize() {
         this.database = new Database();
         this.database.initializeTeams();
         this.database.print();
     }
 
-    private void run() {
+    void run() {
         this.initialize();
         this.compute();
     }
