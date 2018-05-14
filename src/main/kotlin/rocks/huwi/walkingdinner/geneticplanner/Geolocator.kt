@@ -2,22 +2,42 @@ package rocks.huwi.walkingdinner.geneticplanner
 
 import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
+import java.text.DecimalFormat
 
 class Geolocator {
-    companion object {
-        private val context = GeoApiContext.Builder()
-                .apiKey("AIzaSyChROm89xSBYdbVenzTr1F3r0MUEhBX6Xc")
-                .build()
+    private val geoCodingApi = GeoApiContext.Builder()
+            .apiKey("AIzaSyChROm89xSBYdbVenzTr1F3r0MUEhBX6Xc")
+            .build()
 
-        private const val city = "Bamberg, Germany"
+    private val city: String
+    private val cityLocation: Location
 
-        fun initializeLocation(team: Team) {
-            val results = GeocodingApi
-                    .geocode(context, "${team.address} $city").await()
+    constructor(city: String) {
+        this.city = city
 
-            team.location = Location(
-                    results.first().geometry.location.lng,
-                    results.first().geometry.location.lat)
-        }
+        val result = GeocodingApi
+                .geocode(geoCodingApi, city)
+                .await()
+                .first()
+        cityLocation = Location(
+                result.geometry.location.lng,
+                result.geometry.location.lat)
+    }
+
+    fun initializeTeamLocation(team: Team) {
+        println("Geo-locating $team...")
+
+        val result = GeocodingApi
+                .geocode(geoCodingApi, "${team.address} $city")
+                .await()
+                .first()
+
+        team.location = Location(
+                result.geometry.location.lng,
+                result.geometry.location.lat)
+
+        val distanceToCity = cityLocation.calculateDistance(team.location)
+
+        println("Geo-located $team ${DecimalFormat("#.##").format(distanceToCity)}km from center")
     }
 }

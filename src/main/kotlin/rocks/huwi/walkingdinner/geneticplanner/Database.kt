@@ -6,23 +6,36 @@ import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
 
-class Database {
+class Database(val csvFile: String) {
     lateinit var teams: List<Team>
 
-    fun print() =
-            teams.forEach { println(it) }
-
-    fun initializeTeams() {
-        importCsv("Teams_aufbereitet.csv")
-        initializeLocations()
+    fun print() {
+        println("Teams in database:")
+        teams.forEach { println(it) }
+        println()
     }
 
-    private fun initializeLocations() {
+    fun initialize() {
+        println("Initializing database...")
+        initializeTeams()
+    }
+
+    private fun initializeTeams() {
+        println("Initializing teams...")
+        importTeamCsv(csvFile)
+        initializeTeamLocations()
+    }
+
+    private fun initializeTeamLocations() {
+        println("Fetching geo-information for teams...")
+        val geolocator = Geolocator("Bamberg, Germany")
         this.teams.parallelStream()
-                .forEach { Geolocator.initializeLocation(it) }
+                .forEach { geolocator.initializeTeamLocation(it) }
     }
 
-    private fun importCsv(filename: String) {
+    private fun importTeamCsv(filename: String) {
+        println("Importing teams from CSV file '$csvFile'...")
+
         var fileReader: BufferedReader? = null
         val csvToBean: CsvToBean<Team>?
 
@@ -33,22 +46,22 @@ class Database {
                     .withIgnoreLeadingWhiteSpace(true)
                     .build()
 
-            println("Reading CSV")
-            val teams = csvToBean.parse()
+            this.teams = csvToBean.parse()
 
+            // add team IDs
             for ((index, team) in teams.withIndex()) {
                 team.id = index.toLong() + 1
             }
 
-            this.teams = teams
+            println("Imported ${teams.size} teams")
         } catch (e: Exception) {
-            println("Reading CSV Error!")
+            println("Error occurred while reading CSV: ${e.message}")
             e.printStackTrace()
         } finally {
             try {
                 fileReader!!.close()
             } catch (e: IOException) {
-                println("Closing fileReader/csvParser Error!")
+                println("Error occurred while closing fileReader/csvParser: $e")
                 e.printStackTrace()
             }
         }

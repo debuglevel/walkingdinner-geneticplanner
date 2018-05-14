@@ -21,4 +21,16 @@ data class Courses(val course1teams: ISeq<Team>,
 
         return meetings
     }
+
+    fun print() {
+        this.toMeetings()
+                .groupBy { it.course }
+                .forEach { course, meetings ->
+                    run {
+                        println()
+                        println("== Course $course")
+                        meetings.forEach { println(it) }
+                    }
+                }
+    }
 }

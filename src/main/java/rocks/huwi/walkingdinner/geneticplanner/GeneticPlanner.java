@@ -6,25 +6,40 @@ import io.jenetics.PartiallyMatchedCrossover;
 import io.jenetics.SwapMutator;
 import io.jenetics.engine.Engine;
 import io.jenetics.engine.EvolutionResult;
-import io.jenetics.engine.EvolutionStatistics;
 import io.jenetics.engine.Limits;
 import io.jenetics.util.ISeq;
 
-class GeneticPlanner {
+import java.util.function.Consumer;
+
+public class GeneticPlanner {
+    final private Consumer<EvolutionResult<EnumGene<Team>, Double>> evolutionResultConsumer;
     private Database database;
 
+    public GeneticPlanner(Consumer<EvolutionResult<EnumGene<Team>, Double>> evolutionResultConsumer) {
+        if (evolutionResultConsumer == null) {
+            this.evolutionResultConsumer = g -> {
+            };
+        } else {
+            this.evolutionResultConsumer = evolutionResultConsumer;
+        }
+    }
+
     private void initialize() {
-        this.database = new Database();
-        this.database.initializeTeams();
+        System.out.println("Initializing GeneticPlanner...");
+        this.database = new Database("Teams_aufbereitet.csv");
+        this.database.initialize();
         this.database.print();
     }
 
-    void run() {
+    public EvolutionResult<EnumGene<Team>, Double> run() {
+        System.out.println("Running GeneticPlanner...");
         this.initialize();
-        this.compute();
+        return this.compute();
     }
 
-    private void compute() {
+    private EvolutionResult<EnumGene<Team>, Double> compute() {
+        System.out.println("Computing Plan...");
+
         CoursesProblem problem = new CoursesProblem(ISeq.of(this.database.getTeams()));
 
         Engine<EnumGene<Team>, Double> engine = Engine
@@ -35,30 +50,14 @@ class GeneticPlanner {
                         new PartiallyMatchedCrossover<>(0.15))
                 .build();
 
-        // Create evolution statistics consumer.
-        final EvolutionStatistics<Double, ?> statistics = EvolutionStatistics.ofNumber();
-
         final EvolutionResult<EnumGene<Team>, Double> result = engine.stream()
                 .limit(Limits.byFitnessThreshold(0.001d).or(
                         Limits.bySteadyFitness(40_000)))
-                .peek(g -> {
-                    if (g.getGeneration() % 500 == 0) {
-                        System.out.println("Generation: " + g.getGeneration() + "\t| Best Fitness: " + g.getBestFitness());
-                    }
-                })
-                .peek(statistics)
+                .peek(evolutionResultConsumer)
                 .collect(EvolutionResult.toBestEvolutionResult());
 
-        ChromosomeUtils.Companion.print(result.getBestPhenotype().getGenotype());
+        System.out.println("Computing Plan finished...");
 
-        /*
-         * print the results
-         */
-        System.out.println();
-        System.out.println("-----------------");
-        System.out.println("Best in Generation: " + result.getGeneration());
-        System.out.println("Best with Fitness: " + result.getBestFitness());
-
-        System.out.println(statistics);
+        return result;
     }
 }
