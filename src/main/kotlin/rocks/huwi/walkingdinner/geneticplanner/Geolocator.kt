@@ -4,25 +4,12 @@ import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
 import java.text.DecimalFormat
 
-class Geolocator {
+class Geolocator(private val city: String) {
     private val geoCodingApi = GeoApiContext.Builder()
             .apiKey("AIzaSyChROm89xSBYdbVenzTr1F3r0MUEhBX6Xc")
             .build()
 
-    private val city: String
     private val cityLocation: Location
-
-    constructor(city: String) {
-        this.city = city
-
-        val result = GeocodingApi
-                .geocode(geoCodingApi, city)
-                .await()
-                .first()
-        cityLocation = Location(
-                result.geometry.location.lng,
-                result.geometry.location.lat)
-    }
 
     fun initializeTeamLocation(team: Team) {
         println("Geo-locating $team...")
@@ -39,5 +26,15 @@ class Geolocator {
         val distanceToCity = cityLocation.calculateDistance(team.location)
 
         println("Geo-located $team ${DecimalFormat("#.##").format(distanceToCity)}km from center")
+    }
+
+    init {
+        val result = GeocodingApi
+                .geocode(geoCodingApi, city)
+                .await()
+                .first()
+        cityLocation = Location(
+                result.geometry.location.lng,
+                result.geometry.location.lat)
     }
 }

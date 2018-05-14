@@ -6,7 +6,7 @@ import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
 
-class Database(val csvFile: String) {
+class Database(private val csvFile: String) {
     lateinit var teams: List<Team>
 
     fun print() {
