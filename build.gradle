@@ -32,7 +32,12 @@ dependencies {
 jar {
     manifest {
         attributes 'Implementation-Title': 'WalkingDinner GeneticPlanner',
-                'Implementation-Version': version
+                'Implementation-Version': version,
+                "Main-Class": "rocks.huwi.walkingdinner.geneticplanner.MainKt"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
