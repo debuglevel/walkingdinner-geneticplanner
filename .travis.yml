@@ -15,7 +15,7 @@ before_deploy:
   
 deploy:
   provider: releases
-  api_key: "89edc86662ad960310f227d129dc604b0335b91b"
+  api_key: "${GITHUB_TOKEN}"
   file_glob: true
   file: build/libs/geneticplanner-0.0.1-SNAPSHOT.jar
   skip_cleanup: true
