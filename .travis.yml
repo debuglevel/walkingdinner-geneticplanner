@@ -17,7 +17,7 @@ deploy:
   provider: releases
   api_key: "c58f4894d60655c74a1453512ae5a263bb591f66"
   file_glob: true
-  file: build/libs/geneticplanner-*.jar
+  file: build/libs/geneticplanner-0.0.1-SNAPSHOT.jar
   skip_cleanup: true
   on:
     tags: true
