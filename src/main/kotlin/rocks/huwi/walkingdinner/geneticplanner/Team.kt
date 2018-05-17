@@ -28,15 +28,16 @@ class Team {
 
     companion object {
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {
-            val meetings = HashSet<Meeting>()
+            val meetings = mutableSetOf<Meeting>()
 
-            val meetingTeams = mutableListOf<Team>()
-            for (team in teams) {
-                meetingTeams.add(team)
+            val meetingTeams = Array<Team>(3, { i -> Team() })
 
-                if (meetingTeams.size == 3) {
-                    meetings.add(Meeting(meetingTeams.toTypedArray(), courseName))
-                    meetingTeams.clear()
+            for ((index, value) in teams.withIndex())
+            {
+                meetingTeams[index%3] = value
+
+                if (index%3 == 2) {
+                    meetings.add(Meeting(meetingTeams.clone(), courseName))
                 }
             }
 
