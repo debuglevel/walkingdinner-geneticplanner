@@ -9,10 +9,9 @@ object GeoUtils {
 
         val pair = GeoPair(sourceLat, sourceLng, destinationLat, destinationLng)
         var distance = distances[pair]
-        if (distance != null)
-        {
+        if (distance != null) {
             return distance
-        }else{
+        } else {
             val latDistance = Math.toRadians(sourceLat - destinationLat)
             val lngDistance = Math.toRadians(sourceLng - destinationLng)
 
@@ -28,6 +27,5 @@ object GeoUtils {
     }
 
     data class GeoPair(val sourceLat: Double, val sourceLng: Double,
-                        val destinationLat: Double, val destinationLng: Double) {
-    }
+                       val destinationLat: Double, val destinationLng: Double)
 }

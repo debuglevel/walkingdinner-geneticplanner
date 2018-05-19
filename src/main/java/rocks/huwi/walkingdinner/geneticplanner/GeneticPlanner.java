@@ -42,12 +42,16 @@ public class GeneticPlanner {
 
         CoursesProblem problem = new CoursesProblem(ISeq.of(this.database.getTeams()));
 
+        // use single thread when optimizing performance
+//        final ExecutorService executor = Executors.newSingleThreadExecutor();
+
         Engine<EnumGene<Team>, Double> engine = Engine
                 .builder(problem)
                 .populationSize(200)
                 .optimize(Optimize.MINIMUM)
                 .alterers(new SwapMutator<>(0.15),
                         new PartiallyMatchedCrossover<>(0.15))
+//                .executor(executor)
                 .build();
 
         final EvolutionResult<EnumGene<Team>, Double> result = engine.stream()
