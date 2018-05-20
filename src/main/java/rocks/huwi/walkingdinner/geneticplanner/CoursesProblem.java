@@ -72,9 +72,7 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
         return teamsLocations;
     }
 
-    private double calculateMultipleCookingTeams(Courses courses) {
-        Set<Meeting> meetings = courses.toMeetings();
-
+    private double calculateMultipleCookingTeams(Set<Meeting> meetings) {
         Map<Team, Long> teamCookings = meetings.stream()
                 .map(Meeting::getCookingTeam)
                 .collect(Collectors.groupingBy(t -> t, Collectors.counting()));
@@ -87,9 +85,7 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
         return countMultipleCookingTeams.doubleValue();
     }
 
-    private double calculateIncompatibleTeams(ISeq<Team> teams, String courseName) {
-        Set<Meeting> meetings = Team.Companion.toMeetings(teams, courseName);
-
+    private double calculateIncompatibleTeams(Set<Meeting> meetings) {
         return ((Long) meetings.stream()
                 .filter(m -> !m.areCompatibleTeams())
                 .count())
@@ -99,10 +95,17 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
     @Override
     public Function<Courses, Double> fitness() {
         return courses ->
-                (1 * calculateMultipleCookingTeams(courses))
-                        + (1 * calculateIncompatibleTeams(courses.getCourse1teams(), Courses.course1name))
-                        + (1 * calculateIncompatibleTeams(courses.getCourse2teams(), Courses.course2name))
-                        + (1 * calculateIncompatibleTeams(courses.getCourse3teams(), Courses.course3name))
-                        + (0.00001 * calculateOverallDistance(courses));
+        {
+            Map<String, Set<Meeting>> courseMeetings = courses.toCourseMeetings();
+            Set<Meeting> meetings = courseMeetings.entrySet().stream()
+                    .flatMap(cm -> cm.getValue().stream())
+                    .collect(Collectors.toSet());
+
+            return (1 * calculateMultipleCookingTeams(meetings))
+                    + (1 * calculateIncompatibleTeams(courseMeetings.get(Courses.course1name)))
+                    + (1 * calculateIncompatibleTeams(courseMeetings.get(Courses.course2name)))
+                    + (1 * calculateIncompatibleTeams(courseMeetings.get(Courses.course3name)))
+                    + (0.00001 * calculateOverallDistance(courses));
+        };
     }
 }
