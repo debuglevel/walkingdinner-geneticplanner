@@ -1,7 +1,7 @@
 package rocks.huwi.walkingdinner.geneticplanner
 
 object GeoUtils {
-    private val distances = mutableMapOf<GeoPair, Double>()
+    private val distances = hashMapOf<GeoPair, Double>()
 
     private const val AVERAGE_RADIUS_OF_EARTH_KM = 6371.0
     fun calculateDistanceInKilometer(sourceLat: Double, sourceLng: Double,
