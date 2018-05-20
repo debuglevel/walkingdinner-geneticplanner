@@ -7,10 +7,7 @@ import io.jenetics.engine.Codec;
 import io.jenetics.engine.Problem;
 import io.jenetics.util.ISeq;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -36,34 +33,43 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
         );
     }
 
-    private double calculateOverallDistance(Team team, Map<String, List<Meeting>> courseMeetings) {
-        Location location1 = getCookingLocation(team, courseMeetings, Courses.course1name);
-        Location location2 = getCookingLocation(team, courseMeetings, Courses.course2name);
-        Location location3 = getCookingLocation(team, courseMeetings, Courses.course3name);
-
-        return location1.calculateDistance(location2) + location2.calculateDistance(location3);
+    private void addLocations(HashMap<Team, List<Location>> teamsLocations, Set<Meeting> meetings) {
+        for (Meeting meeting : meetings) {
+            for (Team team : meeting.getTeams()) {
+                List<Location> teamLocations = teamsLocations.computeIfAbsent(team, x -> new ArrayList<>());
+                teamLocations.add(meeting.getCookingTeam().getLocation());
+            }
+        }
     }
 
-    private Location getCookingLocation(Team team, Map<String, List<Meeting>> courseMeetings, String courseName) {
-        return courseMeetings.get(courseName).stream()
-                .filter(m -> Arrays.asList(m.getTeams()).contains(team))
-                .findFirst()
-                .get()
-                .getCookingTeam()
-                .getLocation();
+    private double calculateLocationsDistance(List<Location> locations) {
+        return locations.get(0).calculateDistance(locations.get(1)) +
+                locations.get(1).calculateDistance(locations.get(2));
     }
 
     private double calculateOverallDistance(Courses courses) {
         Set<Meeting> meetings = courses.toMeetings();
-        Map<String, List<Meeting>> courseMeetings = meetings.stream()
-                .collect(Collectors.groupingBy(Meeting::getCourse));
-        List<Double> distances = this.teams.stream()
-                .map(team -> calculateOverallDistance(team, courseMeetings))
-                .collect(Collectors.toList());
 
-        return distances.stream()
+        Map<String, Set<Meeting>> courseMeetings = meetings.stream()
+                .collect(Collectors.groupingBy(Meeting::getCourse, Collectors.toSet()));
+
+        Map<Team, List<Location>> teamsLocations = getTeamLocations(courseMeetings);
+
+        return teamsLocations.entrySet().stream()
+                .map(kv -> kv.getValue())
+                .map(l -> calculateLocationsDistance(l))
                 .mapToDouble(d -> d)
                 .sum();
+    }
+
+    private HashMap<Team, List<Location>> getTeamLocations(Map<String, Set<Meeting>> courseMeetings) {
+        HashMap<Team, List<Location>> teamsLocations = new HashMap<>();
+
+        addLocations(teamsLocations, courseMeetings.get(Courses.course1name));
+        addLocations(teamsLocations, courseMeetings.get(Courses.course2name));
+        addLocations(teamsLocations, courseMeetings.get(Courses.course3name));
+
+        return teamsLocations;
     }
 
     private double calculateMultipleCookingTeams(Courses courses) {
