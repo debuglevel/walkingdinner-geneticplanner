@@ -19,7 +19,7 @@ object TimeMeasurement {
             val nanoseconds = measurement.nanoseconds.addAndGet(nanoseconds)
 
             if (calls % reportStep == 0L) {
-                println("Performance of \t${measurement.id}\t= ${nanoseconds / calls} ns/call")
+                println("Performance of ${measurement.id} = ${nanoseconds / calls} ns/call or ${Math.round(calls / (nanoseconds / 1_000_000_000.0))} calls/s")
             }
         }
     }

@@ -32,6 +32,7 @@ fun main(args: Array<String>) {
 }
 
 fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
+    TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
     if (e.generation % 500 == 0L) {
         println("${Math.round(1/(e.durations.evolveDuration.toNanos()/1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
     }
