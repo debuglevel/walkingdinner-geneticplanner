@@ -1,21 +1,21 @@
 package rocks.huwi.walkingdinner.geneticplanner
 
 object GeoUtils {
-    private val distances = hashMapOf<GeoPair, Double>()
+    private val distances = hashMapOf<Pair<Location, Location>, Double>()
 
     private const val AVERAGE_RADIUS_OF_EARTH_KM = 6371.0
-    fun calculateDistanceInKilometer(sourceLat: Double, sourceLng: Double,
-                                     destinationLat: Double, destinationLng: Double): Double {
+    fun calculateDistanceInKilometer(source: Location,
+                                     destination: Location): Double {
 
-        val pair = GeoPair(sourceLat, sourceLng, destinationLat, destinationLng)
+        val pair = Pair(source, destination)
         var distance = distances[pair]
         if (distance != null) {
             return distance
         } else {
-            val latDistance = Math.toRadians(sourceLat - destinationLat)
-            val lngDistance = Math.toRadians(sourceLng - destinationLng)
+            val latDistance = Math.toRadians(source.lat - destination.lat)
+            val lngDistance = Math.toRadians(source.lng - destination.lng)
 
-            val a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + (Math.cos(Math.toRadians(sourceLat)) * Math.cos(Math.toRadians(destinationLat))
+            val a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + (Math.cos(Math.toRadians(source.lat)) * Math.cos(Math.toRadians(destination.lat))
                     * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2))
 
             val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
@@ -25,7 +25,4 @@ object GeoUtils {
             return distance
         }
     }
-
-    data class GeoPair(val sourceLat: Double, val sourceLng: Double,
-                       val destinationLat: Double, val destinationLng: Double)
 }
