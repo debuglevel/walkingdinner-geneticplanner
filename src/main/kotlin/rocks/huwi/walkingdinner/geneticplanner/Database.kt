@@ -28,9 +28,9 @@ class Database(private val csvFile: String) {
 
     private fun initializeTeamLocations() {
         println("Fetching geo-information for teams...")
-        val geolocator = Geolocator("Bamberg, Germany")
+        val databasecacheGeolocator = DatabasecacheGeolocator("Bamberg, Germany")
         this.teams.parallelStream()
-                .forEach { geolocator.initializeTeamLocation(it) }
+                .forEach { databasecacheGeolocator.initializeTeamLocation(it) }
     }
 
     private fun importTeamCsv(filename: String) {
