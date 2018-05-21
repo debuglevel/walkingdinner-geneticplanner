@@ -3,6 +3,7 @@ package rocks.huwi.walkingdinner.geneticplanner
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
+import java.nio.file.Paths
 
 fun main(args: Array<String>) {
     println("=== ${BuildVersion.buildTitle} ${BuildVersion.buildVersion} ===")
@@ -15,7 +16,8 @@ fun main(args: Array<String>) {
                 printIntermediary(it)
             }
 
-    val result = GeneticPlanner(consumers).run()
+    val csvUrl = Paths.get("Teams_aufbereitet.csv").toUri().toURL()
+    val result = GeneticPlanner(csvUrl, consumers).run()
 
     println()
     println("Best in Generation: " + result.generation)

@@ -3,10 +3,12 @@ package rocks.huwi.walkingdinner.geneticplanner
 import com.opencsv.bean.CsvToBean
 import com.opencsv.bean.CsvToBeanBuilder
 import java.io.BufferedReader
-import java.io.FileReader
 import java.io.IOException
+import java.io.InputStreamReader
+import java.net.URL
 
-class Database(private val csvFile: String) {
+
+class Database(private val csvFile: URL) {
     lateinit var teams: List<Team>
 
     fun print() {
@@ -33,15 +35,15 @@ class Database(private val csvFile: String) {
                 .forEach { databasecacheGeolocator.initializeTeamLocation(it) }
     }
 
-    private fun importTeamCsv(filename: String) {
+    private fun importTeamCsv(url: URL) {
         println("Importing teams from CSV file '$csvFile'...")
 
-        var fileReader: BufferedReader? = null
+        var bufferedReader: BufferedReader? = null
         val csvToBean: CsvToBean<Team>?
 
         try {
-            fileReader = BufferedReader(FileReader(filename))
-            csvToBean = CsvToBeanBuilder<Team>(fileReader)
+            bufferedReader = BufferedReader(InputStreamReader(url.openStream()))
+            csvToBean = CsvToBeanBuilder<Team>(bufferedReader)
                     .withType(Team::class.java)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build()
@@ -59,9 +61,9 @@ class Database(private val csvFile: String) {
             e.printStackTrace()
         } finally {
             try {
-                fileReader!!.close()
+                bufferedReader!!.close()
             } catch (e: IOException) {
-                println("Error occurred while closing fileReader/csvParser: $e")
+                println("Error occurred while closing bufferedReader/csvParser: $e")
                 e.printStackTrace()
             }
         }
