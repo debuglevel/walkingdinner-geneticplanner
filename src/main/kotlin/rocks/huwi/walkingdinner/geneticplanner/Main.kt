@@ -1,41 +1,56 @@
 package rocks.huwi.walkingdinner.geneticplanner
 
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.options.option
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
+import org.apache.commons.validator.routines.UrlValidator
+import java.net.URL
 import java.nio.file.Paths
 
-fun main(args: Array<String>) {
-    println("=== ${BuildVersion.buildTitle} ${BuildVersion.buildVersion} ===")
+class Cli : CliktCommand() {
+    private val csvFilename by option(help = "URL or file name of CSV file")
 
-    val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
+    override fun run() {
+        println("=== ${BuildVersion.buildTitle} ${BuildVersion.buildVersion} ===")
 
-    val consumers: (EvolutionResult<EnumGene<Team>, Double>) -> Unit =
-            {
-                evolutionStatistics.accept(it)
-                printIntermediary(it)
-            }
+        val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
 
-    val csvUrl = Paths.get("Teams_aufbereitet.csv").toUri().toURL()
-    val result = GeneticPlanner(csvUrl, consumers).run()
+        val consumers: (EvolutionResult<EnumGene<Team>, Double>) -> Unit =
+                {
+                    evolutionStatistics.accept(it)
+                    printIntermediary(it)
+                }
 
-    println()
-    println("Best in Generation: " + result.generation)
-    println("Best with Fitness: " + result.bestFitness)
+        val csvFilename: String = this.csvFilename ?: "Teams_aufbereitet.csv"
+        val csvUrl = when {
+            UrlValidator().isValid(csvFilename) -> URL(csvFilename)
+            else -> Paths.get(csvFilename).toUri().toURL()
+        }
 
-    println()
-    println(evolutionStatistics)
+        val result = GeneticPlanner(csvUrl, consumers).run()
 
-    println()
-    CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
-            .codec()
-            .decode(result.bestPhenotype.genotype)
-            .print()
-}
+        println()
+        println("Best in Generation: " + result.generation)
+        println("Best with Fitness: " + result.bestFitness)
 
-fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
-    TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
-    if (e.generation % 500 == 0L) {
-        println("${Math.round(1/(e.durations.evolveDuration.toNanos()/1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
+        println()
+        println(evolutionStatistics)
+
+        println()
+        CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+                .codec()
+                .decode(result.bestPhenotype.genotype)
+                .print()
+    }
+
+    fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
+        TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
+        if (e.generation % 500 == 0L) {
+            println("${Math.round(1 / (e.durations.evolveDuration.toNanos() / 1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
+        }
     }
 }
+
+fun main(args: Array<String>) = Cli().main(args)

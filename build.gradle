@@ -16,6 +16,7 @@ apply plugin: 'kotlin'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -31,6 +32,12 @@ dependencies {
     // Jsondb
     compile 'io.jsondb:jsondb-core:1.0.36'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
+
+    // Clikt
+    compile 'com.github.ajalt:clikt:1.2.0'
+
+    // Apache Commons
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
 }
 
 jar {
