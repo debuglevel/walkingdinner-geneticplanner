@@ -17,12 +17,10 @@ class GoogleApiGeolocator(private val city: String) : Geolocator {
                 .await()
                 .first()
 
-        val location = Location(
+        return Location(
                 address,
                 result.geometry.location.lng,
                 result.geometry.location.lat)
-
-        return location
     }
 
     override fun initializeTeamLocation(team: Team) {

@@ -1,7 +1,6 @@
 package rocks.huwi.walkingdinner.geneticplanner
 
 import com.opencsv.bean.CsvBindByName
-import java.util.*
 
 class Team {
     fun isCompatibleDiet(o: Team) = diet == o.diet
@@ -30,13 +29,12 @@ class Team {
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {
             val meetings = mutableSetOf<Meeting>()
 
-            val meetingTeams = Array<Team>(3, { i -> Team() })
+            val meetingTeams = Array(3, { i -> Team() })
 
-            for ((index, value) in teams.withIndex())
-            {
-                meetingTeams[index%3] = value
+            for ((index, value) in teams.withIndex()) {
+                meetingTeams[index % 3] = value
 
-                if (index%3 == 2) {
+                if (index % 3 == 2) {
                     meetings.add(Meeting(meetingTeams.clone(), courseName))
                 }
             }

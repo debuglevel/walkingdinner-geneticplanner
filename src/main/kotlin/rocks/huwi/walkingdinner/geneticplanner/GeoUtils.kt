@@ -9,8 +9,8 @@ object GeoUtils {
 
         val pair = Pair(source, destination)
         var distance = distances[pair]
-        if (distance != null) {
-            return distance
+        return if (distance != null) {
+            distance
         } else {
             val latDistance = Math.toRadians(source.lat - destination.lat)
             val lngDistance = Math.toRadians(source.lng - destination.lng)
@@ -22,7 +22,7 @@ object GeoUtils {
 
             distance = AVERAGE_RADIUS_OF_EARTH_KM * c
             distances[pair] = distance
-            return distance
+            distance
         }
     }
 }

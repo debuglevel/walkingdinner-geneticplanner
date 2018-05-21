@@ -9,7 +9,6 @@ import io.jenetics.engine.EvolutionResult;
 import io.jenetics.engine.Limits;
 import io.jenetics.util.ISeq;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,8 +16,8 @@ import java.util.function.Consumer;
 
 public class GeneticPlanner {
     final private Consumer<EvolutionResult<EnumGene<Team>, Double>> evolutionResultConsumer;
-    private Database database;
     final private URL csvUrl;
+    private Database database;
 
     public GeneticPlanner(URL csvUrl, Consumer<EvolutionResult<EnumGene<Team>, Double>> evolutionResultConsumer) {
         this.csvUrl = csvUrl;
@@ -39,7 +38,7 @@ public class GeneticPlanner {
         this.database.print();
     }
 
-    public EvolutionResult<EnumGene<Team>, Double> run() throws MalformedURLException {
+    public EvolutionResult<EnumGene<Team>, Double> run() {
         System.out.println("Running GeneticPlanner...");
         this.initialize();
         return this.compute();

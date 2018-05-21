@@ -56,8 +56,8 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
         Map<Team, List<Location>> teamsLocations = getTeamLocations(courseMeetings);
 
         return teamsLocations.entrySet().stream()
-                .map(kv -> kv.getValue())
-                .map(l -> calculateLocationsDistance(l))
+                .map(Map.Entry::getValue)
+                .map(this::calculateLocationsDistance)
                 .mapToDouble(d -> d)
                 .sum();
     }
