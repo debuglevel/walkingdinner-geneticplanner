@@ -1,5 +1,7 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinner.geneticplanner.performance
 
+import rocks.huwi.walkingdinner.geneticplanner.BuildVersion
+import rocks.huwi.walkingdinner.geneticplanner.GeneticPlanner
 import java.nio.file.Paths
 
 fun main(args: Array<String>) {

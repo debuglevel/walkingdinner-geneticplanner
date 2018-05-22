@@ -1,4 +1,4 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinner.geneticplanner.performance
 
 import java.util.concurrent.atomic.AtomicLong
 

@@ -6,6 +6,7 @@ import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import org.apache.commons.validator.routines.UrlValidator
+import rocks.huwi.walkingdinner.geneticplanner.performance.TimeMeasurement
 import java.net.URL
 import java.nio.file.Paths
 

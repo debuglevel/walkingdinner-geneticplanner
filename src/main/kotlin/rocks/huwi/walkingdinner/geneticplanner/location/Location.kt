@@ -1,4 +1,4 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinner.geneticplanner.location
 
 import io.jsondb.annotation.Document
 import io.jsondb.annotation.Id

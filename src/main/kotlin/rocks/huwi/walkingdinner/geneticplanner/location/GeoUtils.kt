@@ -1,4 +1,4 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinner.geneticplanner.location
 
 object GeoUtils {
     private val distances = hashMapOf<Pair<Location, Location>, Double>()

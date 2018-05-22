@@ -1,6 +1,7 @@
 package rocks.huwi.walkingdinner.geneticplanner
 
 import com.opencsv.bean.CsvBindByName
+import rocks.huwi.walkingdinner.geneticplanner.location.Location
 
 class Team {
     fun isCompatibleDiet(o: Team) = diet == o.diet

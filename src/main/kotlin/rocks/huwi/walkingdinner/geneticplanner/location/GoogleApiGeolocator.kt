@@ -1,7 +1,8 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinner.geneticplanner.location
 
 import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
+import rocks.huwi.walkingdinner.geneticplanner.Team
 import java.text.DecimalFormat
 
 class GoogleApiGeolocator(private val city: String) : Geolocator {
