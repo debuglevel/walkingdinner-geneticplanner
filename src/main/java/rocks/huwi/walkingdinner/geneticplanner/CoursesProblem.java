@@ -6,7 +6,7 @@ import io.jenetics.PermutationChromosome;
 import io.jenetics.engine.Codec;
 import io.jenetics.engine.Problem;
 import io.jenetics.util.ISeq;
-import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.HardCompatibility;
+import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.CourseCompatibility;
 import rocks.huwi.walkingdinner.geneticplanner.location.Location;
 
 import java.util.*;
@@ -89,7 +89,8 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
 
     private double calculateIncompatibleTeams(Set<Meeting> meetings) {
         return ((Long) meetings.stream()
-                .filter(m -> !HardCompatibility.INSTANCE.areCompatibleTeams(m))
+//                .filter(m -> !HardCompatibility.INSTANCE.areCompatibleTeams(m))
+                .filter(m -> !CourseCompatibility.INSTANCE.areCompatibleTeams(m))
                 .count())
                 .doubleValue();
     }
