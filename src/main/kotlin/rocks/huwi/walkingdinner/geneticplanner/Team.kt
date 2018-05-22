@@ -4,8 +4,6 @@ import com.opencsv.bean.CsvBindByName
 import rocks.huwi.walkingdinner.geneticplanner.location.Location
 
 class Team {
-    fun isCompatibleDiet(o: Team) = diet == o.diet
-
     override fun toString(): String {
         return "Team $id ($diet)"
     }
@@ -22,7 +20,7 @@ class Team {
     var address: String = ""
 
     @CsvBindByName(column = "Diet")
-    private var diet: String = ""
+    var diet: String = ""
 
     lateinit var location: Location
 
