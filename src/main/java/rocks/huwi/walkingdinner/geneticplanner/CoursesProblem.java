@@ -89,7 +89,7 @@ class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
 
     private double calculateIncompatibleTeams(Set<Meeting> meetings) {
         return ((Long) meetings.stream()
-                .filter(m -> !HardCompatibility.INSTANCE.areCompatibleTeams(m.getTeams()))
+                .filter(m -> !HardCompatibility.INSTANCE.areCompatibleTeams(m))
                 .count())
                 .doubleValue();
     }

@@ -1,11 +1,12 @@
 package rocks.huwi.walkingdinner.geneticplanner.dietcompatibility
 
+import rocks.huwi.walkingdinner.geneticplanner.Meeting
 import rocks.huwi.walkingdinner.geneticplanner.Team
 
 object HardCompatibility : Compatibility {
-    override fun areCompatibleTeams(teams: Array<Team>): Boolean {
-        return teams.all { isCompatibleDiet(teams.first(), it) }
+    override fun areCompatibleTeams(meeting: Meeting): Boolean {
+        return meeting.teams.all { isCompatibleDiet(meeting.teams.first(), it) }
     }
 
-    override fun isCompatibleDiet(a: Team, b: Team) = a.diet == b.diet
+    fun isCompatibleDiet(a: Team, b: Team) = a.diet == b.diet
 }
