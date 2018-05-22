@@ -19,6 +19,18 @@ class Team {
     @CsvBindByName(column = "Koch2")
     var cook2: String = ""
 
+    @CsvBindByName(column = "Telefon1")
+    var phone1: String = ""
+
+    @CsvBindByName(column = "Telefon2")
+    var phone2: String = ""
+
+    @CsvBindByName(column = "Mail1")
+    var mail1: String = ""
+
+    @CsvBindByName(column = "Mail2")
+    var mail2: String = ""
+
     @CsvBindByName(column = "Adresse")
     var address: String = ""
 

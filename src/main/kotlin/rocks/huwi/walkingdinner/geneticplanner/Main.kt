@@ -7,6 +7,7 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import org.apache.commons.validator.routines.UrlValidator
 import rocks.huwi.walkingdinner.geneticplanner.performance.TimeMeasurement
+import rocks.huwi.walkingdinner.geneticplanner.report.TextfileReporter
 import java.net.URL
 import java.nio.file.Paths
 
@@ -44,6 +45,12 @@ class Cli : CliktCommand() {
                 .codec()
                 .decode(result.bestPhenotype.genotype)
                 .print()
+
+        TextfileReporter(Paths.get("reports")).generateReport(
+                CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+                        .codec()
+                        .decode(result.bestPhenotype.genotype).toMeetings())
+
     }
 
     private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
