@@ -59,13 +59,13 @@ class Team {
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {
             val meetings = mutableSetOf<Meeting>()
 
-            val meetingTeams = Array(3, { i -> Team() })
+            val meetingTeams: Array<Team?> = Array(3, { i -> null })
 
             for ((index, value) in teams.withIndex()) {
                 meetingTeams[index % 3] = value
 
                 if (index % 3 == 2) {
-                    meetings.add(Meeting(meetingTeams.clone(), courseName))
+                    meetings.add(Meeting(meetingTeams.filterNotNull().toTypedArray(), courseName))
                 }
             }
 
