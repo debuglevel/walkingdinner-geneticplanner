@@ -65,7 +65,7 @@ class Team {
                 meetingTeams[index % 3] = value
 
                 if (index % 3 == 2) {
-                    meetings.add(Meeting(meetingTeams.filterNotNull().toTypedArray(), courseName))
+                    meetings.add(Meeting(meetingTeams.filterNotNull(), courseName))
                 }
             }
 

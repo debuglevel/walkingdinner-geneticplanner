@@ -27,7 +27,7 @@ class TextfileReporter(private val directory: Path) : Reporter {
         val model = JtwigModel.newModel()
 
         val teams = meetings
-                .flatMap { it.teams.asList() }
+                .flatMap { it.teams }
                 .distinct()
 
         for (team in teams) {
