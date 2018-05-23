@@ -18,31 +18,31 @@ class Team {
     lateinit var cook2: Cook
 
     @CsvCustomBindByName(column = "Koch1", converter = Name.ConvertName::class)
-    var name1 = Name("")
+    lateinit var name1: Name
 
     @CsvCustomBindByName(column = "Koch2", converter = Name.ConvertName::class)
-    var name2 = Name("")
+    lateinit var name2: Name
 
     @CsvCustomBindByName(column = "Telefon1", converter = PhoneNumber.ConvertPhoneNumber::class)
-    var phone1 = PhoneNumber("")
+    lateinit var phone1: PhoneNumber
 
     @CsvCustomBindByName(column = "Telefon2", converter = PhoneNumber.ConvertPhoneNumber::class)
-    var phone2 = PhoneNumber("")
+    lateinit var phone2: PhoneNumber
 
     @CsvCustomBindByName(column = "Mail1", converter = MailAddress.ConvertMailAddress::class)
-    var mail1 = MailAddress("")
+    lateinit var mail1: MailAddress
 
     @CsvCustomBindByName(column = "Mail2", converter = MailAddress.ConvertMailAddress::class)
-    var mail2 = MailAddress("")
+    lateinit var mail2: MailAddress
 
     @CsvBindByName(column = "Adresse")
-    var address: String = ""
+    lateinit var address: String
 
     @CsvBindByName(column = "Diet")
-    var diet: String = ""
+    lateinit var diet: String
 
     @CsvCustomBindByName(column = "Capabilities", converter = Capability.ConvertCapabilities::class)
-    var capabilities: List<Capability?> = listOf()
+    val capabilities: List<Capability?> = listOf()
 
     lateinit var location: Location
 
