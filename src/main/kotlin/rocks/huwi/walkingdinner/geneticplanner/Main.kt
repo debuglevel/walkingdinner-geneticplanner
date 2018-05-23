@@ -50,7 +50,6 @@ class Cli : CliktCommand() {
                 CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                         .codec()
                         .decode(result.bestPhenotype.genotype).toMeetings())
-
     }
 
     private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {

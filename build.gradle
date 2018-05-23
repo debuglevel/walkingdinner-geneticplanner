@@ -41,6 +41,9 @@ dependencies {
 
     // Templating
     compile "org.jtwig:jtwig-core:5.87.0.RELEASE"
+
+    // Phone Numbers
+    compile group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '5.5'
 }
 
 jar {
