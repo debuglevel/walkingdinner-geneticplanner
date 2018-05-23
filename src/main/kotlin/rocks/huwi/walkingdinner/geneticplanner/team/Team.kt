@@ -14,6 +14,9 @@ class Team {
 
     var id: Long = -1
 
+    lateinit var cook1: Cook
+    lateinit var cook2: Cook
+
     @CsvCustomBindByName(column = "Koch1", converter = Name.ConvertName::class)
     var name1 = Name("")
 
@@ -42,6 +45,15 @@ class Team {
     var capabilities: List<Capability?> = listOf()
 
     lateinit var location: Location
+
+    fun constructComplexProperties() {
+        initializeCooks()
+    }
+
+    private fun initializeCooks() {
+        cook1 = Cook(name1, mail1, phone1)
+        cook2 = Cook(name2, mail2, phone2)
+    }
 
     companion object {
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {

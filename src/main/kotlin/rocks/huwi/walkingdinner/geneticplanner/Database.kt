@@ -52,6 +52,8 @@ class Database(private val csvFile: URL) {
 
             this.teams = csvToBean.parse()
 
+            this.teams.forEach { it.constructComplexProperties() }
+
             // add team IDs
             for ((index, team) in teams.withIndex()) {
                 team.id = index.toLong() + 1

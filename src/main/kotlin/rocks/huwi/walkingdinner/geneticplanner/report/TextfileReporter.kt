@@ -61,7 +61,7 @@ class TextfileReporter(private val directory: Path) : Reporter {
                     }
             model.with("cookingDiet", cookingDiet)
 
-            val file = directory.resolve("${team.id} ${team.name1}, ${team.name2}.txt")
+            val file = directory.resolve("${team.cook1.mail} & ${team.cook2.mail}.txt")
             writeReport(file, model)
         }
     }

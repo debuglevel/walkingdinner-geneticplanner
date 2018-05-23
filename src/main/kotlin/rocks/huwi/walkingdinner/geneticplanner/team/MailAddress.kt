@@ -10,4 +10,8 @@ data class MailAddress(val mail: String) {
             return MailAddress(value)
         }
     }
+
+    override fun toString(): String {
+        return mail
+    }
 }

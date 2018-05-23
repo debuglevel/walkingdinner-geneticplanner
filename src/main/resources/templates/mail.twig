@@ -1,12 +1,12 @@
-Liebe*r {{team.name1}} und {{team.name2}},
+Liebe*r {{team.cook1.name}} und {{team.cook2.name}},
 
 ihr werdet die/das {{cookingMeeting.course}} machen dürfen! Währenddessen werden folgende Teams bei euch sein. Bitte kocht {{cookingDiet}} um auf den kleinsten gemeinsamen Nenner zu kommen. :-)
-{% for guestteam in cookingMeeting.teams %} * {{guestteam.name1}} ({{guestteam.phone1}}) und {{guestteam.name2}} ({{guestteam.phone2}}) ({{guestteam.diet}})
+{% for guestteam in cookingMeeting.teams %} * {{guestteam.cook1.name}} ({{guestteam.cook1.phone}}) und {{guestteam.cook2.name}} ({{guestteam.cook2.phone}}) ({{guestteam.diet}})
 {% endfor %}
 
 
 Bei diesen Teams wirst du zu Gast sein dürfen:
-{% for teamMeeting in teamMeetings %} * {{teamMeeting.course}}: {{teamMeeting.getCookingTeam().name1}} ({{teamMeeting.getCookingTeam().phone1}}) und {{teamMeeting.getCookingTeam().name2}} ({{teamMeeting.getCookingTeam().phone2}}) ({{teamMeeting.getCookingTeam().address}}) ({{teamMeeting.getCookingTeam().diet}})
+{% for teamMeeting in teamMeetings %} * {{teamMeeting.course}}: {{teamMeeting.getCookingTeam().cook1.name}} ({{teamMeeting.getCookingTeam().cook1.phone}}) und {{teamMeeting.getCookingTeam().cook2.name}} ({{teamMeeting.getCookingTeam().cook2.phone}}) ({{teamMeeting.getCookingTeam().address}}) ({{teamMeeting.getCookingTeam().diet}})
 {% endfor %}
 
 Wir hoffen, dass alles wie geplant funktioniert.
