@@ -14,11 +14,11 @@ class Team {
 
     var id: Long = -1
 
-    @CsvBindByName(column = "Koch1")
-    var cook1: String = ""
+    @CsvCustomBindByName(column = "Koch1", converter = Name.ConvertName::class)
+    var name1 = Name("")
 
-    @CsvBindByName(column = "Koch2")
-    var cook2: String = ""
+    @CsvCustomBindByName(column = "Koch2", converter = Name.ConvertName::class)
+    var name2 = Name("")
 
     @CsvCustomBindByName(column = "Telefon1", converter = PhoneNumber.ConvertPhoneNumber::class)
     var phone1 = PhoneNumber("")
