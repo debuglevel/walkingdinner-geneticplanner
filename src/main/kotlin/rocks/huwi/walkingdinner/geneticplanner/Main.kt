@@ -8,6 +8,7 @@ import io.jenetics.engine.EvolutionStatistics
 import org.apache.commons.validator.routines.UrlValidator
 import rocks.huwi.walkingdinner.geneticplanner.performance.TimeMeasurement
 import rocks.huwi.walkingdinner.geneticplanner.report.TextfileReporter
+import rocks.huwi.walkingdinner.geneticplanner.team.Team
 import java.net.URL
 import java.nio.file.Paths
 

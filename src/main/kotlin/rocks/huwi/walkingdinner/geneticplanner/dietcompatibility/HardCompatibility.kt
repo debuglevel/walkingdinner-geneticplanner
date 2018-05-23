@@ -1,7 +1,7 @@
 package rocks.huwi.walkingdinner.geneticplanner.dietcompatibility
 
 import rocks.huwi.walkingdinner.geneticplanner.Meeting
-import rocks.huwi.walkingdinner.geneticplanner.Team
+import rocks.huwi.walkingdinner.geneticplanner.team.Team
 
 object HardCompatibility : Compatibility {
     override fun areCompatibleTeams(meeting: Meeting): Boolean {

@@ -8,6 +8,7 @@ import io.jenetics.engine.Problem;
 import io.jenetics.util.ISeq;
 import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.CourseCompatibility;
 import rocks.huwi.walkingdinner.geneticplanner.location.Location;
+import rocks.huwi.walkingdinner.geneticplanner.team.Team;
 
 import java.util.*;
 import java.util.function.Function;

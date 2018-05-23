@@ -1,6 +1,7 @@
 package rocks.huwi.walkingdinner.geneticplanner
 
 import io.jenetics.util.ISeq
+import rocks.huwi.walkingdinner.geneticplanner.team.Team
 import java.util.*
 
 data class Courses(val course1teams: ISeq<Team>,

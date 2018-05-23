@@ -1,11 +1,8 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinner.geneticplanner.team
 
-import com.google.i18n.phonenumbers.NumberParseException
-import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.opencsv.bean.AbstractBeanField
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName
-import com.opencsv.exceptions.CsvDataTypeMismatchException
+import rocks.huwi.walkingdinner.geneticplanner.Meeting
 import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.Capability
 import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.ConvertCapabilities
 import rocks.huwi.walkingdinner.geneticplanner.location.Location
@@ -62,31 +59,6 @@ class Team {
             }
 
             return meetings
-        }
-    }
-
-    data class PhoneNumber(private val number: String) {
-        private val formattedNumber: String
-
-        init {
-            formattedNumber = try {
-                val phoneUtil = PhoneNumberUtil.getInstance()
-                val numberProto = phoneUtil.parse(number, "DE")
-                phoneUtil.format(numberProto, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL)
-            } catch (e: NumberParseException) {
-                number
-            }
-        }
-
-        override fun toString(): String {
-            return formattedNumber
-        }
-
-        class ConvertPhoneNumber<T> : AbstractBeanField<T>() {
-            @Throws(CsvDataTypeMismatchException::class)
-            override fun convert(value: String): Any? {
-                return PhoneNumber(value)
-            }
         }
     }
 }

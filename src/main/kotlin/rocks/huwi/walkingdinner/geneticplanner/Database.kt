@@ -3,6 +3,7 @@ package rocks.huwi.walkingdinner.geneticplanner
 import com.opencsv.bean.CsvToBean
 import com.opencsv.bean.CsvToBeanBuilder
 import rocks.huwi.walkingdinner.geneticplanner.location.DatabasecacheGeolocator
+import rocks.huwi.walkingdinner.geneticplanner.team.Team
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
