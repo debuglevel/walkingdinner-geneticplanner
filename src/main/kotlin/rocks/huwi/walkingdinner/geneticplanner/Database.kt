@@ -1,9 +1,9 @@
 package rocks.huwi.walkingdinner.geneticplanner
 
-import com.opencsv.bean.CsvToBean
 import com.opencsv.bean.CsvToBeanBuilder
 import rocks.huwi.walkingdinner.geneticplanner.location.DatabasecacheGeolocator
 import rocks.huwi.walkingdinner.geneticplanner.team.Team
+import rocks.huwi.walkingdinner.geneticplanner.team.TeamDTO
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -11,7 +11,7 @@ import java.net.URL
 
 
 class Database(private val csvFile: URL) {
-    lateinit var teams: List<Team>
+    val teams = mutableListOf<Team>()
 
     fun print() {
         println("Teams in database:")
@@ -26,7 +26,7 @@ class Database(private val csvFile: URL) {
 
     private fun initializeTeams() {
         println("Initializing teams...")
-        importTeamCsv(csvFile)
+        importTeams(csvFile)
         initializeTeamLocations()
     }
 
@@ -37,27 +37,21 @@ class Database(private val csvFile: URL) {
                 .forEach { databasecacheGeolocator.initializeTeamLocation(it) }
     }
 
-    private fun importTeamCsv(url: URL) {
+    private fun importTeams(url: URL) {
         println("Importing teams from CSV file '$csvFile'...")
 
         var bufferedReader: BufferedReader? = null
-        val csvToBean: CsvToBean<Team>?
 
         try {
             bufferedReader = BufferedReader(InputStreamReader(url.openStream()))
-            csvToBean = CsvToBeanBuilder<Team>(bufferedReader)
-                    .withType(Team::class.java)
+            val csvToBean = CsvToBeanBuilder<TeamDTO>(bufferedReader)
+                    .withType(TeamDTO::class.java)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build()
 
-            this.teams = csvToBean.parse()
+            val teamDTOs = csvToBean.parse()
 
-            this.teams.forEach { it.constructComplexProperties() }
-
-            // add team IDs
-            for ((index, team) in teams.withIndex()) {
-                team.id = index.toLong() + 1
-            }
+            this.teams.addAll(teamDTOs.map { it.toTeam() })
 
             println("Imported ${teams.size} teams")
         } catch (e: Exception) {
