@@ -11,8 +11,6 @@ import io.jenetics.util.ISeq;
 import rocks.huwi.walkingdinner.geneticplanner.team.Team;
 
 import java.net.URL;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 public class GeneticPlanner {
@@ -36,7 +34,7 @@ public class GeneticPlanner {
 
         this.database = new Database(this.csvUrl);
         this.database.initialize();
-        this.database.print();
+//        this.database.print();
     }
 
     public EvolutionResult<EnumGene<Team>, Double> run() {
