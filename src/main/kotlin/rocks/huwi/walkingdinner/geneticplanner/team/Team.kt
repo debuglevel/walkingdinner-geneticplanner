@@ -27,11 +27,11 @@ class Team {
     @CsvCustomBindByName(column = "Telefon2", converter = PhoneNumber.ConvertPhoneNumber::class)
     var phone2 = PhoneNumber("")
 
-    @CsvBindByName(column = "Mail1")
-    var mail1: String = ""
+    @CsvCustomBindByName(column = "Mail1", converter = MailAddress.ConvertMailAddress::class)
+    var mail1 = MailAddress("")
 
-    @CsvBindByName(column = "Mail2")
-    var mail2: String = ""
+    @CsvCustomBindByName(column = "Mail2", converter = MailAddress.ConvertMailAddress::class)
+    var mail2 = MailAddress("")
 
     @CsvBindByName(column = "Adresse")
     var address: String = ""
