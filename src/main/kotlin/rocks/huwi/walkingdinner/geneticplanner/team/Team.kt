@@ -4,7 +4,6 @@ import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName
 import rocks.huwi.walkingdinner.geneticplanner.Meeting
 import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.Capability
-import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.ConvertCapabilities
 import rocks.huwi.walkingdinner.geneticplanner.location.Location
 
 
@@ -39,7 +38,7 @@ class Team {
     @CsvBindByName(column = "Diet")
     var diet: String = ""
 
-    @CsvCustomBindByName(column = "Capabilities", converter = ConvertCapabilities::class)
+    @CsvCustomBindByName(column = "Capabilities", converter = Capability.ConvertCapabilities::class)
     var capabilities: List<Capability?> = listOf()
 
     lateinit var location: Location
