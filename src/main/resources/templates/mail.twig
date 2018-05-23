@@ -1,0 +1,15 @@
+Liebe*r {{team.cook1}} und {{team.cook2}},
+
+ihr werdet die/das {{cookingMeeting.course}} machen dürfen! Währenddessen werden folgende Teams bei euch sein. Bitte kocht {{cookingDiet}} um auf den kleinsten gemeinsamen Nenner zu kommen. :-)
+{% for guestteam in cookingMeeting.teams %} * {{guestteam.cook1}} ({{guestteam.phone1}}) und {{guestteam.cook2}} ({{guestteam.phone2}}) ({{guestteam.diet}})
+{% endfor %}
+
+
+Bei diesen Teams wirst du zu Gast sein dürfen:
+{% for teamMeeting in teamMeetings %} * {{teamMeeting.course}}: {{teamMeeting.getCookingTeam().cook1}} ({{teamMeeting.getCookingTeam().phone1}}) und {{teamMeeting.getCookingTeam().cook2}} ({{teamMeeting.getCookingTeam().phone2}}) ({{teamMeeting.getCookingTeam().address}}) ({{teamMeeting.getCookingTeam().diet}})
+{% endfor %}
+
+Wir hoffen, dass alles wie geplant funktioniert.
+
+Liebe Grüße,
+eure Fachschaft Humanwissenschaften

@@ -38,6 +38,9 @@ dependencies {
 
     // Apache Commons
     compile group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
+
+    // Templating
+    compile "org.jtwig:jtwig-core:5.87.0.RELEASE"
 }
 
 jar {

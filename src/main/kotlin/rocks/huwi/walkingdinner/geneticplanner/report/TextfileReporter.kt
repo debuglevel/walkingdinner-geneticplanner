@@ -1,5 +1,8 @@
 package rocks.huwi.walkingdinner.geneticplanner.report
 
+import org.jtwig.JtwigModel
+import org.jtwig.JtwigTemplate
+import rocks.huwi.walkingdinner.geneticplanner.Courses
 import rocks.huwi.walkingdinner.geneticplanner.Meeting
 import java.nio.file.Files
 import java.nio.file.Path
@@ -11,60 +14,55 @@ class TextfileReporter(private val directory: Path) : Reporter {
         }
     }
 
-    fun writeReport(path: Path, message: String) {
+    private fun writeReport(path: Path, model: JtwigModel) {
         println("Writing report to $path")
-        path.toFile().printWriter().use { out ->
-            out.print(message)
+        val template = JtwigTemplate.classpathTemplate("templates/mail.twig")
+
+        path.toFile().outputStream().use { out ->
+            template.render(model, out)
         }
     }
 
     override fun generateReport(meetings: Set<Meeting>) {
+        val model = JtwigModel.newModel()
+
         val teams = meetings
                 .flatMap { it.teams.asList() }
                 .distinct()
 
         for (team in teams) {
-            var message = """
-                Liebe*r ${team.cook1} und ${team.cook2},
-
-                """
+            model.with("team", team)
 
             val teamMeetings = meetings
                     .filter { it.teams.contains(team) }
+                    .sortedBy {
+                        when (it.course) {
+                            Courses.course1name -> 1
+                            Courses.course2name -> 2
+                            Courses.course3name -> 3
+                            else -> 0
+                        }
+                    }
+            model.with("teamMeetings", teamMeetings)
 
             val cookingMeeting = teamMeetings
-                    .filter { it.getCookingTeam() == team }
-                    .first()
+                    .first { it.getCookingTeam() == team }
+            model.with("cookingMeeting", cookingMeeting)
 
-            message += """ihr werdet die/das ${cookingMeeting.course} machen dürfen! """
+            val cookingDiet = teamMeetings
+                    .map { it.getCookingTeam().diet }
+                    .minBy {
+                        when (it) {
+                            "Vegan" -> 1
+                            "Vegetarisch" -> 2
+                            "Omnivore" -> 3
+                            else -> 0
+                        }
+                    }
+            model.with("cookingDiet", cookingDiet)
 
-            message += """Während der/dem ${cookingMeeting.course} werden folgende Teams bei dir sein. Bitte koche für den kleinsten gemeinsamen Nenner!"""
-
-            cookingMeeting.teams.forEach {
-                message += """
-                     * ${it.cook1} (${it.phone1}) und ${it.cook2} (${it.phone2}) (${it.diet})"""
-            }
-
-            message += """
-
-                Bei diesen Teams wirst du zu Gast sein dürfen:"""
-
-            teamMeetings.forEach {
-                message += """
-                 * ${it.course}: ${it.getCookingTeam().cook1} (${it.getCookingTeam().phone1}) und ${it.getCookingTeam().cook2} (${it.getCookingTeam().phone2}) (${it.getCookingTeam().address}) (${it.getCookingTeam().diet})"""
-            }
-
-            message += """
-
-                Wir hoffen, dass alles wie geplant funktioniert.
-
-                Liebe Grüße,
-                eure Fachschaft Humanwissenschaften"""
-
-            message = message.trimIndent()
-
-            val file = directory.resolve("${team.id} ${team.cook1}.txt")
-            writeReport(file, message)
+            val file = directory.resolve("${team.id} ${team.cook1}, ${team.cook2}.txt")
+            writeReport(file, model)
         }
     }
 }
