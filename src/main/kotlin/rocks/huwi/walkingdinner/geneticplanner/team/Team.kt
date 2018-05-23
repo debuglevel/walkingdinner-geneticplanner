@@ -10,7 +10,7 @@ data class Team(val cook1: Cook,
                 val address: String,
                 val diet: String,
                 val capabilities: List<Capability>,
-                var location: Location) {
+                var location: Location?) {
 
     companion object {
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {

@@ -3,7 +3,6 @@ package rocks.huwi.walkingdinner.geneticplanner.team
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName
 import rocks.huwi.walkingdinner.geneticplanner.dietcompatibility.Capability
-import rocks.huwi.walkingdinner.geneticplanner.location.Location
 
 
 class TeamDTO {
@@ -37,7 +36,7 @@ class TeamDTO {
     fun toTeam(): Team {
         val cook1 = Cook(name1, mail1, phone1)
         val cook2 = Cook(name2, mail2, phone2)
-        val location = Location()
+        val location = null
         val capabilities = this.capabilities.filterNotNull()
         val team = Team(cook1, cook2, address, diet, capabilities, location)
 

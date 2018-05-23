@@ -64,9 +64,10 @@ class DatabasecacheGeolocator(private val city: String) : Geolocator {
 
     override fun initializeTeamLocation(team: Team) {
         println("Geo-locating $team by caching database...")
-        team.location = getLocation(team.address)
+        val location = getLocation(team.address)
+        team.location = location
 
-        val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, team.location)
+        val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, location)
         println("Geo-located $team ${DecimalFormat("#.##").format(distanceToCity)}km from center by caching database")
     }
 }
