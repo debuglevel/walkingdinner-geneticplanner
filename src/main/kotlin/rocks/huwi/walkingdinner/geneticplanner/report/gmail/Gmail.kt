@@ -17,7 +17,6 @@ import com.google.api.services.gmail.model.Message
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
-import java.io.StringReader
 import java.util.*
 import javax.mail.MessagingException
 import javax.mail.Session
