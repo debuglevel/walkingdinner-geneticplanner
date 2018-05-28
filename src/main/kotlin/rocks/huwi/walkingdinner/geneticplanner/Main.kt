@@ -47,7 +47,7 @@ class Cli : CliktCommand() {
                 .decode(result.bestPhenotype.genotype)
                 .print()
 
-        TextfileReporter(Paths.get("reports")).generateReport(
+        TextfileReporter(Paths.get("reports")).generateReports(
                 CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                         .codec()
                         .decode(result.bestPhenotype.genotype).toMeetings())
