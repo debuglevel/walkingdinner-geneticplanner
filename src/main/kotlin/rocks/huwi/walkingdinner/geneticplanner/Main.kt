@@ -7,7 +7,7 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import org.apache.commons.validator.routines.UrlValidator
 import rocks.huwi.walkingdinner.geneticplanner.performance.TimeMeasurement
-import rocks.huwi.walkingdinner.geneticplanner.report.TextfileReporter
+import rocks.huwi.walkingdinner.geneticplanner.report.gmail.GmailDraftReporter
 import rocks.huwi.walkingdinner.geneticplanner.team.Team
 import java.net.URL
 import java.nio.file.Paths
@@ -47,7 +47,7 @@ class Cli : CliktCommand() {
                 .decode(result.bestPhenotype.genotype)
                 .print()
 
-        TextfileReporter(Paths.get("reports")).generateReports(
+        GmailDraftReporter().generateReports(
                 CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                         .codec()
                         .decode(result.bestPhenotype.genotype).toMeetings())
