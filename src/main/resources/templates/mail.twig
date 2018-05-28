@@ -1,15 +1,16 @@
-Liebe*r {{team.cook1.name}} und {{team.cook2.name}},
+Liebe*r {{team.cook1.name.firstname}} und {{team.cook2.name.firstname}},
 
-ihr werdet die/das {{cookingMeeting.course}} machen dürfen! Währenddessen werden folgende Teams bei euch sein. Bitte kocht {{cookingDiet}} um auf den kleinsten gemeinsamen Nenner zu kommen. :-)
-{% for guestteam in cookingMeeting.teams %} * {{guestteam.cook1.name}} ({{guestteam.cook1.phone}}) und {{guestteam.cook2.name}} ({{guestteam.cook2.phone}}) ({{guestteam.diet}})
+Wir freuen uns ein bisschen, dass ihr am Dienstag am Walking Dinner der Huwi teilnehmt!
+
+
+ihr werdet die/das {{cookingMeeting.course}} machen dürfen! Bitte kocht {{cookingDiet}} um auf den kleinsten gemeinsamen Nenner zu kommen. :-)
+
+Bei diesen Teams werdet ihr zu Gast sein dürfen:
+{% for teamMeeting in teamMeetings %} * {{teamMeeting.course}} bei {{teamMeeting.getCookingTeam().cook1.name.abbreviatedName}} ({{teamMeeting.getCookingTeam().address}}) ({{teamMeeting.getCookingTeam().cook1.phoneNumber}})
 {% endfor %}
 
+Wir hoffen, dass alles wie geplant funktioniert. Falls es doch Probleme am Abend gibt, könnt ihr das Orga-Team unter folgender Nummer erreichen: XXX-XXXXXXXXX
 
-Bei diesen Teams wirst du zu Gast sein dürfen:
-{% for teamMeeting in teamMeetings %} * {{teamMeeting.course}}: {{teamMeeting.getCookingTeam().cook1.name}} ({{teamMeeting.getCookingTeam().cook1.phone}}) und {{teamMeeting.getCookingTeam().cook2.name}} ({{teamMeeting.getCookingTeam().cook2.phone}}) ({{teamMeeting.getCookingTeam().address}}) ({{teamMeeting.getCookingTeam().diet}})
-{% endfor %}
 
-Wir hoffen, dass alles wie geplant funktioniert.
-
-Liebe Grüße,
-eure Fachschaft Humanwissenschaften
+Liebe Grüße und einen wundervollen Abend,
+euer Orga-Team der Fachschaft Huwi
