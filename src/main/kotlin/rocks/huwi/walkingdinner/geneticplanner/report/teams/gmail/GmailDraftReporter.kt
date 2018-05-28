@@ -1,9 +1,9 @@
-package rocks.huwi.walkingdinner.geneticplanner.report.gmail
+package rocks.huwi.walkingdinner.geneticplanner.report.teams.gmail
 
 
 import rocks.huwi.walkingdinner.geneticplanner.Meeting
-import rocks.huwi.walkingdinner.geneticplanner.report.TextReport
-import rocks.huwi.walkingdinner.geneticplanner.report.TextReporter
+import rocks.huwi.walkingdinner.geneticplanner.report.teams.TextReport
+import rocks.huwi.walkingdinner.geneticplanner.report.teams.TextReporter
 import rocks.huwi.walkingdinner.geneticplanner.team.Team
 
 
@@ -24,6 +24,6 @@ class GmailDraftReporter : TextReporter() {
         val mailaddresses = setOf(team.cook1.mail.mail, team.cook2.mail.mail)
         val subject = "Walking Dinner"
 
-        gmail.saveDraft(mailaddresses, subject, text)
+        Gmail.saveDraft(mailaddresses, subject, text)
     }
 }

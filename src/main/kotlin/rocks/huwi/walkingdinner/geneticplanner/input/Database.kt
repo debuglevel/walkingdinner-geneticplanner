@@ -1,7 +1,7 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinner.geneticplanner.input
 
 import com.opencsv.bean.CsvToBeanBuilder
-import rocks.huwi.walkingdinner.geneticplanner.location.DatabasecacheGeolocator
+import rocks.huwi.walkingdinner.geneticplanner.location.locator.DatabasecacheGeolocator
 import rocks.huwi.walkingdinner.geneticplanner.team.Team
 import rocks.huwi.walkingdinner.geneticplanner.team.TeamDTO
 import java.io.BufferedReader

@@ -1,9 +1,10 @@
-package rocks.huwi.walkingdinner.geneticplanner.report
+package rocks.huwi.walkingdinner.geneticplanner.report.teams
 
 import org.jtwig.JtwigModel
 import org.jtwig.JtwigTemplate
 import rocks.huwi.walkingdinner.geneticplanner.Courses
 import rocks.huwi.walkingdinner.geneticplanner.Meeting
+import rocks.huwi.walkingdinner.geneticplanner.report.Reporter
 import rocks.huwi.walkingdinner.geneticplanner.team.Team
 
 open class TextReporter : Reporter {

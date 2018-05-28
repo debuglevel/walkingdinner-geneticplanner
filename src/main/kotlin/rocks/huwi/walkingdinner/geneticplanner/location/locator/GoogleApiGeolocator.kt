@@ -1,7 +1,9 @@
-package rocks.huwi.walkingdinner.geneticplanner.location
+package rocks.huwi.walkingdinner.geneticplanner.location.locator
 
 import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
+import rocks.huwi.walkingdinner.geneticplanner.location.GeoUtils
+import rocks.huwi.walkingdinner.geneticplanner.location.Location
 import rocks.huwi.walkingdinner.geneticplanner.team.Team
 import java.text.DecimalFormat
 

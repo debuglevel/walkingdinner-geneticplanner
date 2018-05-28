@@ -1,6 +1,8 @@
-package rocks.huwi.walkingdinner.geneticplanner.location
+package rocks.huwi.walkingdinner.geneticplanner.location.locator
 
 import io.jsondb.JsonDBTemplate
+import rocks.huwi.walkingdinner.geneticplanner.location.GeoUtils
+import rocks.huwi.walkingdinner.geneticplanner.location.Location
 import rocks.huwi.walkingdinner.geneticplanner.team.Team
 import java.nio.file.Files
 import java.nio.file.Paths
