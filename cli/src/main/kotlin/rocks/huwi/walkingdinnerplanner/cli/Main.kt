@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
+import io.jenetics.stat.DoubleMomentStatistics
 import org.apache.commons.validator.routines.UrlValidator
 import rocks.huwi.walkingdinnerplanner.cli.performance.TimeMeasurement
 import rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem
@@ -25,28 +26,24 @@ class Cli : CliktCommand() {
         println("=== ${BuildVersion.buildTitle} ${BuildVersion.buildVersion} ===")
 
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
-
         val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
             evolutionStatistics.accept(it)
             printIntermediary(it)
         }
 
-        val csvFilename: String = this.csvFilename ?: "Teams_aufbereitet.csv"
-        val csvUrl = when {
-            UrlValidator().isValid(csvFilename) -> URL(csvFilename)
-            else -> Paths.get(csvFilename).toUri().toURL()
-        }
-
-        val database = Database(csvUrl)
-        database.initialize()
+        val database = buildDatabase()
 
         val options = GeneticPlannerOptions(
                 evolutionResultConsumer = consumers,
                 database = database
-                )
+        )
 
         val result = GeneticPlanner(options).run()
 
+        processResults(result, evolutionStatistics)
+    }
+
+    private fun processResults(result: EvolutionResult<EnumGene<Team>, Double>, evolutionStatistics: EvolutionStatistics<Double, DoubleMomentStatistics>?) {
         println()
         println("Best in Generation: " + result.generation)
         println("Best with Fitness: " + result.bestFitness)
@@ -64,6 +61,19 @@ class Cli : CliktCommand() {
                 CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                         .codec()
                         .decode(result.bestPhenotype.genotype).toMeetings())
+    }
+
+    private fun buildDatabase(): Database {
+        val csvFilename: String = this.csvFilename ?: "Teams_aufbereitet.csv"
+        val csvUrl = when {
+            UrlValidator().isValid(csvFilename) -> URL(csvFilename)
+            else -> Paths.get(csvFilename).toUri().toURL()
+        }
+
+        val database = Database(csvUrl)
+        database.initialize()
+
+        return database
     }
 
     private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
