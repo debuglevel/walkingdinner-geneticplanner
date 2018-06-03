@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_main.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_main.iml" group="geneticplanner-library" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_test.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_test.iml" group="geneticplanner-library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cli/cli_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cli/cli_main.iml" group="cli" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cli/cli_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cli/cli_test.iml" group="cli" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner.iml" group="geneticplanner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_main.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_main.iml" group="geneticplanner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_test.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_test.iml" group="geneticplanner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cli/walkingdinner-geneticplanner-cli.iml" filepath="$PROJECT_DIR$/.idea/modules/cli/walkingdinner-geneticplanner-cli.iml" group="cli" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/walkingdinner-planner.iml" filepath="$PROJECT_DIR$/.idea/modules/walkingdinner-planner.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/walkingdinner-planner-cli.iml" filepath="$PROJECT_DIR$/.idea/modules/walkingdinner-planner-cli.iml" group="walkingdinner-planner-cli" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/walkingdinner-planner-cli/walkingdinner-planner-cli_main.iml" filepath="$PROJECT_DIR$/.idea/modules/walkingdinner-planner-cli/walkingdinner-planner-cli_main.iml" group="walkingdinner-planner-cli" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/walkingdinner-planner-cli/walkingdinner-planner-cli_test.iml" filepath="$PROJECT_DIR$/.idea/modules/walkingdinner-planner-cli/walkingdinner-planner-cli_test.iml" group="walkingdinner-planner-cli" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner-library/walkingdinner-planner-geneticplanner-library.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner-library/walkingdinner-planner-geneticplanner-library.iml" group="geneticplanner-library" />
     </modules>
   </component>
 </project>

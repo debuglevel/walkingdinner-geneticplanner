@@ -1,5 +1,5 @@
 rootProject.name = 'walkingdinner-planner'
 
-include 'geneticplanner-library'
-include 'walkingdinner-planner-cli'
+include 'geneticplanner'
+include 'cli'
 

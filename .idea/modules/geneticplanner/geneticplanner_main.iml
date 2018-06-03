@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":geneticplanner-library:main" external.linked.project.path="$MODULE_DIR$/../../../geneticplanner-library" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="rocks.huwi.walkingdinner" external.system.module.type="sourceSet" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":geneticplanner:main" external.linked.project.path="$MODULE_DIR$/../../../geneticplanner" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="rocks.huwi.walkingdinner" external.system.module.type="sourceSet" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
-          <option name="destination" value="$MODULE_DIR$/../../../geneticplanner-library/build/classes/kotlin/main" />
+          <option name="destination" value="$MODULE_DIR$/../../../geneticplanner/build/classes/kotlin/main" />
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
-          <option name="moduleName" value="geneticplanner-library" />
+          <option name="moduleName" value="geneticplanner" />
           <option name="jvmTarget" value="1.8" />
           <option name="addCompilerBuiltIns" value="true" />
           <option name="loadBuiltInsFromDependencies" value="true" />
@@ -25,12 +25,12 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../../../geneticplanner-library/out/production/classes" />
+    <output url="file://$MODULE_DIR$/../../../geneticplanner/out/production/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../geneticplanner-library/src/main">
-      <sourceFolder url="file://$MODULE_DIR$/../../../geneticplanner-library/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../geneticplanner-library/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../geneticplanner-library/src/main/resources" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../../geneticplanner/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../geneticplanner/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../geneticplanner/src/main/kotlin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../geneticplanner/src/main/resources" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
