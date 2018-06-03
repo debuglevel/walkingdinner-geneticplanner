@@ -1,10 +1,10 @@
-package rocks.huwi.walkingdinnerplanner.importer
+package rocks.huwi.walkingdinnerplanner.importer.converter
 
 import com.opencsv.bean.AbstractBeanField
 import com.opencsv.exceptions.CsvDataTypeMismatchException
 import rocks.huwi.walkingdinnerplanner.model.dietcompatibility.Capability
 
-class ConvertCapabilities<T> : AbstractBeanField<T>() {
+class CapabilitiesConverter<T> : AbstractBeanField<T>() {
     @Throws(CsvDataTypeMismatchException::class)
     override fun convert(value: String): Any? {
 //        println("Converting Capability-Answer to Capability-Enum: $value")

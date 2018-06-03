@@ -2,27 +2,31 @@ package rocks.huwi.walkingdinnerplanner.importer
 
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName
+import rocks.huwi.walkingdinnerplanner.importer.converter.CapabilitiesConverter
+import rocks.huwi.walkingdinnerplanner.importer.converter.MailAddressConverter
+import rocks.huwi.walkingdinnerplanner.importer.converter.NameConverter
+import rocks.huwi.walkingdinnerplanner.importer.converter.PhoneNumberConverter
 import rocks.huwi.walkingdinnerplanner.model.dietcompatibility.Capability
 import rocks.huwi.walkingdinnerplanner.model.team.*
 
 
 class TeamDTO {
-    @CsvCustomBindByName(column = "Koch1", converter = ConvertName::class)
+    @CsvCustomBindByName(column = "Koch1", converter = NameConverter::class)
     lateinit var name1: Name
 
-    @CsvCustomBindByName(column = "Koch2", converter = ConvertName::class)
+    @CsvCustomBindByName(column = "Koch2", converter = NameConverter::class)
     lateinit var name2: Name
 
-    @CsvCustomBindByName(column = "Telefon1", converter = ConvertPhoneNumber::class)
+    @CsvCustomBindByName(column = "Telefon1", converter = PhoneNumberConverter::class)
     lateinit var phone1: PhoneNumber
 
-    @CsvCustomBindByName(column = "Telefon2", converter = ConvertPhoneNumber::class)
+    @CsvCustomBindByName(column = "Telefon2", converter = PhoneNumberConverter::class)
     lateinit var phone2: PhoneNumber
 
-    @CsvCustomBindByName(column = "Mail1", converter = ConvertMailAddress::class)
+    @CsvCustomBindByName(column = "Mail1", converter = MailAddressConverter::class)
     lateinit var mail1: MailAddress
 
-    @CsvCustomBindByName(column = "Mail2", converter = ConvertMailAddress::class)
+    @CsvCustomBindByName(column = "Mail2", converter = MailAddressConverter::class)
     lateinit var mail2: MailAddress
 
     @CsvBindByName(column = "Adresse")
@@ -31,7 +35,7 @@ class TeamDTO {
     @CsvBindByName(column = "Diet")
     lateinit var diet: String
 
-    @CsvCustomBindByName(column = "Capabilities", converter = ConvertCapabilities::class)
+    @CsvCustomBindByName(column = "Capabilities", converter = CapabilitiesConverter::class)
     val capabilities: List<Capability?> = listOf()
 
     fun toTeam(): Team {

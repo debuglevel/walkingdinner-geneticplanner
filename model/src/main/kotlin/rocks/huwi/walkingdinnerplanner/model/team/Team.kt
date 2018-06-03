@@ -12,6 +12,10 @@ data class Team(val cook1: Cook,
                 val capabilities: List<Capability>,
                 var location: Location?) {
 
+    override fun toString(): String {
+        return "$cook1 & $cook2 ($diet; $location)"
+    }
+
     companion object {
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {
             val meetings = mutableSetOf<Meeting>()

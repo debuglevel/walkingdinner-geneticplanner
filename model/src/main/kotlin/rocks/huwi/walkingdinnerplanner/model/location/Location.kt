@@ -10,5 +10,9 @@ data class Location(@Id var address: String,
 
     constructor() : this("", 0.0, 0.0)
 
+    override fun toString(): String {
+        return "$address ($lat, $lng)"
+    }
+
     fun calculateDistance(location: Location): Double = GeoUtils.calculateDistanceInKilometer(this, location)
 }
