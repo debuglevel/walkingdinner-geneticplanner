@@ -38,5 +38,5 @@ dependencies {
     compile group: 'javax.mail', name: 'javax.mail-api', version: '1.6.1'
     compile 'com.sun.mail:javax.mail:1.6.1'
 
-    compile project(':geneticplanner')
+    compile project(':model')
 }

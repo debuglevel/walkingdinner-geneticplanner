@@ -34,5 +34,6 @@ dependencies {
     // Genetic Algorithm
     compile 'io.jenetics:jenetics:4.1.0'
 
+    // TODO: geneticplanner should not depend on importer but receive those objects
     compile project(':importer')
 }
