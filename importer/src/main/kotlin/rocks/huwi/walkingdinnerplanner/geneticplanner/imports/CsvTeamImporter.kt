@@ -2,7 +2,6 @@ package rocks.huwi.walkingdinnerplanner.geneticplanner.imports
 
 import com.opencsv.bean.CsvToBeanBuilder
 import rocks.huwi.walkingdinnerplanner.model.team.Team
-import rocks.huwi.walkingdinnerplanner.model.team.TeamDTO
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader

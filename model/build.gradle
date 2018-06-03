@@ -23,9 +23,6 @@ dependencies {
     // Genetic Algorithm
     compile 'io.jenetics:jenetics:4.1.0'
 
-    // CSV Import
-    compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
-
     // Jsondb
     compile 'io.jsondb:jsondb-core:1.0.36'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'

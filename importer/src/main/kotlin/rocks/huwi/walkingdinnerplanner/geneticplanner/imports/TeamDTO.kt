@@ -1,27 +1,28 @@
-package rocks.huwi.walkingdinnerplanner.model.team
+package rocks.huwi.walkingdinnerplanner.geneticplanner.imports
 
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName
 import rocks.huwi.walkingdinnerplanner.model.dietcompatibility.Capability
+import rocks.huwi.walkingdinnerplanner.model.team.*
 
 
 class TeamDTO {
-    @CsvCustomBindByName(column = "Koch1", converter = Name.ConvertName::class)
+    @CsvCustomBindByName(column = "Koch1", converter = ConvertName::class)
     lateinit var name1: Name
 
-    @CsvCustomBindByName(column = "Koch2", converter = Name.ConvertName::class)
+    @CsvCustomBindByName(column = "Koch2", converter = ConvertName::class)
     lateinit var name2: Name
 
-    @CsvCustomBindByName(column = "Telefon1", converter = PhoneNumber.ConvertPhoneNumber::class)
+    @CsvCustomBindByName(column = "Telefon1", converter = ConvertPhoneNumber::class)
     lateinit var phone1: PhoneNumber
 
-    @CsvCustomBindByName(column = "Telefon2", converter = PhoneNumber.ConvertPhoneNumber::class)
+    @CsvCustomBindByName(column = "Telefon2", converter = ConvertPhoneNumber::class)
     lateinit var phone2: PhoneNumber
 
-    @CsvCustomBindByName(column = "Mail1", converter = MailAddress.ConvertMailAddress::class)
+    @CsvCustomBindByName(column = "Mail1", converter = ConvertMailAddress::class)
     lateinit var mail1: MailAddress
 
-    @CsvCustomBindByName(column = "Mail2", converter = MailAddress.ConvertMailAddress::class)
+    @CsvCustomBindByName(column = "Mail2", converter = ConvertMailAddress::class)
     lateinit var mail2: MailAddress
 
     @CsvBindByName(column = "Adresse")
@@ -30,7 +31,7 @@ class TeamDTO {
     @CsvBindByName(column = "Diet")
     lateinit var diet: String
 
-    @CsvCustomBindByName(column = "Capabilities", converter = Capability.ConvertCapabilities::class)
+    @CsvCustomBindByName(column = "Capabilities", converter = ConvertCapabilities::class)
     val capabilities: List<Capability?> = listOf()
 
     fun toTeam(): Team {
