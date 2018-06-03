@@ -1,6 +1,6 @@
 package rocks.huwi.walkingdinnerplanner.report.teams.file
 
-import rocks.huwi.walkingdinnerplanner.geneticplanner.Meeting
+import rocks.huwi.walkingdinnerplanner.model.Meeting
 import rocks.huwi.walkingdinnerplanner.report.teams.TextReport
 import rocks.huwi.walkingdinnerplanner.report.teams.TextReporter
 import java.io.PrintWriter

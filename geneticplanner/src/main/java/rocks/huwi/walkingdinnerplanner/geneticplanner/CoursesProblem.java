@@ -6,9 +6,11 @@ import io.jenetics.PermutationChromosome;
 import io.jenetics.engine.Codec;
 import io.jenetics.engine.Problem;
 import io.jenetics.util.ISeq;
-import rocks.huwi.walkingdinnerplanner.geneticplanner.dietcompatibility.CourseCompatibility;
-import rocks.huwi.walkingdinnerplanner.geneticplanner.location.Location;
-import rocks.huwi.walkingdinnerplanner.geneticplanner.team.Team;import rocks.huwi.walkingdinnerplanner.geneticplanner.dietcompatibility.CourseCompatibility;
+import rocks.huwi.walkingdinnerplanner.model.Courses;
+import rocks.huwi.walkingdinnerplanner.model.Meeting;
+import rocks.huwi.walkingdinnerplanner.model.dietcompatibility.CourseCompatibility;
+import rocks.huwi.walkingdinnerplanner.model.location.Location;
+import rocks.huwi.walkingdinnerplanner.model.team.Team;
 
 import java.util.*;
 import java.util.function.Function;

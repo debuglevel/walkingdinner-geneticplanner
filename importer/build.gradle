@@ -9,8 +9,7 @@ buildscript {
     }
 }
 
-group 'rocks.huwi.walkingdinner'
-version '0.0.1-SNAPSHOT'
+version 'unspecified'
 
 apply plugin: 'kotlin'
 
@@ -21,18 +20,15 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-
 repositories {
     mavenCentral()
-    jcenter()
 }
-
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    // Genetic Algorithm
-    compile 'io.jenetics:jenetics:4.1.0'
+    // CSV Import
+    compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
 
-    compile project(':importer')
+    compile project(':model')
 }

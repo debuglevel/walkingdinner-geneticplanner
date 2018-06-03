@@ -3,4 +3,6 @@ rootProject.name = 'walkingdinner-planner'
 include 'geneticplanner'
 include 'cli'
 include 'report'
+include 'importer'
+include 'model'
 

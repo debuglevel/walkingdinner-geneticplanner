@@ -1,10 +1,10 @@
 package rocks.huwi.walkingdinnerplanner.report.teams.gmail
 
 
-import rocks.huwi.walkingdinnerplanner.geneticplanner.Meeting
+import rocks.huwi.walkingdinnerplanner.model.Meeting
 import rocks.huwi.walkingdinnerplanner.report.teams.TextReport
 import rocks.huwi.walkingdinnerplanner.report.teams.TextReporter
-import rocks.huwi.walkingdinnerplanner.geneticplanner.team.Team
+import rocks.huwi.walkingdinnerplanner.model.team.Team
 
 
 class GmailDraftReporter : TextReporter() {

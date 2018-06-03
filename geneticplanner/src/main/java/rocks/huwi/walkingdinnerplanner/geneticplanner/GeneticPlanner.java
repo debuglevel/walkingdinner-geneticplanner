@@ -9,7 +9,7 @@ import io.jenetics.engine.EvolutionResult;
 import io.jenetics.engine.Limits;
 import io.jenetics.util.ISeq;
 import rocks.huwi.walkingdinnerplanner.geneticplanner.imports.Database;
-import rocks.huwi.walkingdinnerplanner.geneticplanner.team.Team;
+import rocks.huwi.walkingdinnerplanner.model.team.Team;
 
 import java.net.URL;
 import java.util.function.Consumer;

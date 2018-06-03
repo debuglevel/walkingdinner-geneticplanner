@@ -6,9 +6,10 @@ import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import org.apache.commons.validator.routines.UrlValidator
-import rocks.huwi.walkingdinnerplanner.geneticplanner.performance.TimeMeasurement
+import rocks.huwi.walkingdinnerplanner.cli.performance.TimeMeasurement
+import rocks.huwi.walkingdinnerplanner.model.BuildVersion
 import rocks.huwi.walkingdinnerplanner.report.teams.gmail.GmailDraftReporter
-import rocks.huwi.walkingdinnerplanner.geneticplanner.team.Team
+import rocks.huwi.walkingdinnerplanner.model.team.Team
 import java.net.URL
 import java.nio.file.Paths
 
@@ -16,7 +17,7 @@ class Cli : CliktCommand() {
     private val csvFilename by option(help = "URL or file name of CSV file")
 
     override fun run() {
-        println("=== ${rocks.huwi.walkingdinnerplanner.geneticplanner.BuildVersion.buildTitle} ${rocks.huwi.walkingdinnerplanner.geneticplanner.BuildVersion.buildVersion} ===")
+        println("=== ${BuildVersion.buildTitle} ${BuildVersion.buildVersion} ===")
 
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
 

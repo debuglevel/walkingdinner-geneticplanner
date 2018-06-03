@@ -2,10 +2,10 @@ package rocks.huwi.walkingdinnerplanner.report.teams
 
 import org.jtwig.JtwigModel
 import org.jtwig.JtwigTemplate
-import rocks.huwi.walkingdinnerplanner.geneticplanner.Courses
-import rocks.huwi.walkingdinnerplanner.geneticplanner.Meeting
+import rocks.huwi.walkingdinnerplanner.model.Courses
+import rocks.huwi.walkingdinnerplanner.model.Meeting
 import rocks.huwi.walkingdinnerplanner.report.Reporter
-import rocks.huwi.walkingdinnerplanner.geneticplanner.team.Team
+import rocks.huwi.walkingdinnerplanner.model.team.Team
 
 open class TextReporter : Reporter {
     private val model: JtwigModel = JtwigModel.newModel()
