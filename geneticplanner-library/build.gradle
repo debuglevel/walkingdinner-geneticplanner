@@ -21,8 +21,11 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    // Genetic Algorithm
     compile 'io.jenetics:jenetics:4.1.0'
-    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+
+    // CSV Import
     compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
 
     // Google Maps Services
@@ -52,18 +55,6 @@ dependencies {
 
     // Phone Numbers
     compile group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '5.5'
-}
-
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'WalkingDinner GeneticPlanner',
-                'Implementation-Version': version,
-                "Main-Class": "rocks.huwi.walkingdinner.geneticplanner.MainKt"
-    }
-
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
 }
 
 compileKotlin {

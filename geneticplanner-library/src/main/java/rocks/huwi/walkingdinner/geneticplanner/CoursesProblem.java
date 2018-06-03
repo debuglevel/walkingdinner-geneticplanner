@@ -14,10 +14,10 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
+public class CoursesProblem implements Problem<Courses, EnumGene<Team>, Double> {
     private final ISeq<Team> teams;
 
-    CoursesProblem(final ISeq<Team> teams) {
+    public CoursesProblem(final ISeq<Team> teams) {
         this.teams = teams;
     }
 

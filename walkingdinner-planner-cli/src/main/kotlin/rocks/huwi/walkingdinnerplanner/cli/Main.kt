@@ -1,4 +1,4 @@
-package rocks.huwi.walkingdinner.geneticplanner
+package rocks.huwi.walkingdinnerplanner.cli
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
@@ -16,7 +16,7 @@ class Cli : CliktCommand() {
     private val csvFilename by option(help = "URL or file name of CSV file")
 
     override fun run() {
-        println("=== ${BuildVersion.buildTitle} ${BuildVersion.buildVersion} ===")
+        println("=== ${rocks.huwi.walkingdinner.geneticplanner.BuildVersion.buildTitle} ${rocks.huwi.walkingdinner.geneticplanner.BuildVersion.buildVersion} ===")
 
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
 
@@ -32,7 +32,7 @@ class Cli : CliktCommand() {
             else -> Paths.get(csvFilename).toUri().toURL()
         }
 
-        val result = GeneticPlanner(csvUrl, consumers).run()
+        val result = rocks.huwi.walkingdinner.geneticplanner.GeneticPlanner(csvUrl, consumers).run()
 
         println()
         println("Best in Generation: " + result.generation)
@@ -42,13 +42,13 @@ class Cli : CliktCommand() {
         println(evolutionStatistics)
 
         println()
-        CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+        rocks.huwi.walkingdinner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                 .codec()
                 .decode(result.bestPhenotype.genotype)
                 .print()
 
         GmailDraftReporter().generateReports(
-                CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+                rocks.huwi.walkingdinner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                         .codec()
                         .decode(result.bestPhenotype.genotype).toMeetings())
     }

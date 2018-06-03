@@ -6,6 +6,8 @@
       <module name="geneticplanner-library_test" target="1.8" />
       <module name="geneticplanner_main" target="1.8" />
       <module name="geneticplanner_test" target="1.8" />
+      <module name="walkingdinner-planner-cli_main" target="1.8" />
+      <module name="walkingdinner-planner-cli_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
