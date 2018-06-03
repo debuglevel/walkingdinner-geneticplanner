@@ -7,9 +7,11 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import org.apache.commons.validator.routines.UrlValidator
 import rocks.huwi.walkingdinnerplanner.cli.performance.TimeMeasurement
+import rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem
+import rocks.huwi.walkingdinnerplanner.geneticplanner.GeneticPlanner
 import rocks.huwi.walkingdinnerplanner.model.BuildVersion
-import rocks.huwi.walkingdinnerplanner.report.teams.gmail.GmailDraftReporter
 import rocks.huwi.walkingdinnerplanner.model.team.Team
+import rocks.huwi.walkingdinnerplanner.report.teams.gmail.GmailDraftReporter
 import java.net.URL
 import java.nio.file.Paths
 
@@ -33,7 +35,7 @@ class Cli : CliktCommand() {
             else -> Paths.get(csvFilename).toUri().toURL()
         }
 
-        val result = rocks.huwi.walkingdinnerplanner.geneticplanner.GeneticPlanner(csvUrl, consumers).run()
+        val result = GeneticPlanner(csvUrl, consumers).run()
 
         println()
         println("Best in Generation: " + result.generation)
@@ -43,13 +45,13 @@ class Cli : CliktCommand() {
         println(evolutionStatistics)
 
         println()
-        rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+        CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                 .codec()
                 .decode(result.bestPhenotype.genotype)
                 .print()
 
         GmailDraftReporter().generateReports(
-                rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+                CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                         .codec()
                         .decode(result.bestPhenotype.genotype).toMeetings())
     }

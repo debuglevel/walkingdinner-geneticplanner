@@ -4,8 +4,8 @@ import org.jtwig.JtwigModel
 import org.jtwig.JtwigTemplate
 import rocks.huwi.walkingdinnerplanner.model.Courses
 import rocks.huwi.walkingdinnerplanner.model.Meeting
-import rocks.huwi.walkingdinnerplanner.report.Reporter
 import rocks.huwi.walkingdinnerplanner.model.team.Team
+import rocks.huwi.walkingdinnerplanner.report.Reporter
 
 open class TextReporter : Reporter {
     private val model: JtwigModel = JtwigModel.newModel()
