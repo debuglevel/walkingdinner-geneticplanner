@@ -1,8 +1,8 @@
-package rocks.huwi.walkingdinnerplanner.geneticplanner.report.teams.file
+package rocks.huwi.walkingdinnerplanner.report.teams.file
 
 import rocks.huwi.walkingdinnerplanner.geneticplanner.Meeting
-import rocks.huwi.walkingdinnerplanner.geneticplanner.report.teams.TextReport
-import rocks.huwi.walkingdinnerplanner.geneticplanner.report.teams.TextReporter
+import rocks.huwi.walkingdinnerplanner.report.teams.TextReport
+import rocks.huwi.walkingdinnerplanner.report.teams.TextReporter
 import java.io.PrintWriter
 import java.nio.file.Files
 import java.nio.file.Path

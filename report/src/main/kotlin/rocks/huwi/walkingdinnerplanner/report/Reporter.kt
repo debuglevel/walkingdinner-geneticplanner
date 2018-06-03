@@ -1,4 +1,4 @@
-package rocks.huwi.walkingdinnerplanner.geneticplanner.report
+package rocks.huwi.walkingdinnerplanner.report
 
 import rocks.huwi.walkingdinnerplanner.geneticplanner.Meeting
 

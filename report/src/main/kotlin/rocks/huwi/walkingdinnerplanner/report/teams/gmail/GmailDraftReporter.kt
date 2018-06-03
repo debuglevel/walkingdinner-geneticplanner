@@ -1,9 +1,9 @@
-package rocks.huwi.walkingdinnerplanner.geneticplanner.report.teams.gmail
+package rocks.huwi.walkingdinnerplanner.report.teams.gmail
 
 
 import rocks.huwi.walkingdinnerplanner.geneticplanner.Meeting
-import rocks.huwi.walkingdinnerplanner.geneticplanner.report.teams.TextReport
-import rocks.huwi.walkingdinnerplanner.geneticplanner.report.teams.TextReporter
+import rocks.huwi.walkingdinnerplanner.report.teams.TextReport
+import rocks.huwi.walkingdinnerplanner.report.teams.TextReporter
 import rocks.huwi.walkingdinnerplanner.geneticplanner.team.Team
 
 
