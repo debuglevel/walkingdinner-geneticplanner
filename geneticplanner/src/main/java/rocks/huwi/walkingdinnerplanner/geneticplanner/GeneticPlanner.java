@@ -16,31 +16,38 @@ import java.util.function.Consumer;
 
 public class GeneticPlanner {
     final private Consumer<EvolutionResult<EnumGene<Team>, Double>> evolutionResultConsumer;
-    final private URL csvUrl;
+//    final private URL csvUrl;
     private Database database;
 
-    public GeneticPlanner(URL csvUrl, Consumer<EvolutionResult<EnumGene<Team>, Double>> evolutionResultConsumer) {
-        this.csvUrl = csvUrl;
+    private int populationsSize;
+    private double fitnessThreshold;
+    private int steadyFitness;
 
-        if (evolutionResultConsumer == null) {
+    public GeneticPlanner(GeneticPlannerOptions options) {
+        this.fitnessThreshold = options.getFitnessThreshold();
+        this.populationsSize = options.getPopulationsSize();
+        this.steadyFitness = options.getSteadyFitness();
+        this.database = options.getDatabase();
+
+        if (options.getEvolutionResultConsumer() == null) {
             this.evolutionResultConsumer = g -> {
             };
         } else {
-            this.evolutionResultConsumer = evolutionResultConsumer;
+            this.evolutionResultConsumer = options.getEvolutionResultConsumer();
         }
     }
 
-    private void initialize() {
-        System.out.println("Initializing GeneticPlanner...");
-
-        this.database = new Database(this.csvUrl);
-        this.database.initialize();
-//        this.database.print();
-    }
+//    private void initialize() {
+//        System.out.println("Initializing GeneticPlanner...");
+//
+//        this.database = new Database(this.csvUrl);
+//        this.database.initialize();
+////        this.database.print();
+//    }
 
     public EvolutionResult<EnumGene<Team>, Double> run() {
         System.out.println("Running GeneticPlanner...");
-        this.initialize();
+//        this.initialize();
         return this.compute();
     }
 
@@ -54,7 +61,7 @@ public class GeneticPlanner {
 
         Engine<EnumGene<Team>, Double> engine = Engine
                 .builder(problem)
-                .populationSize(200)
+                .populationSize(this.populationsSize)
                 .optimize(Optimize.MINIMUM)
                 .alterers(new SwapMutator<>(0.15),
                         new PartiallyMatchedCrossover<>(0.15))
@@ -62,8 +69,8 @@ public class GeneticPlanner {
                 .build();
 
         final EvolutionResult<EnumGene<Team>, Double> result = engine.stream()
-                .limit(Limits.byFitnessThreshold(0.001d).or(
-                        Limits.bySteadyFitness(40_000)))
+                .limit(Limits.byFitnessThreshold(this.fitnessThreshold).or(
+                        Limits.bySteadyFitness(this.steadyFitness)))
                 .peek(evolutionResultConsumer)
                 .collect(EvolutionResult.toBestEvolutionResult());
 

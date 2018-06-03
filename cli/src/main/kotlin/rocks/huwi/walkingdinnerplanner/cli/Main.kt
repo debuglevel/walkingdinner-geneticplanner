@@ -9,11 +9,14 @@ import org.apache.commons.validator.routines.UrlValidator
 import rocks.huwi.walkingdinnerplanner.cli.performance.TimeMeasurement
 import rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem
 import rocks.huwi.walkingdinnerplanner.geneticplanner.GeneticPlanner
+import rocks.huwi.walkingdinnerplanner.geneticplanner.GeneticPlannerOptions
+import rocks.huwi.walkingdinnerplanner.importer.Database
 import rocks.huwi.walkingdinnerplanner.model.BuildVersion
 import rocks.huwi.walkingdinnerplanner.model.team.Team
 import rocks.huwi.walkingdinnerplanner.report.teams.gmail.GmailDraftReporter
 import java.net.URL
 import java.nio.file.Paths
+import java.util.function.Consumer
 
 class Cli : CliktCommand() {
     private val csvFilename by option(help = "URL or file name of CSV file")
@@ -23,11 +26,10 @@ class Cli : CliktCommand() {
 
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
 
-        val consumers: (EvolutionResult<EnumGene<Team>, Double>) -> Unit =
-                {
-                    evolutionStatistics.accept(it)
-                    printIntermediary(it)
-                }
+        val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
+            evolutionStatistics.accept(it)
+            printIntermediary(it)
+        }
 
         val csvFilename: String = this.csvFilename ?: "Teams_aufbereitet.csv"
         val csvUrl = when {
@@ -35,7 +37,15 @@ class Cli : CliktCommand() {
             else -> Paths.get(csvFilename).toUri().toURL()
         }
 
-        val result = GeneticPlanner(csvUrl, consumers).run()
+        val database = Database(csvUrl)
+        database.initialize()
+
+        val options = GeneticPlannerOptions(
+                evolutionResultConsumer = consumers,
+                database = database
+                )
+
+        val result = GeneticPlanner(options).run()
 
         println()
         println("Best in Generation: " + result.generation)
