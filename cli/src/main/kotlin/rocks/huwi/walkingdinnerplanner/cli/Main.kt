@@ -15,6 +15,7 @@ import rocks.huwi.walkingdinnerplanner.importer.Database
 import rocks.huwi.walkingdinnerplanner.model.BuildVersion
 import rocks.huwi.walkingdinnerplanner.model.team.Team
 import rocks.huwi.walkingdinnerplanner.report.teams.gmail.GmailDraftReporter
+import rocks.huwi.walkingdinnerplanner.report.teams.summary.SummaryReporter
 import java.net.URL
 import java.nio.file.Paths
 import java.util.function.Consumer
@@ -52,15 +53,13 @@ class Cli : CliktCommand() {
         println(evolutionStatistics)
 
         println()
-        CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+        val courses = CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                 .codec()
                 .decode(result.bestPhenotype.genotype)
-                .print()
+        val meetings = courses.toMeetings()
 
-        GmailDraftReporter().generateReports(
-                CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
-                        .codec()
-                        .decode(result.bestPhenotype.genotype).toMeetings())
+        SummaryReporter().generateReports(meetings)
+        GmailDraftReporter().generateReports(meetings)
     }
 
     private fun buildDatabase(): Database {
