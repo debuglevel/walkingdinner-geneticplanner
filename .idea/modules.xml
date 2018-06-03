@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner_main.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner_main.iml" group="geneticplanner" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner_test.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner_test.iml" group="geneticplanner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library.iml" group="geneticplanner-library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_main.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_main.iml" group="geneticplanner-library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_test.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner-library/geneticplanner-library_test.iml" group="geneticplanner-library" />
     </modules>
   </component>
 </project>

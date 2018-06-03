@@ -1,2 +1,3 @@
 rootProject.name = 'geneticplanner'
 
+include 'geneticplanner-library'
