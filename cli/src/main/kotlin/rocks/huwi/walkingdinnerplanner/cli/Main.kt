@@ -6,9 +6,9 @@ import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import org.apache.commons.validator.routines.UrlValidator
-import rocks.huwi.walkingdinner.geneticplanner.performance.TimeMeasurement
-import rocks.huwi.walkingdinner.geneticplanner.report.teams.gmail.GmailDraftReporter
-import rocks.huwi.walkingdinner.geneticplanner.team.Team
+import rocks.huwi.walkingdinnerplanner.geneticplanner.performance.TimeMeasurement
+import rocks.huwi.walkingdinnerplanner.geneticplanner.report.teams.gmail.GmailDraftReporter
+import rocks.huwi.walkingdinnerplanner.geneticplanner.team.Team
 import java.net.URL
 import java.nio.file.Paths
 
@@ -16,7 +16,7 @@ class Cli : CliktCommand() {
     private val csvFilename by option(help = "URL or file name of CSV file")
 
     override fun run() {
-        println("=== ${rocks.huwi.walkingdinner.geneticplanner.BuildVersion.buildTitle} ${rocks.huwi.walkingdinner.geneticplanner.BuildVersion.buildVersion} ===")
+        println("=== ${rocks.huwi.walkingdinnerplanner.geneticplanner.BuildVersion.buildTitle} ${rocks.huwi.walkingdinnerplanner.geneticplanner.BuildVersion.buildVersion} ===")
 
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
 
@@ -32,7 +32,7 @@ class Cli : CliktCommand() {
             else -> Paths.get(csvFilename).toUri().toURL()
         }
 
-        val result = rocks.huwi.walkingdinner.geneticplanner.GeneticPlanner(csvUrl, consumers).run()
+        val result = rocks.huwi.walkingdinnerplanner.geneticplanner.GeneticPlanner(csvUrl, consumers).run()
 
         println()
         println("Best in Generation: " + result.generation)
@@ -42,13 +42,13 @@ class Cli : CliktCommand() {
         println(evolutionStatistics)
 
         println()
-        rocks.huwi.walkingdinner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+        rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                 .codec()
                 .decode(result.bestPhenotype.genotype)
                 .print()
 
         GmailDraftReporter().generateReports(
-                rocks.huwi.walkingdinner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+                rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
                         .codec()
                         .decode(result.bestPhenotype.genotype).toMeetings())
     }
