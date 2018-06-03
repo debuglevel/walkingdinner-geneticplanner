@@ -32,7 +32,7 @@ class DatabasecacheGeolocator(private val city: String) : Geolocator {
         }
 
         val dbFilesLocation = databasePath.toString()
-        val baseScanPackage = "rocks.huwi.walkingdinner.geneticplanner"
+        val baseScanPackage = "rocks.huwi.walkingdinnerplanner"
 
         jsonDBTemplate = JsonDBTemplate(dbFilesLocation, baseScanPackage)
 

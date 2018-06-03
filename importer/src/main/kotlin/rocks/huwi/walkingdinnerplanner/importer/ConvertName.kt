@@ -1,4 +1,4 @@
-package rocks.huwi.walkingdinnerplanner.geneticplanner.imports
+package rocks.huwi.walkingdinnerplanner.importer
 
 import com.opencsv.bean.AbstractBeanField
 import com.opencsv.exceptions.CsvDataTypeMismatchException

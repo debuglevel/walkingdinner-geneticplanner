@@ -1,4 +1,4 @@
-package rocks.huwi.walkingdinnerplanner.geneticplanner.imports
+package rocks.huwi.walkingdinnerplanner.importer
 
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName

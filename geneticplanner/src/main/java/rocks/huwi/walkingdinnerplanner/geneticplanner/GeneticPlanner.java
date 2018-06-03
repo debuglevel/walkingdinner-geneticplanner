@@ -8,7 +8,7 @@ import io.jenetics.engine.Engine;
 import io.jenetics.engine.EvolutionResult;
 import io.jenetics.engine.Limits;
 import io.jenetics.util.ISeq;
-import rocks.huwi.walkingdinnerplanner.geneticplanner.imports.Database;
+import rocks.huwi.walkingdinnerplanner.importer.Database;
 import rocks.huwi.walkingdinnerplanner.model.team.Team;
 
 import java.net.URL;

@@ -48,6 +48,7 @@ dependencies {
 
     compile project(':geneticplanner')
     compile project(':report')
+    compile project(':model')
 }
 
 jar {
