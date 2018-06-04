@@ -3,6 +3,7 @@ package rocks.huwi.walkingdinnerplanner.model
 import io.jenetics.util.ISeq
 import rocks.huwi.walkingdinnerplanner.model.team.Team
 import java.util.*
+import java.util.stream.Collectors
 
 data class Courses(val course1teams: ISeq<Team>,
                    val course2teams: ISeq<Team>,
@@ -15,12 +16,9 @@ data class Courses(val course1teams: ISeq<Team>,
     }
 
     fun toMeetings(): Set<Meeting> {
-        val meetings = HashSet<Meeting>()
-        meetings.addAll(Team.toMeetings(course1teams, course1name))
-        meetings.addAll(Team.toMeetings(course2teams, course2name))
-        meetings.addAll(Team.toMeetings(course3teams, course3name))
-
-        return meetings
+        return toCourseMeetings().values.stream()
+                .flatMap { it.stream() }
+                .collect(Collectors.toSet())
     }
 
     fun toCourseMeetings(): Map<String, Set<Meeting>> {
