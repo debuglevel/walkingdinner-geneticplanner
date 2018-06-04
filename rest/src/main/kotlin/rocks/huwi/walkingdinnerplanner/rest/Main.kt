@@ -1,0 +1,145 @@
+package rocks.huwi.walkingdinnerplanner.rest
+
+import io.jenetics.EnumGene
+import io.jenetics.engine.EvolutionResult
+import io.jenetics.engine.EvolutionStatistics
+import io.jenetics.stat.DoubleMomentStatistics
+import rocks.huwi.walkingdinnerplanner.cli.performance.TimeMeasurement
+import rocks.huwi.walkingdinnerplanner.geneticplanner.CoursesProblem
+import rocks.huwi.walkingdinnerplanner.geneticplanner.GeneticPlanner
+import rocks.huwi.walkingdinnerplanner.geneticplanner.GeneticPlannerOptions
+import rocks.huwi.walkingdinnerplanner.importer.Database
+import rocks.huwi.walkingdinnerplanner.model.team.Team
+import rocks.huwi.walkingdinnerplanner.report.teams.gmail.GmailDraftReporter
+import rocks.huwi.walkingdinnerplanner.report.teams.summary.SummaryReporter
+import spark.kotlin.*
+import java.nio.file.Paths
+import java.util.function.Consumer
+import java.nio.file.StandardCopyOption
+import javax.servlet.MultipartConfigElement
+import java.io.IOException
+import java.nio.file.Files
+import spark.Spark.staticFiles
+import spark.Request
+import java.io.File
+import java.nio.file.Path
+import javax.servlet.ServletException
+import javax.servlet.http.*
+
+fun main(args: Array<String>) {
+    Rest().main(args)
+}
+
+class Rest {
+    fun main(args: Array<String>) {
+        val uploadDir = File("upload")
+        uploadDir.mkdir() // create the upload directory if it doesn't exist
+
+        staticFiles.externalLocation("upload")
+
+        // TODO: return immediately and return the link to the upcoming planning result
+        post("/plan") {
+            // get provided CSV file
+            val tempFile = Files.createTempFile(uploadDir.toPath(), "", "")
+
+            request.attribute("org.eclipse.jetty.multipartConfig", MultipartConfigElement("/temp"))
+
+            request.raw()
+                    .getPart("uploaded_file") // getPart needs to use same "name" as input field in form
+                    .getInputStream()
+                    .use({
+                        Files.copy(it, tempFile, StandardCopyOption.REPLACE_EXISTING)
+                    })
+
+            logInfo(request, tempFile)
+
+            // start
+            startPlanner(tempFile)
+
+            // do things with result
+            "done"
+        }
+
+        // TODO: /plan/$id which returns the calculated plan;
+        // return some other http code to indicate that the plan is not ready now
+
+        // TODO: add (optional) config stuff
+        get("/plan")
+        {
+            """
+        <form method='post' enctype='multipart/form-data'>
+            <input type='file' name='uploaded_file' accept='.csv'>
+            <button>Upload CSV</button>
+        </form>
+        """
+        }
+    }
+
+    // methods used for logging
+    @Throws(IOException::class, ServletException::class)
+    private fun logInfo(req: Request, tempFile: Path) {
+        System.out.println("Uploaded file '" + getFileName(req.raw().getPart("uploaded_file")) + "' saved as '" + tempFile.toAbsolutePath() + "'")
+    }
+
+    private fun getFileName(part: Part): String? {
+        for (cd in part.getHeader("content-disposition").split(";")) {
+            if (cd.trim({ it <= ' ' }).startsWith("filename")) {
+                return cd.substring(cd.indexOf('=') + 1).trim({ it <= ' ' }).replace("\"", "")
+            }
+        }
+        return null
+    }
+
+    fun startPlanner(fileName: Path) {
+        val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
+        val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
+            evolutionStatistics.accept(it)
+            printIntermediary(it)
+        }
+
+        val database = buildDatabase(fileName)
+
+        val options = GeneticPlannerOptions(
+                evolutionResultConsumer = consumers,
+                database = database
+        )
+
+        val result = GeneticPlanner(options).run()
+
+        processResults(result, evolutionStatistics)
+    }
+
+    private fun buildDatabase(fileName: Path): Database {
+        val csvFilename = fileName.toAbsolutePath().toString()
+        val csvUrl = Paths.get(csvFilename).toUri().toURL()
+        val database = Database(csvUrl)
+        database.initialize()
+
+        return database
+    }
+
+    private fun processResults(result: EvolutionResult<EnumGene<Team>, Double>, evolutionStatistics: EvolutionStatistics<Double, DoubleMomentStatistics>?) {
+        println()
+        println("Best in Generation: " + result.generation)
+        println("Best with Fitness: " + result.bestFitness)
+
+        println()
+        println(evolutionStatistics)
+
+        println()
+        val courses = CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+                .codec()
+                .decode(result.bestPhenotype.genotype)
+        val meetings = courses.toMeetings()
+
+        SummaryReporter().generateReports(meetings)
+        GmailDraftReporter().generateReports(meetings)
+    }
+
+    private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
+        TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
+        if (e.generation % 500 == 0L) {
+            println("${Math.round(1 / (e.durations.evolveDuration.toNanos() / 1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
+        }
+    }
+}

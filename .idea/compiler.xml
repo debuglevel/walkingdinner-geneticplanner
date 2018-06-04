@@ -12,6 +12,8 @@
       <module name="model_test" target="1.8" />
       <module name="report_main" target="1.8" />
       <module name="report_test" target="1.8" />
+      <module name="rest_main" target="1.8" />
+      <module name="rest_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

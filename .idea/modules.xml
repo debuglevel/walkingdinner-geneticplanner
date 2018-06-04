@@ -8,6 +8,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner.iml" group="geneticplanner" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_main.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_main.iml" group="geneticplanner" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_test.iml" filepath="$PROJECT_DIR$/.idea/modules/geneticplanner/geneticplanner_test.iml" group="geneticplanner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest.iml" filepath="$PROJECT_DIR$/.idea/modules/rest.iml" group="rest" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest/rest_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rest/rest_main.iml" group="rest" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest/rest_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rest/rest_test.iml" group="rest" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/walkingdinner-planner.iml" filepath="$PROJECT_DIR$/.idea/modules/walkingdinner-planner.iml" />
     </modules>
   </component>
