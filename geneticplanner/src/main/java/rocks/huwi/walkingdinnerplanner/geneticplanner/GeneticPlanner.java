@@ -11,7 +11,6 @@ import io.jenetics.util.ISeq;
 import rocks.huwi.walkingdinnerplanner.importer.Database;
 import rocks.huwi.walkingdinnerplanner.model.team.Team;
 
-import java.net.URL;
 import java.util.function.Consumer;
 
 public class GeneticPlanner {

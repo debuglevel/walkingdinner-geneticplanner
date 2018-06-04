@@ -2,7 +2,6 @@ package rocks.huwi.walkingdinnerplanner.model
 
 import io.jenetics.util.ISeq
 import rocks.huwi.walkingdinnerplanner.model.team.Team
-import java.util.*
 import java.util.stream.Collectors
 
 data class Courses(val course1teams: ISeq<Team>,
