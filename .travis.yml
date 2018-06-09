@@ -18,7 +18,7 @@ deploy:
   api_key: "${GITHUB_TOKEN}"
   file_glob: true
   file:
-    - "**/build/libs/*.jar"
+    - "**/build/libs/*-all.jar"
   skip_cleanup: true
   on:
     tags: false

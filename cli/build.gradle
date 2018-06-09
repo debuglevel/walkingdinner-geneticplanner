@@ -2,7 +2,7 @@ buildscript {
     ext.kotlin_version = '1.2.41'
 
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -11,11 +11,21 @@ buildscript {
 
 plugins {
     id 'java'
+    id "org.jetbrains.kotlin.jvm" version "1.2.41"
+
+    // creates scripts (.sh and .bat) to run the jar
+    id "application"
+
+    // task "shadowJar" is automatically triggered when plugin "application" is present
+    id 'com.github.johnrengelman.shadow' version '2.0.4'
+
 }
 
+group 'rocks.huwi.walkingdinner'
 version '0.0.1-SNAPSHOT'
 
-apply plugin: 'kotlin'
+// application plugin
+mainClassName = 'rocks.huwi.walkingdinnerplanner.cli.MainKt'
 
 sourceCompatibility = 1.8
 
@@ -26,12 +36,9 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-
 repositories {
-    mavenCentral()
     jcenter()
 }
-
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -49,14 +56,12 @@ dependencies {
     compile project(':geneticplanner')
 }
 
+// Adds the Main Class Attribute to the non-shadows jar.
+// In the shadowed jar, the Main Class Attribute is set via the mainClassName variable
 jar {
     manifest {
-        attributes 'Implementation-Title': 'WalkingDinner GeneticPlanner',
+        attributes 'Implementation-Title': 'WalkingDinner CLI',
                 'Implementation-Version': version,
-                "Main-Class": "rocks.huwi.walkingdinnerplanner.cli.MainKt"
-    }
-
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+                'Main-Class': mainClassName
     }
 }
