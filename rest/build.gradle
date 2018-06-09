@@ -24,7 +24,7 @@ group 'rocks.huwi.walkingdinner'
 version '0.0.1-SNAPSHOT'
 
 // application plugin
-mainClassName = 'rocks.huwi.walkingdinnerplanner.rest.MainKt'
+mainClassName = 'rocks.huwi.walkingdinnerplanner.rest.RestServerKt'
 
 sourceCompatibility = 1.8
 
