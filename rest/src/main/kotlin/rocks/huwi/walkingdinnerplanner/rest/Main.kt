@@ -21,10 +21,15 @@ import java.io.IOException
 import java.nio.file.Files
 import spark.Spark.staticFiles
 import spark.Request
+import spark.Spark
 import java.io.File
 import java.nio.file.Path
 import javax.servlet.ServletException
 import javax.servlet.http.*
+import java.io.PrintWriter
+import java.io.StringWriter
+
+
 
 fun main(args: Array<String>) {
     Rest().main(args)
@@ -32,6 +37,12 @@ fun main(args: Array<String>) {
 
 class Rest {
     fun main(args: Array<String>) {
+        println("Starting REST...")
+
+        println("Assigning port...")
+        port(getHerokuAssignedPort());
+        println("Assigning port done")
+
         val uploadDir = File("upload")
         uploadDir.mkdir() // create the upload directory if it doesn't exist
 
@@ -39,6 +50,8 @@ class Rest {
 
         // TODO: return immediately and return the link to the upcoming planning result
         post("/plan") {
+            println("Got POST request on '/plan'")
+
             // get provided CSV file
             val tempFile = Files.createTempFile(uploadDir.toPath(), "", "")
 
@@ -66,6 +79,8 @@ class Rest {
         // TODO: add (optional) config stuff
         get("/plan")
         {
+            println("Got GET request on '/plan'")
+
             """
         <form method='post' enctype='multipart/form-data'>
             <input type='file' name='uploaded_file' accept='.csv'>
@@ -73,6 +88,32 @@ class Rest {
         </form>
         """
         }
+
+        Spark.exception(Exception::class.java, { e, request, response ->
+            val sw = StringWriter()
+            val pw = PrintWriter(sw, true)
+            e.printStackTrace(pw)
+            System.err.println(sw.buffer.toString())
+        })
+
+        internalServerError {
+            response.type("application/json")
+            "{\"message\":\"Custom 500 handling\"}"
+        }
+
+        println("listening...")
+    }
+
+    fun getHerokuAssignedPort(): Int {
+        val processBuilder = ProcessBuilder()
+        return if (processBuilder.environment()["PORT"] != null) {
+            println("Using port "+Integer.parseInt(processBuilder.environment()["PORT"]))
+            Integer.parseInt(processBuilder.environment()["PORT"])
+        } else {
+            println("Using port 4567")
+            4567
+        }
+        //return default port if heroku-port isn't set (i.e. on localhost)
     }
 
     // methods used for logging
