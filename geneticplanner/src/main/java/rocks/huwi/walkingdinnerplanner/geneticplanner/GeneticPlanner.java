@@ -34,6 +34,8 @@ public class GeneticPlanner {
         } else {
             this.evolutionResultConsumer = options.getEvolutionResultConsumer();
         }
+
+        System.out.println("Created WalkingPlanner with options: "+options);
     }
 
 //    private void initialize() {

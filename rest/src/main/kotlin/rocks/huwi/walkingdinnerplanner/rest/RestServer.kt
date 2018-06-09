@@ -32,10 +32,10 @@ import java.io.StringWriter
 
 
 fun main(args: Array<String>) {
-    Rest().main(args)
+    RestServer().main(args)
 }
 
-class Rest {
+class RestServer {
     fun main(args: Array<String>) {
         println("Starting REST...")
 
@@ -58,16 +58,21 @@ class Rest {
             request.attribute("org.eclipse.jetty.multipartConfig", MultipartConfigElement("/temp"))
 
             request.raw()
-                    .getPart("uploaded_file") // getPart needs to use same "name" as input field in form
+                    .getPart("surveyfile") // getPart needs to use same "name" as input field in form
                     .getInputStream()
                     .use({
                         Files.copy(it, tempFile, StandardCopyOption.REPLACE_EXISTING)
                     })
 
+            val raw = request.raw().parts
+            val populationsSize = request.raw().getPart("populationsSize").inputStream.reader().use { it.readText() }.toInt()
+            val fitnessThreshold = request.raw().getPart("fitnessThreshold").inputStream.reader().use { it.readText() }.toDouble()
+            val steadyFitness = request.raw().getPart("steadyFitness").inputStream.reader().use { it.readText() }.toInt()
+
             logInfo(request, tempFile)
 
             // start
-            startPlanner(tempFile)
+            startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
 
             // do things with result
             "done"
@@ -82,11 +87,31 @@ class Rest {
             println("Got GET request on '/plan'")
 
             """
-        <form method='post' enctype='multipart/form-data'>
-            <input type='file' name='uploaded_file' accept='.csv'>
-            <button>Upload CSV</button>
-        </form>
-        """
+                <form method='post' enctype='multipart/form-data'>
+
+                    <label for="surveyfile">Umfrage als CSV</label>
+                    <br>
+                    <input type='file' name='surveyfile' accept='.csv'>
+                    <br>
+
+                    <label for="populationsSize">Population Size</label>
+                    <br>
+                    <input type='number' name='populationsSize' value='200'>
+                    <br>
+
+                    <label for="fitnessThreshold">Fitness Threshold</label>
+                    <br>
+                    <input type='number' name='fitnessThreshold' value='0.001'>
+                    <br>
+
+                    <label for="steadyFitness">Steady Fitness</label>
+                    <br>
+                    <input type='number' name='steadyFitness' value='40000'>
+                    <br>
+
+                    <button>Start calculation</button>
+                </form>
+            """
         }
 
         Spark.exception(Exception::class.java, { e, request, response ->
@@ -119,7 +144,7 @@ class Rest {
     // methods used for logging
     @Throws(IOException::class, ServletException::class)
     private fun logInfo(req: Request, tempFile: Path) {
-        System.out.println("Uploaded file '" + getFileName(req.raw().getPart("uploaded_file")) + "' saved as '" + tempFile.toAbsolutePath() + "'")
+        System.out.println("Uploaded file '" + getFileName(req.raw().getPart("surveyfile")) + "' saved as '" + tempFile.toAbsolutePath() + "'")
     }
 
     private fun getFileName(part: Part): String? {
@@ -131,7 +156,7 @@ class Rest {
         return null
     }
 
-    fun startPlanner(fileName: Path) {
+    fun startPlanner(fileName: Path, populationsSize: Int, fitnessThreshold: Double, steadyFitness: Int) {
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
         val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
             evolutionStatistics.accept(it)
@@ -142,7 +167,10 @@ class Rest {
 
         val options = GeneticPlannerOptions(
                 evolutionResultConsumer = consumers,
-                database = database
+                database = database,
+                populationsSize = populationsSize,
+                fitnessThreshold = fitnessThreshold,
+                steadyFitness = steadyFitness
         )
 
         val result = GeneticPlanner(options).run()
