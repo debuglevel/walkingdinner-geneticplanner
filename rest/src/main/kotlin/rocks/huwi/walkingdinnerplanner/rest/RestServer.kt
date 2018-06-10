@@ -89,27 +89,33 @@ class RestServer {
             """
                 <form method='post' enctype='multipart/form-data'>
 
-                    <label for="surveyfile">Umfrage als CSV</label>
-                    <br>
-                    <input type='file' name='surveyfile' accept='.csv'>
-                    <br>
+                    <fieldset>
+                        <legend>Anmeldungen:</legend>
+                        <label for="surveyfile">Umfrage als CSV</label>
+                        <br>
+                        <input type='file' name='surveyfile' accept='.csv'>
+                        <br>
+                    </fieldset>
 
-                    <label for="populationsSize">Population Size</label>
-                    <br>
-                    <input type='number' name='populationsSize' value='200'>
-                    <br>
+                    <fieldset>
+                        <legend>Optionen für Genetischen Algorithmus:</legend>
+                        <label for="populationsSize">Population Size</label>
+                        <br>
+                        <input type='number' name='populationsSize' value='200'>
+                        <br>
 
-                    <label for="fitnessThreshold">Fitness Threshold</label>
-                    <br>
-                    <input type='number' name='fitnessThreshold' value='0.001'>
-                    <br>
+                        <label for="fitnessThreshold">Fitness Threshold</label>
+                        <br>
+                        <input type='number' name='fitnessThreshold' value='0.001'>
+                        <br>
 
-                    <label for="steadyFitness">Steady Fitness</label>
-                    <br>
-                    <input type='number' name='steadyFitness' value='40000'>
-                    <br>
+                        <label for="steadyFitness">Steady Fitness</label>
+                        <br>
+                        <input type='number' name='steadyFitness' value='40000'>
+                        <br>
+                    </fieldset>
 
-                    <button>Start calculation</button>
+                    <button>Berechnung starten</button>
                 </form>
             """
         }
