@@ -12,16 +12,23 @@ before_deploy:
   - git config --local user.name "Marc Kohaupt (Travis CI)"
   - git config --local user.email "debuglevel@gmail.com"
   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-  
+
 deploy:
-  provider: releases
-  api_key: "${GITHUB_TOKEN}"
-  file_glob: true
-  file:
-    - "**/build/libs/*-all.jar"
-  skip_cleanup: true
-  on:
-    tags: false
+  - provider: releases
+    api_key: "${GITHUB_TOKEN}"
+    file_glob: true
+    file:
+      - "**/build/libs/*-all.jar"
+    skip_cleanup: true
+    on:
+      tags: false
+      
+  - provider: heroku
+    api_key:
+      secure: 1uEVrUV/vgNfKnsCmoLthf2gcVyL4c7GdSCwnwmERmeUJeStF2Y01uirnJdf3v/6eR9O2Qtnt5jEjKSi8W1Ofdogkz1MH67i2q3wLVQ9SC+VGTGqvadeDbf14haMjwlx/hRHZl4NxUPQqBx4/9noKKb4z/dqJG51aiFRxe5C2x6BLrfyscBnMQ9foRGGzVZkCVgvjlVYYRJX7ZSU27999lTKaCUPX+9EsQeD1aosNKJyZ2OwWN+AU3vI7BH1oPwqYjerX4ksvJGjqKx5buDJwvts8/aSLd+sIcVXrG2qQ1fWKitHDRWNFWxZ2kG25lvnJdj0z0LIsH9QBtmaYDjEVa1JweYwjWRtjUBojktM5V16JdJ3d2CEAmYyDRUnIdnSRlAFrfRQ2AVbkK96jZkiKEY9Iwkmp/KCf4GqDFaMx1ldlEwaHTY6FD+nAckW9vAvmjT7v0r6y6OoVlWNvislNqUMxdvIb9hX312IocLfYpKszU5L7/u1VqFGdSAOSQoSdINEr9BsADgI5VwwDeHHykIH63rH1JPcHV2Oot/oRJgiCOjPZS1y1SQWlLh95WEsoWaLWYC+m2zM/1D2aoAQPQjN9OsiSlFHu10+6vZkzYLEAD+TC3BSIpI+YcjNKn7wejgx1xNdJst8RiuX/2w3D42wXCACqTatzljkPMycfTU=
+    app: walkingdinner
+    on:
+      repo: debuglevel/walkingdinner-geneticplanner
 
 notifications:
   email: false
