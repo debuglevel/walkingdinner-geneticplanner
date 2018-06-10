@@ -28,7 +28,8 @@ import javax.servlet.ServletException
 import javax.servlet.http.*
 import java.io.PrintWriter
 import java.io.StringWriter
-
+import java.util.concurrent.*
+import java.util.concurrent.atomic.AtomicInteger
 
 
 fun main(args: Array<String>) {
@@ -36,12 +37,19 @@ fun main(args: Array<String>) {
 }
 
 class RestServer {
+
+    val planMap = mutableMapOf<Int, Future<EvolutionResult<EnumGene<Team>, Double>?>>()
+    val nextPlanMapId = AtomicInteger()
+
     fun main(args: Array<String>) {
         println("Starting REST...")
 
         println("Assigning port...")
         port(getHerokuAssignedPort());
         println("Assigning port done")
+
+        println("Creating executor...")
+        val executor = Executors.newFixedThreadPool(10)
 
         val uploadDir = File("upload")
         uploadDir.mkdir() // create the upload directory if it doesn't exist
@@ -71,15 +79,39 @@ class RestServer {
 
             logInfo(request, tempFile)
 
-            // start
-            startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
+
+            val callableTask = Callable<EvolutionResult<EnumGene<Team>, Double>?> {
+                startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
+            }
+
+            val future = executor.submit(callableTask)
+            val id = nextPlanMapId.getAndIncrement()
+            planMap.put(id, future)
 
             // do things with result
-            "done"
+
+
+            "done, computing plan $id"
         }
 
         // TODO: /plan/$id which returns the calculated plan;
         // return some other http code to indicate that the plan is not ready now
+
+        get("/plan/:id")
+        {
+            val id = request.params(":id").toInt()
+            println("Got GET request on '/plan/$id'")
+
+            val future = planMap.get(id)
+
+            val resultGeneration = if (future?.isDone == true) {
+                val result = future?.get()?.generation
+            }else { "not ready yet" }
+
+//            val resultGeneration = result?.generation ?: "not yet"
+
+            "Result generated in generation $resultGeneration"
+        }
 
         // TODO: add (optional) config stuff
         get("/plan")
@@ -162,7 +194,7 @@ class RestServer {
         return null
     }
 
-    fun startPlanner(fileName: Path, populationsSize: Int, fitnessThreshold: Double, steadyFitness: Int) {
+    fun startPlanner(fileName: Path, populationsSize: Int, fitnessThreshold: Double, steadyFitness: Int): EvolutionResult<EnumGene<Team>, Double>? {
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
         val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
             evolutionStatistics.accept(it)
@@ -182,6 +214,8 @@ class RestServer {
         val result = GeneticPlanner(options).run()
 
         processResults(result, evolutionStatistics)
+
+        return result
     }
 
     private fun buildDatabase(fileName: Path): Database {
@@ -208,7 +242,7 @@ class RestServer {
         val meetings = courses.toMeetings()
 
         SummaryReporter().generateReports(meetings)
-        GmailDraftReporter().generateReports(meetings)
+//        GmailDraftReporter().generateReports(meetings)
     }
 
     private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
