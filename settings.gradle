@@ -1,4 +1,4 @@
-rootProject.name = 'walkingdinner-planner'
+rootProject.name = 'walkingdinner'
 
 include 'geneticplanner'
 include 'cli'

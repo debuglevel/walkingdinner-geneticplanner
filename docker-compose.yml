@@ -1,0 +1,7 @@
+version: '3'
+services:
+  rest:
+    build: .
+    image: walkingdinner-microservice
+    ports:
+    - "80:80"

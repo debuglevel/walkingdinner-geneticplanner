@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.2.71'
 
     repositories {
         jcenter()
@@ -11,23 +11,16 @@ buildscript {
 
 plugins {
     id 'java'
-    id "org.jetbrains.kotlin.jvm" version "1.2.41"
+    id 'org.jetbrains.kotlin.jvm' version "1.2.71"
 
-    // creates scripts (.sh and .bat) to run the jar
-    id "application"
+    // create start scripts
+    // is executed on "build" task but not on e.g. "jar" task
+    id 'application'
 
-    // task "shadowJar" is automatically triggered when plugin "application" is present
+    // bundle all dependencies into one fat shadowed jar
+    // (gets automatically triggered when application plugin is present)
     id 'com.github.johnrengelman.shadow' version '2.0.4'
-
 }
-
-group 'rocks.huwi.walkingdinner'
-version '0.0.1-SNAPSHOT'
-
-// application plugin
-mainClassName = 'rocks.huwi.walkingdinnerplanner.cli.MainKt'
-
-sourceCompatibility = 1.8
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
@@ -36,13 +29,54 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+group 'de.debuglevel.walkingdinner'
+version '0.0.1-SNAPSHOT'
+
+// application plugin configuration
+applicationName = "Walking-Dinner CLI"
+mainClassName = 'de.debuglevel.walkingdinner.cli.MainKt'
+
+sourceCompatibility = 1.8
+
 repositories {
     jcenter()
+    maven {
+        url "https://dl.bintray.com/debuglevel/maven"
+    }
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // Testing
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
+    testCompile 'org.assertj:assertj-core:3.10.0'
+
+    // Logging
+    // see http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
+    compile 'io.github.microutils:kotlin-logging:1.4.9'
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'org.slf4j:slf4j-simple:1.7.5'
+
+    // Spark (REST server)
+    //compile 'com.sparkjava:spark-kotlin:1.0.0-alpha'
+    //compile 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.20'
+
+    // JSON
+    compile 'com.google.code.gson:gson:2.8.4'
+
+    // khttp (HTTP client)
+    //compile 'com.github.jkcclemens:khttp:-SNAPSHOT'
+
+    // Template Engine
+    //compile 'com.sparkjava:spark-template-mustache:2.7.1'
+
 
     // Genetic Algorithm
     compile 'io.jenetics:jenetics:4.1.0'
@@ -53,15 +87,28 @@ dependencies {
     // Clikt
     compile 'com.github.ajalt:clikt:1.2.0'
 
+    // project dependencies
     compile project(':geneticplanner')
 }
 
-// Adds the Main Class Attribute to the non-shadows jar.
-// In the shadowed jar, the Main Class Attribute is set via the mainClassName variable
+
+// jar configuration is still needed (despite of application plugin) to add Manifest to traditional jar
 jar {
     manifest {
-        attributes 'Implementation-Title': 'WalkingDinner CLI',
+        attributes 'Implementation-Title': applicationName,
                 'Implementation-Version': version,
                 'Main-Class': mainClassName
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    reports {
+        html.enabled = true
     }
 }
