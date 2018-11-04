@@ -44,8 +44,8 @@ fun main(args: Array<String>) {
 class RestServer {
     private val logger = KotlinLogging.logger {}
 
-    val planMap = mutableMapOf<Int, Future<EvolutionResult<EnumGene<Team>, Double>?>>()
-    val nextPlanMapId = AtomicInteger()
+    private val planMap = mutableMapOf<Int, Future<EvolutionResult<EnumGene<Team>, Double>?>>()
+    private val nextPlanMapId = AtomicInteger()
 
     fun main(args: Array<String>) {
         logger.debug("Starting REST...")
@@ -74,11 +74,11 @@ class RestServer {
             request.raw()
                     .getPart("surveyfile") // getPart needs to use same "name" as input field in form
                     .inputStream
-                    .use({
+                    .use {
                         Files.copy(it, tempFile, StandardCopyOption.REPLACE_EXISTING)
-                    })
+                    }
 
-            val raw = request.raw().parts
+            //val raw = request.raw().parts
             val populationsSize = request.raw().getPart("populationsSize").inputStream.reader().use { it.readText() }.toInt()
             val fitnessThreshold = request.raw().getPart("fitnessThreshold").inputStream.reader().use { it.readText() }.toDouble()
             val steadyFitness = request.raw().getPart("steadyFitness").inputStream.reader().use { it.readText() }.toInt()
@@ -86,7 +86,7 @@ class RestServer {
             logInfo(request, tempFile)
 
 
-            val callableTask = Callable<EvolutionResult<EnumGene<Team>, Double>?> {
+            val callableTask = Callable {
                 val startPlanner = try {
                     startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
                 } catch (e: Exception) {
@@ -99,7 +99,7 @@ class RestServer {
 
             val future = executor.submit(callableTask)
             val id = nextPlanMapId.getAndIncrement()
-            planMap.put(id, future)
+            planMap[id] = future
 
             // do things with result
 
@@ -115,10 +115,10 @@ class RestServer {
             val id = request.params(":id").toInt()
             logger.debug("Got GET request on '/plan/$id'")
 
-            val future = planMap.get(id)
+            val future = planMap[id]
 
             val resultGeneration = if (future?.isDone == true) {
-                val result = future.get()?.generation
+                future.get()?.generation
             } else {
                 "not ready yet"
             }
@@ -133,7 +133,7 @@ class RestServer {
         {
             logger.debug("Got GET request on '/plan'")
 
-            """
+            val html = """
                 <form method='post' enctype='multipart/form-data'>
 
                     <fieldset>
@@ -165,14 +165,16 @@ class RestServer {
                     <button>Berechnung starten</button>
                 </form>
             """
+
+            html
         }
 
-        Spark.exception(Exception::class.java, { e, request, response ->
+        Spark.exception(Exception::class.java) { e, _, _ ->
             val sw = StringWriter()
             val pw = PrintWriter(sw, true)
             e.printStackTrace(pw)
             System.err.println(sw.buffer.toString())
-        })
+        }
 
         internalServerError {
             response.type("application/json")
@@ -182,7 +184,7 @@ class RestServer {
         logger.debug("listening...")
     }
 
-    fun getHerokuAssignedPort(): Int {
+    private fun getHerokuAssignedPort(): Int {
         val processBuilder = ProcessBuilder()
         return if (processBuilder.environment()["PORT"] != null) {
             logger.debug("Using port " + Integer.parseInt(processBuilder.environment()["PORT"]))
@@ -202,14 +204,14 @@ class RestServer {
 
     private fun getFileName(part: Part): String? {
         for (cd in part.getHeader("content-disposition").split(";")) {
-            if (cd.trim({ it <= ' ' }).startsWith("filename")) {
-                return cd.substring(cd.indexOf('=') + 1).trim({ it <= ' ' }).replace("\"", "")
+            if (cd.trim { it <= ' ' }.startsWith("filename")) {
+                return cd.substring(cd.indexOf('=') + 1).trim { it <= ' ' }.replace("\"", "")
             }
         }
         return null
     }
 
-    fun startPlanner(fileName: Path, populationsSize: Int, fitnessThreshold: Double, steadyFitness: Int): EvolutionResult<EnumGene<Team>, Double>? {
+    private fun startPlanner(fileName: Path, populationsSize: Int, fitnessThreshold: Double, steadyFitness: Int): EvolutionResult<EnumGene<Team>, Double>? {
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
         val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
             evolutionStatistics.accept(it)
