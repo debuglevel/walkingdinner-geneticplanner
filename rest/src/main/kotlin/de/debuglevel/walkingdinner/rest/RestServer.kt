@@ -11,6 +11,7 @@ import de.debuglevel.walkingdinner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.importer.Database
 import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
+import mu.KotlinLogging
 import spark.kotlin.*
 import java.nio.file.Paths
 import java.util.function.Consumer
@@ -36,18 +37,19 @@ fun main(args: Array<String>) {
 }
 
 class RestServer {
+    private val logger = KotlinLogging.logger {}
 
     val planMap = mutableMapOf<Int, Future<EvolutionResult<EnumGene<Team>, Double>?>>()
     val nextPlanMapId = AtomicInteger()
 
     fun main(args: Array<String>) {
-        println("Starting REST...")
+        logger.debug("Starting REST...")
 
-        println("Assigning port...")
+        logger.debug("Assigning port...")
         port(getHerokuAssignedPort());
-        println("Assigning port done")
+        logger.debug("Assigning port done")
 
-        println("Creating executor...")
+        logger.debug("Creating executor...")
         val executor = Executors.newFixedThreadPool(10)
 
         val uploadDir = File("upload")
@@ -57,7 +59,7 @@ class RestServer {
 
         // TODO: return immediately and return the link to the upcoming planning result
         post("/plan") {
-            println("Got POST request on '/plan'")
+            logger.debug("Got POST request on '/plan'")
 
             // get provided CSV file
             val tempFile = Files.createTempFile(uploadDir.toPath(), "", "")
@@ -80,7 +82,16 @@ class RestServer {
 
 
             val callableTask = Callable<EvolutionResult<EnumGene<Team>, Double>?> {
-                startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
+                val startPlanner = try {
+                    startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
+                }
+                catch (e: Exception)
+                {
+                    logger.error("Callable died: $e")
+                    throw e
+                }
+
+                startPlanner
             }
 
             val future = executor.submit(callableTask)
@@ -99,7 +110,7 @@ class RestServer {
         get("/plan/:id")
         {
             val id = request.params(":id").toInt()
-            println("Got GET request on '/plan/$id'")
+            logger.debug("Got GET request on '/plan/$id'")
 
             val future = planMap.get(id)
 
@@ -115,7 +126,7 @@ class RestServer {
         // TODO: add (optional) config stuff
         get("/plan")
         {
-            println("Got GET request on '/plan'")
+            logger.debug("Got GET request on '/plan'")
 
             """
                 <form method='post' enctype='multipart/form-data'>
@@ -163,16 +174,16 @@ class RestServer {
             "{\"message\":\"Custom 500 handling\"}"
         }
 
-        println("listening...")
+        logger.debug("listening...")
     }
 
     fun getHerokuAssignedPort(): Int {
         val processBuilder = ProcessBuilder()
         return if (processBuilder.environment()["PORT"] != null) {
-            println("Using port "+Integer.parseInt(processBuilder.environment()["PORT"]))
+            logger.debug("Using port "+Integer.parseInt(processBuilder.environment()["PORT"]))
             Integer.parseInt(processBuilder.environment()["PORT"])
         } else {
-            println("Using port 4567")
+            logger.debug("Using port 4567")
             4567
         }
         //return default port if heroku-port isn't set (i.e. on localhost)
@@ -181,7 +192,7 @@ class RestServer {
     // methods used for logging
     @Throws(IOException::class, ServletException::class)
     private fun logInfo(req: Request, tempFile: Path) {
-        System.out.println("Uploaded file '" + getFileName(req.raw().getPart("surveyfile")) + "' saved as '" + tempFile.toAbsolutePath() + "'")
+        logger.debug("Uploaded file '" + getFileName(req.raw().getPart("surveyfile")) + "' saved as '" + tempFile.toAbsolutePath() + "'")
     }
 
     private fun getFileName(part: Part): String? {

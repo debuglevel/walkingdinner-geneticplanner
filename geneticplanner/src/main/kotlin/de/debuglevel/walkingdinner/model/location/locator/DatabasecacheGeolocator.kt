@@ -4,12 +4,14 @@ import io.jsondb.JsonDBTemplate
 import de.debuglevel.walkingdinner.model.location.GeoUtils
 import de.debuglevel.walkingdinner.model.location.Location
 import de.debuglevel.walkingdinner.model.team.Team
+import mu.KotlinLogging
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.DecimalFormat
 
 
 class DatabasecacheGeolocator(private val city: String) : Geolocator {
+    private val logger = KotlinLogging.logger {}
 
     private val fallbackGeolocator: Geolocator
 
@@ -18,14 +20,19 @@ class DatabasecacheGeolocator(private val city: String) : Geolocator {
     private val cityLocation: Location
 
     init {
-        this.fallbackGeolocator = GoogleApiGeolocator(this.city)
+        logger.debug { "Initializing DatabasecacheGeolocator..." }
+
+        //this.fallbackGeolocator = GoogleApiGeolocator(this.city)
+        this.fallbackGeolocator = NominatimApiGeolocator(this.city)
 
         initializeJsondb()
 
-        cityLocation = getLocation(this.city)
+        cityLocation = getLocation("")
     }
 
     private fun initializeJsondb() {
+        logger.debug { "Initializing JsonDB..." }
+
         val databasePath = Paths.get("database")
         if (!Files.exists(databasePath)) {
             Files.createDirectory(databasePath)
@@ -44,32 +51,34 @@ class DatabasecacheGeolocator(private val city: String) : Geolocator {
     }
 
     override fun getLocation(address: String): Location {
+        logger.debug { "Getting location for '$address' ..." }
+
         var location = locations.firstOrNull { it.address == address }
 
         if (location == null) {
-            println("Location $address not found in caching database. Using fallback Geolocator...")
+            logger.debug("Location $address not found in caching database. Using fallback Geolocator...")
             location = this.fallbackGeolocator.getLocation(address)
 
             addLocation(location)
         } else {
-            println("Location $address found in caching database.")
+            logger.debug("Location $address found in caching database.")
         }
 
         return location
     }
 
     private fun addLocation(location: Location) {
-        println("Adding Location $location to caching database.")
+        logger.debug("Adding Location $location to caching database.")
         jsonDBTemplate.insert<Location>(location)
         locations.add(location)
     }
 
     override fun initializeTeamLocation(team: Team) {
-        println("Geo-locating $team by caching database...")
+        logger.debug("Geo-locating $team by caching database...")
         val location = getLocation(team.address)
         team.location = location
 
         val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, location)
-        println("Geo-located $team ${DecimalFormat("#.##").format(distanceToCity)}km from center by caching database")
+        logger.debug("Geo-located $team ${DecimalFormat("#.##").format(distanceToCity)}km from center by caching database")
     }
 }
