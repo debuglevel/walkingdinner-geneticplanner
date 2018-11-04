@@ -34,7 +34,7 @@ version '0.0.1-SNAPSHOT'
 
 // application plugin configuration
 applicationName = "Walking-Dinner REST Microservice"
-mainClassName = 'de.debuglevel.walkingdinner.rest.RestServerKt'
+mainClassName = 'de.debuglevel.walkingdinner.MainKt'
 
 sourceCompatibility = 1.8
 

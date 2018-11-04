@@ -12,17 +12,8 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import io.jenetics.stat.DoubleMomentStatistics
 import mu.KotlinLogging
-import spark.Request
-import spark.Spark
-import spark.Spark.staticFiles
-import spark.kotlin.get
-import spark.kotlin.internalServerError
-import spark.kotlin.port
-import spark.kotlin.post
+import spark.kotlin.RouteHandler
 import java.io.File
-import java.io.IOException
-import java.io.PrintWriter
-import java.io.StringWriter
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -33,38 +24,28 @@ import java.util.concurrent.Future
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
 import javax.servlet.MultipartConfigElement
-import javax.servlet.ServletException
 import javax.servlet.http.Part
 
-
-fun main(args: Array<String>) {
-    RestServer().main(args)
-}
-
-class RestServer {
+object PlanController {
     private val logger = KotlinLogging.logger {}
 
     private val planMap = mutableMapOf<Int, Future<EvolutionResult<EnumGene<Team>, Double>?>>()
     private val nextPlanMapId = AtomicInteger()
 
-    fun main(args: Array<String>) {
-        logger.debug("Starting REST...")
+    fun postOne(): RouteHandler.() -> Any {
+        return {
+            if (!request.contentType().startsWith("multipart/form-data")) {
+                throw Exception("Content-Type ${request.contentType()} not supported.")
+            }
 
-        logger.debug("Assigning port...")
-        port(getHerokuAssignedPort())
-        logger.debug("Assigning port done")
-
-        logger.debug("Creating executor...")
-        val executor = Executors.newFixedThreadPool(10)
-
-        val uploadDir = File("upload")
-        uploadDir.mkdir() // create the upload directory if it doesn't exist
-
-        staticFiles.externalLocation("upload")
-
-        // TODO: return immediately and return the link to the upcoming planning result
-        post("/plan") {
             logger.debug("Got POST request on '/plan'")
+
+            // TODO: executor should probably not be defined in a local per-request scope.
+            logger.debug("Creating executor...")
+            val executor = Executors.newFixedThreadPool(10)
+
+            val uploadDir = File("upload")
+            uploadDir.mkdir() // create the upload directory if it doesn't exist
 
             // get provided CSV file
             val tempFile = Files.createTempFile(uploadDir.toPath(), "", "")
@@ -83,10 +64,9 @@ class RestServer {
             val fitnessThreshold = request.raw().getPart("fitnessThreshold").inputStream.reader().use { it.readText() }.toDouble()
             val steadyFitness = request.raw().getPart("steadyFitness").inputStream.reader().use { it.readText() }.toInt()
 
-            logInfo(request, tempFile)
+            logger.debug("Uploaded file '" + getOriginalFilename(request.raw().getPart("surveyfile")) + "' saved as '" + tempFile.toAbsolutePath() + "'")
 
-
-            val callableTask = Callable {
+            val callableTask = Callable<EvolutionResult<EnumGene<Team>, Double>?> {
                 val startPlanner = try {
                     startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
                 } catch (e: Exception) {
@@ -106,108 +86,15 @@ class RestServer {
 
             "done, computing plan $id"
         }
-
-        // TODO: /plan/$id which returns the calculated plan;
-        // return some other http code to indicate that the plan is not ready now
-
-        get("/plan/:id")
-        {
-            val id = request.params(":id").toInt()
-            logger.debug("Got GET request on '/plan/$id'")
-
-            val future = planMap[id]
-
-            val resultGeneration = if (future?.isDone == true) {
-                future.get()?.generation
-            } else {
-                "not ready yet"
-            }
-
-//            val resultGeneration = result?.generation ?: "not yet"
-
-            "Result generated in generation $resultGeneration"
-        }
-
-        // TODO: add (optional) config stuff
-        get("/plan")
-        {
-            logger.debug("Got GET request on '/plan'")
-
-            val html = """
-                <form method='post' enctype='multipart/form-data'>
-
-                    <fieldset>
-                        <legend>Anmeldungen:</legend>
-                        <label for="surveyfile">Umfrage als CSV</label>
-                        <br>
-                        <input type='file' name='surveyfile' accept='.csv'>
-                        <br>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Optionen für Genetischen Algorithmus:</legend>
-                        <label for="populationsSize">Population Size</label>
-                        <br>
-                        <input type='number' name='populationsSize' value='200'>
-                        <br>
-
-                        <label for="fitnessThreshold">Fitness Threshold</label>
-                        <br>
-                        <input type='number' name='fitnessThreshold' value='0.001'>
-                        <br>
-
-                        <label for="steadyFitness">Steady Fitness</label>
-                        <br>
-                        <input type='number' name='steadyFitness' value='40000'>
-                        <br>
-                    </fieldset>
-
-                    <button>Berechnung starten</button>
-                </form>
-            """
-
-            html
-        }
-
-        Spark.exception(Exception::class.java) { e, _, _ ->
-            val sw = StringWriter()
-            val pw = PrintWriter(sw, true)
-            e.printStackTrace(pw)
-            System.err.println(sw.buffer.toString())
-        }
-
-        internalServerError {
-            response.type("application/json")
-            "{\"message\":\"Custom 500 handling\"}"
-        }
-
-        logger.debug("listening...")
     }
 
-    private fun getHerokuAssignedPort(): Int {
-        val processBuilder = ProcessBuilder()
-        return if (processBuilder.environment()["PORT"] != null) {
-            logger.debug("Using port " + Integer.parseInt(processBuilder.environment()["PORT"]))
-            Integer.parseInt(processBuilder.environment()["PORT"])
-        } else {
-            logger.debug("Using port 4567")
-            4567
-        }
-        //return default port if heroku-port isn't set (i.e. on localhost)
-    }
-
-    // methods used for logging
-    @Throws(IOException::class, ServletException::class)
-    private fun logInfo(req: Request, tempFile: Path) {
-        logger.debug("Uploaded file '" + getFileName(req.raw().getPart("surveyfile")) + "' saved as '" + tempFile.toAbsolutePath() + "'")
-    }
-
-    private fun getFileName(part: Part): String? {
+    private fun getOriginalFilename(part: Part): String? {
         for (cd in part.getHeader("content-disposition").split(";")) {
             if (cd.trim { it <= ' ' }.startsWith("filename")) {
                 return cd.substring(cd.indexOf('=') + 1).trim { it <= ' ' }.replace("\"", "")
             }
         }
+
         return null
     }
 
@@ -266,6 +153,64 @@ class RestServer {
         TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
         if (e.generation % 500 == 0L) {
             println("${Math.round(1 / (e.durations.evolveDuration.toNanos() / 1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
+        }
+    }
+
+    fun getOne(): RouteHandler.() -> String {
+        return {
+            val id = request.params(":id").toInt()
+            logger.debug("Got GET request on '/plan/$id'")
+
+            val future = planMap[id]
+
+            val resultGeneration = if (future?.isDone == true) {
+                future.get()?.generation
+            } else {
+                "not ready yet"
+            }
+
+            "Result generated in generation: $resultGeneration"
+        }
+    }
+
+    fun getFormHtml(): RouteHandler.() -> String {
+        return {
+            logger.debug("Got GET request on '/plan'")
+
+            val html = """
+                <form method='post' enctype='multipart/form-data'>
+
+                    <fieldset>
+                        <legend>Anmeldungen:</legend>
+                        <label for="surveyfile">Umfrage als CSV</label>
+                        <br>
+                        <input type='file' name='surveyfile' accept='.csv'>
+                        <br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Optionen für Genetischen Algorithmus:</legend>
+                        <label for="populationsSize">Population Size</label>
+                        <br>
+                        <input type='number' name='populationsSize' value='200'>
+                        <br>
+
+                        <label for="fitnessThreshold">Fitness Threshold</label>
+                        <br>
+                        <input type='number' name='fitnessThreshold' value='0.001'>
+                        <br>
+
+                        <label for="steadyFitness">Steady Fitness</label>
+                        <br>
+                        <input type='number' name='steadyFitness' value='40000'>
+                        <br>
+                    </fieldset>
+
+                    <button>Berechnung starten</button>
+                </form>
+            """
+
+            html
         }
     }
 }
