@@ -30,7 +30,7 @@ class RestEndpoint {
 
         apiVersion("1", true)
         {
-            path("/plan") {
+            path("/plans") {
                 get("/", "text/html", PlanController.getFormHtml())
                 get("/:id", function = PlanController.getOne())
                 post("/", function = PlanController.postOne())
