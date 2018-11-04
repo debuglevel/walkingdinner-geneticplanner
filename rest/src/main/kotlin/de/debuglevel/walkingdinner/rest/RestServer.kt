@@ -1,9 +1,5 @@
 package de.debuglevel.walkingdinner.rest
 
-import io.jenetics.EnumGene
-import io.jenetics.engine.EvolutionResult
-import io.jenetics.engine.EvolutionStatistics
-import io.jenetics.stat.DoubleMomentStatistics
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
 import de.debuglevel.walkingdinner.geneticplanner.CoursesProblem
 import de.debuglevel.walkingdinner.geneticplanner.GeneticPlanner
@@ -11,25 +7,34 @@ import de.debuglevel.walkingdinner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.importer.Database
 import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
+import io.jenetics.EnumGene
+import io.jenetics.engine.EvolutionResult
+import io.jenetics.engine.EvolutionStatistics
+import io.jenetics.stat.DoubleMomentStatistics
 import mu.KotlinLogging
-import spark.kotlin.*
-import java.nio.file.Paths
-import java.util.function.Consumer
-import java.nio.file.StandardCopyOption
-import javax.servlet.MultipartConfigElement
-import java.io.IOException
-import java.nio.file.Files
-import spark.Spark.staticFiles
 import spark.Request
 import spark.Spark
+import spark.Spark.staticFiles
+import spark.kotlin.get
+import spark.kotlin.internalServerError
+import spark.kotlin.port
+import spark.kotlin.post
 import java.io.File
-import java.nio.file.Path
-import javax.servlet.ServletException
-import javax.servlet.http.*
+import java.io.IOException
 import java.io.PrintWriter
 import java.io.StringWriter
-import java.util.concurrent.*
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.function.Consumer
+import javax.servlet.MultipartConfigElement
+import javax.servlet.ServletException
+import javax.servlet.http.Part
 
 
 fun main(args: Array<String>) {
@@ -46,7 +51,7 @@ class RestServer {
         logger.debug("Starting REST...")
 
         logger.debug("Assigning port...")
-        port(getHerokuAssignedPort());
+        port(getHerokuAssignedPort())
         logger.debug("Assigning port done")
 
         logger.debug("Creating executor...")
@@ -68,7 +73,7 @@ class RestServer {
 
             request.raw()
                     .getPart("surveyfile") // getPart needs to use same "name" as input field in form
-                    .getInputStream()
+                    .inputStream
                     .use({
                         Files.copy(it, tempFile, StandardCopyOption.REPLACE_EXISTING)
                     })
@@ -84,9 +89,7 @@ class RestServer {
             val callableTask = Callable<EvolutionResult<EnumGene<Team>, Double>?> {
                 val startPlanner = try {
                     startPlanner(tempFile, populationsSize, fitnessThreshold, steadyFitness)
-                }
-                catch (e: Exception)
-                {
+                } catch (e: Exception) {
                     logger.error("Callable died: $e")
                     throw e
                 }
@@ -115,8 +118,10 @@ class RestServer {
             val future = planMap.get(id)
 
             val resultGeneration = if (future?.isDone == true) {
-                val result = future?.get()?.generation
-            }else { "not ready yet" }
+                val result = future.get()?.generation
+            } else {
+                "not ready yet"
+            }
 
 //            val resultGeneration = result?.generation ?: "not yet"
 
@@ -180,7 +185,7 @@ class RestServer {
     fun getHerokuAssignedPort(): Int {
         val processBuilder = ProcessBuilder()
         return if (processBuilder.environment()["PORT"] != null) {
-            logger.debug("Using port "+Integer.parseInt(processBuilder.environment()["PORT"]))
+            logger.debug("Using port " + Integer.parseInt(processBuilder.environment()["PORT"]))
             Integer.parseInt(processBuilder.environment()["PORT"])
         } else {
             logger.debug("Using port 4567")

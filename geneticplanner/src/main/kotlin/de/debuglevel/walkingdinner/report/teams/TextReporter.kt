@@ -1,11 +1,11 @@
 package de.debuglevel.walkingdinner.report.teams
 
-import org.jtwig.JtwigModel
-import org.jtwig.JtwigTemplate
 import de.debuglevel.walkingdinner.model.Courses
 import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.report.Reporter
+import org.jtwig.JtwigModel
+import org.jtwig.JtwigTemplate
 
 open class TextReporter : Reporter {
     private val model: JtwigModel = JtwigModel.newModel()

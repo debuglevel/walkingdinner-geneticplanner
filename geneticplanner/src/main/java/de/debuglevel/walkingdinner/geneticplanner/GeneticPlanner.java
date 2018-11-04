@@ -1,5 +1,7 @@
 package de.debuglevel.walkingdinner.geneticplanner;
 
+import de.debuglevel.walkingdinner.importer.Database;
+import de.debuglevel.walkingdinner.model.team.Team;
 import io.jenetics.EnumGene;
 import io.jenetics.Optimize;
 import io.jenetics.PartiallyMatchedCrossover;
@@ -8,14 +10,12 @@ import io.jenetics.engine.Engine;
 import io.jenetics.engine.EvolutionResult;
 import io.jenetics.engine.Limits;
 import io.jenetics.util.ISeq;
-import de.debuglevel.walkingdinner.importer.Database;
-import de.debuglevel.walkingdinner.model.team.Team;
 
 import java.util.function.Consumer;
 
 public class GeneticPlanner {
     final private Consumer<EvolutionResult<EnumGene<Team>, Double>> evolutionResultConsumer;
-//    final private URL csvUrl;
+    //    final private URL csvUrl;
     private Database database;
 
     private int populationsSize;
@@ -35,7 +35,7 @@ public class GeneticPlanner {
             this.evolutionResultConsumer = options.getEvolutionResultConsumer();
         }
 
-        System.out.println("Created WalkingPlanner with options: "+options);
+        System.out.println("Created WalkingPlanner with options: " + options);
     }
 
 //    private void initialize() {

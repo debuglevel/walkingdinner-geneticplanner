@@ -1,9 +1,9 @@
 package de.debuglevel.walkingdinner.model.location.locator
 
-import io.jsondb.JsonDBTemplate
 import de.debuglevel.walkingdinner.model.location.GeoUtils
 import de.debuglevel.walkingdinner.model.location.Location
 import de.debuglevel.walkingdinner.model.team.Team
+import io.jsondb.JsonDBTemplate
 import mu.KotlinLogging
 import java.nio.file.Files
 import java.nio.file.Paths

@@ -1,7 +1,7 @@
 package de.debuglevel.walkingdinner.model
 
-import io.jenetics.util.ISeq
 import de.debuglevel.walkingdinner.model.team.Team
+import io.jenetics.util.ISeq
 import java.util.stream.Collectors
 
 data class Courses(val course1teams: ISeq<Team>,

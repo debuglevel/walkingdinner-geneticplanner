@@ -1,16 +1,16 @@
 package de.debuglevel.walkingdinner.geneticplanner;
 
+import de.debuglevel.walkingdinner.model.Courses;
+import de.debuglevel.walkingdinner.model.Meeting;
+import de.debuglevel.walkingdinner.model.dietcompatibility.CourseCompatibility;
+import de.debuglevel.walkingdinner.model.location.Location;
+import de.debuglevel.walkingdinner.model.team.Team;
 import io.jenetics.EnumGene;
 import io.jenetics.Genotype;
 import io.jenetics.PermutationChromosome;
 import io.jenetics.engine.Codec;
 import io.jenetics.engine.Problem;
 import io.jenetics.util.ISeq;
-import de.debuglevel.walkingdinner.model.Courses;
-import de.debuglevel.walkingdinner.model.Meeting;
-import de.debuglevel.walkingdinner.model.dietcompatibility.CourseCompatibility;
-import de.debuglevel.walkingdinner.model.location.Location;
-import de.debuglevel.walkingdinner.model.team.Team;
 
 import java.util.*;
 import java.util.function.Function;

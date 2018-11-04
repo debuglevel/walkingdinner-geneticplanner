@@ -77,7 +77,6 @@ dependencies {
     // Template Engine
     //compile 'com.sparkjava:spark-template-mustache:2.7.1'
 
-
     // project dependencies
     compile project(':geneticplanner')
 }

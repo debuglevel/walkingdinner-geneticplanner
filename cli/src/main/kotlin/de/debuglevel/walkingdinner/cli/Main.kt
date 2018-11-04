@@ -2,11 +2,6 @@ package de.debuglevel.walkingdinner.cli
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
-import io.jenetics.EnumGene
-import io.jenetics.engine.EvolutionResult
-import io.jenetics.engine.EvolutionStatistics
-import io.jenetics.stat.DoubleMomentStatistics
-import org.apache.commons.validator.routines.UrlValidator
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
 import de.debuglevel.walkingdinner.geneticplanner.CoursesProblem
 import de.debuglevel.walkingdinner.geneticplanner.GeneticPlanner
@@ -16,7 +11,12 @@ import de.debuglevel.walkingdinner.model.BuildVersion
 import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.report.teams.gmail.GmailDraftReporter
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
+import io.jenetics.EnumGene
+import io.jenetics.engine.EvolutionResult
+import io.jenetics.engine.EvolutionStatistics
+import io.jenetics.stat.DoubleMomentStatistics
 import mu.KotlinLogging
+import org.apache.commons.validator.routines.UrlValidator
 import java.net.URL
 import java.nio.file.Paths
 import java.util.function.Consumer
