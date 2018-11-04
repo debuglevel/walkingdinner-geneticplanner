@@ -3,11 +3,14 @@ package de.debuglevel.walkingdinner.report.teams.file
 import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.report.teams.TextReport
 import de.debuglevel.walkingdinner.report.teams.TextReporter
+import mu.KotlinLogging
 import java.io.PrintWriter
 import java.nio.file.Files
 import java.nio.file.Path
 
 class TextfileReporter(private val directory: Path) : TextReporter() {
+    private val logger = KotlinLogging.logger {}
+
     init {
         if (!Files.exists(directory)) {
             Files.createDirectory(directory)
@@ -15,7 +18,7 @@ class TextfileReporter(private val directory: Path) : TextReporter() {
     }
 
     private fun writeReport(path: Path, text: String) {
-        println("Writing report to $path")
+        logger.debug("Writing report to $path")
         PrintWriter(path.toFile()).use { it.print(text) }
     }
 

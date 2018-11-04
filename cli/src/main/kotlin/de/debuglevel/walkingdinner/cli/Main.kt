@@ -16,11 +16,14 @@ import de.debuglevel.walkingdinner.model.BuildVersion
 import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.report.teams.gmail.GmailDraftReporter
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
+import mu.KotlinLogging
 import java.net.URL
 import java.nio.file.Paths
 import java.util.function.Consumer
 
 class Cli : CliktCommand() {
+    private val logger = KotlinLogging.logger {}
+
     private val csvFilename by option(help = "URL or file name of CSV file")
 
     override fun run() {
@@ -78,7 +81,7 @@ class Cli : CliktCommand() {
     private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
         TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
         if (e.generation % 500 == 0L) {
-            println("${Math.round(1 / (e.durations.evolveDuration.toNanos() / 1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
+            logger.trace("${Math.round(1 / (e.durations.evolveDuration.toNanos() / 1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
         }
     }
 }

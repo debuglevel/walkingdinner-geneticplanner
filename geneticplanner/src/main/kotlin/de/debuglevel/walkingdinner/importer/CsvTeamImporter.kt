@@ -2,14 +2,17 @@ package de.debuglevel.walkingdinner.importer
 
 import com.opencsv.bean.CsvToBeanBuilder
 import de.debuglevel.walkingdinner.model.team.Team
+import mu.KotlinLogging
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.URL
 
 class CsvTeamImporter(private val csvFile: URL) : TeamImporter {
+    private val logger = KotlinLogging.logger {}
+
     override fun import(): List<Team> {
-        println("Importing teams from CSV file '$csvFile'...")
+        logger.debug("Importing teams from CSV file '$csvFile'...")
 
         var bufferedReader: BufferedReader? = null
 
@@ -23,16 +26,16 @@ class CsvTeamImporter(private val csvFile: URL) : TeamImporter {
             val teamDTOs = csvToBean.parse()
 
             val teams = teamDTOs.map { it.toTeam() }
-            println("Imported ${teams.size} teams")
+            logger.debug("Imported ${teams.size} teams")
             return teams
         } catch (e: Exception) {
-            println("Error occurred while reading CSV: ${e.message}")
+            logger.error("Error occurred while reading CSV", e)
             e.printStackTrace()
         } finally {
             try {
                 bufferedReader!!.close()
             } catch (e: IOException) {
-                println("Error occurred while closing bufferedReader/csvParser: $e")
+                logger.error("Error occurred while closing bufferedReader/csvParser", e)
                 e.printStackTrace()
             }
         }

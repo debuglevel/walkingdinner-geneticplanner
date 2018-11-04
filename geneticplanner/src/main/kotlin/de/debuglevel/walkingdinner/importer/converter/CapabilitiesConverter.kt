@@ -3,8 +3,11 @@ package de.debuglevel.walkingdinner.importer.converter
 import com.opencsv.bean.AbstractBeanField
 import com.opencsv.exceptions.CsvDataTypeMismatchException
 import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
+import mu.KotlinLogging
 
 class CapabilitiesConverter<T> : AbstractBeanField<T>() {
+    private val logger = KotlinLogging.logger {}
+
     @Throws(CsvDataTypeMismatchException::class)
     override fun convert(value: String): Any? {
 //        println("Converting Capability-Answer to Capability-Enum: $value")
@@ -27,7 +30,7 @@ class CapabilitiesConverter<T> : AbstractBeanField<T>() {
                 //.onEach { println("'${capabilities[it]}' derived from '$it'") }
                 .onEach {
                     if (!capabilities.contains(it)) {
-                        println("Could not map answer '$it' to Capability.")
+                        logger.error("Could not map answer '$it' to Capability.")
                     }
                 }
                 .map { capabilities[it] }

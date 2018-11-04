@@ -3,8 +3,11 @@ package de.debuglevel.walkingdinner.model.dietcompatibility
 import de.debuglevel.walkingdinner.model.Courses
 import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.model.team.Team
+import mu.KotlinLogging
 
 object CourseCompatibility : Compatibility {
+    private val logger = KotlinLogging.logger {}
+
     override fun areCompatibleTeams(meeting: Meeting): Boolean {
         val cook = meeting.getCookingTeam()
         val otherTeams = meeting.teams.filter { it != cook }
@@ -37,7 +40,7 @@ object CourseCompatibility : Compatibility {
             }
         }
 
-        println("CourseCompatibility.isCapabilityCompatible(): Some case was not caught. This should not happen.")
+        logger.error("CourseCompatibility.isCapabilityCompatible(): Some case was not caught. This should not happen.")
         return false
     }
 
