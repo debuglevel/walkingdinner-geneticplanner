@@ -1,9 +1,9 @@
 package de.debuglevel.walkingdinner.cli.performance
 
-import de.debuglevel.walkingdinner.geneticplanner.GeneticPlanner
-import de.debuglevel.walkingdinner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.importer.Database
 import de.debuglevel.walkingdinner.model.BuildVersion
+import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
+import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import java.nio.file.Paths
 
 fun main(args: Array<String>) {
@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
                 database = database
         )
 
-        val result = GeneticPlanner(options).run()
-        println("Ended in Generation ${result.bestPhenotype.generation} with Fitness ${result.bestFitness}")
+        val result = GeneticPlanner(options).plan()
+        println(result.additionalInformation)
     }
 }

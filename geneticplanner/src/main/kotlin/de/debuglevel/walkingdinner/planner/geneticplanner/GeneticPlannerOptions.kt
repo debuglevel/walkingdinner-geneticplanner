@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.geneticplanner
+package de.debuglevel.walkingdinner.planner.geneticplanner
 
 import de.debuglevel.walkingdinner.importer.Database
 import de.debuglevel.walkingdinner.model.team.Team

@@ -1,19 +1,18 @@
-package de.debuglevel.walkingdinner.geneticplanner
+package de.debuglevel.walkingdinner.planner.geneticplanner
 
-import de.debuglevel.walkingdinner.geneticplanner.CoursesProblemLegacyJavaCode.calculateMultipleCookingTeams
-import de.debuglevel.walkingdinner.geneticplanner.CoursesProblemLegacyJavaCode.calculateOverallDistance
 import de.debuglevel.walkingdinner.model.Courses
 import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.model.dietcompatibility.CourseCompatibility
 import de.debuglevel.walkingdinner.model.location.Location
 import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateMultipleCookingTeams
+import de.debuglevel.walkingdinner.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateOverallDistance
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
 import io.jenetics.PermutationChromosome
 import io.jenetics.engine.Codec
 import io.jenetics.engine.Problem
 import io.jenetics.util.ISeq
-
 import java.util.*
 import java.util.function.Function
 import java.util.stream.Collectors
@@ -42,11 +41,11 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
     }
 
     companion object {
-        public fun calculateLocationsDistance(locations: List<Location>): Double {
+        fun calculateLocationsDistance(locations: List<Location>): Double {
             return locations[0].calculateDistance(locations[1]) + locations[1].calculateDistance(locations[2])
         }
 
-        public fun getTeamLocations(courseMeetings: Map<String, Set<Meeting>>): HashMap<Team, List<Location>> {
+        fun getTeamLocations(courseMeetings: Map<String, Set<Meeting>>): HashMap<Team, List<Location>> {
             val teamsLocations = HashMap<Team, List<Location>>()
 
             CoursesProblemLegacyJavaCode.addLocations(teamsLocations, courseMeetings[Courses.course1name])
@@ -56,7 +55,7 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
             return teamsLocations
         }
 
-        public fun calculateIncompatibleTeams(meetings: Set<Meeting>): Double {
+        fun calculateIncompatibleTeams(meetings: Set<Meeting>): Double {
             return meetings.stream()
                     //                .filter(m -> !HardCompatibility.INSTANCE.areCompatibleTeams(m))
                     .filter { m -> !CourseCompatibility.areCompatibleTeams(m) }

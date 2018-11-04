@@ -34,7 +34,7 @@ version '0.0.1-SNAPSHOT'
 
 //// application plugin configuration
 //applicationName = "Walking-Dinner Genetic-Planner"
-//mainClassName = "de.debuglevel.walkingdinner.geneticplanner.MainKt"
+//mainClassName = "de.debuglevel.walkingdinner.planner.geneticplanner.MainKt"
 
 sourceCompatibility = 1.8
 

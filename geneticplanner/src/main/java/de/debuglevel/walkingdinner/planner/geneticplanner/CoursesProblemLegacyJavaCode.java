@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.geneticplanner;
+package de.debuglevel.walkingdinner.planner.geneticplanner;
 
 import de.debuglevel.walkingdinner.model.Courses;
 import de.debuglevel.walkingdinner.model.Meeting;

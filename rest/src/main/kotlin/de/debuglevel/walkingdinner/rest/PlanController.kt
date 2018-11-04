@@ -1,11 +1,12 @@
 package de.debuglevel.walkingdinner.rest
 
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
-import de.debuglevel.walkingdinner.geneticplanner.CoursesProblem
-import de.debuglevel.walkingdinner.geneticplanner.GeneticPlanner
-import de.debuglevel.walkingdinner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.importer.Database
+import de.debuglevel.walkingdinner.model.Plan
 import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.planner.geneticplanner.CoursesProblem
+import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
+import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
@@ -28,7 +29,7 @@ import javax.servlet.http.Part
 object PlanController {
     private val logger = KotlinLogging.logger {}
 
-    private val plans = mutableMapOf<Int, Future<EvolutionResult<EnumGene<Team>, Double>?>>()
+    private val plans = mutableMapOf<Int, Future<Plan>>()
     private val nextPlanId = AtomicInteger()
 
     private val executor = Executors.newFixedThreadPool(4)
@@ -50,7 +51,7 @@ object PlanController {
             val location = getMultipartField(request, "location")
 
             // start planner
-            val plannerTask = Callable<EvolutionResult<EnumGene<Team>, Double>?> {
+            val plannerTask = Callable<Plan> {
                 val startPlanner = try {
                     startPlanner(surveyCsvFile, populationsSize, fitnessThreshold, steadyFitness, location)
                 } catch (e: Exception) {
@@ -123,7 +124,7 @@ object PlanController {
                              populationsSize: Int,
                              fitnessThreshold: Double,
                              steadyFitness: Int,
-                             location: String): EvolutionResult<EnumGene<Team>, Double>? {
+                             location: String): Plan {
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
         val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
             evolutionStatistics.accept(it)
@@ -140,11 +141,11 @@ object PlanController {
                 steadyFitness = steadyFitness
         )
 
-        val result = GeneticPlanner(options).run()
+        val plan = GeneticPlanner(options).plan()
 
-        processResults(result, evolutionStatistics)
+        //processResults(result, evolutionStatistics)
 
-        return result
+        return plan
     }
 
     private fun processResults(result: EvolutionResult<EnumGene<Team>, Double>,
@@ -181,12 +182,12 @@ object PlanController {
             val future = plans[id]
 
             val resultGeneration = if (future?.isDone == true) {
-                future.get()?.generation
+                future.get()?.additionalInformation
             } else {
                 "not ready yet"
             }
 
-            "Result generated in generation: $resultGeneration"
+            "Result:\n\n$resultGeneration"
         }
     }
 

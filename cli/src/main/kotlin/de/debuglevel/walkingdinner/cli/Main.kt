@@ -3,13 +3,12 @@ package de.debuglevel.walkingdinner.cli
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
-import de.debuglevel.walkingdinner.geneticplanner.CoursesProblem
-import de.debuglevel.walkingdinner.geneticplanner.GeneticPlanner
-import de.debuglevel.walkingdinner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.importer.Database
 import de.debuglevel.walkingdinner.model.BuildVersion
+import de.debuglevel.walkingdinner.model.Plan
 import de.debuglevel.walkingdinner.model.team.Team
-import de.debuglevel.walkingdinner.report.teams.gmail.GmailDraftReporter
+import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
+import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
@@ -42,28 +41,40 @@ class Cli : CliktCommand() {
                 database = database
         )
 
-        val result = GeneticPlanner(options).run()
+        val result = GeneticPlanner(options).plan()
 
+        //processResults(result, evolutionStatistics)
         processResults(result, evolutionStatistics)
     }
 
-    private fun processResults(result: EvolutionResult<EnumGene<Team>, Double>, evolutionStatistics: EvolutionStatistics<Double, DoubleMomentStatistics>?) {
-        println()
-        println("Best in Generation: " + result.generation)
-        println("Best with Fitness: " + result.bestFitness)
-
+    private fun processResults(result: Plan, evolutionStatistics: EvolutionStatistics<Double, DoubleMomentStatistics>?) {
         println()
         println(evolutionStatistics)
 
         println()
-        val courses = CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
-                .codec()
-                .decode(result.bestPhenotype.genotype)
-        val meetings = courses.toMeetings()
+        println(result.additionalInformation)
 
-        SummaryReporter().generateReports(meetings)
-        GmailDraftReporter().generateReports(meetings)
+        SummaryReporter().generateReports(result.meetings)
+        //GmailDraftReporter().generateReports(result.meetings)
     }
+
+//    private fun processResults(result: EvolutionResult<EnumGene<Team>, Double>, evolutionStatistics: EvolutionStatistics<Double, DoubleMomentStatistics>?) {
+//        println()
+//        println("Best in Generation: " + result.generation)
+//        println("Best with Fitness: " + result.bestFitness)
+//
+//        println()
+//        println(evolutionStatistics)
+//
+//        println()
+//        val courses = CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
+//                .codec()
+//                .decode(result.bestPhenotype.genotype)
+//        val meetings = courses.toMeetings()
+//
+//        SummaryReporter().generateReports(meetings)
+//        GmailDraftReporter().generateReports(meetings)
+//    }
 
     private fun buildDatabase(): Database {
         val csvFilename: String = this.csvFilename ?: "Teams_aufbereitet.csv"
