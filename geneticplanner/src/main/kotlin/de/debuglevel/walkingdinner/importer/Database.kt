@@ -4,32 +4,39 @@ import de.debuglevel.walkingdinner.model.location.locator.DatabasecacheGeolocato
 import de.debuglevel.walkingdinner.model.team.Team
 import mu.KotlinLogging
 import java.net.URL
+import java.nio.file.Path
+import java.nio.file.Paths
 
-
-class Database(private val csvFile: URL) {
+class Database {
     private val logger = KotlinLogging.logger {}
 
     val teams = mutableListOf<Team>()
 
-    fun print() {
-        logger.debug("Teams in database:")
-        teams.forEach { logger.debug { it } }
+    constructor(csvPath: Path, location: String) {
+        val csvFilename = csvPath.toAbsolutePath().toString()
+        val csvUrl = Paths.get(csvFilename).toUri().toURL()
+
+        initialize(csvUrl, location)
     }
 
-    fun initialize() {
+    constructor(csvUrl: URL, location: String) {
+        initialize(csvUrl, location)
+    }
+
+    private fun initialize(csvUrl: URL, location: String) {
         logger.debug("Initializing database...")
-        initializeTeams()
+        initializeTeams(csvUrl, location)
     }
 
-    private fun initializeTeams() {
+    private fun initializeTeams(csvUrl: URL, location: String) {
         logger.debug("Initializing teams...")
-        this.teams.addAll(CsvTeamImporter(csvFile).import())
-        initializeTeamLocations()
+        this.teams.addAll(CsvTeamImporter(csvUrl).import())
+        initializeTeamLocations(location)
     }
 
-    private fun initializeTeamLocations() {
-        logger.debug("Fetching geo-information for teams...")
-        val databasecacheGeolocator = DatabasecacheGeolocator("Bamberg, Germany")
+    private fun initializeTeamLocations(location: String) {
+        logger.debug("Initializing team locations...")
+        val databasecacheGeolocator = DatabasecacheGeolocator(location)
         this.teams.parallelStream()
                 .forEach { databasecacheGeolocator.initializeTeamLocation(it) }
     }

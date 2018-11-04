@@ -12,8 +12,7 @@ fun main(args: Array<String>) {
     while (true) {
         val csvUrl = Paths.get("Teams_aufbereitet.csv").toUri().toURL()
 
-        val database = Database(csvUrl)
-        database.initialize()
+        val database = Database(csvUrl, "Bamberg, Germany")
 
         val options = GeneticPlannerOptions(
                 evolutionResultConsumer = null,

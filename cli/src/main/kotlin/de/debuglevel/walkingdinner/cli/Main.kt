@@ -72,8 +72,7 @@ class Cli : CliktCommand() {
             else -> Paths.get(csvFilename).toUri().toURL()
         }
 
-        val database = Database(csvUrl)
-        database.initialize()
+        val database = Database(csvUrl, "Bamberg, Germany")
 
         return database
     }

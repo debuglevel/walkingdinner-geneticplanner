@@ -27,19 +27,18 @@ class CsvTeamImporter(private val csvFile: URL) : TeamImporter {
 
             val teams = teamDTOs.map { it.toTeam() }
             logger.debug("Imported ${teams.size} teams")
+
             return teams
         } catch (e: Exception) {
             logger.error("Error occurred while reading CSV", e)
-            e.printStackTrace()
+            throw e
         } finally {
             try {
-                bufferedReader!!.close()
+                bufferedReader?.close()
             } catch (e: IOException) {
                 logger.error("Error occurred while closing bufferedReader/csvParser", e)
-                e.printStackTrace()
+                throw e
             }
         }
-
-        return listOf()
     }
 }
