@@ -22,7 +22,7 @@ object TimeMeasurement {
             val nanoseconds = measurement.nanoseconds.addAndGet(nanoseconds)
 
             if (calls % reportStep == 0L) {
-                logger.trace("Performance of ${measurement.id} after $calls Calls = ${nanoseconds / calls} ns/call or ${Math.round(calls / (nanoseconds / 1_000_000_000.0))} calls/s")
+                println("Performance of ${measurement.id} after $calls Calls = ${nanoseconds / calls} ns/call or ${Math.round(calls / (nanoseconds / 1_000_000_000.0))} calls/s")
             }
         }
     }
