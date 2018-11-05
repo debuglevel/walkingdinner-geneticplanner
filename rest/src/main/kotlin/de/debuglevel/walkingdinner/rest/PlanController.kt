@@ -13,8 +13,10 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import io.jenetics.stat.DoubleMomentStatistics
 import mu.KotlinLogging
+import spark.ModelAndView
 import spark.Request
 import spark.kotlin.RouteHandler
+import spark.template.mustache.MustacheTemplateEngine
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
@@ -177,7 +179,7 @@ object PlanController {
     fun getOne(): RouteHandler.() -> String {
         return {
             val id = request.params(":id").toInt()
-            logger.debug("Got GET request on '/plan/$id'")
+            logger.debug("Got GET request on '/plans/$id'")
 
             val future = plans[id]
 
@@ -193,47 +195,10 @@ object PlanController {
 
     fun getFormHtml(): RouteHandler.() -> String {
         return {
-            logger.debug("Got GET request on '/plan'")
+            logger.debug("Got GET request on '/plans'")
 
-            val html = """
-                <form method='post' enctype='multipart/form-data'>
-
-                    <fieldset>
-                        <legend>Anmeldungen:</legend>
-                        <label for="surveyfile">Umfrage als CSV</label>
-                        <br>
-                        <input type='file' name='surveyfile' accept='.csv'>
-                        <br>
-
-                        <label for="location">Stadt</label>
-                        <br>
-                        <input type='text' name='location' value='Bamberg, Germany'>
-                        <br>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Optionen für Genetischen Algorithmus:</legend>
-                        <label for="populationsSize">Population Size</label>
-                        <br>
-                        <input type='number' name='populationsSize' value='200'>
-                        <br>
-
-                        <label for="fitnessThreshold">Fitness Threshold</label>
-                        <br>
-                        <input type='number' name='fitnessThreshold' value='0.001'>
-                        <br>
-
-                        <label for="steadyFitness">Steady Fitness</label>
-                        <br>
-                        <input type='number' name='steadyFitness' value='40000'>
-                        <br>
-                    </fieldset>
-
-                    <button>Berechnung starten</button>
-                </form>
-            """
-
-            html
+            val model = HashMap<String, Any>()
+            MustacheTemplateEngine().render(ModelAndView(model, "plan/form.html.mustache"))
         }
     }
 }

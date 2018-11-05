@@ -75,7 +75,7 @@ dependencies {
     //compile 'com.github.jkcclemens:khttp:-SNAPSHOT'
 
     // Template Engine
-    //compile 'com.sparkjava:spark-template-mustache:2.7.1'
+    compile 'com.sparkjava:spark-template-mustache:2.7.1'
 
     // project dependencies
     compile project(':geneticplanner')
