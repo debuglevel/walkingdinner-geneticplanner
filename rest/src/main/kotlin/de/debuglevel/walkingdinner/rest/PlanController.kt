@@ -8,25 +8,23 @@ import de.debuglevel.walkingdinner.planner.geneticplanner.CoursesProblem
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
+import de.debuglevel.walkingdinner.rest.MultipartUtils.getMultipartField
+import de.debuglevel.walkingdinner.rest.MultipartUtils.getMultipartFile
+import de.debuglevel.walkingdinner.rest.MultipartUtils.setup
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import io.jenetics.stat.DoubleMomentStatistics
 import mu.KotlinLogging
 import spark.ModelAndView
-import spark.Request
 import spark.kotlin.RouteHandler
 import spark.template.mustache.MustacheTemplateEngine
-import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.StandardCopyOption
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
-import javax.servlet.MultipartConfigElement
-import javax.servlet.http.Part
 
 object PlanController {
     private val logger = KotlinLogging.logger {}
@@ -46,6 +44,7 @@ object PlanController {
             }
 
             // get supplied multipart values
+            setup(request)
             val surveyCsvFile = getMultipartFile(request, "surveyfile")
             val populationsSize = getMultipartField(request, "populationsSize").toInt()
             val fitnessThreshold = getMultipartField(request, "fitnessThreshold").toDouble()
@@ -70,56 +69,6 @@ object PlanController {
 
             "Computing plan /plans/$planId ..."
         }
-    }
-
-    /**
-     * Get text from a multipart request.
-     *
-     * @param fieldName name of the field in the HTML form
-     */
-    private fun getMultipartField(request: Request, fieldName: String) =
-            request.raw()
-                    .getPart(fieldName)
-                    .inputStream
-                    .reader()
-                    .use { it.readText() }
-
-    /**
-     * Get a file from a multipart request.
-     *
-     * Copies the content form a multipart request field to a file and returns the path.
-     * Note: The file should be deleted after usage.
-     *
-     * @param fieldName name of the field in the HTML form
-     */
-    private fun getMultipartFile(request: Request, fieldName: String): Path {
-        val temporarySurveyFile = createTempFile("walkingdinner-plan").toPath()
-        request.attribute("org.eclipse.jetty.multipartConfig", MultipartConfigElement("/temp"))
-        request.raw()
-                .getPart(fieldName) // getPart needs to use same "name" as input field in form
-                .inputStream
-                .use {
-                    Files.copy(it, temporarySurveyFile, StandardCopyOption.REPLACE_EXISTING)
-                }
-        logger.debug("Uploaded file '${getOriginalFilename(request.raw().getPart(fieldName))}' saved as '${temporarySurveyFile.toAbsolutePath()}'")
-        return temporarySurveyFile
-    }
-
-    /**
-     * Get the original file name of a multipart part
-     */
-    private fun getOriginalFilename(part: Part): String? {
-        for (cd in part.getHeader("content-disposition").split(";")) {
-            if (cd.trim { it <= ' ' }.startsWith("filename")) {
-                return cd.substring(
-                        cd
-                                .indexOf('=') + 1)
-                        .trim { it <= ' ' }
-                        .replace("\"", "")
-            }
-        }
-
-        return null
     }
 
     private fun startPlanner(fileName: Path,

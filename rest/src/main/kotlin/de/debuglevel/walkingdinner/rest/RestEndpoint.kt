@@ -35,6 +35,12 @@ class RestEndpoint {
                 get("/:id", function = PlanController.getOne())
                 post("/", function = PlanController.postOne())
             }
+
+            path("/participants") {
+                get("/", "text/html", ParticipantController.getFormHtml())
+                //get("/:id", function = ParticipantController.getOne())
+                post("/", function = ParticipantController.postOne())
+            }
         }
 
         logger.info("Starting done...")
