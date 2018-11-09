@@ -81,7 +81,7 @@ object ParticipantController {
         }
     }*/
 
-    fun getFormHtml(): RouteHandler.() -> String {
+    fun getAddFormHtml(): RouteHandler.() -> String {
         return {
             logger.debug("Got GET request on '/participants'")
 

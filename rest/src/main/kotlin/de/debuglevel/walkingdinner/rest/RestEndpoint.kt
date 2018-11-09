@@ -30,16 +30,28 @@ class RestEndpoint {
 
         apiVersion("1", true)
         {
-            path("/plans") {
-                get("/", "text/html", PlanController.getFormHtml())
-                get("/:id", function = PlanController.getOne())
-                post("/", function = PlanController.postOne())
-            }
+            path("/dinners") {
+                //get("/", "text/html", DinnerController.getFormHtml())
+                //get("/", "application/json", DinnerController.getList())
+                //post("/", function = DinnerController.postOne())
 
-            path("/participants") {
-                get("/", "text/html", ParticipantController.getFormHtml())
-                //get("/:id", function = ParticipantController.getOne())
-                post("/", function = ParticipantController.postOne())
+                path("/:dinnerId") {
+                    //get("/", "application/json", DinnerController.getOne())
+
+                    path("/plans") {
+                        get("/", "text/html", PlanController.getAddFormHtml())
+                        //get("", "application/json", PlanController.getList())
+                        get("/:planId", function = PlanController.getOne())
+                        post("/", function = PlanController.postOne())
+                    }
+
+                    path("/participants") {
+                        get("/", "text/html", ParticipantController.getAddFormHtml())
+                        //get("/", "application/json", ParticipantController.getList())
+                        //get("/:participantId", function = ParticipantController.getOne())
+                        post("/", function = ParticipantController.postOne())
+                    }
+                }
             }
         }
 

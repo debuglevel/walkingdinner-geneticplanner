@@ -127,7 +127,7 @@ object PlanController {
 
     fun getOne(): RouteHandler.() -> String {
         return {
-            val id = request.params(":id").toInt()
+            val id = request.params(":planId").toInt()
             logger.debug("Got GET request on '/plans/$id'")
 
             val future = plans[id]
@@ -142,12 +142,12 @@ object PlanController {
         }
     }
 
-    fun getFormHtml(): RouteHandler.() -> String {
+    fun getAddFormHtml(): RouteHandler.() -> String {
         return {
             logger.debug("Got GET request on '/plans'")
 
             val model = HashMap<String, Any>()
-            MustacheTemplateEngine().render(ModelAndView(model, "plan/form.html.mustache"))
+            MustacheTemplateEngine().render(ModelAndView(model, "plan/add.html.mustache"))
         }
     }
 }
