@@ -38,7 +38,7 @@ class Cli : CliktCommand() {
 
         val options = GeneticPlannerOptions(
                 evolutionResultConsumer = consumers,
-                database = database
+                teams = database.teams
         )
 
         val result = GeneticPlanner(options).plan()

@@ -39,7 +39,7 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
     }
 
     private val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?
-    private val database = options.database
+    private val teams = options.teams
 
     private val populationsSize = options.populationsSize
     private val fitnessThreshold = options.fitnessThreshold
@@ -58,7 +58,7 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
     private fun compute(): EvolutionResult<EnumGene<Team>, Double> {
         logger.debug("Computing plan...")
 
-        val problem = CoursesProblem(ISeq.of(this.database.teams))
+        val problem = CoursesProblem(ISeq.of(this.teams))
 
         // use single thread when optimizing performance
         //        final ExecutorService executor = Executors.newSingleThreadExecutor();

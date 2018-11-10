@@ -8,8 +8,14 @@
       <module name="geneticplanner_test" target="1.8" />
       <module name="importer_main" target="1.8" />
       <module name="importer_test" target="1.8" />
+      <module name="integration_main" target="1.8" />
+      <module name="integration_test" target="1.8" />
       <module name="model_main" target="1.8" />
       <module name="model_test" target="1.8" />
+      <module name="models_main" target="1.8" />
+      <module name="models_test" target="1.8" />
+      <module name="planners_main" target="1.8" />
+      <module name="planners_test" target="1.8" />
       <module name="report_main" target="1.8" />
       <module name="report_test" target="1.8" />
       <module name="rest_main" target="1.8" />

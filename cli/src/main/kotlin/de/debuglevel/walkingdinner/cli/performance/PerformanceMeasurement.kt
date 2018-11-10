@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
 
         val options = GeneticPlannerOptions(
                 evolutionResultConsumer = null,
-                database = database
+                teams = database.teams
         )
 
         val result = GeneticPlanner(options).plan()

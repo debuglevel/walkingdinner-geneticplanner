@@ -1,12 +1,11 @@
 package de.debuglevel.walkingdinner.model
 
 import de.debuglevel.walkingdinner.model.team.Team
-import io.jenetics.util.ISeq
 import java.util.stream.Collectors
 
-data class Courses(val course1teams: ISeq<Team>,
-                   val course2teams: ISeq<Team>,
-                   val course3teams: ISeq<Team>) {
+data class Courses(val course1teams: Iterable<Team>,
+                   val course2teams: Iterable<Team>,
+                   val course3teams: Iterable<Team>) {
 
     companion object {
         const val course1name = "Vorspeise"

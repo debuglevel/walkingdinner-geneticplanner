@@ -86,7 +86,7 @@ object PlanController {
 
         val options = GeneticPlannerOptions(
                 evolutionResultConsumer = consumers,
-                database = database,
+                teams = database.teams,
                 populationsSize = populationsSize,
                 fitnessThreshold = fitnessThreshold,
                 steadyFitness = steadyFitness
