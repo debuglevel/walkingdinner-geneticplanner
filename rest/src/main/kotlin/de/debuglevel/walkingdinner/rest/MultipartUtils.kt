@@ -14,7 +14,7 @@ object MultipartUtils {
     /**
      * Get the original file name of a multipart part
      */
-    fun getOriginalFilename(part: Part): String? {
+    private fun getOriginalFilename(part: Part): String? {
         for (cd in part.getHeader("content-disposition").split(";")) {
             if (cd.trim { it <= ' ' }.startsWith("filename")) {
                 return cd.substring(
@@ -33,14 +33,19 @@ object MultipartUtils {
      *
      * @param fieldName name of the field in the HTML form
      */
-    fun getMultipartField(request: Request, fieldName: String) =
-            request.raw()
-                    .getPart(fieldName)
-                    .inputStream
-                    .reader()
-                    .use { it.readText() }
+    fun getField(request: Request, fieldName: String): String {
+        setup(request)
 
-    fun getMultipartCheckbox(request: Request, fieldName: String): Boolean {
+        return request.raw()
+                .getPart(fieldName)
+                .inputStream
+                .reader()
+                .use { it.readText() }
+    }
+
+    fun getCheckbox(request: Request, fieldName: String): Boolean {
+        setup(request)
+
         return request.raw()
                 .parts
                 .filter { it.name == fieldName }
@@ -56,7 +61,9 @@ object MultipartUtils {
      *
      * @param fieldName name of the field in the HTML form
      */
-    fun getMultipartFile(request: Request, fieldName: String): Path {
+    fun getFile(request: Request, fieldName: String): Path {
+        setup(request)
+
         val temporarySurveyFile = createTempFile("walkingdinner-plan").toPath()
         request.raw()
                 .getPart(fieldName) // getPart needs to use same "name" as input field in form
@@ -68,7 +75,9 @@ object MultipartUtils {
         return temporarySurveyFile
     }
 
-    fun setup(request: Request) {
-        request.attribute("org.eclipse.jetty.multipartConfig", MultipartConfigElement("/temp"))
+    private fun setup(request: Request) {
+        if (!request.attributes().contains("org.eclipse.jetty.multipartConfig")) {
+            request.attribute("org.eclipse.jetty.multipartConfig", MultipartConfigElement("/temp"))
+        }
     }
 }

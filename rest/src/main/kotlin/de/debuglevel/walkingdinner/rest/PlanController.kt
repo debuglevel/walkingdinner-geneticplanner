@@ -8,9 +8,6 @@ import de.debuglevel.walkingdinner.planner.geneticplanner.CoursesProblem
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
-import de.debuglevel.walkingdinner.rest.MultipartUtils.getMultipartField
-import de.debuglevel.walkingdinner.rest.MultipartUtils.getMultipartFile
-import de.debuglevel.walkingdinner.rest.MultipartUtils.setup
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
@@ -44,12 +41,11 @@ object PlanController {
             }
 
             // get supplied multipart values
-            setup(request)
-            val surveyCsvFile = getMultipartFile(request, "surveyfile")
-            val populationsSize = getMultipartField(request, "populationsSize").toInt()
-            val fitnessThreshold = getMultipartField(request, "fitnessThreshold").toDouble()
-            val steadyFitness = getMultipartField(request, "steadyFitness").toInt()
-            val location = getMultipartField(request, "location")
+            val surveyCsvFile = MultipartUtils.getFile(request, "surveyfile")
+            val populationsSize = MultipartUtils.getField(request, "populationsSize").toInt()
+            val fitnessThreshold = MultipartUtils.getField(request, "fitnessThreshold").toDouble()
+            val steadyFitness = MultipartUtils.getField(request, "steadyFitness").toInt()
+            val location = MultipartUtils.getField(request, "location")
 
             // start planner
             val plannerTask = Callable<Plan> {
