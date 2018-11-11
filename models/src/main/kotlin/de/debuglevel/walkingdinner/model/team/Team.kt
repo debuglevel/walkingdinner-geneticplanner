@@ -2,13 +2,14 @@ package de.debuglevel.walkingdinner.model.team
 
 import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
+import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.model.location.Location
 
 
 data class Team(val cook1: Cook,
                 val cook2: Cook,
                 val address: String,
-                val diet: String,
+                val diet: Diet,
                 val capabilities: List<Capability>,
                 var location: Location?) {
 

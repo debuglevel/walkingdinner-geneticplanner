@@ -7,6 +7,7 @@ import de.debuglevel.walkingdinner.importer.converter.MailAddressConverter
 import de.debuglevel.walkingdinner.importer.converter.NameConverter
 import de.debuglevel.walkingdinner.importer.converter.PhoneNumberConverter
 import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
+import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.model.team.*
 
 
@@ -33,7 +34,10 @@ class TeamDTO {
     lateinit var address: String
 
     @CsvBindByName(column = "Diet")
-    lateinit var diet: String
+    lateinit var dietString: String
+
+    private val diet: Diet
+        get() = Diet.valueOf(dietString)
 
     @CsvCustomBindByName(column = "Capabilities", converter = CapabilitiesConverter::class)
     val capabilities: List<Capability?> = listOf()

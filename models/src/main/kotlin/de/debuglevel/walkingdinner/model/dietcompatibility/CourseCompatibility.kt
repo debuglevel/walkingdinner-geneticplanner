@@ -17,21 +17,21 @@ object CourseCompatibility : Compatibility {
 
     private fun isCapabilityCompatible(course: String, capabilities: List<Capability>, otherTeam: Team): Boolean {
         when (otherTeam.diet) {
-            "Vegan" -> {
+            Diet.Vegan -> {
                 when (course) {
                     Courses.course1name -> return capabilities.contains(Capability.VeganVorspeise)
                     Courses.course2name -> return capabilities.contains(Capability.VeganHauptgericht)
                     Courses.course3name -> return capabilities.contains(Capability.VeganDessert)
                 }
             }
-            "Vegetarisch" -> {
+            Diet.Vegetarisch -> {
                 when (course) {
                     Courses.course1name -> return capabilities.contains(Capability.VeganVorspeise) || capabilities.contains(Capability.VegetarischVorspeise)
                     Courses.course2name -> return capabilities.contains(Capability.VeganHauptgericht) || capabilities.contains(Capability.VegetarischHauptgericht)
                     Courses.course3name -> return capabilities.contains(Capability.VeganDessert) || capabilities.contains(Capability.VegetarischDessert)
                 }
             }
-            "Omnivore" -> {
+            Diet.Omnivore -> {
                 when (course) {
                     Courses.course1name -> return capabilities.contains(Capability.VeganVorspeise) || capabilities.contains(Capability.VegetarischVorspeise) || capabilities.contains(Capability.OmnivorVorspeise)
                     Courses.course2name -> return capabilities.contains(Capability.VeganHauptgericht) || capabilities.contains(Capability.VegetarischHauptgericht) || capabilities.contains(Capability.OmnivorHauptgericht)

@@ -53,7 +53,7 @@ data class ParticipantDTO(val address: String?,
                         PhoneNumber(phone2 ?: throw IllegalArgumentException("phone2"))
                 ),
                 address ?: throw IllegalArgumentException("address"),
-                diet?.toString() ?: throw IllegalArgumentException("diet"),
+                diet ?: throw IllegalArgumentException("diet"),
                 capabilities,
                 null
         )

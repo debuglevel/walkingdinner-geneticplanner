@@ -2,6 +2,7 @@ package de.debuglevel.walkingdinner.report.teams
 
 import de.debuglevel.walkingdinner.model.Courses
 import de.debuglevel.walkingdinner.model.Meeting
+import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.report.Reporter
 import org.jtwig.JtwigModel
@@ -48,9 +49,9 @@ open class TextReporter : Reporter {
                 .map { it.getCookingTeam().diet }
                 .minBy {
                     when (it) {
-                        "Vegan" -> 1
-                        "Vegetarisch" -> 2
-                        "Omnivore" -> 3
+                        Diet.Vegan -> 1
+                        Diet.Vegetarisch -> 2
+                        Diet.Omnivore -> 3
                         else -> 0
                     }
                 }
