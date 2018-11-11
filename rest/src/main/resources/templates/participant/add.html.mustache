@@ -42,8 +42,7 @@
     </div>
 </div>
 
-<form method='post' enctype='multipart/form-data'>
-
+<form method='post' id="form" action="">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Location</h5>
@@ -116,6 +115,29 @@
     <div class="card">
         <div class="card-body">
 
+            <h5 class="card-title">Ernährungsform</h5>
+            <p class="card-text">Tragt hier bitte ein, wie ihr euch ernährt.</p>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="diet" id="dietVegan" value="Vegan">
+                <label class="form-check-label" for="dietVegan">vegan (keine tierische Produkte)</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="diet" id="dietVegetarisch" value="Vegetarisch">
+                <label class="form-check-label" for="dietVegan">vegetarisch (nur tierische Produkte ohne Tötung)</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="diet" id="dietOmnivor" value="Omnivore">
+                <label class="form-check-label" for="dietVegan">omnivor</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+
             <h5 class="card-title">Kochfähigkeiten</h5>
             <p class="card-text">Tragt hier bitte ein, was für Speisen ihr kochen könnt.</p>
 
@@ -128,19 +150,19 @@
                         wurden (z.B. Fischblasen zum Klären von Wein) können/wollen wir hier nicht
                         garantieren/einfordern.</p>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="VeganVorspeise">
+                        <input type="checkbox" class="form-check-input" name="veganVorspeise" value="true">
                         <label class="form-check-label" for="VeganVorspeise">Ich könnte eine vegane Vorspeise
                             machen.</label>
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="VeganHauptgericht">
+                        <input type="checkbox" class="form-check-input" name="veganHauptgericht" value="true">
                         <label class="form-check-label" for="VeganHauptgericht">Ich könnte ein veganes Hauptgericht
                             machen.</label>
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="VeganDessert">
+                        <input type="checkbox" class="form-check-input" name="veganDessert" value="true">
                         <label class="form-check-label" for="VeganDessert">Ich könnte eine veganes Dessert
                             machen.</label>
                     </div>
@@ -153,21 +175,21 @@
                     <p class="card-text">Vegetarisch bedeutet bei uns, dass in der Speise nur tierische Produkte
                         enthalten sind, die keine Tötung des Tieres erfordern (z.B. Ei oder Milch)</p>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="VegetarischVorspeise">
+                        <input type="checkbox" class="form-check-input" name="vegetarischVorspeise" value="true">
                         <label class="form-check-label" for="VegetarischVorspeise">Ich könnte eine vegetarische
                             Vorspeise
                             machen.</label>
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="VegetarischHauptgericht">
+                        <input type="checkbox" class="form-check-input" name="vegetarischHauptgericht" value="true">
                         <label class="form-check-label" for="VegetarischHauptgericht">Ich könnte ein vegetarisches
                             Hauptgericht
                             machen.</label>
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="VegetarischDessert">
+                        <input type="checkbox" class="form-check-input" name="vegetarischDessert" value="true">
                         <label class="form-check-label" for="VegetarischDessert">Ich könnte ein vegetarisches Dessert
                             machen.</label>
                     </div>
@@ -180,19 +202,19 @@
                     <p class="card-text">Omnivor bedeutet bei uns, dass tierische Produkte enthalten sind, die eine
                         Tötung des Tieres erfordern (z.B. Fleisch oder Gelatine).</p>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="OmnivorVorspeise">
+                        <input type="checkbox" class="form-check-input" name="omnivorVorspeise" value="true">
                         <label class="form-check-label" for="OmnivorVorspeise">Ich könnte eine omnivore Vorspeise
                             machen.</label>
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="OmnivorHauptgericht">
+                        <input type="checkbox" class="form-check-input" name="omnivorHauptgericht" value="true">
                         <label class="form-check-label" for="OmnivorHauptgericht">Ich könnte ein omnivores Hauptgericht
                             machen.</label>
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="OmnivorDessert">
+                        <input type="checkbox" class="form-check-input" name="omnivorDessert" value="true">
                         <label class="form-check-label" for="OmnivorDessert">Ich könnte ein omnivores Dessert
                             machen.</label>
                     </div>
@@ -215,11 +237,54 @@
 
     <div class="card">
         <div class="card-body">
-            <button type="submit" class="btn btn-primary">Absenden</button>
+            <button type="submit" id="submit" class="btn btn-primary">Absenden</button>
         </div>
     </div>
 
 </form>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    function ConvertFormToJSON(form){
+        var array = jQuery(form).serializeArray();
+        var json = {};
+
+        jQuery.each(array, function() {
+            json[this.name] = this.value || '';
+        });
+
+        return json;
+    }
+
+    $(document).ready(function(){
+        // click on button submit
+        $("#form").submit(function(e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var json = ConvertFormToJSON(this);
+
+            $.ajax({
+                url: $(this).attr("action"),
+                method: $(this).attr("method"),
+                contentType: "application/json",
+                data: JSON.stringify(json),
+                processData: false,
+                dataType: "JSON", // type of data expected returned from the server
+                success: function (data, status)
+                {
+                    console.log('Submission was successful.');
+                    console.log(data);
+                },
+                error: function (xhr, desc, err)
+                {
+                    console.log('An error occurred.');
+                    console.log(xhr, desc, err);
+                }
+            });
+        });
+    });
+
+
+</script>
 </body>
 </html>
