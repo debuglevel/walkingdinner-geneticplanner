@@ -9,6 +9,7 @@ import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
 import de.debuglevel.walkingdinner.rest.MultipartUtils
+import de.debuglevel.walkingdinner.rest.responsetransformer.JsonTransformer
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
@@ -124,18 +125,24 @@ object PlanController {
 
     fun getOne(): RouteHandler.() -> String {
         return {
-            val id = request.params(":planId").toInt()
-            logger.debug("Got GET request on '/plans/$id'")
+            val dinnerId = request.params(":dinnerId").toInt()
+            val planId = request.params(":planId").toInt()
+            logger.debug("Got GET request on '/dinner/$dinnerId/plans/$planId'")
 
-            val future = plans[id]
+            val future = plans[planId]
 
-            val resultGeneration = if (future?.isDone == true) {
-                future.get()?.additionalInformation
+            if (future == null) {
+                type(contentType = "plain/text")
+                status(404)
+                "Plan not found"
             } else {
-                "not ready yet"
+                type(contentType = "application/json")
+                val plan = when {
+                    future.isDone -> PlanDTO(true, future.get())
+                    else -> PlanDTO(false)
+                }
+                JsonTransformer.render(plan)
             }
-
-            "Result:\n\n$resultGeneration"
         }
     }
 
