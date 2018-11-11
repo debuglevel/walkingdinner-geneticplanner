@@ -1,7 +1,6 @@
-package de.debuglevel.walkingdinner.rest
+package de.debuglevel.walkingdinner.rest.participant
 
 import com.google.gson.Gson
-import de.debuglevel.walkingdinner.rest.participant.ParticipantDTO
 import mu.KotlinLogging
 import spark.ModelAndView
 import spark.kotlin.RouteHandler

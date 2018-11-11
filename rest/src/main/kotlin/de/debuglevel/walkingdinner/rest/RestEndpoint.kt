@@ -3,6 +3,8 @@ package de.debuglevel.walkingdinner.rest
 import de.debuglevel.microservices.utils.apiversion.apiVersion
 import de.debuglevel.microservices.utils.spark.configuredPort
 import de.debuglevel.microservices.utils.status.status
+import de.debuglevel.walkingdinner.rest.participant.ParticipantController
+import de.debuglevel.walkingdinner.rest.plan.PlanController
 import mu.KotlinLogging
 import spark.Spark
 import spark.Spark.path

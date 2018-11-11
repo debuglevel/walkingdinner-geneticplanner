@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.rest
+package de.debuglevel.walkingdinner.rest.plan
 
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
 import de.debuglevel.walkingdinner.importer.Database
@@ -8,6 +8,7 @@ import de.debuglevel.walkingdinner.planner.geneticplanner.CoursesProblem
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
+import de.debuglevel.walkingdinner.rest.MultipartUtils
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
