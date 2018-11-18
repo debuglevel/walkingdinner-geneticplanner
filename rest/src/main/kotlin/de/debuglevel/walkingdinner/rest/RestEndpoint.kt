@@ -3,6 +3,7 @@ package de.debuglevel.walkingdinner.rest
 import de.debuglevel.microservices.utils.apiversion.apiVersion
 import de.debuglevel.microservices.utils.spark.configuredPort
 import de.debuglevel.microservices.utils.status.status
+import de.debuglevel.walkingdinner.rest.dinner.DinnerController
 import de.debuglevel.walkingdinner.rest.participant.ParticipantController
 import de.debuglevel.walkingdinner.rest.plan.PlanController
 import mu.KotlinLogging
@@ -33,17 +34,19 @@ class RestEndpoint {
         apiVersion("1", true)
         {
             path("/dinners") {
-                //get("/", "text/html", DinnerController.getFormHtml())
-                //get("/", "application/json", DinnerController.getList())
+                get("/", "text/html", DinnerController.getListHtml())
+                get("/", "application/json", DinnerController.getList())
                 //post("/", function = DinnerController.postOne())
 
                 path("/:dinnerId") {
-                    //get("/", "application/json", DinnerController.getOne())
+                    get("/", "application/json", DinnerController.getOne())
+                    get("/", "text/html", DinnerController.getOneHtml())
 
                     path("/plans") {
                         get("/", "text/html", PlanController.getAddFormHtml())
                         //get("", "application/json", PlanController.getList())
-                        get("/:planId", function = PlanController.getOne())
+                        get("/:planId", "text/html", function = PlanController.getOneHtml())
+                        get("/:planId", "application/json", function = PlanController.getOne())
                         post("/", function = PlanController.postOne())
                     }
 
