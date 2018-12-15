@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.importer.converter
+package de.debuglevel.walkingdinner.importer.csv.converter
 
 import com.opencsv.bean.AbstractBeanField
 import com.opencsv.exceptions.CsvDataTypeMismatchException

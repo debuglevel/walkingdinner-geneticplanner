@@ -45,7 +45,7 @@ class RestEndpoint {
                     path("/plans") {
                         get("/", "text/html", PlanController.getAddFormHtml())
                         //get("", "application/json", PlanController.getList())
-                        get("/:planId", "text/html", function = PlanController.getOneHtml())
+                        //get("/:planId", "text/html", function = PlanController.getOneHtml())
                         get("/:planId", "application/json", function = PlanController.getOne())
                         post("/", function = PlanController.postOne())
                     }

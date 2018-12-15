@@ -1,9 +1,14 @@
 package de.debuglevel.walkingdinner.model.team
 
 data class Name(val name: String) {
-    val firstname: String = extractFirstname()
-    val lastname: String = extractLastname()
-    val abbreviatedName: String = buildAbbreviatedName()
+    val firstname: String by lazy { extractFirstname() }
+
+    val lastname: String by lazy { extractLastname() }
+
+    val abbreviatedName: String by lazy {
+        val firstletter = firstname.toCharArray().first()
+        "$firstletter. $lastname"
+    }
 
     private fun extractFirstname(): String {
         return this.name.split(" ").first()
@@ -11,11 +16,6 @@ data class Name(val name: String) {
 
     private fun extractLastname(): String {
         return this.name.split(" ").last()
-    }
-
-    fun buildAbbreviatedName(): String {
-        val firstletter = firstname.toCharArray().first()
-        return "$firstletter. $lastname"
     }
 
     override fun toString(): String {

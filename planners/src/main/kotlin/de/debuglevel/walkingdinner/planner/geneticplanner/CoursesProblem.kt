@@ -19,7 +19,6 @@ import java.util.stream.Collectors
 
 class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<Team>, Double> {
     override fun codec(): Codec<Courses, EnumGene<Team>> {
-
         val encoding: Genotype<EnumGene<Team>> = Genotype.of(
                 PermutationChromosome.of(teams),
                 PermutationChromosome.of(teams),

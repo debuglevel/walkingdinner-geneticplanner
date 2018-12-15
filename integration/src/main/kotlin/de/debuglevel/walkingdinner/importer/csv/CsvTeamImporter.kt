@@ -1,6 +1,7 @@
-package de.debuglevel.walkingdinner.importer
+package de.debuglevel.walkingdinner.importer.csv
 
 import com.opencsv.bean.CsvToBeanBuilder
+import de.debuglevel.walkingdinner.importer.TeamImporter
 import de.debuglevel.walkingdinner.model.team.Team
 import mu.KotlinLogging
 import java.io.BufferedReader

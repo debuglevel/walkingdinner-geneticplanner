@@ -15,13 +15,12 @@ import org.apache.http.impl.conn.SingleClientConnManager
 import java.text.DecimalFormat
 import kotlin.concurrent.withLock
 
-
 class NominatimApiGeolocator(private val city: String) : Geolocator {
     private val logger = KotlinLogging.logger {}
 
     private val singleRequestLock = java.util.concurrent.locks.ReentrantLock()
 
-    private var nominatimClient = buildNominatimClient()
+    private val nominatimClient = buildNominatimClient()
 
     private val cityLocation: Location
 
@@ -57,16 +56,16 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
     private fun buildNominatimClient(): JsonNominatimClient {
         val registry = SchemeRegistry()
         registry.register(Scheme("https", SSLSocketFactory.getSocketFactory(), 443))
-        val connexionManager = SingleClientConnManager(null, registry)
+        val connectionManager = SingleClientConnManager(null, registry)
 
-        val httpClient = DefaultHttpClient(connexionManager, null)
+        val httpClient = DefaultHttpClient(connectionManager, null)
 
         val baseUrl = "https://nominatim.openstreetmap.org/"
         val email = "debuglevel.de"
         return JsonNominatimClient(baseUrl, httpClient, email)
     }
 
-    fun getNominatimAddress(address: String): Address {
+    private fun getNominatimAddress(address: String): Address {
         logger.debug("Searching address '$address' ...")
 
         val r = NominatimSearchRequest()

@@ -8,5 +8,5 @@ object HardCompatibility : Compatibility {
         return meeting.teams.all { isCompatibleDiet(meeting.teams.first(), it) }
     }
 
-    fun isCompatibleDiet(a: Team, b: Team) = a.diet == b.diet
+    private fun isCompatibleDiet(a: Team, b: Team) = a.diet == b.diet
 }

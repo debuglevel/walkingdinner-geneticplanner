@@ -1,12 +1,12 @@
-package de.debuglevel.walkingdinner.importer.converter
+package de.debuglevel.walkingdinner.importer.csv.converter
 
 import com.opencsv.bean.AbstractBeanField
 import com.opencsv.exceptions.CsvDataTypeMismatchException
-import de.debuglevel.walkingdinner.model.team.MailAddress
+import de.debuglevel.walkingdinner.model.team.Name
 
-class MailAddressConverter<T> : AbstractBeanField<T>() {
+class NameConverter<T> : AbstractBeanField<T>() {
     @Throws(CsvDataTypeMismatchException::class)
     override fun convert(value: String): Any? {
-        return MailAddress(value)
+        return Name(value)
     }
 }
