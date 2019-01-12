@@ -1,6 +1,4 @@
-package de.debuglevel.walkingdinner
-
-import de.debuglevel.walkingdinner.rest.RestEndpoint
+package de.debuglevel.walkingdinner.rest
 
 /**
  * Application entry point.

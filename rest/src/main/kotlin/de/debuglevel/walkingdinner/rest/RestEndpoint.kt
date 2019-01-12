@@ -1,6 +1,8 @@
 package de.debuglevel.walkingdinner.rest
 
 import de.debuglevel.microservices.utils.apiversion.apiVersion
+import de.debuglevel.microservices.utils.logging.buildRequestLog
+import de.debuglevel.microservices.utils.logging.buildResponseLog
 import de.debuglevel.microservices.utils.spark.configuredPort
 import de.debuglevel.microservices.utils.status.status
 import de.debuglevel.walkingdinner.rest.dinner.DinnerController
@@ -9,6 +11,8 @@ import de.debuglevel.walkingdinner.rest.plan.PlanController
 import mu.KotlinLogging
 import spark.Spark
 import spark.Spark.path
+import spark.kotlin.after
+import spark.kotlin.before
 import spark.kotlin.get
 import spark.kotlin.post
 
@@ -33,28 +37,27 @@ class RestEndpoint {
 
         apiVersion("1", true)
         {
-            path("/dinners") {
-                get("/", "text/html", DinnerController.getListHtml())
-                get("/", "application/json", DinnerController.getList())
-                //post("/", function = DinnerController.postOne())
+            path("/organizers") {
+                path("/:organizerId") {
+                    path("/dinners") {
+                        get("/", "text/html", DinnerController.getListHtml())
+                        get("/", "application/json", DinnerController.getList())
 
-                path("/:dinnerId") {
-                    get("/", "application/json", DinnerController.getOne())
-                    get("/", "text/html", DinnerController.getOneHtml())
+                        path("/:dinnerId") {
+                            get("/", "application/json", DinnerController.getOne())
+                            get("/", "text/html", DinnerController.getOneHtml())
 
-                    path("/plans") {
-                        get("/", "text/html", PlanController.getAddFormHtml())
-                        //get("", "application/json", PlanController.getList())
-                        //get("/:planId", "text/html", function = PlanController.getOneHtml())
-                        get("/:planId", "application/json", function = PlanController.getOne())
-                        post("/", function = PlanController.postOne())
-                    }
+                            path("/plans") {
+                                get("/", "text/html", PlanController.getAddFormHtml())
+                                get("/:planId", "application/json", function = PlanController.getOne())
+                                post("/", function = PlanController.postOne())
+                            }
 
-                    path("/participants") {
-                        get("/", "text/html", ParticipantController.getAddFormHtml())
-                        //get("/", "application/json", ParticipantController.getList())
-                        //get("/:participantId", function = ParticipantController.getOne())
-                        post("/", function = ParticipantController.postOne())
+                            path("/participants") {
+                                get("/", "text/html", ParticipantController.getAddFormHtml())
+                                post("/", function = ParticipantController.postOne())
+                            }
+                        }
                     }
                 }
             }
