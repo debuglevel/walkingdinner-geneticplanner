@@ -60,6 +60,8 @@ class RestEndpoint {
             }
         }
 
-        logger.info("Starting done...")
+        // add loggers
+        before { logger.debug(buildRequestLog(request)) }
+        after { logger.debug(buildResponseLog(request, response)) }
     }
 }
