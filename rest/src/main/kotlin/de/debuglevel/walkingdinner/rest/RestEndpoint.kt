@@ -37,14 +37,14 @@ class RestEndpoint {
 
         apiVersion("1", true)
         {
-            path("/organizers") {
-                path("/:organizerId") {
+            path("/organisations") {
+                path("/:organisationId") {
                     path("/dinners") {
                         get("/", "text/html", DinnerController.getListHtml())
-                        get("/", "application/json", DinnerController.getList())
+                        get("/", "application/json", DinnerController.getListJson())
 
                         path("/:dinnerId") {
-                            get("/", "application/json", DinnerController.getOne())
+                            get("/", "application/json", DinnerController.getOneJson())
                             get("/", "text/html", DinnerController.getOneHtml())
 
                             path("/plans") {

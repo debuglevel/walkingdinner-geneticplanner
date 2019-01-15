@@ -23,7 +23,7 @@ object DinnerController {
         }
     }*/
 
-    fun getOne(): RouteHandler.() -> String {
+    fun getOneJson(): RouteHandler.() -> String {
         return {
             val dinnerId = request.params(":dinnerId").toInt()
             logger.debug("Got GET request on '/dinners/$dinnerId'")
@@ -42,7 +42,7 @@ object DinnerController {
         }
     }
 
-    fun getList(): RouteHandler.() -> String {
+    fun getListJson(): RouteHandler.() -> String {
         return {
             logger.debug("Got GET request on '/dinners/'")
 
