@@ -4,7 +4,7 @@ import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
 import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.model.team.*
 
-// XXX: use nullable types as GSON could always produce null values in non-null types via reflection anway.
+// XXX: use nullable types as GSON could always produce null values in non-null types via reflection anyway.
 data class ParticipantDTO(val address: String?,
                           val chef1: String?,
                           val chef2: String?,

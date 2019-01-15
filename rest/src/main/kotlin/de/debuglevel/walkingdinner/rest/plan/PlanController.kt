@@ -10,6 +10,7 @@ import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
 import de.debuglevel.walkingdinner.rest.MultipartUtils
 import de.debuglevel.walkingdinner.rest.responsetransformer.JsonTransformer
+import de.debuglevel.walkingdinner.rest.toUUID
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
@@ -19,17 +20,16 @@ import spark.ModelAndView
 import spark.kotlin.RouteHandler
 import spark.template.mustache.MustacheTemplateEngine
 import java.nio.file.Path
+import java.util.*
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
-import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.Consumer
 
 object PlanController {
     private val logger = KotlinLogging.logger {}
 
-    private val plans = mutableMapOf<Int, Future<Plan>>()
-    private val nextPlanId = AtomicInteger()
+    private val plans = mutableMapOf<UUID, Future<Plan>>()
 
     private val executor = Executors.newFixedThreadPool(4)
 
@@ -62,7 +62,7 @@ object PlanController {
             }
 
             val plannerFuture = executor.submit(plannerTask)
-            val planId = nextPlanId.getAndIncrement()
+            val planId = UUID.randomUUID()
             plans[planId] = plannerFuture
 
             "Computing plan /plans/$planId ..."
@@ -125,9 +125,9 @@ object PlanController {
 
     fun getOne(): RouteHandler.() -> String {
         return {
-            val dinnerId = request.params(":dinnerId").toInt()
-            val planId = request.params(":planId").toInt()
-            logger.debug("Got GET request on '/dinner/$dinnerId/plans/$planId'")
+            type(contentType = "application/json")
+            val dinnerId = request.params(":dinnerId").toUUID()
+            val planId = request.params(":planId").toUUID()
 
             val future = plans[planId]
 
@@ -148,8 +148,6 @@ object PlanController {
 
     fun getAddFormHtml(): RouteHandler.() -> String {
         return {
-            logger.debug("Got GET request on '/plans'")
-
             val model = HashMap<String, Any>()
             MustacheTemplateEngine().render(ModelAndView(model, "plan/add.html.mustache"))
         }

@@ -44,8 +44,8 @@ class RestEndpoint {
                         get("/", "application/json", DinnerController.getListJson())
 
                         path("/:dinnerId") {
-                            get("/", "application/json", DinnerController.getOneJson())
                             get("/", "text/html", DinnerController.getOneHtml())
+                            get("/", "application/json", DinnerController.getOneJson())
 
                             path("/plans") {
                                 get("/", "text/html", PlanController.getAddFormHtml())

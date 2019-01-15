@@ -15,31 +15,28 @@
 
 <div class="card">
     <div class="card-body">
-        <div id="dinners"></div>
+        <ul id="dinners"></ul>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 (function() {
-  var dinnerAPI = "";
+  var dinnerAPI = ".";
   $.getJSON(dinnerAPI)
     .done(function(data) {
       $.each(data, function(i, dinner) {
-        var dinnerDiv = $('<div/>', {
+        var dinnerDiv = $('<li/>', {
             id: 'dinner-'+i,
             class: 'dinner',
-            title: 'Dinner '+dinner.id+': '+dinner.name
+            title: 'Dinner, ID: '+dinner.id+', Name: '+dinner.name
         }).appendTo('#dinners');
 
-        dinnerDiv.append('<p>'+dinner.id+':</p>');
-        dinnerDiv.append('<p><a href="'+dinner.id+'">'+dinner.name+'</a></p>');
-        dinnerDiv.append('<hr/>');
+        //dinnerDiv.append('<p>'+dinner.id+':</p>');
+        dinnerDiv.append('<a href="'+dinner.id+'/">'+dinner.name+'</a>');
       });
     });
 })();
-
-
 
 </script>
 
