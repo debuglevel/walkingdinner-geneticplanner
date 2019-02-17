@@ -4,6 +4,9 @@ import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
 import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.model.location.Location
+import org.bson.codecs.pojo.annotations.BsonId
+import org.litote.kmongo.Id
+import org.litote.kmongo.newId
 
 
 data class Team(val cook1: Cook,
@@ -11,10 +14,12 @@ data class Team(val cook1: Cook,
                 val address: String,
                 val diet: Diet,
                 val capabilities: List<Capability>,
-                var location: Location?) {
+                var location: Location?,
+                @BsonId val id: Id<Team> = newId()
+) {
 
     override fun toString(): String {
-        return "$cook1 & $cook2 ($diet; $location)"
+        return "Team $id: $cook1 & $cook2 ($diet; $location)"
     }
 
     companion object {

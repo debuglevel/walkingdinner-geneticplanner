@@ -6,6 +6,7 @@ import de.debuglevel.microservices.utils.logging.buildResponseLog
 import de.debuglevel.microservices.utils.spark.configuredPort
 import de.debuglevel.microservices.utils.status.status
 import de.debuglevel.walkingdinner.rest.dinner.DinnerController
+import de.debuglevel.walkingdinner.rest.organisation.OrganisationController
 import de.debuglevel.walkingdinner.rest.participant.ParticipantController
 import de.debuglevel.walkingdinner.rest.plan.PlanController
 import mu.KotlinLogging
@@ -38,10 +39,16 @@ class RestEndpoint {
         apiVersion("1", true)
         {
             path("/organisations") {
+                get("/", "text/html", OrganisationController.getListHtml())
+                get("/", "application/json", OrganisationController.getListJson())
+
                 path("/:organisationId") {
+                    get("/", "text/html", OrganisationController.getOneHtml())
+                    get("/", "application/json", OrganisationController.getOneJson())
+
                     path("/dinners") {
-                        get("/", "text/html", DinnerController.getListHtml())
-                        get("/", "application/json", DinnerController.getListJson())
+                        //                        get("/", "text/html", DinnerController.getListHtml())
+//                        get("/", "application/json", DinnerController.getListJson())
 
                         path("/:dinnerId") {
                             get("/", "text/html", DinnerController.getOneHtml())

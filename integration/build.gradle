@@ -67,6 +67,9 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'org.slf4j:slf4j-simple:1.7.5'
 
+    // Configuration
+    compile 'com.natpryce:konfig:1.6.9.0'
+
     // CSV Import
     compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
 
@@ -84,6 +87,9 @@ dependencies {
     // Jsondb
     compile 'io.jsondb:jsondb-core:1.0.36'
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.5'
+    
+    // MongoDB
+    compile 'org.litote.kmongo:kmongo:3.9.2'
 
     // Google Maps Services
     compile 'com.google.maps:google-maps-services:0.9.0'

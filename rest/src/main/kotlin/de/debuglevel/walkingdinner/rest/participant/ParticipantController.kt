@@ -1,6 +1,7 @@
 package de.debuglevel.walkingdinner.rest.participant
 
 import com.google.gson.Gson
+import de.debuglevel.walkingdinner.repository.TeamRepository
 import mu.KotlinLogging
 import spark.ModelAndView
 import spark.kotlin.RouteHandler
@@ -22,8 +23,9 @@ object ParticipantController {
             val participant = Gson().fromJson(request.body(), ParticipantDTO::class.java)
 
 
-            val x = participant.toTeam()
+            val team = participant.toTeam()
 
+            TeamRepository.add(team)
 
             ""
         }

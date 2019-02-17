@@ -1,7 +1,7 @@
-package de.debuglevel.walkingdinner.rest.dinner
+package de.debuglevel.walkingdinner.rest.organisation
 
-import de.debuglevel.walkingdinner.repository.DinnerRepository
 import de.debuglevel.walkingdinner.repository.MongoDatabase
+import de.debuglevel.walkingdinner.repository.OrganisationRepository
 import de.debuglevel.walkingdinner.rest.responsetransformer.JsonTransformer
 import mu.KotlinLogging
 import spark.ModelAndView
@@ -9,7 +9,7 @@ import spark.kotlin.RouteHandler
 import spark.template.mustache.MustacheTemplateEngine
 import java.util.*
 
-object DinnerController {
+object OrganisationController {
     private val logger = KotlinLogging.logger {}
 
     /*
@@ -27,21 +27,21 @@ object DinnerController {
     fun getOneHtml(): RouteHandler.() -> String {
         return {
             val model = HashMap<String, Any>()
-            MustacheTemplateEngine().render(ModelAndView(model, "dinner/show.html.mustache"))
+            MustacheTemplateEngine().render(ModelAndView(model, "organisation/show.html.mustache"))
         }
     }
 
     fun getOneJson(): RouteHandler.() -> String {
         return {
             type(contentType = "application/json")
-            val dinnerId = request.params(":dinnerId")
+            val organisationId = request.params(":organisationId")
 
             try {
-                val dinner = DinnerRepository.get(dinnerId)
-                JsonTransformer.render(dinner)
+                val organisation = OrganisationRepository.get(organisationId)
+                JsonTransformer.render(organisation)
             } catch (e: MongoDatabase.ObjectNotFoundException) {
                 status(404)
-                "{'message':'dinner not found'}"
+                "{'message':'organisation not found'}"
             }
         }
     }
@@ -49,18 +49,18 @@ object DinnerController {
     fun getListHtml(): RouteHandler.() -> String {
         return {
             val model = HashMap<String, Any>()
-            MustacheTemplateEngine().render(ModelAndView(model, "dinner/list.html.mustache"))
+            MustacheTemplateEngine().render(ModelAndView(model, "organisation/list.html.mustache"))
         }
     }
 
-//    fun getListJson(): RouteHandler.() -> String {
-//        return {
-//            type(contentType = "application/json")
-//            val dinners = DinnerRepository.getAll()
-//
-//            JsonTransformer.render(dinners)
-//        }
-//    }
+    fun getListJson(): RouteHandler.() -> String {
+        return {
+            type(contentType = "application/json")
+            val organisations = OrganisationRepository.getAll()
+
+            JsonTransformer.render(organisations)
+        }
+    }
 
     /*
     fun getAddFormHtml(): RouteHandler.() -> String {
