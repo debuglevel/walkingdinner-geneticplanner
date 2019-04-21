@@ -1,23 +1,28 @@
 <h2>Teams</h2>
 
 <div>
-  <label
-    >Team:
-    <input #teamName />
-  </label>
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(teamName.value); teamName.value = ''">
-    hinzufügen
-  </button>
-</div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name des Teams" #teamName />
+    </mat-form-field>
 
-<ul class="teams">
-  <li *ngFor="let team of teams">
-    <a routerLink="/teams/{{ team.id }}">
-      <span class="badge">{{ team.id }}</span> {{ team.name }}
-    </a>
-    <button class="delete" title="delete team" (click)="delete(team)">
-      x
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button
+      mat-stroked-button
+      (click)="add(teamName.value); teamName.value = ''"
+    >
+      hinzufügen
     </button>
-  </li>
-</ul>
+  </form>
+
+  <ul class="teams">
+    <li *ngFor="let team of teams">
+      <a routerLink="/teams/{{ team.id }}">
+        <span class="badge">{{ team.id }}</span> {{ team.name }}
+      </a>
+      <button class="delete" title="delete team" (click)="delete(team)">
+        x
+      </button>
+    </li>
+  </ul>
+</div>

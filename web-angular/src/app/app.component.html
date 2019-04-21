@@ -1,9 +1,12 @@
-<h1>{{ title }}</h1>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/organisations">Organisationen</a>
-  <a routerLink="/dinners">Dinners</a>
-  <a routerLink="/teams">Teams</a>
-</nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages>
+<div class="mat-typography">
+  <h1>{{ title }}</h1>
+  <nav>
+    <a mat-stroked-button routerLink="/dashboard">Dashboard</a>
+    <a mat-stroked-button routerLink="/organisations">Organisationen</a>
+    <a mat-stroked-button routerLink="/dinners">Dinners</a>
+    <a mat-stroked-button routerLink="/teams">Teams</a>
+  </nav>
+  <router-outlet></router-outlet>
+
+  <app-messages></app-messages>
+</div>

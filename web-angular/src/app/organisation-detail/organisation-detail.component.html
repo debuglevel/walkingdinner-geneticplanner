@@ -1,12 +1,15 @@
 <div *ngIf="organisation">
-  <h2>{{ organisation.name | uppercase }}</h2>
+  <h2>{{ organisation.name }}</h2>
   <div><span>ID: </span>{{ organisation.id }}</div>
-  <div>
-    <label
-      >Name:
-      <input [(ngModel)]="organisation.name" placeholder="name" />
-    </label>
-  </div>
-  <button (click)="goBack()">zurück</button>
-  <button (click)="save()">sichern</button>
+
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      placeholder="Name der Organisation"
+      [(ngModel)]="organisation.name"
+    />
+  </mat-form-field>
+
+  <button mat-stroked-button (click)="goBack()">zurück</button>
+  <button mat-stroked-button color="primary" (click)="save()">sichern</button>
 </div>

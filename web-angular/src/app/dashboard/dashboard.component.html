@@ -1,5 +1,27 @@
-<h3>aktuelle Organisationen</h3>
-<div class="grid grid-pad">
+<h2>aktuelle Organisationen</h2>
+
+<!-- <mat-nav-list>
+  <a
+    mat-list-item
+    *ngFor="let organisation of organisations"
+    routerLink="/organisations/{{ organisation.id }}"
+  >
+    {{ organisation.name }}
+  </a>
+</mat-nav-list> -->
+
+<mat-card class="organisation-card" *ngFor="let organisation of organisations">
+  <mat-card-content>
+    {{ organisation.name }}
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button routerLink="/organisations/{{ organisation.id }}">
+      ÖFFNEN
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!--<div class="grid grid-pad">
   <a
     *ngFor="let organisation of organisations"
     class="col-1-4"
@@ -9,6 +31,6 @@
       <h4>{{ organisation.name }}</h4>
     </div>
   </a>
-</div>
+</div> -->
 
 <app-organisation-search></app-organisation-search>

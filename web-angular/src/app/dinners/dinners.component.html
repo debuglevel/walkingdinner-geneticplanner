@@ -1,23 +1,28 @@
 <h2>Dinners</h2>
 
 <div>
-  <label
-    >Dinner:
-    <input #dinnerName />
-  </label>
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(dinnerName.value); dinnerName.value = ''">
-    hinzufügen
-  </button>
-</div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name des Dinners" #dinnerName />
+    </mat-form-field>
 
-<ul class="dinners">
-  <li *ngFor="let dinner of dinners">
-    <a routerLink="/dinners/{{ dinner.id }}">
-      <span class="badge">{{ dinner.id }}</span> {{ dinner.name }}
-    </a>
-    <button class="delete" title="delete dinner" (click)="delete(dinner)">
-      x
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button
+      mat-stroked-button
+      (click)="add(dinnerName.value); dinnerName.value = ''"
+    >
+      hinzufügen
     </button>
-  </li>
-</ul>
+  </form>
+
+  <ul class="dinners">
+    <li *ngFor="let dinner of dinners">
+      <a routerLink="/dinners/{{ dinner.id }}">
+        <span class="badge">{{ dinner.id }}</span> {{ dinner.name }}
+      </a>
+      <button class="delete" title="delete dinner" (click)="delete(dinner)">
+        x
+      </button>
+    </li>
+  </ul>
+</div>

@@ -1,27 +1,32 @@
 <h2>Organisationen</h2>
 
 <div>
-  <label
-    >Organisation:
-    <input #organisationName />
-  </label>
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(organisationName.value); organisationName.value = ''">
-    hinzufügen
-  </button>
-</div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name der Organisation" #organisationName />
+    </mat-form-field>
 
-<ul class="organisations">
-  <li *ngFor="let organisation of organisations">
-    <a routerLink="/organisations/{{ organisation.id }}">
-      <span class="badge">{{ organisation.id }}</span> {{ organisation.name }}
-    </a>
+    <!-- (click) passes input value to add() and then clears the input -->
     <button
-      class="delete"
-      title="delete organisation"
-      (click)="delete(organisation)"
+      mat-stroked-button
+      (click)="add(organisationName.value); organisationName.value = ''"
     >
-      x
+      hinzufügen
     </button>
-  </li>
-</ul>
+  </form>
+
+  <ul class="organisations">
+    <li *ngFor="let organisation of organisations">
+      <a routerLink="/organisations/{{ organisation.id }}">
+        <span class="badge">{{ organisation.id }}</span> {{ organisation.name }}
+      </a>
+      <button
+        class="delete"
+        title="delete organisation"
+        (click)="delete(organisation)"
+      >
+        x
+      </button>
+    </li>
+  </ul>
+</div>
