@@ -22,4 +22,21 @@ export class OrganisationsComponent implements OnInit {
       .subscribe(organisations => this.organisations = organisations)
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { 
+      return; 
+    }
+    
+    this.organisationService.addOrganisation({ name } as Organisation)
+      .subscribe(organisation => {
+        this.organisations.push(organisation);
+      });
+  }
+
+  delete(organisation: Organisation): void {
+    this.organisations = this.organisations.filter(o => o !== organisation);
+    this.organisationService.deleteOrganisation(organisation).subscribe();
+  }
+
 }

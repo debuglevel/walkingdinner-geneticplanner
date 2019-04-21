@@ -5,5 +5,17 @@
       <a routerLink="/detail/{{organisation.id}}">
         <span class="badge">{{organisation.id}}</span> {{organisation.name}}
       </a>
+      <button class="delete" title="Organisation löschen"
+        (click)="delete(organisation)">löschen</button>
     </li>
   </ul>
+
+  <div>
+      <label>Organisation:
+        <input #organisationName />
+      </label>
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button (click)="add(organisationName.value); organisationName.value=''">
+        hinzufügen
+      </button>
+    </div>

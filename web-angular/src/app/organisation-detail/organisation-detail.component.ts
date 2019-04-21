@@ -30,4 +30,8 @@ export class OrganisationDetailComponent implements OnInit {
     this.organisationService.getOrganisation(id)
       .subscribe(organisation => this.organisation = organisation);
   }
+
+  save(): void {
+    this.organisationService.updateOrganisation(this.organisation)
+  }
 }
