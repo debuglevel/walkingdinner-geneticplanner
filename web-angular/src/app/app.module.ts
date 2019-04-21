@@ -14,8 +14,10 @@ import { OrganisationDetailComponent } from "./organisation-detail/organisation-
 import { OrganisationsComponent } from "./organisations/organisations.component";
 import { OrganisationSearchComponent } from "./organisation-search/organisation-search.component";
 import { MessagesComponent } from "./messages/messages.component";
-import { DinnersComponent } from './dinners/dinners.component';
-import { DinnerDetailComponent } from './dinner-detail/dinner-detail.component';
+import { DinnersComponent } from "./dinners/dinners.component";
+import { DinnerDetailComponent } from "./dinner-detail/dinner-detail.component";
+import { TeamsComponent } from "./teams/teams.component";
+import { TeamDetailComponent } from "./team-detail/team-detail.component";
 
 @NgModule({
   imports: [
@@ -40,6 +42,8 @@ import { DinnerDetailComponent } from './dinner-detail/dinner-detail.component';
     OrganisationSearchComponent,
     DinnersComponent,
     DinnerDetailComponent,
+    TeamsComponent,
+    TeamDetailComponent,
   ],
   bootstrap: [AppComponent],
 })

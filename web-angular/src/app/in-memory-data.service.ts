@@ -26,7 +26,18 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 26, name: "J.A.R.V.I.S. cooks better than you" },
       { id: 27, name: "Beer-gathering" },
     ];
-    return { organisations, dinners };
+    const teams = [
+      { id: 31, name: "Luna and Neville" },
+      { id: 32, name: "Kreacher and Dobby" },
+      { id: 33, name: "Harry and Ron" },
+      { id: 34, name: "Hermoine and Ginny" },
+      { id: 35, name: "Dean and Seamus" },
+      { id: 36, name: "Patil twins" },
+      { id: 37, name: "Tom Riddle and some other parts of his soul" },
+      { id: 38, name: "James and Lilly" },
+      { id: 39, name: "Aberforth Dumbledore and his goat" },
+    ];
+    return { organisations, dinners, teams };
   }
 
   // Overrides the genId method to ensure that a organisation always has an id.
