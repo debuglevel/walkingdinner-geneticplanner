@@ -1,12 +1,12 @@
 <div *ngIf="organisation">
-  <h2>Details von {{organisation.name}}</h2>
-  <div><span>ID: </span>{{organisation.id}}</div>
+  <h2>{{ organisation.name | uppercase }}</h2>
+  <div><span>ID: </span>{{ organisation.id }}</div>
   <div>
-    <label>Bezeichnung:
-      <input [(ngModel)]="organisation.name" placeholder="name"/>
+    <label
+      >Name:
+      <input [(ngModel)]="organisation.name" placeholder="name" />
     </label>
   </div>
-
-  <button (click)="save()">speichern</button>
-  </div>
-  
+  <button (click)="goBack()">zurück</button>
+  <button (click)="save()">sichern</button>
+</div>

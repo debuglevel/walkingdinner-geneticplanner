@@ -1,20 +1,19 @@
 /* MessagesComponent's private CSS styles */
 h2 {
-    color: red;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-    display: inline-block;
-  }
-
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
 body {
   margin: 2em;
 }
-
-body, input[text], button {
+body,
+input[text],
+button {
   color: crimson;
   font-family: Cambria, Georgia;
 }
-  
+
 button.clear {
   font-family: Arial;
   background-color: #eee;
@@ -24,22 +23,15 @@ button.clear {
   cursor: pointer;
   cursor: hand;
 }
-
 button:hover {
   background-color: #cfd8dc;
 }
-
 button:disabled {
   background-color: #eee;
   color: #aaa;
   cursor: auto;
 }
-
 button.clear {
   color: #888;
   margin-bottom: 12px;
-}
-
-ul {
-  margin-top: 0;
 }
