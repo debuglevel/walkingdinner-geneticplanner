@@ -13,7 +13,7 @@
 
 <ul class="organisations">
   <li *ngFor="let organisation of organisations">
-    <a routerLink="/detail/{{ organisation.id }}">
+    <a routerLink="/organisations/{{ organisation.id }}">
       <span class="badge">{{ organisation.id }}</span> {{ organisation.name }}
     </a>
     <button

@@ -14,6 +14,8 @@ import { OrganisationDetailComponent } from "./organisation-detail/organisation-
 import { OrganisationsComponent } from "./organisations/organisations.component";
 import { OrganisationSearchComponent } from "./organisation-search/organisation-search.component";
 import { MessagesComponent } from "./messages/messages.component";
+import { DinnersComponent } from './dinners/dinners.component';
+import { DinnerDetailComponent } from './dinner-detail/dinner-detail.component';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import { MessagesComponent } from "./messages/messages.component";
     OrganisationDetailComponent,
     MessagesComponent,
     OrganisationSearchComponent,
+    DinnersComponent,
+    DinnerDetailComponent,
   ],
   bootstrap: [AppComponent],
 })
