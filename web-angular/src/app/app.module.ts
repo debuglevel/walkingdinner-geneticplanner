@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { OrganisationsComponent } from './organisations/organisations.component';
 import { OrganisationDetailComponent } from './organisation-detail/organisation-detail.component';
 import { MessagesComponent } from './messages/messages.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrganisationsComponent,
     OrganisationDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

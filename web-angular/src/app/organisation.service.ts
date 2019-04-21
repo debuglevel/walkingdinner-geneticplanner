@@ -16,4 +16,10 @@ export class OrganisationService {
     this.messageService.add('OrganisationService: fetching organisations...');
     return of(ORGANISATIONS);
   }
+
+  getOrganisation(id: number): Observable<Organisation> {
+    // TODO: send the message _after_ fetching the organisation
+    this.messageService.add(`OrganisationService: fetching organisation id=${id}...`);
+    return of(ORGANISATIONS.find(organisation => organisation.id === id));
+  }
 }

@@ -1,11 +1,9 @@
 <h2>Organisationen</h2>
-<ul class="organisations">
-  <li
-   *ngFor="let organisation of organisations" 
-   [class.selected]="organisation === selectedOrganisation"
-   (click)="onSelect(organisation)">
-    <span class="badge">{{organisation.id}}</span> {{organisation.name}}
-  </li>
-</ul>
 
-<app-organisation-detail [organisation]="selectedOrganisation"></app-organisation-detail>
+<ul class="organisations">
+    <li *ngFor="let organisation of organisations">
+      <a routerLink="/detail/{{organisation.id}}">
+        <span class="badge">{{organisation.id}}</span> {{organisation.name}}
+      </a>
+    </li>
+  </ul>

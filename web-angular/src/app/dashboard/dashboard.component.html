@@ -1,0 +1,11 @@
+<h3>aktuelle Organisationen</h3>
+<div class="grid grid-pad">
+  <a 
+    *ngFor="let organisation of organisations" 
+    routerLink="/detail/{{organisation.id}}"
+    class="col-1-4">
+    <div class="module organisation">
+      <h4>{{organisation.name}}</h4>
+    </div>
+  </a>
+</div>
