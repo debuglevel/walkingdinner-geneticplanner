@@ -1,0 +1,9 @@
+<div *ngIf="organisation">
+  <h2>Details von {{organisation.name}}</h2>
+  <div><span>ID: </span>{{organisation.id}}</div>
+  <div>
+    <label>Bezeichnung:
+      <input [(ngModel)]="organisation.name" placeholder="name"/>
+    </label>
+  </div>
+  </div>
