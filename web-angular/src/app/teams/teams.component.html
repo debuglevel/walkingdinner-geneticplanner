@@ -3,6 +3,26 @@
 <div>
   <mat-card>
     <mat-card-header>
+      <mat-card-title>alle Teams</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let team of teams">
+          <a matLine routerLink="/teams/{{ team.id }}">{{ team.name }}</a>
+          <button
+            mat-icon-button
+            matTooltip="lösche Team"
+            (click)="delete(team)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
       <mat-card-title>Team hinzufügen</mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -21,25 +41,5 @@
         HINZUFÜGEN
       </button>
     </mat-card-actions>
-  </mat-card>
-
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>alle Teams</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-nav-list>
-        <mat-list-item *ngFor="let team of teams">
-          <a matLine routerLink="/teams/{{ team.id }}">{{ team.name }}</a>
-          <button
-            mat-icon-button
-            matTooltip="lösche Team"
-            (click)="delete(team)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-card-content>
   </mat-card>
 </div>
