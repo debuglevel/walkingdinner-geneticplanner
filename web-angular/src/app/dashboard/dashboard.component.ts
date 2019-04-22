@@ -8,19 +8,19 @@ import { OrganisationService } from "../organisation.service";
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
-  organisations: Organisation[] = [];
+  // organisations: Organisation[] = [];
 
   constructor(private organisationService: OrganisationService) {}
 
   ngOnInit() {
-    this.getOrganisations();
+    // this.getOrganisations();
   }
 
-  getOrganisations(): void {
-    this.organisationService
-      .getOrganisations()
-      .subscribe(
-        organisations => (this.organisations = organisations.slice(1, 5))
-      );
-  }
+  // getOrganisations(): void {
+  //   this.organisationService
+  //     .getOrganisations()
+  //     .subscribe(
+  //       organisations => (this.organisations = organisations.slice(1, 5))
+  //     );
+  // }
 }
