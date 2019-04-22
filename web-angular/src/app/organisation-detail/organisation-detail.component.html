@@ -1,15 +1,22 @@
-<div *ngIf="organisation">
-  <h2>{{ organisation.name }}</h2>
-  <div><span>ID: </span>{{ organisation.id }}</div>
+<mat-card *ngIf="organisation">
+  <mat-card-header>
+    <mat-card-title>{{ organisation.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="ID" disabled value="{{ organisation.id }}" />
+    </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <input
-      matInput
-      placeholder="Name der Organisation"
-      [(ngModel)]="organisation.name"
-    />
-  </mat-form-field>
-
-  <button mat-stroked-button (click)="goBack()">zurück</button>
-  <button mat-stroked-button color="primary" (click)="save()">sichern</button>
-</div>
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        placeholder="Name der Organisation"
+        [(ngModel)]="organisation.name"
+      />
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-stroked-button (click)="goBack()">ZURÜCK</button>
+    <button mat-stroked-button color="primary" (click)="save()">SICHERN</button>
+  </mat-card-actions>
+</mat-card>
