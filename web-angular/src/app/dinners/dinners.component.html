@@ -1,28 +1,45 @@
-<h2>Dinners</h2>
+<h1>Dinners</h1>
 
 <div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Name des Dinners" #dinnerName />
-    </mat-form-field>
-
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button
-      mat-stroked-button
-      (click)="add(dinnerName.value); dinnerName.value = ''"
-    >
-      hinzufügen
-    </button>
-  </form>
-
-  <ul class="dinners">
-    <li *ngFor="let dinner of dinners">
-      <a routerLink="/dinners/{{ dinner.id }}">
-        <span class="badge">{{ dinner.id }}</span> {{ dinner.name }}
-      </a>
-      <button class="delete" title="delete dinner" (click)="delete(dinner)">
-        x
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Dinner hinzufügen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Name des Dinners" #dinnerName />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button
+        mat-stroked-button
+        (click)="add(dinnerName.value); dinnerName.value = ''"
+      >
+        HINZUFÜGEN
       </button>
-    </li>
-  </ul>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>alle Dinners</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let dinner of dinners">
+          <a matLine routerLink="/dinners/{{ dinner.id }}">{{ dinner.name }}</a>
+          <button
+            mat-icon-button
+            matTooltip="lösche Dinner"
+            (click)="delete(dinner)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
 </div>

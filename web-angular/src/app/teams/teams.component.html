@@ -1,28 +1,45 @@
-<h2>Teams</h2>
+<h1>Teams</h1>
 
 <div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Name des Teams" #teamName />
-    </mat-form-field>
-
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button
-      mat-stroked-button
-      (click)="add(teamName.value); teamName.value = ''"
-    >
-      hinzufügen
-    </button>
-  </form>
-
-  <ul class="teams">
-    <li *ngFor="let team of teams">
-      <a routerLink="/teams/{{ team.id }}">
-        <span class="badge">{{ team.id }}</span> {{ team.name }}
-      </a>
-      <button class="delete" title="delete team" (click)="delete(team)">
-        x
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Team hinzufügen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Name des Teams" #teamName />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button
+        mat-stroked-button
+        (click)="add(teamName.value); teamName.value = ''"
+      >
+        HINZUFÜGEN
       </button>
-    </li>
-  </ul>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>alle Teams</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let team of teams">
+          <a matLine routerLink="/teams/{{ team.id }}">{{ team.name }}</a>
+          <button
+            mat-icon-button
+            matTooltip="lösche Team"
+            (click)="delete(team)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
 </div>

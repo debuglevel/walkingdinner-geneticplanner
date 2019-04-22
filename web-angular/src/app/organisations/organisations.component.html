@@ -1,32 +1,51 @@
-<h2>Organisationen</h2>
+<h1>Organisationen</h1>
 
 <div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Name der Organisation" #organisationName />
-    </mat-form-field>
-
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button
-      mat-stroked-button
-      (click)="add(organisationName.value); organisationName.value = ''"
-    >
-      hinzufügen
-    </button>
-  </form>
-
-  <ul class="organisations">
-    <li *ngFor="let organisation of organisations">
-      <a routerLink="/organisations/{{ organisation.id }}">
-        <span class="badge">{{ organisation.id }}</span> {{ organisation.name }}
-      </a>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Organisation hinzufügen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Name des Organisations"
+            #organisationName
+          />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <!-- (click) passes input value to add() and then clears the input -->
       <button
-        class="delete"
-        title="delete organisation"
-        (click)="delete(organisation)"
+        mat-stroked-button
+        (click)="add(organisationName.value); organisationName.value = ''"
       >
-        x
+        HINZUFÜGEN
       </button>
-    </li>
-  </ul>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>alle Organisationen</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let organisation of organisations">
+          <a matLine routerLink="/organisations/{{ organisation.id }}">{{
+            organisation.name
+          }}</a>
+          <button
+            mat-icon-button
+            matTooltip="lösche Organisation"
+            (click)="delete(organisation)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-card-content>
+  </mat-card>
 </div>

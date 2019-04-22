@@ -11,6 +11,7 @@ import {
   MatIconModule,
   MatSidenavModule,
   MatToolbarModule,
+  MatTooltipModule,
 } from "@angular/material";
 import { MatInputModule } from "@angular/material/input";
 import { MatDividerModule } from "@angular/material/divider";
@@ -51,6 +52,7 @@ import { TeamDetailComponent } from "./team-detail/team-detail.component";
     MatIconModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatTooltipModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
