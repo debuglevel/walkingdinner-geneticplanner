@@ -5,7 +5,13 @@ import { HttpClientModule } from "@angular/common/http";
 
 // Material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatButtonModule, MatCheckboxModule } from "@angular/material";
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatSidenavModule,
+  MatToolbarModule,
+} from "@angular/material";
 import { MatInputModule } from "@angular/material/input";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
@@ -42,6 +48,9 @@ import { TeamDetailComponent } from "./team-detail/team-detail.component";
     MatDividerModule,
     MatListModule,
     MatCardModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
