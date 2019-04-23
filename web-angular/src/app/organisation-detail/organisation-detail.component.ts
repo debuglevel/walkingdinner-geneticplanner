@@ -24,7 +24,7 @@ export class OrganisationDetailComponent implements OnInit {
   }
 
   getOrganisation(): void {
-    const id = +this.route.snapshot.paramMap.get("id");
+    const id = this.route.snapshot.paramMap.get("id");
     this.organisationService
       .getOrganisation(id)
       .subscribe(organisation => (this.organisation = organisation));

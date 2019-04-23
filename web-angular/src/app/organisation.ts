@@ -1,4 +1,4 @@
 export class Organisation {
-  id: number;
+  id: string;
   name: string;
 }

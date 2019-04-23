@@ -1,4 +1,4 @@
 export class Dinner {
-  id: number;
+  id: string;
   name: string;
 }

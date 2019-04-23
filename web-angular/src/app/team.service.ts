@@ -29,7 +29,7 @@ export class TeamService {
   }
 
   /** GET team by id. Return `undefined` when id not found */
-  getTeamNo404<Data>(id: number): Observable<Team> {
+  getTeamNo404<Data>(id: string): Observable<Team> {
     const url = `${this.teamsUrl}/?id=${id}`;
     return this.http.get<Team[]>(url).pipe(
       map(teams => teams[0]), // returns a {0|1} element array
@@ -42,7 +42,7 @@ export class TeamService {
   }
 
   /** GET team by id. Will 404 if id not found */
-  getTeam(id: number): Observable<Team> {
+  getTeam(id: string): Observable<Team> {
     const url = `${this.teamsUrl}/${id}`;
     return this.http.get<Team>(url).pipe(
       tap(_ => this.log(`fetched team id=${id}`)),
@@ -73,8 +73,8 @@ export class TeamService {
   }
 
   /** DELETE: delete the team from the server */
-  deleteTeam(team: Team | number): Observable<Team> {
-    const id = typeof team === "number" ? team : team.id;
+  deleteTeam(team: Team | string): Observable<Team> {
+    const id = typeof team === "string" ? team : team.id;
     const url = `${this.teamsUrl}/${id}`;
 
     return this.http.delete<Team>(url, httpOptions).pipe(

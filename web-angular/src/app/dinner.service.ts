@@ -29,7 +29,7 @@ export class DinnerService {
   }
 
   /** GET dinner by id. Return `undefined` when id not found */
-  getDinnerNo404<Data>(id: number): Observable<Dinner> {
+  getDinnerNo404<Data>(id: string): Observable<Dinner> {
     const url = `${this.dinnersUrl}/?id=${id}`;
     return this.http.get<Dinner[]>(url).pipe(
       map(dinners => dinners[0]), // returns a {0|1} element array
@@ -42,7 +42,7 @@ export class DinnerService {
   }
 
   /** GET dinner by id. Will 404 if id not found */
-  getDinner(id: number): Observable<Dinner> {
+  getDinner(id: string): Observable<Dinner> {
     const url = `${this.dinnersUrl}/${id}`;
     return this.http.get<Dinner>(url).pipe(
       tap(_ => this.log(`fetched dinner id=${id}`)),
@@ -75,8 +75,8 @@ export class DinnerService {
   }
 
   /** DELETE: delete the dinner from the server */
-  deleteDinner(dinner: Dinner | number): Observable<Dinner> {
-    const id = typeof dinner === "number" ? dinner : dinner.id;
+  deleteDinner(dinner: Dinner | string): Observable<Dinner> {
+    const id = typeof dinner === "string" ? dinner : dinner.id;
     const url = `${this.dinnersUrl}/${id}`;
 
     return this.http.delete<Dinner>(url, httpOptions).pipe(

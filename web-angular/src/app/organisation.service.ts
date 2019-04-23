@@ -29,7 +29,7 @@ export class OrganisationService {
   }
 
   /** GET organisation by id. Return `undefined` when id not found */
-  getOrganisationNo404<Data>(id: number): Observable<Organisation> {
+  getOrganisationNo404<Data>(id: string): Observable<Organisation> {
     const url = `${this.organisationsUrl}/?id=${id}`;
     return this.http.get<Organisation[]>(url).pipe(
       map(organisations => organisations[0]), // returns a {0|1} element array
@@ -42,7 +42,7 @@ export class OrganisationService {
   }
 
   /** GET organisation by id. Will 404 if id not found */
-  getOrganisation(id: number): Observable<Organisation> {
+  getOrganisation(id: string): Observable<Organisation> {
     const url = `${this.organisationsUrl}/${id}`;
     return this.http.get<Organisation>(url).pipe(
       tap(_ => this.log(`fetched organisation id=${id}`)),
@@ -80,10 +80,10 @@ export class OrganisationService {
 
   /** DELETE: delete the organisation from the server */
   deleteOrganisation(
-    organisation: Organisation | number
+    organisation: Organisation | string
   ): Observable<Organisation> {
     const id =
-      typeof organisation === "number" ? organisation : organisation.id;
+      typeof organisation === "string" ? organisation : organisation.id;
     const url = `${this.organisationsUrl}/${id}`;
 
     return this.http.delete<Organisation>(url, httpOptions).pipe(
