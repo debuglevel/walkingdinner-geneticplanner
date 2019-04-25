@@ -8,6 +8,8 @@ import { DinnersComponent } from "./dinners/dinners.component";
 import { DinnerDetailComponent } from "./dinner-detail/dinner-detail.component";
 import { TeamsComponent } from "./teams/teams.component";
 import { TeamDetailComponent } from "./team-detail/team-detail.component";
+import { PlansComponent } from "./plans/plans.component";
+import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/dashboard", pathMatch: "full" },
@@ -37,6 +39,12 @@ const routes: Routes = [
     path: "teams/:id",
     component: TeamDetailComponent,
     data: { title: "Team" },
+  },
+  { path: "plans", component: PlansComponent, data: { title: "Pläne" } },
+  {
+    path: "plans/:id",
+    component: PlanDetailComponent,
+    data: { title: "Plan" },
   },
 ];
 

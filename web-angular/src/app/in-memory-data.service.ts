@@ -67,7 +67,16 @@ export class InMemoryDataService implements InMemoryDbService {
         name: "Aberforth Dumbledore and his goat",
       },
     ];
-    return { organisations, dinners, teams };
+    const plans = [
+      { id: "90e950ca-1233-450c-af3d-4e85e4437970", name: "Plan 1" },
+      { id: "ddf44ced-ac49-40d8-a9b1-a93b44e256ad", name: "Plan 2" },
+      { id: "fbd6268c-7cf8-4250-b669-172304363a3c", name: "Plan 3" },
+      { id: "b7bc550c-c1ea-41df-a715-92864bc1c841", name: "Plan 4" },
+      { id: "255283ff-fc74-4ef5-90b1-8077077566b4", name: "Plan 5" },
+      { id: "b77a37fe-3a3b-4cb8-9157-c3762077926e", name: "Plan 6" },
+      { id: "23984c81-d1e8-46d9-991a-104cec548804", name: "Plan 7" },
+    ];
+    return { organisations, dinners, teams, plans };
   }
 
   // // Overrides the genId method to ensure that a organisation always has an id.

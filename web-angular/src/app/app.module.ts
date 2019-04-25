@@ -33,6 +33,8 @@ import { DinnersComponent } from "./dinners/dinners.component";
 import { DinnerDetailComponent } from "./dinner-detail/dinner-detail.component";
 import { TeamsComponent } from "./teams/teams.component";
 import { TeamDetailComponent } from "./team-detail/team-detail.component";
+import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
+import { PlansComponent } from "./plans/plans.component";
 
 @NgModule({
   imports: [
@@ -72,6 +74,8 @@ import { TeamDetailComponent } from "./team-detail/team-detail.component";
     DinnerDetailComponent,
     TeamsComponent,
     TeamDetailComponent,
+    PlanDetailComponent,
+    PlansComponent,
   ],
   bootstrap: [AppComponent],
 })
