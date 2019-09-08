@@ -10,12 +10,12 @@ class SummaryReporter : Reporter {
     override fun generateReports(meetings: Set<Meeting>) {
         meetings
                 .groupBy { it.course }
-                .forEach { course, meetings ->
+            .forEach { course, meetings_ ->
                     run {
 
                         println()
                         println("== Course $course")
-                        meetings.forEach { println(it) }
+                        meetings_.forEach { println(it) }
                     }
                 }
     }

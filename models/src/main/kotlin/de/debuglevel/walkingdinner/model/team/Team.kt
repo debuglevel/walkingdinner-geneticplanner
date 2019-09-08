@@ -26,7 +26,7 @@ data class Team(val cook1: Cook,
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {
             val meetings = mutableSetOf<Meeting>()
 
-            val meetingTeams: Array<Team?> = Array(3) { i -> null }
+            val meetingTeams: Array<Team?> = Array(3) { _ -> null }
 
             for ((index, value) in teams.withIndex()) {
                 meetingTeams[index % 3] = value

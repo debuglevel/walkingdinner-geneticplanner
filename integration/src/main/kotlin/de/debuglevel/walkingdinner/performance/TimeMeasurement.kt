@@ -19,10 +19,14 @@ object TimeMeasurement {
         val measurement = measurements.putIfAbsent(id, Measurement(id))
         if (measurement != null) {
             val calls = measurement.calls.incrementAndGet()
-            val nanoseconds = measurement.nanoseconds.addAndGet(nanoseconds)
+            val nanoseconds_ = measurement.nanoseconds.addAndGet(nanoseconds)
 
             if (calls % reportStep == 0L) {
-                println("Performance of ${measurement.id} after $calls Calls = ${nanoseconds / calls} ns/call or ${Math.round(calls / (nanoseconds / 1_000_000_000.0))} calls/s")
+                println(
+                    "Performance of ${measurement.id} after $calls Calls = ${nanoseconds_ / calls} ns/call or ${Math.round(
+                        calls / (nanoseconds_ / 1_000_000_000.0)
+                    )} calls/s"
+                )
             }
         }
     }
