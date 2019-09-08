@@ -2,8 +2,8 @@ package de.debuglevel.walkingdinner.repository
 
 import de.debuglevel.walkingdinner.model.organisation.Organisation
 import mu.KotlinLogging
-import org.bson.types.ObjectId
-import org.litote.kmongo.*
+import org.litote.kmongo.getCollection
+import org.litote.kmongo.toList
 
 object OrganisationRepository {
     private val logger = KotlinLogging.logger {}
@@ -26,12 +26,13 @@ object OrganisationRepository {
     }
 
     fun get(id: String): Organisation {
-        logger.debug { "String ID '$id' is ID '${id.toId<Organisation>()}'" }
+        TODO()
+//        logger.debug { "String ID '$id' is ID '${id.toId<Organisation>()}'" }
 
-        return MongoDatabase.database
-            .getCollection<Organisation>()
-            .findOne(Organisation::id eq ObjectId(id))
-            ?: throw MongoDatabase.ObjectNotFoundException(id)
+//        return MongoDatabase.database
+//            .getCollection<Organisation>()
+//            .findOne(Organisation::id eq ObjectId(id))
+//            ?: throw MongoDatabase.ObjectNotFoundException(id)
     }
 //
 //    fun update(team: Team)

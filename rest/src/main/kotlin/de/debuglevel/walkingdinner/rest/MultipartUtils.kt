@@ -2,9 +2,7 @@ package de.debuglevel.walkingdinner.rest
 
 import mu.KotlinLogging
 import spark.Request
-import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.StandardCopyOption
 import javax.servlet.MultipartConfigElement
 import javax.servlet.http.Part
 
@@ -36,21 +34,23 @@ object MultipartUtils {
     fun getField(request: Request, fieldName: String): String {
         setup(request)
 
-        return request.raw()
-                .getPart(fieldName)
-                .inputStream
-                .reader()
-                .use { it.readText() }
+        TODO("commented because of some compile error")
+//        return request.raw()
+//                .getPart(fieldName)
+//                .inputStream
+//                .reader()
+//                .use { it.readText() }
     }
 
     fun getCheckbox(request: Request, fieldName: String): Boolean {
         setup(request)
 
-        return request.raw()
-                .parts
-                .filter { it.name == fieldName }
-            .filter { it.inputStream.reader().use { reader -> reader.readText() } == "on" }
-                .any()
+        TODO("commented because of some compile error")
+//        return request.raw()
+//                .parts
+//                .filter { it.name == fieldName }
+//            .filter { it.inputStream.reader().use { reader -> reader.readText() } == "on" }
+//                .any()
     }
 
     /**
@@ -65,14 +65,15 @@ object MultipartUtils {
         setup(request)
 
         val temporarySurveyFile = createTempFile("walkingdinner-plan").toPath()
-        request.raw()
-                .getPart(fieldName) // getPart needs to use same "name" as input field in form
-                .inputStream
-                .use {
-                    Files.copy(it, temporarySurveyFile, StandardCopyOption.REPLACE_EXISTING)
-                }
-        logger.debug("Uploaded file '${getOriginalFilename(request.raw().getPart(fieldName))}' saved as '${temporarySurveyFile.toAbsolutePath()}'")
-        return temporarySurveyFile
+        TODO("commented because of some compile error")
+//        request.raw()
+//                .getPart(fieldName) // getPart needs to use same "name" as input field in form
+//                .inputStream
+//                .use {
+//                    Files.copy(it, temporarySurveyFile, StandardCopyOption.REPLACE_EXISTING)
+//                }
+//        logger.debug("Uploaded file '${getOriginalFilename(request.raw().getPart(fieldName))}' saved as '${temporarySurveyFile.toAbsolutePath()}'")
+//        return temporarySurveyFile
     }
 
     private fun setup(request: Request) {

@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.3.0'
+    ext.kotlin_version = '1.3.50'
 
     repositories {
         jcenter()
@@ -11,7 +11,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version "1.3.0"
+    id 'org.jetbrains.kotlin.jvm'
 
 //    // create start scripts
 //    // is executed on "build" task but not on e.g. "jar" task
@@ -53,54 +53,54 @@ tasks.build.dependsOn tasks.shadowJar
 
 dependencies {
     // Kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50"
 
     // Testing
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
-    testCompile 'org.assertj:assertj-core:3.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'
+    testImplementation 'org.assertj:assertj-core:3.10.0'
 
     // Logging
     // see http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
-    compile 'io.github.microutils:kotlin-logging:1.4.9'
-    compile 'org.slf4j:slf4j-api:1.7.5'
-    compile 'org.slf4j:slf4j-simple:1.7.5'
+    implementation 'io.github.microutils:kotlin-logging:1.7.6'
+    implementation 'org.slf4j:slf4j-api:1.7.5'
+    implementation 'org.slf4j:slf4j-simple:1.7.5'
 
     // Configuration
-    compile 'com.natpryce:konfig:1.6.9.0'
+    implementation 'com.natpryce:konfig:1.6.9.0'
 
     // CSV Import
-    compile group: 'com.opencsv', name: 'opencsv', version: '4.0'
+    implementation group: 'com.opencsv', name: 'opencsv', version: '4.0'
 
     // Templating
-    compile "org.jtwig:jtwig-core:5.87.0.RELEASE"
+    implementation "org.jtwig:jtwig-core:5.87.0.RELEASE"
 
     // Google Gmail
-    compile 'com.google.apis:google-api-services-gmail:v1-rev89-1.23.0'
-    compile 'com.google.api-client:google-api-client:1.23.0'
-    compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
-    compile 'com.google.apis:google-api-services-gmail:v1-rev83-1.23.0'
-    compile 'javax.mail:javax.mail-api:1.6.1'
-    compile 'com.sun.mail:javax.mail:1.6.1'
+    implementation 'com.google.apis:google-api-services-gmail:v1-rev89-1.23.0'
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-gmail:v1-rev83-1.23.0'
+    implementation 'javax.mail:javax.mail-api:1.6.1'
+    implementation 'com.sun.mail:javax.mail:1.6.1'
 
     // Jsondb
-    compile 'io.jsondb:jsondb-core:1.0.36'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.5'
+    implementation 'io.jsondb:jsondb-core:1.0.36'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
     
     // MongoDB
-    compile 'org.litote.kmongo:kmongo:3.9.2'
+    implementation 'org.litote.kmongo:kmongo:3.11.0'
 
     // Google Maps Services
-    compile 'com.google.maps:google-maps-services:0.9.0'
-    //compile 'org.slf4j:slf4j-nop:1.7.25'
+    implementation 'com.google.maps:google-maps-services:0.9.0'
+    //implementation 'org.slf4j:slf4j-nop:1.7.25'
 
     // OpenStreetMaps Geocoding
-    compile 'fr.dudie:nominatim-api:3.3'
+    implementation 'fr.dudie:nominatim-api:3.3'
 
     // project dependencies
-    compile project(':planners')
-    compile project(':models')
+    implementation project(':planners')
+    implementation project(':models')
 }
 
 //// jar configuration is still needed (despite of application plugin) to add Manifest to traditional jar

@@ -1,7 +1,10 @@
 package de.debuglevel.walkingdinner.repository
 
 import de.debuglevel.walkingdinner.model.team.Team
-import org.litote.kmongo.*
+import org.litote.kmongo.getCollection
+import org.litote.kmongo.save
+import org.litote.kmongo.toList
+import org.litote.kmongo.updateOne
 
 object TeamRepository {
     fun save(team: Team) {
@@ -18,10 +21,11 @@ object TeamRepository {
     }
 
     fun get(id: String): Team {
-        return MongoDatabase.database
-            .getCollection<Team>()
-            .findOne(Team::id eq id)
-            ?: throw MongoDatabase.ObjectNotFoundException(id)
+        TODO()
+//        return MongoDatabase.database
+//            .getCollection<Team>()
+//            .findOne(Team::id eq id)
+//            ?: throw MongoDatabase.ObjectNotFoundException(id)
     }
 
     fun update(team: Team) {
