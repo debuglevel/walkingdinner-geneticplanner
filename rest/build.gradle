@@ -77,8 +77,59 @@ dependencies {
     // Template Engine
     implementation 'com.sparkjava:spark-template-mustache:2.7.1'
 
-    // project dependencies
-    implementation project(':integration')
+    // Genetic Algorithm
+    implementation 'io.jenetics:jenetics:4.1.0'
+
+    // Jsondb
+    implementation 'io.jsondb:jsondb-core:1.0.36'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
+
+    // MongoDB
+    implementation 'org.litote.kmongo:kmongo-id:3.9.2'
+    implementation group: 'org.mongodb', name: 'bson', version: '3.9.1'
+
+    // Phone Numbers
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
+
+    // CSV Import
+    implementation group: 'com.opencsv', name: 'opencsv', version: '4.0'
+
+    // Templating
+    implementation "org.jtwig:jtwig-core:5.87.0.RELEASE"
+
+    // Google Gmail
+    implementation 'com.google.apis:google-api-services-gmail:v1-rev89-1.23.0'
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-gmail:v1-rev83-1.23.0'
+    implementation 'javax.mail:javax.mail-api:1.6.1'
+    implementation 'com.sun.mail:javax.mail:1.6.1'
+
+    // Jsondb
+    implementation 'io.jsondb:jsondb-core:1.0.36'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
+
+    // MongoDB
+    implementation 'org.litote.kmongo:kmongo:3.11.0'
+
+    // Google Maps Services
+    implementation 'com.google.maps:google-maps-services:0.9.0'
+    //implementation 'org.slf4j:slf4j-nop:1.7.25'
+
+    // OpenStreetMaps Geocoding
+    implementation 'fr.dudie:nominatim-api:3.3'
+
+    // Apache Commons
+    implementation group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
+
+    // Clikt
+    implementation 'com.github.ajalt:clikt:1.2.0'
+
+    // Configuration
+    implementation 'com.natpryce:konfig:1.6.9.0'
+
+//    // project dependencies
+//    implementation project(':integration')
 }
 
 // jar configuration is still needed (despite of application plugin) to add Manifest to traditional jar
