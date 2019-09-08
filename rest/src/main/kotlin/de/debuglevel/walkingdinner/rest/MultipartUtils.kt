@@ -49,7 +49,7 @@ object MultipartUtils {
         return request.raw()
                 .parts
                 .filter { it.name == fieldName }
-                .filter { it.inputStream.reader().use { it -> it.readText() } == "on" }
+            .filter { it.inputStream.reader().use { reader -> reader.readText() } == "on" }
                 .any()
     }
 

@@ -8,5 +8,5 @@ package de.debuglevel.walkingdinner.rest
  * @param args parameters from the command line call
  */
 fun main(args: Array<String>) {
-    RestEndpoint().start(args)
+    RestEndpoint().start()
 }

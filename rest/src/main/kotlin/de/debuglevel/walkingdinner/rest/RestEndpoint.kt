@@ -25,10 +25,8 @@ class RestEndpoint {
 
     /**
      * Starts the REST endpoint to enter a listening state
-     *
-     * @param args parameters to be passed from main() command line
      */
-    fun start(args: Array<String>) {
+    fun start() {
         logger.info("Starting...")
         configuredPort()
 

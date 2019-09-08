@@ -126,7 +126,7 @@ object PlanController {
     fun getOne(): RouteHandler.() -> String {
         return {
             type(contentType = "application/json")
-            val dinnerId = request.params(":dinnerId").toUUID()
+//            val dinnerId = request.params(":dinnerId").toUUID()
             val planId = request.params(":planId").toUUID()
 
             val future = plans[planId]
