@@ -1,7 +1,7 @@
 package de.debuglevel.walkingdinner.report.teams.summary
 
-import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.report.Reporter
+import de.debuglevel.walkingdinner.rest.Meeting
 import mu.KotlinLogging
 
 class SummaryReporter : Reporter {

@@ -1,6 +1,6 @@
 package de.debuglevel.walkingdinner.repository
 
-import de.debuglevel.walkingdinner.model.organisation.Organisation
+import de.debuglevel.walkingdinner.rest.organisation.Organisation
 import org.litote.kmongo.getCollection
 
 fun main() {

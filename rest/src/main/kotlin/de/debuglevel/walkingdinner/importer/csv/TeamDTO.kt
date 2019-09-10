@@ -8,7 +8,7 @@ import de.debuglevel.walkingdinner.importer.csv.converter.NameConverter
 import de.debuglevel.walkingdinner.importer.csv.converter.PhoneNumberConverter
 import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
 import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
-import de.debuglevel.walkingdinner.model.team.*
+import de.debuglevel.walkingdinner.rest.participant.*
 
 
 class TeamDTO {
@@ -47,7 +47,8 @@ class TeamDTO {
         val cook2 = Cook(name2, mail2, phone2)
         val location = null
         val capabilities = this.capabilities.filterNotNull()
-        val team = Team(cook1, cook2, address, diet, capabilities, location)
+        val team =
+            Team(cook1, cook2, address, diet, capabilities, location)
 
         return team
     }

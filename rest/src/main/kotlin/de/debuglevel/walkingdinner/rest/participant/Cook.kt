@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.model.team
+package de.debuglevel.walkingdinner.rest.participant
 
 data class Cook(
     val name: Name,

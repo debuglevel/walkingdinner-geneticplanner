@@ -1,12 +1,12 @@
 package de.debuglevel.walkingdinner.repository
 
-import de.debuglevel.walkingdinner.model.Plan
 import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
 import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
-import de.debuglevel.walkingdinner.model.dinner.Dinner
 import de.debuglevel.walkingdinner.model.location.Location
-import de.debuglevel.walkingdinner.model.organisation.Organisation
-import de.debuglevel.walkingdinner.model.team.*
+import de.debuglevel.walkingdinner.rest.dinner.Dinner
+import de.debuglevel.walkingdinner.rest.organisation.Organisation
+import de.debuglevel.walkingdinner.rest.participant.*
+import de.debuglevel.walkingdinner.rest.plan.Plan
 import org.litote.kmongo.getCollection
 import java.time.LocalDateTime
 
@@ -20,23 +20,53 @@ fun main() {
                     LocalDateTime.of(2019, 1, 30, 19, 0),
                     setOf<Team>(
                         Team(
-                            Cook(Name("Adam Ansow"), MailAddress("adam@ansow.tld"), PhoneNumber("111111111")),
-                            Cook(Name("Berta Berthold"), MailAddress("berta@berthold.tld"), PhoneNumber("2222222")),
+                            Cook(
+                                Name(
+                                    "Adam Ansow"
+                                ),
+                                MailAddress("adam@ansow.tld"),
+                                PhoneNumber("111111111")
+                            ),
+                            Cook(
+                                Name(
+                                    "Berta Berthold"
+                                ),
+                                MailAddress("berta@berthold.tld"),
+                                PhoneNumber("2222222")
+                            ),
                             "Adamsstraße 42",
                             Diet.Omnivore,
                             listOf(Capability.OmnivorVorspeise),
                             Location("Adamsstraße 42", 1.0, 1.0)
                         ),
                         Team(
-                            Cook(Name("Charles Chester"), MailAddress("charles@chester.tld"), PhoneNumber("33333333")),
-                            Cook(Name("Dagobert Duck"), MailAddress("dagobert@duck.tld"), PhoneNumber("4444444")),
+                            Cook(
+                                Name(
+                                    "Charles Chester"
+                                ),
+                                MailAddress("charles@chester.tld"),
+                                PhoneNumber("33333333")
+                            ),
+                            Cook(
+                                Name(
+                                    "Dagobert Duck"
+                                ),
+                                MailAddress("dagobert@duck.tld"),
+                                PhoneNumber("4444444")
+                            ),
                             "Chesterstreet 23",
                             Diet.Omnivore,
                             listOf(),
                             Location("Chesterstreet 23", 2.0, 2.0)
                         ),
                         Team(
-                            Cook(Name("Edgar Eddams"), MailAddress("edgar@eddams.tld"), PhoneNumber("555555")),
+                            Cook(
+                                Name(
+                                    "Edgar Eddams"
+                                ),
+                                MailAddress("edgar@eddams.tld"),
+                                PhoneNumber("555555")
+                            ),
                             Cook(
                                 Name("Ferdinand Forster"),
                                 MailAddress("ferdinand@forster.tld"),
@@ -55,16 +85,40 @@ fun main() {
                     LocalDateTime.of(2019, 6, 1, 20, 0),
                     setOf<Team>(
                         Team(
-                            Cook(Name("Adam Ansow"), MailAddress("adam@ansow.tld"), PhoneNumber("111111111")),
-                            Cook(Name("Berta Berthold"), MailAddress("berta@berthold.tld"), PhoneNumber("2222222")),
+                            Cook(
+                                Name(
+                                    "Adam Ansow"
+                                ),
+                                MailAddress("adam@ansow.tld"),
+                                PhoneNumber("111111111")
+                            ),
+                            Cook(
+                                Name(
+                                    "Berta Berthold"
+                                ),
+                                MailAddress("berta@berthold.tld"),
+                                PhoneNumber("2222222")
+                            ),
                             "Adamsstraße 42",
                             Diet.Omnivore,
                             listOf(Capability.OmnivorVorspeise),
                             Location("Adamsstraße 42", 1.0, 1.0)
                         ),
                         Team(
-                            Cook(Name("Charles Chester"), MailAddress("charles@chester.tld"), PhoneNumber("33333333")),
-                            Cook(Name("Dagobert Duck"), MailAddress("dagobert@duck.tld"), PhoneNumber("4444444")),
+                            Cook(
+                                Name(
+                                    "Charles Chester"
+                                ),
+                                MailAddress("charles@chester.tld"),
+                                PhoneNumber("33333333")
+                            ),
+                            Cook(
+                                Name(
+                                    "Dagobert Duck"
+                                ),
+                                MailAddress("dagobert@duck.tld"),
+                                PhoneNumber("4444444")
+                            ),
                             "Chesterstreet 23",
                             Diet.Omnivore,
                             listOf(),

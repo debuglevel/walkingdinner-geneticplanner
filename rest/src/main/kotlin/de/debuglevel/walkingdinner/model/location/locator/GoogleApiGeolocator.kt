@@ -4,7 +4,7 @@ import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
 import de.debuglevel.walkingdinner.model.location.GeoUtils
 import de.debuglevel.walkingdinner.model.location.Location
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.participant.Team
 import mu.KotlinLogging
 import java.text.DecimalFormat
 

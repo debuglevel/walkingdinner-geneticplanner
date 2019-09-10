@@ -2,7 +2,7 @@ package de.debuglevel.walkingdinner.importer.csv
 
 import com.opencsv.bean.CsvToBeanBuilder
 import de.debuglevel.walkingdinner.importer.TeamImporter
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.participant.Team
 import mu.KotlinLogging
 import java.io.BufferedReader
 import java.io.IOException

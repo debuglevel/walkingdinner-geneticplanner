@@ -1,6 +1,5 @@
-package de.debuglevel.walkingdinner.repository
+package de.debuglevel.walkingdinner.rest.dinner
 
-import de.debuglevel.walkingdinner.model.dinner.Dinner
 import mu.KotlinLogging
 
 object DinnerRepository {

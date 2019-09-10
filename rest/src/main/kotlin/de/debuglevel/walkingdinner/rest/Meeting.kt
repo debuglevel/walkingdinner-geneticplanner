@@ -1,6 +1,6 @@
-package de.debuglevel.walkingdinner.model
+package de.debuglevel.walkingdinner.rest
 
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.participant.Team
 import java.util.stream.Collectors
 
 data class Meeting(

@@ -2,7 +2,7 @@ package de.debuglevel.walkingdinner.model.location.locator
 
 import de.debuglevel.walkingdinner.model.location.GeoUtils
 import de.debuglevel.walkingdinner.model.location.Location
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.participant.Team
 import fr.dudie.nominatim.client.JsonNominatimClient
 import fr.dudie.nominatim.client.request.NominatimSearchRequest
 import fr.dudie.nominatim.model.Address

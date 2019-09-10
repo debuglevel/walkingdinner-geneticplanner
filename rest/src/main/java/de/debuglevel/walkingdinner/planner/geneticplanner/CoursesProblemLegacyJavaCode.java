@@ -1,9 +1,9 @@
 package de.debuglevel.walkingdinner.planner.geneticplanner;
 
-import de.debuglevel.walkingdinner.model.Courses;
-import de.debuglevel.walkingdinner.model.Meeting;
 import de.debuglevel.walkingdinner.model.location.Location;
-import de.debuglevel.walkingdinner.model.team.Team;
+import de.debuglevel.walkingdinner.rest.Courses;
+import de.debuglevel.walkingdinner.rest.Meeting;
+import de.debuglevel.walkingdinner.rest.participant.Team;
 
 import java.util.*;
 import java.util.stream.Collectors;

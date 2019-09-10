@@ -1,5 +1,6 @@
 package de.debuglevel.walkingdinner.model.team
 
+import de.debuglevel.walkingdinner.rest.participant.PhoneNumber
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance

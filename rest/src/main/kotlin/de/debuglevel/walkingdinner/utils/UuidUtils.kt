@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.rest
+package de.debuglevel.walkingdinner.utils
 
 import java.util.*
 

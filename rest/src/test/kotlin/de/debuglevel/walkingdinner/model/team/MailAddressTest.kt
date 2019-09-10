@@ -1,5 +1,6 @@
 package de.debuglevel.walkingdinner.model.team
 
+import de.debuglevel.walkingdinner.rest.participant.MailAddress
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.TestInstance

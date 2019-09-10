@@ -1,7 +1,7 @@
 package de.debuglevel.walkingdinner.model.location.locator
 
 import de.debuglevel.walkingdinner.model.location.Location
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.participant.Team
 
 interface Geolocator {
     fun initializeTeamLocation(team: Team)

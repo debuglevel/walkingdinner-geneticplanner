@@ -1,6 +1,6 @@
-package de.debuglevel.walkingdinner.repository
+package de.debuglevel.walkingdinner.rest.organisation
 
-import de.debuglevel.walkingdinner.model.organisation.Organisation
+import de.debuglevel.walkingdinner.repository.MongoDatabase
 import mu.KotlinLogging
 import org.litote.kmongo.getCollection
 import org.litote.kmongo.toList

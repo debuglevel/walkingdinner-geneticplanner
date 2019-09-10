@@ -1,6 +1,6 @@
-package de.debuglevel.walkingdinner.model
+package de.debuglevel.walkingdinner.rest
 
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.participant.Team
 import java.util.stream.Collectors
 
 data class Courses(
@@ -24,9 +24,18 @@ data class Courses(
     fun toCourseMeetings(): Map<String, Set<Meeting>> {
         val courseMeetings = hashMapOf<String, Set<Meeting>>()
 
-        courseMeetings[course1name] = Team.toMeetings(course1teams, course1name)
-        courseMeetings[course2name] = Team.toMeetings(course2teams, course2name)
-        courseMeetings[course3name] = Team.toMeetings(course3teams, course3name)
+        courseMeetings[course1name] = Team.toMeetings(
+            course1teams,
+            course1name
+        )
+        courseMeetings[course2name] = Team.toMeetings(
+            course2teams,
+            course2name
+        )
+        courseMeetings[course3name] = Team.toMeetings(
+            course3teams,
+            course3name
+        )
 
         return courseMeetings
     }

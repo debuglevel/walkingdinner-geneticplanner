@@ -1,8 +1,8 @@
 package de.debuglevel.walkingdinner.report.teams.file
 
-import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.report.teams.TextReport
 import de.debuglevel.walkingdinner.report.teams.TextReporter
+import de.debuglevel.walkingdinner.rest.Meeting
 import mu.KotlinLogging
 import java.io.PrintWriter
 import java.nio.file.Files

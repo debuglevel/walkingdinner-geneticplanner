@@ -1,24 +1,22 @@
 package de.debuglevel.walkingdinner.rest.plan
 
+//import spark.kotlin.RouteHandler
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
 import de.debuglevel.walkingdinner.importer.Database
-import de.debuglevel.walkingdinner.model.Plan
-import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.planner.geneticplanner.CoursesProblem
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlanner
 import de.debuglevel.walkingdinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.report.teams.summary.SummaryReporter
-import de.debuglevel.walkingdinner.rest.MultipartUtils
+import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.responsetransformer.JsonTransformer
-import de.debuglevel.walkingdinner.rest.toUUID
+import de.debuglevel.walkingdinner.utils.MultipartUtils
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import io.jenetics.stat.DoubleMomentStatistics
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
 import mu.KotlinLogging
-import spark.ModelAndView
-import spark.kotlin.RouteHandler
-import spark.template.mustache.MustacheTemplateEngine
 import java.nio.file.Path
 import java.util.*
 import java.util.concurrent.Callable
@@ -26,21 +24,39 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.function.Consumer
 
-object PlanController {
+@Controller("/plans")
+class PlanController(private val planService: PlanService) {
     private val logger = KotlinLogging.logger {}
+
+    @Get("/{planId}")
+    fun getOne(planId: String): PlanDTO {
+        logger.debug("Called getOne($planId)")
+        return planService.get(planId)
+    }
+
+    @Get("/")
+    fun getList(): Set<PlanDTO> {
+        logger.debug("Called getList()")
+        return planService.getAll()
+    }
+
+
+
 
     private val plans = mutableMapOf<UUID, Future<Plan>>()
 
     private val executor = Executors.newFixedThreadPool(4)
 
-    fun postOne(): RouteHandler.() -> Any {
-        return {
-            logger.debug("Got POST request on '/plans' with content-type '${request.contentType()}'")
+    fun postOneX(): Any {
 
-            if (!request.contentType().startsWith("multipart/form-data")) {
-                logger.debug { "Declining POST request with unsupported content-type '${request.contentType()}'" }
-                throw Exception("Content-Type ${request.contentType()} not supported.")
-            }
+//            logger.debug("Got POST request on '/plans' with content-type '${request.contentType()}'")
+//
+//            if (!request.contentType().startsWith("multipart/form-data")) {
+//                logger.debug { "Declining POST request with unsupported content-type '${request.contentType()}'" }
+//                throw Exception("Content-Type ${request.contentType()} not supported.")
+//            }
+
+        val request = Object()
 
             // get supplied multipart values
             val surveyCsvFile = MultipartUtils.getFile(request, "surveyfile")
@@ -65,8 +81,8 @@ object PlanController {
             val planId = UUID.randomUUID()
             plans[planId] = plannerFuture
 
-            "Computing plan /plans/$planId ..."
-        }
+        return "Computing plan /plans/$planId ..."
+
     }
 
     private fun startPlanner(fileName: Path,
@@ -123,33 +139,33 @@ object PlanController {
         }
     }
 
-    fun getOne(): RouteHandler.() -> String {
-        return {
-            type(contentType = "application/json")
+    fun getOneX(): String {
+
+//            type(contentType = "application/json")
 //            val dinnerId = request.params(":dinnerId").toUUID()
-            val planId = request.params(":planId").toUUID()
+        //val planId = request.params(":planId").toUUID()
+        val planId = UUID.randomUUID()
 
             val future = plans[planId]
 
-            if (future == null) {
-                type(contentType = "plain/text")
-                status(404)
+        return if (future == null) {
+//                type(contentType = "plain/text")
+//                status(404)
                 "Plan not found"
             } else {
-                type(contentType = "application/json")
+//                type(contentType = "application/json")
                 val plan = when {
                     future.isDone -> PlanDTO(true, future.get())
                     else -> PlanDTO(false)
                 }
                 JsonTransformer.render(plan)
             }
-        }
     }
 
-    fun getAddFormHtml(): RouteHandler.() -> String {
-        return {
-            val model = HashMap<String, Any>()
-            MustacheTemplateEngine().render(ModelAndView(model, "plan/add.html.mustache"))
-        }
-    }
+//    fun getAddFormHtml(): RouteHandler.() -> String {
+//        return {
+//            val model = HashMap<String, Any>()
+//            MustacheTemplateEngine().render(ModelAndView(model, "plan/add.html.mustache"))
+//        }
+//    }
 }

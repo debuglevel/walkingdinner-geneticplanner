@@ -1,9 +1,9 @@
 package de.debuglevel.walkingdinner.planner.geneticplanner
 
-import de.debuglevel.walkingdinner.model.Courses
-import de.debuglevel.walkingdinner.model.Plan
-import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.planner.Planner
+import de.debuglevel.walkingdinner.rest.Courses
+import de.debuglevel.walkingdinner.rest.participant.Team
+import de.debuglevel.walkingdinner.rest.plan.Plan
 import io.jenetics.EnumGene
 import io.jenetics.Optimize
 import io.jenetics.PartiallyMatchedCrossover
@@ -13,7 +13,6 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.Limits
 import io.jenetics.util.ISeq
 import mu.KotlinLogging
-
 import java.util.function.Consumer
 
 class GeneticPlanner(options: GeneticPlannerOptions) : Planner {

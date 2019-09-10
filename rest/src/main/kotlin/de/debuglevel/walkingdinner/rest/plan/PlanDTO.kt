@@ -1,7 +1,6 @@
 package de.debuglevel.walkingdinner.rest.plan
 
-import de.debuglevel.walkingdinner.model.Meeting
-import de.debuglevel.walkingdinner.model.Plan
+import de.debuglevel.walkingdinner.rest.Meeting
 
 data class PlanDTO(val done: Boolean, // TODO: rename to "calculationFinished" or the like
                    @Transient val plan: Plan? = null) {

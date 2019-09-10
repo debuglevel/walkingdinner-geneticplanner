@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.model.team
+package de.debuglevel.walkingdinner.rest.participant
 
 data class Name(val name: String) {
     val firstname: String by lazy { extractFirstname() }

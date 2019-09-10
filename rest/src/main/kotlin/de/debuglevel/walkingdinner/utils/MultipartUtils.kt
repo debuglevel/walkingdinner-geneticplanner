@@ -1,9 +1,7 @@
-package de.debuglevel.walkingdinner.rest
+package de.debuglevel.walkingdinner.utils
 
 import mu.KotlinLogging
-import spark.Request
 import java.nio.file.Path
-import javax.servlet.MultipartConfigElement
 import javax.servlet.http.Part
 
 object MultipartUtils {
@@ -31,7 +29,7 @@ object MultipartUtils {
      *
      * @param fieldName name of the field in the HTML form
      */
-    fun getField(request: Request, fieldName: String): String {
+    fun getField(request: Object, fieldName: String): String {
         setup(request)
 
         TODO("commented because of some compile error")
@@ -42,7 +40,7 @@ object MultipartUtils {
 //                .use { it.readText() }
     }
 
-    fun getCheckbox(request: Request, fieldName: String): Boolean {
+    fun getCheckbox(request: Object, fieldName: String): Boolean {
         setup(request)
 
         TODO("commented because of some compile error")
@@ -61,7 +59,7 @@ object MultipartUtils {
      *
      * @param fieldName name of the field in the HTML form
      */
-    fun getFile(request: Request, fieldName: String): Path {
+    fun getFile(request: Object, fieldName: String): Path {
         setup(request)
 
         val temporarySurveyFile = createTempFile("walkingdinner-plan").toPath()
@@ -76,9 +74,10 @@ object MultipartUtils {
 //        return temporarySurveyFile
     }
 
-    private fun setup(request: Request) {
-        if (!request.attributes().contains("org.eclipse.jetty.multipartConfig")) {
-            request.attribute("org.eclipse.jetty.multipartConfig", MultipartConfigElement("/temp"))
-        }
+    private fun setup(request: Object) {
+        TODO("")
+//        if (!request.attributes().contains("org.eclipse.jetty.multipartConfig")) {
+//            request.attribute("org.eclipse.jetty.multipartConfig", MultipartConfigElement("/temp"))
+//        }
     }
 }

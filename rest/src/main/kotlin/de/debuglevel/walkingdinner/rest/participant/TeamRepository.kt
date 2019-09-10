@@ -1,6 +1,6 @@
-package de.debuglevel.walkingdinner.repository
+package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.repository.MongoDatabase
 import org.litote.kmongo.getCollection
 import org.litote.kmongo.save
 import org.litote.kmongo.toList

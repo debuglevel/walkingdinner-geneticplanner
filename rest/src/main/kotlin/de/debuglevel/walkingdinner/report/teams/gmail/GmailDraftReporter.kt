@@ -1,10 +1,10 @@
 package de.debuglevel.walkingdinner.report.teams.gmail
 
 
-import de.debuglevel.walkingdinner.model.Meeting
-import de.debuglevel.walkingdinner.model.team.Team
 import de.debuglevel.walkingdinner.report.teams.TextReport
 import de.debuglevel.walkingdinner.report.teams.TextReporter
+import de.debuglevel.walkingdinner.rest.Meeting
+import de.debuglevel.walkingdinner.rest.participant.Team
 
 
 class GmailDraftReporter : TextReporter() {

@@ -1,9 +1,9 @@
-package de.debuglevel.walkingdinner.model.team
+package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.model.Meeting
 import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
 import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.model.location.Location
+import de.debuglevel.walkingdinner.rest.Meeting
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
 import org.litote.kmongo.newId
@@ -33,7 +33,12 @@ data class Team(
                 meetingTeams[index % 3] = value
 
                 if (index % 3 == 2) {
-                    meetings.add(Meeting(meetingTeams.filterNotNull(), courseName))
+                    meetings.add(
+                        Meeting(
+                            meetingTeams.filterNotNull(),
+                            courseName
+                        )
+                    )
                 }
             }
 

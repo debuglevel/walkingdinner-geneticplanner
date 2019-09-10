@@ -1,6 +1,6 @@
 package de.debuglevel.walkingdinner.planner.geneticplanner
 
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.participant.Team
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import java.util.function.Consumer

@@ -1,6 +1,6 @@
-package de.debuglevel.walkingdinner.model.organisation
+package de.debuglevel.walkingdinner.rest.organisation
 
-import de.debuglevel.walkingdinner.model.dinner.Dinner
+import de.debuglevel.walkingdinner.rest.dinner.Dinner
 import org.bson.codecs.pojo.annotations.BsonId
 import org.litote.kmongo.Id
 import org.litote.kmongo.newId

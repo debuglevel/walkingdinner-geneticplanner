@@ -1,8 +1,8 @@
 package de.debuglevel.walkingdinner.model.dietcompatibility
 
-import de.debuglevel.walkingdinner.model.Courses
-import de.debuglevel.walkingdinner.model.Meeting
-import de.debuglevel.walkingdinner.model.team.Team
+import de.debuglevel.walkingdinner.rest.Courses
+import de.debuglevel.walkingdinner.rest.Meeting
+import de.debuglevel.walkingdinner.rest.participant.Team
 import mu.KotlinLogging
 
 object CourseCompatibility : Compatibility {

@@ -44,7 +44,7 @@ apply plugin: 'org.hibernate.orm'
 
 // application plugin configuration
 applicationName = "Walking-Dinner Microservice"
-mainClassName = 'de.debuglevel.walkingdinner.MainKt'
+mainClassName = 'de.debuglevel.walkingdinner.ApplicationKt'
 
 repositories {
     jcenter()
@@ -120,8 +120,8 @@ dependencies {
     implementation "io.swagger.core.v3:swagger-annotations"
 
     // Spark (REST server) // TODO: replace by micronaut technology
-    implementation 'com.sparkjava:spark-kotlin:1.0.0-alpha'
-    implementation 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.21'
+//    implementation 'com.sparkjava:spark-kotlin:1.0.0-alpha'
+//    implementation 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.21'
 
     // JSON // TODO: replace by micronaut technology
     implementation 'com.google.code.gson:gson:2.8.4'
