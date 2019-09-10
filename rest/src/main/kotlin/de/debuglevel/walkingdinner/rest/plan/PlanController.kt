@@ -13,9 +13,9 @@ class PlanController(private val planService: PlanService) {
     private val logger = KotlinLogging.logger {}
 
     @Get("/{planId}")
-    fun getOne(planId: String): PlanDTO? {
+    fun getOne(planId: String): PlanDTO {
         logger.debug("Called getOne($planId)")
-        return planService.getX(planId.toUUID())
+        return planService.get(planId.toUUID())
     }
 
     @Get("/")
@@ -30,7 +30,7 @@ class PlanController(private val planService: PlanService) {
 
         // TODO: as this is just a CSV, we could just transfer it as a String
         val surveyCsv = Base64String(planRequest.surveyfile).asString
-        val planId = planService.startPlannerX(
+        val planId = planService.startPlannerAsync(
             surveyCsv,
             planRequest.populationsSize,
             planRequest.fitnessThreshold,

@@ -11,6 +11,7 @@ import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import io.jenetics.stat.DoubleMomentStatistics
+import io.micronaut.context.annotation.Property
 import mu.KotlinLogging
 import java.util.*
 import java.util.concurrent.Callable
@@ -20,77 +21,52 @@ import java.util.function.Consumer
 import javax.inject.Singleton
 
 @Singleton
-class PlanService {
+class PlanService(
+    @Property(name = "app.walkingdinner.planners.threads") val threadCount: Int
+) {
     private val logger = KotlinLogging.logger {}
 
-    fun get(planId: UUID): PlanDTO? {
-        return getX(planId)
-        //return PlanDTO(true, null)
-    }
-
-    fun getAll(): Set<PlanDTO> {
-        return (1..5)
-            .map {
-                PlanDTO(
-                    true,
-                    null
-                )
-            }
-            .toSet()
-    }
-
-    private val executor = Executors.newFixedThreadPool(4)
-
-    // TODO: should not be public
-    val plans = mutableMapOf<UUID, Future<Plan>>()
-
-    fun getX(planId: UUID): PlanDTO? {
-//            type(contentType = "application/json")
-//            val dinnerId = request.params(":dinnerId").toUUID()
-        //val planId = request.params(":planId").toUUID()
-//        val planId = UUID.randomUUID()
-
+    fun get(planId: UUID): PlanDTO {
         val future = plans[planId]
-
         return if (future == null) {
-//                type(contentType = "plain/text")
-//                status(404)
-            //"Plan not found"
-            null
-            // TODO: throw exception instead
+            throw PlanNotFoundException(planId)
         } else {
-//                type(contentType = "application/json")
-            val plan = when {
+            when {
                 future.isDone -> PlanDTO(true, future.get())
                 else -> PlanDTO(false)
             }
-//            JsonTransformer.render(plan)
-            plan
         }
     }
 
-    fun startPlannerX(
+    fun getAll(): Set<PlanDTO> {
+        return plans
+            .map { get(it.key) }
+            .toSet()
+    }
+
+    private val executor = Executors.newFixedThreadPool(threadCount)
+
+    private val plans = mutableMapOf<UUID, Future<Plan>>()
+
+    fun startPlannerAsync(
         surveyCsv: String,
         populationsSize: Int,
         fitnessThreshold: Double,
         steadyFitness: Int,
         location: String
     ): UUID {
-        // start planner
         val plannerTask = Callable<Plan> {
-            val startPlanner = try {
+            try {
                 startPlanner(surveyCsv, populationsSize, fitnessThreshold, steadyFitness, location)
             } catch (e: Exception) {
                 logger.error("Callable threw exception", e)
                 throw e
             }
-
-            startPlanner
         }
 
-        val plannerFuture = executor.submit(plannerTask)
+        val planFuture = executor.submit(plannerTask)
         val planId = UUID.randomUUID()
-        plans[planId] = plannerFuture
+        plans[planId] = planFuture
         return planId
     }
 
@@ -151,4 +127,6 @@ class PlanService {
             println("${Math.round(1 / (e.durations.evolveDuration.toNanos() / 1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
         }
     }
+
+    class PlanNotFoundException(planId: UUID) : Exception("Plan $planId not found")
 }

@@ -1,5 +1,8 @@
 app:
   walkingdinner:
+    planners:
+      # number of threads to use to calculate plan
+      threads: 4
 
 micronaut:
   application:
