@@ -1,6 +1,7 @@
 package de.debuglevel.walkingdinner.rest.plan
 
 //import spark.kotlin.RouteHandler
+import de.debuglevel.walkingdinner.utils.Base64String
 import de.debuglevel.walkingdinner.utils.toUUID
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -26,12 +27,9 @@ class PlanController(private val planService: PlanService) {
     @Post("/")
     fun postOne(planRequest: PlanRequest): PlanResponse {
         logger.debug("Called postOne($planRequest)")
-        return postOneX(planRequest)
-    }
 
-    private fun postOneX(planRequest: PlanRequest): PlanResponse {
-        val surveyCsv = decodeBase64(planRequest.surveyfile)
-
+        // TODO: as this is just a CSV, we could just transfer it as a String
+        val surveyCsv = Base64String(planRequest.surveyfile).asString
         val planId = planService.startPlannerX(
             surveyCsv,
             planRequest.populationsSize,
@@ -41,11 +39,6 @@ class PlanController(private val planService: PlanService) {
         )
 
         return PlanResponse(planId)
-    }
-
-    private fun decodeBase64(surveyfile: String): String {
-        // TODO: even better: refactor Service so that no intermediate file is needed
-        TODO()
     }
 
 //    fun getAddFormHtml(): RouteHandler.() -> String {
