@@ -1,37 +1,59 @@
 language: java
 jdk:
-- openjdk8
+  - openjdk8
 
 before_install:
-- chmod +x gradlew
-- chmod +x gradle/wrapper/gradle-wrapper.jar
+  - chmod +x gradlew
+  - chmod +x gradle/wrapper/gradle-wrapper.jar
 
 script:
-- ./gradlew build
+  - ./gradlew build
 
 notifications:
   email: false
 
-# if releases are deployed on every commit (not only on tags, deploy.on.tags=false), a tag is needed nevertheless.
-# this creates a custom tag containing a timestamp, as Travis CI would tag it like "untagged-RANDOMHEX"
-before_deploy:
-- git config --local user.name "Marc Kohaupt (Travis CI)"
-- git config --local user.email "debuglevel@gmail.com"
-- git tag "$(date +'%Y-%m-%d_%H-%M-%S')_$(git log --format=%h -1)"
+# If releases are deployed on every commit (not only on tags, i.e. deploy.on.tags=false), a tag is needed nevertheless.
+# This creates a custom tag containing a timestamp, as Travis CI would tag it like "untagged-RANDOMHEX".
+# With deploy.on.tags=true, this section is not needed.
+#before_deploy:
+#  - git config --local user.name "Marc Kohaupt (Travis CI)"
+#  - git config --local user.email "debuglevel@gmail.com"
+#  - git tag "$(date +'%Y-%m-%d_%H-%M-%S')_$(git log --format=%h -1)"
 
+# See https://docs.travis-ci.com/user/deployment/releases
 deploy:
-- provider: releases
-  api_key: "${GITHUB_TOKEN}"
-  file_glob: true
-  file:
-  - "**/build/libs/*-all.jar"
-  skip_cleanup: true
-  on:
-    tags: false
+  - provider: releases
 
-- provider: heroku
-  api_key:
-    secure: 1uEVrUV/vgNfKnsCmoLthf2gcVyL4c7GdSCwnwmERmeUJeStF2Y01uirnJdf3v/6eR9O2Qtnt5jEjKSi8W1Ofdogkz1MH67i2q3wLVQ9SC+VGTGqvadeDbf14haMjwlx/hRHZl4NxUPQqBx4/9noKKb4z/dqJG51aiFRxe5C2x6BLrfyscBnMQ9foRGGzVZkCVgvjlVYYRJX7ZSU27999lTKaCUPX+9EsQeD1aosNKJyZ2OwWN+AU3vI7BH1oPwqYjerX4ksvJGjqKx5buDJwvts8/aSLd+sIcVXrG2qQ1fWKitHDRWNFWxZ2kG25lvnJdj0z0LIsH9QBtmaYDjEVa1JweYwjWRtjUBojktM5V16JdJ3d2CEAmYyDRUnIdnSRlAFrfRQ2AVbkK96jZkiKEY9Iwkmp/KCf4GqDFaMx1ldlEwaHTY6FD+nAckW9vAvmjT7v0r6y6OoVlWNvislNqUMxdvIb9hX312IocLfYpKszU5L7/u1VqFGdSAOSQoSdINEr9BsADgI5VwwDeHHykIH63rH1JPcHV2Oot/oRJgiCOjPZS1y1SQWlLh95WEsoWaLWYC+m2zM/1D2aoAQPQjN9OsiSlFHu10+6vZkzYLEAD+TC3BSIpI+YcjNKn7wejgx1xNdJst8RiuX/2w3D42wXCACqTatzljkPMycfTU=
-  app: walkingdinner
-  on:
-    repo: debuglevel/walkingdinner-geneticplanner
+    # Set up via https://docs.travis-ci.com/user/deployment/releases#authenticating-with-an-oauth-token; keep a copy of .travis.yml, use "travis setup releases", extract the api_key and use it in your copy of .travis.yml
+    api_key:
+      secure: GXLPa9pi+60loSltlgVL1T8qQOF3q4DeK1w+lgAipBtDm2rLcXDr/6YpOnvDdg6hoOKaiUC6kROyW/9/8Y7Ydx2ufoA+hUHYRvPxfgt4i0/LXHtnhZ206baebAejnYHTd5UYJcrykdTzppwD/CEA+U5ejMfjrNh6THCB50KUTT/7wW93qP0kkAILfU7siy102ZNEa4F1U98N4c5pSJ9rgYAJ6K5epjdJfwEHucpQQbnxBnBlEwtXpZevi8BRbL7MwdnJqX2KPSDh/f1NfjExviP1Jm5L3HBgKjD0Xqxfj7hOS4rvCitWpFyBexIU4ja1N44TiAENkQGIwTXOz9FtZCBaymNd4U64KtgQefHeJE5HG2vNU4+w+N0QBFu5g/5qWPj77vitrCA8lizPGO9hT3yRkADZSyXqlJ4YfhbQv0w2k3teRA1bso6EYusl4fuxnucOGbngbkOi0sgkp9xNj/wYROomGS+pL0Emgp9fijC95MrB4qvbHcW0wqrIEtahvBBj3GAmOSWu3e6i/oeOJ52kmrAkASJ5R8nWo/RUhdEMFOm/ZEoxYmfJlXIx/MTSuU0Qxy9R8tGZH4C39LkHU8j66nVbFR2QlUW3bjnYS+fM0fwsBElD+lJbLDosvQBfIFjyTl+9/cqXm3V0wlLnqq87aneltbOcEHBex/Ey4+U=
+
+    file_glob: true
+    file:
+      - "**/build/distributions/*.tar"
+
+    skip_cleanup: true
+
+    # Only deploy on certain conditions: https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
+    on:
+      # Only deploy commits of "master" branch
+      #branch: master
+
+      # true: only deploy release if commit is tagged
+      # false: only deploy release if commit is not tagged
+      # If "tags" condition is present, the "branch" condition is ignored
+      # If "tags" condition is not present, "branch" condition is considered
+      tags: true
+
+  # See https://docs.travis-ci.com/user/deployment/heroku/
+  - provider: heroku
+    api_key:
+      # Output of: travis encrypt $(heroku auth:token)
+      secure: 1uEVrUV/vgNfKnsCmoLthf2gcVyL4c7GdSCwnwmERmeUJeStF2Y01uirnJdf3v/6eR9O2Qtnt5jEjKSi8W1Ofdogkz1MH67i2q3wLVQ9SC+VGTGqvadeDbf14haMjwlx/hRHZl4NxUPQqBx4/9noKKb4z/dqJG51aiFRxe5C2x6BLrfyscBnMQ9foRGGzVZkCVgvjlVYYRJX7ZSU27999lTKaCUPX+9EsQeD1aosNKJyZ2OwWN+AU3vI7BH1oPwqYjerX4ksvJGjqKx5buDJwvts8/aSLd+sIcVXrG2qQ1fWKitHDRWNFWxZ2kG25lvnJdj0z0LIsH9QBtmaYDjEVa1JweYwjWRtjUBojktM5V16JdJ3d2CEAmYyDRUnIdnSRlAFrfRQ2AVbkK96jZkiKEY9Iwkmp/KCf4GqDFaMx1ldlEwaHTY6FD+nAckW9vAvmjT7v0r6y6OoVlWNvislNqUMxdvIb9hX312IocLfYpKszU5L7/u1VqFGdSAOSQoSdINEr9BsADgI5VwwDeHHykIH63rH1JPcHV2Oot/oRJgiCOjPZS1y1SQWlLh95WEsoWaLWYC+m2zM/1D2aoAQPQjN9OsiSlFHu10+6vZkzYLEAD+TC3BSIpI+YcjNKn7wejgx1xNdJst8RiuX/2w3D42wXCACqTatzljkPMycfTU=
+    app: walkingdinner
+    # build on heroku can be initialized by its Build API (default) or by a git push
+    #strategy: git
+    skip_cleanup: true
+    on:
+      branch: master
+

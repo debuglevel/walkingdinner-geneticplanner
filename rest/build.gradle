@@ -1,11 +1,10 @@
 buildscript {
-    ext.kotlin_version = '1.3.50'
-
     repositories {
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // TODO: might be removed when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
+        classpath "org.hibernate:hibernate-gradle-plugin:$hibernateGradlePluginVersion"
     }
 }
 
@@ -13,89 +12,136 @@ plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm'
 
-    // create start scripts
-    // is executed on "build" task but not on e.g. "jar" task
+    // Kotlin annotations processor (needed by Micronaut)
+    id 'org.jetbrains.kotlin.kapt'
+
+    //
+    // needed for Bean Validation https://docs.micronaut.io/latest/guide/index.html#beanValidation
+    // unsure, if there is another reason for it
+    // TODO: configure allopen to only open @Validated classes
+    id 'org.jetbrains.kotlin.plugin.allopen'
+
+    // Check updated dependencies with "gradle dependencyUpdates".
+    id 'com.github.ben-manes.versions'
+
+    // Release version with "gradle release"
+    id 'net.researchgate.release'
+
+    // Create start scripts
+    // Is executed on "build" task but not on e.g. "jar" task
     id 'application'
 
-    // bundle all dependencies into one fat shadowed jar
-    // (gets automatically triggered when application plugin is present)
-    id 'com.github.johnrengelman.shadow' version '5.1.0'
-}
+    // Bundle all dependencies into one fat shadowed jar
+    // (Gets automatically triggered when application plugin is present)
+    id 'com.github.johnrengelman.shadow'
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    // add no-argument constructors as they are needed for JPA (see https://kotlinlang.org/docs/reference/compiler-plugins.html#jpa-support)
+    id "org.jetbrains.kotlin.plugin.jpa"
 }
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-group 'de.debuglevel.walkingdinner'
-version '0.0.1-SNAPSHOT'
+// Enhance Hibernate entities (see configuration block below)
+// TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
+apply plugin: 'org.hibernate.orm'
 
 // application plugin configuration
-applicationName = "Walking-Dinner REST Microservice"
+applicationName = "Walking-Dinner Microservice"
 mainClassName = 'de.debuglevel.walkingdinner.MainKt'
-
-sourceCompatibility = 1.8
 
 repositories {
     jcenter()
+//    mavenLocal()
+//    maven {
+//        url "https://jitpack.io"
+//    }
     maven {
         url "https://dl.bintray.com/debuglevel/maven"
-    }
-    maven {
-        url "https://jitpack.io"
     }
 }
 
 dependencies {
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    // If no specific version is given, it is usually provided by the Micronaut BOM
 
-    // Testing
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'
-    testImplementation 'org.assertj:assertj-core:3.10.0'
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    //implementation "org.jetbrains.kotlin:kotlin-reflect"
+
+    // Tests
+    /// JUnit
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.junit.jupiter:junit-jupiter-params"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    /// Mockito
+    //testImplementation "org.mockito:mockito-junit-jupiter:$mockitoJunitJupiterVersion"
+    /// Assertions
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
 
     // Logging
-    // see http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
-    implementation 'io.github.microutils:kotlin-logging:1.7.6'
-    implementation 'org.slf4j:slf4j-api:1.7.5'
-    implementation 'org.slf4j:slf4j-simple:1.7.5'
+    // See http://saltnlight5.blogspot.com/2013/08/how-to-configure-slf4j-with-different.html for a quick introduction to slf4j
+    implementation "io.github.microutils:kotlin-logging:$kotlinLoggingVersion"
+    runtimeOnly "ch.qos.logback:logback-classic:$logbackVersion"
 
-    // Spark (REST server)
+    // Micronaut
+    /// Bill of Materials, which defines dependency versions
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
+    kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
+    // Core
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "javax.annotation:javax.annotation-api"
+    runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion"
+    /// Validation
+    kapt "io.micronaut:micronaut-validation"
+    //implementation 'io.micronaut.configuration:micronaut-hibernate-validator' // if full Bean Validator 2.0 compliance is needed
+    /// Server
+    implementation "io.micronaut:micronaut-http-server-netty"
+    /// Client
+    implementation "io.micronaut:micronaut-http-client"
+    /// Inversion of Control / Dependency Injection
+    kapt "io.micronaut:micronaut-inject-java"
+    kaptTest "io.micronaut:micronaut-inject-java"
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    /// Management & Monitoring
+    /// automatically provides the /health endpoint publicly, and some other with authentication
+    implementation 'io.micronaut:micronaut-management'
+    //implementation 'io.micronaut.configuration:micronaut-jmx' // activate JMX for the endpoints
+    /// Persistence
+    kapt "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
+    implementation "io.micronaut.data:micronaut-data-hibernate-jpa:$micronautDataVersion"
+    runtimeOnly "io.micronaut.configuration:micronaut-jdbc-tomcat"
+    runtimeOnly "com.h2database:h2"
+    //testRuntimeOnly "org.hsqldb:hsqldb:$hsqldbVersion"
+    //testRuntimeOnly "org.apache.derby:derby:$derbyVersion"
+    /// Security
+    kapt "io.micronaut:micronaut-security"
+    implementation "io.micronaut:micronaut-security"
+
+    // Swagger / OpenAPI
+    kapt "io.micronaut.configuration:micronaut-openapi"
+    implementation "io.swagger.core.v3:swagger-annotations"
+
+    // Spark (REST server) // TODO: replace by micronaut technology
     implementation 'com.sparkjava:spark-kotlin:1.0.0-alpha'
     implementation 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.21'
 
-    // JSON
+    // JSON // TODO: replace by micronaut technology
     implementation 'com.google.code.gson:gson:2.8.4'
 
-    // khttp (HTTP client)
-    //implementation 'com.github.jkcclemens:khttp:-SNAPSHOT'
-
-    // Template Engine
+    // Template Engine // TODO: replace by micronaut technology
     implementation 'com.sparkjava:spark-template-mustache:2.7.1'
+    implementation "org.jtwig:jtwig-core:5.87.0.RELEASE"
 
     // Genetic Algorithm
     implementation 'io.jenetics:jenetics:4.1.0'
 
-    // Jsondb
+    // Jsondb // TODO: replace by micronaut technology
     implementation 'io.jsondb:jsondb-core:1.0.36'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
-
-    // MongoDB
-    implementation 'org.litote.kmongo:kmongo-id:3.9.2'
-    implementation group: 'org.mongodb', name: 'bson', version: '3.9.1'
 
     // Phone Numbers
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
 
     // CSV Import
     implementation group: 'com.opencsv', name: 'opencsv', version: '4.0'
-
-    // Templating
-    implementation "org.jtwig:jtwig-core:5.87.0.RELEASE"
 
     // Google Gmail
     implementation 'com.google.apis:google-api-services-gmail:v1-rev89-1.23.0'
@@ -105,16 +151,12 @@ dependencies {
     implementation 'javax.mail:javax.mail-api:1.6.1'
     implementation 'com.sun.mail:javax.mail:1.6.1'
 
-    // Jsondb
-    implementation 'io.jsondb:jsondb-core:1.0.36'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
-
     // MongoDB
     implementation 'org.litote.kmongo:kmongo:3.11.0'
+    implementation group: 'org.mongodb', name: 'bson', version: '3.11.0'
 
     // Google Maps Services
     implementation 'com.google.maps:google-maps-services:0.9.0'
-    //implementation 'org.slf4j:slf4j-nop:1.7.25'
 
     // OpenStreetMaps Geocoding
     implementation 'fr.dudie:nominatim-api:3.3'
@@ -122,23 +164,58 @@ dependencies {
     // Apache Commons
     implementation group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
 
-    // Clikt
+    // Clikt // TODO: replace by micronaut technology
     implementation 'com.github.ajalt:clikt:1.2.0'
 
-    // Configuration
+    // Configuration // TODO: replace by micronaut technology
     implementation 'com.natpryce:konfig:1.6.9.0'
-
-//    // project dependencies
-//    implementation project(':integration')
 }
 
-// jar configuration is still needed (despite of application plugin) to add Manifest to traditional jar
+// Java configuration
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8 // Source is Java 8 code
+    targetCompatibility = JavaVersion.VERSION_1_8 // Byte code will be JVM 8
+}
+
+// Kotlin configuration (implies compileKotlin and compileTestKotlin)
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8 // Byte code will be JVM 8
+        // retain parameter names for Java reflection
+        javaParameters = true
+    }
+}
+
+// jar configuration
 jar {
+    // add Manifest to jar
     manifest {
         attributes 'Implementation-Title': applicationName,
                 'Implementation-Version': version,
                 'Main-Class': mainClassName
     }
+}
+
+// Appends entries in META-INF/services resources into a single resource. Not sure, if needed.
+// see: https://github.com/johnrengelman/shadow/blob/master/src/main/groovy/com/github/jengelman/gradle/plugins/shadow/transformers/ServiceFileTransformer.groovy
+shadowJar {
+    mergeServiceFiles()
+}
+
+// Configuration of com.gradle.build-scan plugin
+buildScan {
+    // Accept the license agreement for com.gradle.build-scan plugin
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
+
+    // Always publish scan (no more need for --scan option)
+    publishAlways()
+}
+
+// Configuration of net.researchgate.release plugin
+release {
+    failOnCommitNeeded = false
+    failOnUnversionedFiles = false
 }
 
 test {
@@ -153,6 +230,38 @@ test {
     }
 }
 
-// for Heroku: create a "stage" task which simply executes "build"
+allOpen {
+    annotation("io.micronaut.aop.Around")
+}
+
+// enhance Hibernate enities in bytecode
+hibernate {
+    enhance {
+        enableLazyInitialization = true
+        enableDirtyTracking = true
+        enableAssociationManagement = true
+    }
+}
+
+// filter out release candidates on dependency update check
+dependencyUpdates.resolutionStrategy {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'ea', 'pr'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
+}
+
+// -noverify skips verifying JAR files (reduce startup time)
+// -XX:TieredStopAtLevel=1 limits optimizations of the HotSpot compiler and its runtime overhead (reduce startup time)
+// -Dcom.sun.management.jmxremote enables Java Management Extensions
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+
+// For Heroku: create a "stage" task which simply executes "build"
 task stage(dependsOn: ['clean', 'build'])
 build.mustRunAfter clean
