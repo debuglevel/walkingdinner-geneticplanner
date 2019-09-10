@@ -6,7 +6,6 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import mu.KotlinLogging
-import java.nio.file.Path
 
 @Controller("/plans")
 class PlanController(private val planService: PlanService) {
@@ -31,10 +30,10 @@ class PlanController(private val planService: PlanService) {
     }
 
     private fun postOneX(planRequest: PlanRequest): PlanResponse {
-        val surveyfile = takeBase64encodedStringAndCreateAFile(planRequest.surveyfile)
+        val surveyCsv = decodeBase64(planRequest.surveyfile)
 
         val planId = planService.startPlannerX(
-            surveyfile,
+            surveyCsv,
             planRequest.populationsSize,
             planRequest.fitnessThreshold,
             planRequest.steadyFitness,
@@ -44,7 +43,7 @@ class PlanController(private val planService: PlanService) {
         return PlanResponse(planId)
     }
 
-    private fun takeBase64encodedStringAndCreateAFile(surveyfile: String): Path {
+    private fun decodeBase64(surveyfile: String): String {
         // TODO: even better: refactor Service so that no intermediate file is needed
         TODO()
     }

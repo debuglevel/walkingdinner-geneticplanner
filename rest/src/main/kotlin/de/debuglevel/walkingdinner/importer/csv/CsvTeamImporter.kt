@@ -7,18 +7,17 @@ import mu.KotlinLogging
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.net.URL
 
-class CsvTeamImporter(private val csvFile: URL) : TeamImporter {
+class CsvTeamImporter(private val csv: String) : TeamImporter {
     private val logger = KotlinLogging.logger {}
 
     override fun import(): List<Team> {
-        logger.debug("Importing teams from CSV file '$csvFile'...")
+        logger.debug("Importing teams from CSV...")
 
         var bufferedReader: BufferedReader? = null
 
         try {
-            bufferedReader = BufferedReader(InputStreamReader(csvFile.openStream()))
+            bufferedReader = BufferedReader(InputStreamReader(csv.byteInputStream()))
             val csvToBean = CsvToBeanBuilder<TeamDTO>(bufferedReader)
                 .withType(TeamDTO::class.java)
                 .withIgnoreLeadingWhiteSpace(true)

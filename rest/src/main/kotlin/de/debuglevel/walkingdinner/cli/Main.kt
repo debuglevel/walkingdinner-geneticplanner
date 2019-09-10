@@ -85,8 +85,9 @@ class Cli : CliktCommand() {
             UrlValidator().isValid(csvFilename) -> URL(csvFilename)
             else -> Paths.get(csvFilename).toUri().toURL()
         }
+        val csv = csvUrl.readText()
 
-        val database = Database(csvUrl, "Bamberg, Germany")
+        val database = Database(csv, "Bamberg, Germany")
 
         return database
     }

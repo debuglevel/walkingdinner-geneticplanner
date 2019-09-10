@@ -12,7 +12,6 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics
 import io.jenetics.stat.DoubleMomentStatistics
 import mu.KotlinLogging
-import java.nio.file.Path
 import java.util.*
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
@@ -71,7 +70,7 @@ class PlanService {
     }
 
     fun startPlannerX(
-        surveyCsvFile: Path,
+        surveyCsv: String,
         populationsSize: Int,
         fitnessThreshold: Double,
         steadyFitness: Int,
@@ -80,7 +79,7 @@ class PlanService {
         // start planner
         val plannerTask = Callable<Plan> {
             val startPlanner = try {
-                startPlanner(surveyCsvFile, populationsSize, fitnessThreshold, steadyFitness, location)
+                startPlanner(surveyCsv, populationsSize, fitnessThreshold, steadyFitness, location)
             } catch (e: Exception) {
                 logger.error("Callable threw exception", e)
                 throw e
@@ -96,7 +95,7 @@ class PlanService {
     }
 
     private fun startPlanner(
-        fileName: Path,
+        surveyCsv: String,
         populationsSize: Int,
         fitnessThreshold: Double,
         steadyFitness: Int,
@@ -108,7 +107,7 @@ class PlanService {
             printIntermediary(it)
         }
 
-        val database = Database(fileName, location)
+        val database = Database(surveyCsv, location)
 
         val options = GeneticPlannerOptions(
             evolutionResultConsumer = consumers,
