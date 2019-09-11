@@ -19,8 +19,8 @@ micronaut:
         paths: classpath:META-INF/swagger
         mapping: /swagger/**
   security:
-    # default: false
-    enabled: true
+    default: false
+    #enabled: true
 
 jackson:
   serialization:
