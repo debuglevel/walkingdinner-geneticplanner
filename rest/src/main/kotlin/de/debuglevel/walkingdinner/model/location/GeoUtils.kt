@@ -8,7 +8,8 @@ import kotlin.math.sqrt
 object GeoUtils {
     /**
      * Cache for already calculated distances
-     * TODO: hopefully, accessing the cache is faster than calculating the distance; but noting microbenchmark results would be nice
+     *
+     * @remarks Microbenchmark: w/ cache 5000ms for 100.000.000 requests, w/o cache 8000ms.
      */
     private val distances = hashMapOf<Pair<Location, Location>, Double>()
 
