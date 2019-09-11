@@ -13,7 +13,6 @@ object GeoUtils {
         source: Location,
         destination: Location
     ): Double {
-
         val pair = Pair(source, destination)
         var distance = distances[pair]
         return if (distance != null) {
@@ -23,10 +22,16 @@ object GeoUtils {
             val lngDistance = Math.toRadians(source.lng - destination.lng)
 
             val a =
-                sin(latDistance / 2) * sin(latDistance / 2) + (cos(Math.toRadians(source.lat)) * cos(
-                    Math.toRadians(destination.lat)
-                )
-                        * sin(lngDistance / 2) * sin(lngDistance / 2))
+                (
+                        sin(latDistance / 2) * sin(latDistance / 2)
+                        )
+            +
+            (
+                    cos(Math.toRadians(source.lat))
+                            * cos(Math.toRadians(destination.lat))
+                            * sin(lngDistance / 2)
+                            * sin(lngDistance / 2)
+                    )
 
             val c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
