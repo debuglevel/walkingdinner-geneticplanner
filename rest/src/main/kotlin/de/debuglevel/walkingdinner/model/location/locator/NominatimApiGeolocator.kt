@@ -13,8 +13,10 @@ import org.apache.http.conn.ssl.SSLSocketFactory
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.impl.conn.SingleClientConnManager
 import java.text.DecimalFormat
+import javax.inject.Singleton
 import kotlin.concurrent.withLock
 
+@Singleton
 class NominatimApiGeolocator(private val city: String) : Geolocator {
     private val logger = KotlinLogging.logger {}
 
