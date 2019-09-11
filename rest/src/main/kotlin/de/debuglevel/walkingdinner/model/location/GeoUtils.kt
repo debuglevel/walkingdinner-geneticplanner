@@ -24,21 +24,14 @@ object GeoUtils {
         return if (distance != null) {
             distance
         } else {
-            // Calculate distance if not in cache
             val latDistance = Math.toRadians(source.lat - destination.lat)
             val lngDistance = Math.toRadians(source.lng - destination.lng)
 
             val a =
-                (
-                        sin(latDistance / 2) * sin(latDistance / 2)
-                        )
-            +
-            (
-                    cos(Math.toRadians(source.lat))
-                            * cos(Math.toRadians(destination.lat))
-                            * sin(lngDistance / 2)
-                            * sin(lngDistance / 2)
-                    )
+                sin(latDistance / 2) * sin(latDistance / 2) + (cos(Math.toRadians(source.lat)) * cos(
+                    Math.toRadians(destination.lat)
+                )
+                        * sin(lngDistance / 2) * sin(lngDistance / 2))
 
             val c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
