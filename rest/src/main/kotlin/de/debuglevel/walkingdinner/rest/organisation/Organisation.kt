@@ -1,12 +1,15 @@
 package de.debuglevel.walkingdinner.rest.organisation
 
-import de.debuglevel.walkingdinner.rest.dinner.Dinner
-import org.bson.codecs.pojo.annotations.BsonId
-import org.litote.kmongo.Id
-import org.litote.kmongo.newId
+import java.util.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
+@Entity
 data class Organisation(
     val name: String,
-    val dinners: Set<Dinner>,
-    @BsonId val id: Id<Organisation> = newId()
+    //val dinners: Set<Dinner>,
+    @Id
+    @GeneratedValue
+    val id: UUID? = null
 )
