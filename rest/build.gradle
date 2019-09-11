@@ -126,8 +126,8 @@ dependencies {
     // JSON // TODO: replace by micronaut technology
     implementation 'com.google.code.gson:gson:2.8.4'
 
-    // Template Engine // TODO: replace by micronaut technology
-    implementation 'com.sparkjava:spark-template-mustache:2.7.1'
+//    // Template Engine // TODO: replace by micronaut technology
+//    implementation 'com.sparkjava:spark-template-mustache:2.7.1'
     implementation "org.jtwig:jtwig-core:5.87.0.RELEASE"
 
     // Genetic Algorithm
@@ -151,9 +151,9 @@ dependencies {
     implementation 'javax.mail:javax.mail-api:1.6.1'
     implementation 'com.sun.mail:javax.mail:1.6.1'
 
-    // MongoDB
-    implementation 'org.litote.kmongo:kmongo:3.11.0'
-    implementation group: 'org.mongodb', name: 'bson', version: '3.11.0'
+//    // MongoDB
+//    implementation 'org.litote.kmongo:kmongo:3.11.0'
+//    implementation group: 'org.mongodb', name: 'bson', version: '3.11.0'
 
     // Google Maps Services
     implementation 'com.google.maps:google-maps-services:0.9.0'
@@ -167,8 +167,8 @@ dependencies {
     // Clikt // TODO: replace by micronaut technology
     implementation 'com.github.ajalt:clikt:1.2.0'
 
-    // Configuration // TODO: replace by micronaut technology
-    implementation 'com.natpryce:konfig:1.6.9.0'
+//    // Configuration // TODO: replace by micronaut technology
+//    implementation 'com.natpryce:konfig:1.6.9.0'
 }
 
 // Java configuration
