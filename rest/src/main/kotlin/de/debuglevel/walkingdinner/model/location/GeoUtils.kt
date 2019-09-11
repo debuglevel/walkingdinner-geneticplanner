@@ -1,5 +1,10 @@
 package de.debuglevel.walkingdinner.model.location
 
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
+
 object GeoUtils {
     private val distances = hashMapOf<Pair<Location, Location>, Double>()
 
@@ -18,12 +23,12 @@ object GeoUtils {
             val lngDistance = Math.toRadians(source.lng - destination.lng)
 
             val a =
-                Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + (Math.cos(Math.toRadians(source.lat)) * Math.cos(
+                sin(latDistance / 2) * sin(latDistance / 2) + (cos(Math.toRadians(source.lat)) * cos(
                     Math.toRadians(destination.lat)
                 )
-                        * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2))
+                        * sin(lngDistance / 2) * sin(lngDistance / 2))
 
-            val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
             distance = AVERAGE_RADIUS_OF_EARTH_KM * c
             distances[pair] = distance
