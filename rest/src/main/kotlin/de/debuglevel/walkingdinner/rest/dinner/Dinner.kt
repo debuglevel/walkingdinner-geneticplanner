@@ -1,16 +1,19 @@
 package de.debuglevel.walkingdinner.rest.dinner
 
-import de.debuglevel.walkingdinner.rest.participant.Team
-import de.debuglevel.walkingdinner.rest.plan.Plan
-import org.bson.codecs.pojo.annotations.BsonId
-import org.litote.kmongo.Id
-import org.litote.kmongo.newId
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
+import java.util.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
+@Entity
 data class Dinner(
     val name: String,
-    val datetime: LocalDateTime,
-    val teams: Set<Team>,
-    val plans: Set<Plan>,
-    @BsonId val id: Id<Dinner> = newId()
+    val begin: ZonedDateTime,
+//    val teams: Set<Team>,
+//    val plans: Set<Plan>,
+    // TODO: a location (i.e. a city) would probably also useful
+    @Id
+    @GeneratedValue
+    val id: UUID? = null
 )
