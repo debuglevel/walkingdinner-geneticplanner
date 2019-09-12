@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { Plan } from "../plan";
 import { PlanService } from "../plan.service";
+import { Base64Service } from "../base64.service";
 
 @Component({
   selector: "app-plans",
@@ -11,7 +12,25 @@ import { PlanService } from "../plan.service";
 export class PlansComponent implements OnInit {
   plans: Plan[];
 
-  constructor(private planService: PlanService) {}
+  fileToUploadFile: File = null;
+  fileToUploadBase64: String = null;
+  handleFileInput(files: FileList) {
+    this.fileToUploadFile = files.item(0);
+    this.base64Service
+      .getBase64(this.fileToUploadFile)
+      .then(res => {
+        //console.log("Converted file to Base64:", res);
+        this.fileToUploadBase64 = res;
+      })
+      .catch(error => {
+        console.log("ERROR:", error.message);
+      });
+  }
+
+  constructor(
+    private planService: PlanService,
+    private base64Service: Base64Service
+  ) {}
 
   ngOnInit() {
     this.getPlans();
@@ -26,7 +45,11 @@ export class PlansComponent implements OnInit {
     if (!name) {
       return;
     }
-    this.planService.addPlan({ name } as Plan).subscribe(plan => {
+
+    const surveyfile = this.fileToUploadBase64;
+
+    this.planService.addPlan({ name, surveyfile } as Plan).subscribe(plan => {
+      //console.log("added plan:", plan);
       this.plans.push(plan);
     });
   }
