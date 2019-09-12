@@ -1,6 +1,7 @@
 import { InMemoryDbService } from "angular-in-memory-web-api";
 import { Organisation } from "./organisation";
 import { Dinner } from "./dinner";
+import { Plan } from "./plan";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -89,4 +90,18 @@ export class InMemoryDataService implements InMemoryDbService {
   //     ? Math.max(...organisations.map(organisation => organisation.id)) + 1
   //     : 11;
   // }
+  genId(plans: Plan[]): string {
+    return Guid.newGuid();
+  }
+}
+
+// see: https://stackoverflow.com/a/26502275/4764279
+class Guid {
+  static newGuid() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+      var r = (Math.random() * 16) | 0,
+        v = c == "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
 }
