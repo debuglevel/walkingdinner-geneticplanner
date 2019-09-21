@@ -1,6 +1,6 @@
 package de.debuglevel.walkingdinner.rest.organisation
 
-import de.debuglevel.walkingdinner.repository.ElementNotFoundException
+import de.debuglevel.walkingdinner.rest.common.ElementNotFoundException
 import mu.KotlinLogging
 import java.util.*
 import javax.inject.Singleton
@@ -17,7 +17,11 @@ class OrganisationService(
     fun get(id: UUID): Organisation {
         logger.debug { "Getting organisation with ID '$id'..." }
 
-        val organisation = organisationRepository.findById(id).orElseThrow { ElementNotFoundException(id) }
+        val organisation = organisationRepository.findById(id).orElseThrow {
+            ElementNotFoundException(
+                id
+            )
+        }
 
         logger.debug { "Got organisation with ID '$id': $organisation" }
         return organisation

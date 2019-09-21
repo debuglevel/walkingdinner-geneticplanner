@@ -1,8 +1,8 @@
 package de.debuglevel.walkingdinner.rest.plan
 
 //import spark.kotlin.RouteHandler
-import de.debuglevel.walkingdinner.utils.Base64String
-import de.debuglevel.walkingdinner.utils.toUUID
+import de.debuglevel.walkingdinner.rest.common.Base64String
+import de.debuglevel.walkingdinner.rest.common.toUUID
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post

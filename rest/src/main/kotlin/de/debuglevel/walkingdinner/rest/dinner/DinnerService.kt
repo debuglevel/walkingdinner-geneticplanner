@@ -1,6 +1,6 @@
 package de.debuglevel.walkingdinner.rest.dinner
 
-import de.debuglevel.walkingdinner.repository.ElementNotFoundException
+import de.debuglevel.walkingdinner.rest.common.ElementNotFoundException
 import mu.KotlinLogging
 import java.util.*
 import javax.inject.Singleton
@@ -17,7 +17,11 @@ class DinnerService(
     fun get(id: UUID): Dinner {
         logger.debug { "Getting dinner with ID '$id'..." }
 
-        val dinner = dinnerRepository.findById(id).orElseThrow { ElementNotFoundException(id) }
+        val dinner = dinnerRepository.findById(id).orElseThrow {
+            ElementNotFoundException(
+                id
+            )
+        }
 
         logger.debug { "Got dinner with ID '$id': $dinner" }
         return dinner

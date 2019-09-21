@@ -1,7 +1,7 @@
 package de.debuglevel.walkingdinner.rest.dinner
 
-import de.debuglevel.walkingdinner.repository.ElementNotFoundException
-import de.debuglevel.walkingdinner.utils.toUUID
+import de.debuglevel.walkingdinner.rest.common.ElementNotFoundException
+import de.debuglevel.walkingdinner.rest.common.toUUID
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get

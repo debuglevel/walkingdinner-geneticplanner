@@ -1,8 +1,8 @@
 //package de.debuglevel.walkingdinner.repository
 //
-//import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
-//import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
-//import de.debuglevel.walkingdinner.model.location.Location
+//import templates.plan.Capability
+//import templates.plan.Diet
+//import de.debuglevel.walkingdinner.rest.participant.location.Location
 //import de.debuglevel.walkingdinner.rest.dinner.Dinner
 //import de.debuglevel.walkingdinner.rest.organisation.Organisation
 //import de.debuglevel.walkingdinner.rest.participant.*
