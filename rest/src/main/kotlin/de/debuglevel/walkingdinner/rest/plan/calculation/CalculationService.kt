@@ -105,6 +105,7 @@ class CalculationService(
 
         calculation.calculationFinished = true
         calculation.plan = plan
+        planService.add(plan)
 
         //processResults(result, evolutionStatistics)
 

@@ -1,6 +1,5 @@
 package de.debuglevel.walkingdinner.rest.plan
 
-//import spark.kotlin.RouteHandler
 import de.debuglevel.walkingdinner.rest.common.toUUID
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -11,21 +10,18 @@ class PlanController(private val planService: PlanService) {
     private val logger = KotlinLogging.logger {}
 
     @Get("/{planId}")
-    fun getOne(planId: String): PlanDTO {
+    fun getOne(planId: String): Plan {
         logger.debug("Called getOne($planId)")
-        return planService.get(planId.toUUID())
+        val plan = planService.get(planId.toUUID())
+        // TODO: maybe replace Plan by a PlanResponse
+        return plan
     }
 
     @Get("/")
-    fun getList(): Set<PlanDTO> {
+    fun getList(): Set<Plan> {
         logger.debug("Called getList()")
-        return planService.getAll()
+        val plans = planService.getAll()
+        // TODO: maybe replace Plan by a PlanResponse
+        return plans
     }
-
-//    fun getAddFormHtml(): RouteHandler.() -> String {
-//        return {
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "plan/add.html.mustache"))
-//        }
-//    }
 }
