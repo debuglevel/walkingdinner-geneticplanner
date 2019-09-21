@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.model.dietcompatibility
+package de.debuglevel.walkingdinner.rest.plan.dietcompatibility
 
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.Team

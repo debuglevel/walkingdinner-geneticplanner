@@ -2,13 +2,13 @@ package de.debuglevel.walkingdinner.rest.participant.importer.csv
 
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName
-import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
-import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.rest.participant.*
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.CapabilitiesConverter
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.MailAddressConverter
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.NameConverter
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.PhoneNumberConverter
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
 
 
 class TeamDTO {

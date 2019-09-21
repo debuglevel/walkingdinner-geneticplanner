@@ -1,6 +1,6 @@
-package de.debuglevel.walkingdinner.rest.plan
+package de.debuglevel.walkingdinner.rest.plan.calculation
 
-data class PlanRequest(
+data class CalculationRequest(
     val surveyfile: String,
     val populationsSize: Int,
     val fitnessThreshold: Double,

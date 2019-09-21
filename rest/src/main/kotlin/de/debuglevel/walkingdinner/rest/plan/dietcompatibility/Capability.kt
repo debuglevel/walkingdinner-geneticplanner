@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.model.dietcompatibility
+package de.debuglevel.walkingdinner.rest.plan.dietcompatibility
 
 enum class Capability {
     VeganVorspeise,

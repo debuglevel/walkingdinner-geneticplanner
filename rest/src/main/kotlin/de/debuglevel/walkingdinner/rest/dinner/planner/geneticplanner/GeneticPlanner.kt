@@ -13,6 +13,7 @@ import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.Limits
 import io.jenetics.util.ISeq
 import mu.KotlinLogging
+import java.util.*
 import java.util.function.Consumer
 
 class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
@@ -34,7 +35,7 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
             meetings: $meetings
         """.trimIndent()
 
-        return Plan(description, meetings)
+        return Plan(description, meetings, UUID.randomUUID())
     }
 
     private val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?

@@ -1,10 +1,10 @@
 package de.debuglevel.walkingdinner.rest.dinner.report.teams
 
-import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
 import de.debuglevel.walkingdinner.rest.Courses
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.dinner.report.Reporter
 import de.debuglevel.walkingdinner.rest.participant.Team
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
 import org.jtwig.JtwigModel
 import org.jtwig.JtwigTemplate
 

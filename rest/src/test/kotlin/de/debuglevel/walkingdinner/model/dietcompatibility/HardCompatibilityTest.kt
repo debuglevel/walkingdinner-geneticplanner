@@ -2,6 +2,8 @@ package de.debuglevel.walkingdinner.model.dietcompatibility
 
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.*
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.HardCompatibility
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest

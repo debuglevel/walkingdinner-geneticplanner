@@ -1,7 +1,8 @@
 package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
-import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
+
 
 // XXX: use nullable types as GSON could always produce null values in non-null types via reflection anyway.
 data class ParticipantDTO(val address: String?,

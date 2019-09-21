@@ -1,9 +1,10 @@
 package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.model.dietcompatibility.Capability
-import de.debuglevel.walkingdinner.model.dietcompatibility.Diet
+
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.location.Location
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
 import java.util.*
 
 
