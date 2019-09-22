@@ -14,7 +14,10 @@ data class Meeting(
 
     override fun toString(): String {
         return teams.stream()
-            .map { it -> if (isCookingTeam(it)) "[$it]" else "$it" }
+            .map { it ->
+                val teamText = "${it.cook1} & ${it.cook2}"
+                if (isCookingTeam(it)) "[$teamText]" else teamText
+            }
             .collect(Collectors.joining("\t"))
     }
 }
