@@ -4,6 +4,8 @@ app:
       # number of threads to use to calculate plan
       threads: 4
     reporters:
+      mail:
+        from-mail-address: "user@domain.invalid"
       gmail:
         credentials-folder: "credentials/gmail/"
         client-secret-file: "/google_gmail_client_secret.json"

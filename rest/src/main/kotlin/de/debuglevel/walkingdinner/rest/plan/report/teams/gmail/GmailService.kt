@@ -14,23 +14,22 @@ import com.google.api.services.gmail.Gmail
 import com.google.api.services.gmail.GmailScopes
 import com.google.api.services.gmail.model.Draft
 import com.google.api.services.gmail.model.Message
+import de.debuglevel.walkingdinner.rest.plan.report.teams.mail.MailService
 import io.micronaut.context.annotation.Property
 import mu.KotlinLogging
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
-import java.util.*
 import javax.inject.Singleton
 import javax.mail.MessagingException
-import javax.mail.Session
-import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
 
 // see: https://developers.google.com/gmail/api/SendEmail.java
 @Singleton
 class GmailService(
-    @Property(name = "app.walkingdinner.reporters.gmail.credentials-folder") val credentialsFolder: String,
-    @Property(name = "app.walkingdinner.reporters.gmail.client-secret-file") val clientSecretFile: String
+    @Property(name = "app.walkingdinner.reporters.gmail.credentials-folder") private val credentialsFolder: String,
+    @Property(name = "app.walkingdinner.reporters.gmail.client-secret-file") private val clientSecretFile: String,
+    private val mailService: MailService
 ) {
     private val logger = KotlinLogging.logger {}
 
@@ -60,7 +59,7 @@ class GmailService(
 
         // "me" indicates that the authorized user should be used
         val authorizedUserValue = "me"
-        val mimeMessage = createMimeMessage(mailaddresses, authorizedUserValue, subject, emailContent)
+        val mimeMessage = mailService.buildMimeMessage(mailaddresses, authorizedUserValue, subject, emailContent)
         val draft = createDraft(authorizedUserValue, mimeMessage)
 
         logger.debug { "Saved draft '${draft.id}'" }
@@ -107,46 +106,6 @@ class GmailService(
 
         logger.debug { "Got client secrets" }
         return clientSecrets
-    }
-
-    /**
-     * Create a MimeMessage using the parameters provided.
-     *
-     * @param to email address of the receiver
-     * @param from email address of the sender, the mailbox account
-     * @param subject subject of the email
-     * @param bodyText body text of the email
-     * @return the MimeMessage to be used to send email
-     * @throws MessagingException
-     */
-    @Throws(MessagingException::class)
-    private fun createMimeMessage(
-        to: Set<String>,
-        from: String,
-        subject: String,
-        bodyText: String
-    ): MimeMessage {
-        logger.trace { "Creating mime message..." }
-
-        val properties = Properties()
-        val session = Session.getDefaultInstance(properties, null)
-
-        val mimeMessage = MimeMessage(session)
-
-        mimeMessage.setFrom(InternetAddress(from))
-
-        to.forEach {
-            mimeMessage.addRecipient(
-                javax.mail.Message.RecipientType.TO,
-                InternetAddress(it)
-            )
-        }
-
-        mimeMessage.subject = subject
-        mimeMessage.setText(bodyText)
-
-        logger.trace { "Created mime message" }
-        return mimeMessage
     }
 
     /**
