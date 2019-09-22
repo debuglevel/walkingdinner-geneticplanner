@@ -48,7 +48,12 @@ class ReportService(
         // zip them into an archive
         val zipItems = mimeMessages.map {
             val filename = UUID.randomUUID().toString() + ".eml"
-            ZipService.ZipItem(filename, it.inputStream)
+
+            val outputStream = ByteArrayOutputStream()
+            it.writeTo(outputStream)
+            val inputStream = outputStream.toByteArray().inputStream()
+
+            ZipService.ZipItem(filename, inputStream)
         }.toSet()
 
         val byteArrayOutputStream = ByteArrayOutputStream()
