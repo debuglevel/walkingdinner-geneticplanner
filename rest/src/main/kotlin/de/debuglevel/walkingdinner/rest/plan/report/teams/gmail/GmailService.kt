@@ -46,13 +46,13 @@ class GmailService(
     private val gmail: Gmail
 
     init {
-        logger.trace { "Initializing Gmail service..." }
+        logger.debug { "Initializing Gmail service..." }
         // Build a new authorized API client service.
         val netHttpTransport = GoogleNetHttpTransport.newTrustedTransport()
         gmail = Gmail.Builder(netHttpTransport, jacksonFactory, getCredentials(netHttpTransport))
             .setApplicationName(APPLICATION_NAME)
             .build()
-        logger.trace { "Initialized Gmail service..." }
+        logger.debug { "Initialized Gmail service..." }
     }
 
     fun saveDraft(mailaddresses: Set<String>, subject: String, emailContent: String) {
@@ -70,7 +70,25 @@ class GmailService(
      */
     @Throws(IOException::class)
     private fun getCredentials(netHttpTransport: NetHttpTransport): Credential {
-        logger.trace { "Getting credentials..." }
+        logger.debug { "Getting credentials..." }
+
+        val clientSecrets = getClientSecrets()
+
+        // Build flow and trigger user authorization request.
+        val flow = GoogleAuthorizationCodeFlow.Builder(
+            netHttpTransport, jacksonFactory, clientSecrets, scopes
+        )
+            .setDataStoreFactory(FileDataStoreFactory(java.io.File(credentialsFolder)))
+            .setAccessType("offline")
+            .build()
+        val credential = AuthorizationCodeInstalledApp(flow, LocalServerReceiver()).authorize("user")
+
+        logger.debug { "Got credentials" }
+        return credential
+    }
+
+    private fun getClientSecrets(): GoogleClientSecrets {
+        logger.debug { "Getting client secrets..." }
 
         // Load client secrets.
         val reader = try {
@@ -82,17 +100,8 @@ class GmailService(
 
         val clientSecrets = GoogleClientSecrets.load(jacksonFactory, reader)
 
-        // Build flow and trigger user authorization request.
-        val flow = GoogleAuthorizationCodeFlow.Builder(
-            netHttpTransport, jacksonFactory, clientSecrets, scopes
-        )
-            .setDataStoreFactory(FileDataStoreFactory(java.io.File(credentialsFolder)))
-            .setAccessType("offline")
-            .build()
-        val credential = AuthorizationCodeInstalledApp(flow, LocalServerReceiver()).authorize("user")
-
-        logger.trace { "Got credentials" }
-        return credential
+        logger.debug { "Got client secrets" }
+        return clientSecrets
     }
 
     /**
