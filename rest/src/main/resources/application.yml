@@ -3,10 +3,10 @@ app:
     planners:
       # number of threads to use to calculate plan
       threads: 4
-  reporters:
-    gmail:
-      credentials-folder: "CREDENTIALS_FOLDER"
-      client-secret-file: "/google_gmail_client_secret.json"
+    reporters:
+      gmail:
+        credentials-folder: "CREDENTIALS_FOLDER"
+        client-secret-file: "/google_gmail_client_secret.json"
 
 micronaut:
   application:

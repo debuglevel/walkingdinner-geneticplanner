@@ -29,8 +29,8 @@ import javax.mail.internet.MimeMessage
 // see: https://developers.google.com/gmail/api/SendEmail.java
 @Singleton
 class GmailService(
-    @Property(name = "app.reporters.gmail.credentials-folder") val credentialsFolder: String,
-    @Property(name = "app.reporters.gmail.client-secret-file") val clientSecretFile: String
+    @Property(name = "app.walkingdinner.reporters.gmail.credentials-folder") val credentialsFolder: String,
+    @Property(name = "app.walkingdinner.reporters.gmail.client-secret-file") val clientSecretFile: String
 ) {
     private val logger = KotlinLogging.logger {}
 
