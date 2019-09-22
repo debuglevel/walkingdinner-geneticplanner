@@ -1,12 +1,12 @@
 package de.debuglevel.walkingdinner.rest.plan.calculation
 
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
-import de.debuglevel.walkingdinner.rest.dinner.planner.geneticplanner.GeneticPlanner
-import de.debuglevel.walkingdinner.rest.dinner.planner.geneticplanner.GeneticPlannerOptions
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.importer.Database
 import de.debuglevel.walkingdinner.rest.plan.Plan
 import de.debuglevel.walkingdinner.rest.plan.PlanService
+import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlanner
+import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlannerOptions
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics

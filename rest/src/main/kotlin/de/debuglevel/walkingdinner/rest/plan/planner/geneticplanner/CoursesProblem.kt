@@ -1,12 +1,12 @@
-package de.debuglevel.walkingdinner.rest.dinner.planner.geneticplanner
+package de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner
 
 import de.debuglevel.walkingdinner.rest.Courses
 import de.debuglevel.walkingdinner.rest.Meeting
-import de.debuglevel.walkingdinner.rest.dinner.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateMultipleCookingTeams
-import de.debuglevel.walkingdinner.rest.dinner.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateOverallDistance
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.CourseCompatibility
+import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateMultipleCookingTeams
+import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateOverallDistance
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
 import io.jenetics.PermutationChromosome

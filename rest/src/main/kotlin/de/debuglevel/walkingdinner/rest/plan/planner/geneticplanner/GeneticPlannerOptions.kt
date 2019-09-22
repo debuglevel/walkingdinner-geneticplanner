@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.rest.dinner.planner.geneticplanner
+package de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner
 
 import de.debuglevel.walkingdinner.rest.participant.Team
 import io.jenetics.EnumGene

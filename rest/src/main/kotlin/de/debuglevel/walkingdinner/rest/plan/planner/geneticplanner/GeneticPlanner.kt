@@ -1,9 +1,9 @@
-package de.debuglevel.walkingdinner.rest.dinner.planner.geneticplanner
+package de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner
 
 import de.debuglevel.walkingdinner.rest.Courses
-import de.debuglevel.walkingdinner.rest.dinner.planner.Planner
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.plan.Plan
+import de.debuglevel.walkingdinner.rest.plan.planner.Planner
 import io.jenetics.EnumGene
 import io.jenetics.Optimize
 import io.jenetics.PartiallyMatchedCrossover
