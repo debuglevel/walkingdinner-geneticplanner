@@ -3,6 +3,7 @@ package de.debuglevel.walkingdinner.rest.plan.report
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Produces
 import mu.KotlinLogging
 import java.util.*
@@ -14,9 +15,16 @@ class ReportController(private val reportService: ReportService) {
     @Get("/{planId}")
     @Produces(MediaType.TEXT_PLAIN)
     fun getOnePlaintext(planId: UUID): String {
-        logger.debug("Called getOne($planId)")
+        logger.debug("Called getOnePlaintext($planId)")
         val summary = reportService.getSummary(planId)
         return summary
+    }
+
+    @Post("/gmail/{planId}")
+    fun postOnePlaintext(planId: UUID): Set<String> {
+        logger.debug("Called postOnePlaintext($planId)")
+        val draftIds = reportService.createGmailDrafts(planId)
+        return draftIds
     }
 
 //    @Get("/")

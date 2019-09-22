@@ -55,11 +55,16 @@ class GmailService(
         logger.debug { "Initialized Gmail service..." }
     }
 
-    fun saveDraft(mailaddresses: Set<String>, subject: String, emailContent: String) {
+    fun saveDraft(mailaddresses: Set<String>, subject: String, emailContent: String): Draft {
+        logger.debug { "Saving draft for '$mailaddresses'..." }
+
         // "me" indicates that the authorized user should be used
         val authorizedUserValue = "me"
         val mimeMessage = createMimeMessage(mailaddresses, authorizedUserValue, subject, emailContent)
-        createDraft(authorizedUserValue, mimeMessage)
+        val draft = createDraft(authorizedUserValue, mimeMessage)
+
+        logger.debug { "Saved draft '${draft.id}'" }
+        return draft
     }
 
     /**
@@ -191,8 +196,8 @@ class GmailService(
         draft.message = message
         draft = gmail.users().drafts().create(userId, draft).execute()
 
-        logger.debug { "Created draft ${draft.id}" }
-        logger.trace { "Created draft ${draft.id}: ${draft.toPrettyString()}" }
+        logger.debug { "Created draft '${draft.id}'" }
+        logger.trace { "Created draft '${draft.id}': ${draft.toPrettyString()}" }
         return draft
     }
 }
