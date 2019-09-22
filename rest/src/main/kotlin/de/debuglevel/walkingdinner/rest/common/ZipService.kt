@@ -22,9 +22,13 @@ class ZipService {
             for (zipItem in zipItems) {
                 zipItem.inputStream.use { inputStream ->
                     BufferedInputStream(inputStream).use { bufferedInputStream ->
+                        logger.trace { "Adding zip entry with filename '${zipItem.filename}'..." }
+
                         val zipEntry = ZipEntry(zipItem.filename)
                         outputStream.putNextEntry(zipEntry)
                         bufferedInputStream.copyTo(outputStream, 1024)
+
+                        logger.trace { "Added zip entry with filename '${zipItem.filename}'" }
                     }
                 }
             }
