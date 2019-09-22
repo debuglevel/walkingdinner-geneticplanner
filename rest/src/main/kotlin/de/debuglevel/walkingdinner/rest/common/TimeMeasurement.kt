@@ -2,6 +2,7 @@ package de.debuglevel.walkingdinner.cli.performance
 
 import mu.KotlinLogging
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.math.roundToInt
 
 object TimeMeasurement {
     private val logger = KotlinLogging.logger {}
@@ -15,20 +16,19 @@ object TimeMeasurement {
      */
     fun add(
         id: Any,
-        nanoseconds: Long,
-        reportStep: Long = 10_000_000
+        nanosecondsDuration: Long,
+        reportStep: Long
     ) {
         val measurement = measurements.putIfAbsent(id, Measurement(id))
         if (measurement != null) {
-            val calls = measurement.calls.incrementAndGet()
-            val nanoseconds_ = measurement.nanoseconds.addAndGet(nanoseconds)
+            val callsSum = measurement.calls.incrementAndGet()
+            val nanosecondsSum = measurement.nanoseconds.addAndGet(nanosecondsDuration)
 
-            if (calls % reportStep == 0L) {
-                println(
-                    "Performance of ${measurement.id} after $calls Calls = ${nanoseconds_ / calls} ns/call or ${Math.round(
-                        calls / (nanoseconds_ / 1_000_000_000.0)
-                    )} calls/s"
-                )
+            if (callsSum % reportStep == 0L) {
+                val durationPerCall = nanosecondsSum / callsSum
+                val callsPerSecond = (callsSum / (nanosecondsSum / 1_000_000_000.0)).roundToInt()
+
+                println("Performance of '${measurement.id}' after $callsSum calls: ${durationPerCall} ns/call or ${callsPerSecond} calls/s")
             }
         }
     }

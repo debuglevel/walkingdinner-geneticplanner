@@ -17,6 +17,7 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.function.Consumer
 import javax.inject.Singleton
+import kotlin.math.roundToInt
 
 @Singleton
 class CalculationService(
@@ -26,9 +27,6 @@ class CalculationService(
     private val logger = KotlinLogging.logger {}
 
     private val executor = Executors.newFixedThreadPool(threadCount)
-
-    // TODO: remove this; should be accessed via calculations
-    //private val futurePlans = mutableMapOf<UUID, Future<Plan>>()
 
     private val calculations = mutableMapOf<UUID, Calculation>()
 
@@ -70,11 +68,6 @@ class CalculationService(
 
         calculations[calculation.id] = calculation
         return calculation
-
-//        val futurePlan = executor.submit(plannerTask)
-//        val planId = UUID.randomUUID()
-//        futurePlans[planId] = futurePlan
-//        return planId
     }
 
     private fun calculatePlan(
@@ -135,8 +128,12 @@ class CalculationService(
 
     private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
         TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
+
         if (e.generation % 500 == 0L) {
-            println("${Math.round(1 / (e.durations.evolveDuration.toNanos() / 1_000_000_000.0))}gen/s\t| Generation: ${e.generation}\t| Best Fitness: ${e.bestFitness}")
+            // estimate current evolution speed by consider the current generation; which might be a bit inaccurate
+            val generationDuration = e.durations.evolveDuration.toNanos() / 1_000_000_000.0
+            val generationsPerSecond = (1 / generationDuration).roundToInt()
+            println("${generationsPerSecond} generations/s\t| Generation #${e.generation}\t| Best Fitness: ${e.bestFitness}")
         }
     }
 
