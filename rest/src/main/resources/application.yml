@@ -1,7 +1,8 @@
 app:
-  planners:
-    # number of threads to use to calculate plan
-    threads: 4
+  walkingdinner:
+    planners:
+      # number of threads to use to calculate plan
+      threads: 4
   reporters:
     gmail:
       credentials-folder: "CREDENTIALS_FOLDER"
