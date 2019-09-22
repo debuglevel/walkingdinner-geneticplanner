@@ -73,7 +73,12 @@ class GmailService(
         logger.trace { "Getting credentials..." }
 
         // Load client secrets.
-        val reader = InputStreamReader(Gmail::class.java.getResourceAsStream(clientSecretFile))
+        val reader = try {
+            InputStreamReader(Gmail::class.java.getResourceAsStream(clientSecretFile))
+        } catch (e: Exception) {
+            logger.error(e) { "Could not read Google Gmail client secrets" }
+            throw e
+        }
 
         val clientSecrets = GoogleClientSecrets.load(jacksonFactory, reader)
 
