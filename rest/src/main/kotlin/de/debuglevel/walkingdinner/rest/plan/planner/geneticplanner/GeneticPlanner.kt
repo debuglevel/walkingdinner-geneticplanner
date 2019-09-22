@@ -31,7 +31,6 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
             best generation: ${evolutionResult.generation}
             total generations: ${evolutionResult.totalGenerations}
             best fitness: ${evolutionResult.bestFitness}
-            toString(): $evolutionResult
             meetings: $meetings
         """.trimIndent()
 
