@@ -9,17 +9,18 @@ import javax.inject.Singleton
 class SummaryReporter : Reporter {
     private val logger = KotlinLogging.logger {}
 
-    override fun generateReports(meetings: Set<Meeting>) {
+    override fun generateReports(meetings: Set<Meeting>): String {
         logger.trace { "Generating summary report..." }
-        meetings
+        val summary = meetings
             .groupBy { it.course }
-            .forEach { (course, meetings_) ->
-                run {
-                    println()
-                    println("== Course $course")
-                    meetings_.forEach { println(it) }
-                }
+            .map { (course, meetings_) ->
+                var text = "== Course $course\n"
+                text += meetings_.joinToString("\n")
+                text
             }
+            .joinToString("\n\n")
+
         logger.trace { "Generated summary report" }
+        return summary
     }
 }
