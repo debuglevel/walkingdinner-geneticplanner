@@ -7,7 +7,7 @@ import javax.inject.Singleton
 
 @Singleton
 class PlanService(
-    @Property(name = "app.walkingdinner.planners.threads") val threadCount: Int
+    @Property(name = "app.planners.threads") val threadCount: Int
 ) {
     private val logger = KotlinLogging.logger {}
 
