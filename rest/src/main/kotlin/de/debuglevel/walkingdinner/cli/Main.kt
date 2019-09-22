@@ -4,12 +4,12 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
 import de.debuglevel.walkingdinner.rest.common.BuildVersion
-import de.debuglevel.walkingdinner.rest.dinner.report.teams.summary.SummaryReporter
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.importer.Database
 import de.debuglevel.walkingdinner.rest.plan.Plan
 import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlanner
 import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlannerOptions
+import de.debuglevel.walkingdinner.rest.plan.report.teams.summary.SummaryReporter
 import io.jenetics.EnumGene
 import io.jenetics.engine.EvolutionResult
 import io.jenetics.engine.EvolutionStatistics

@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.rest.dinner.report
+package de.debuglevel.walkingdinner.rest.plan.report
 
 import de.debuglevel.walkingdinner.rest.Meeting
 
