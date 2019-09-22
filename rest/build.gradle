@@ -124,48 +124,48 @@ dependencies {
 //    implementation 'de.debuglevel.sparkmicroserviceutils:sparkmicroserviceutils:0.0.21'
 
     // JSON // TODO: replace by micronaut technology
-    implementation 'com.google.code.gson:gson:2.8.4'
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
 //    // Template Engine // TODO: replace by micronaut technology
 //    implementation 'com.sparkjava:spark-template-mustache:2.7.1'
-    implementation "org.jtwig:jtwig-core:5.87.0.RELEASE"
+    implementation "org.jtwig:jtwig-core:$jtwigVersion"
 
     // Genetic Algorithm
-    implementation 'io.jenetics:jenetics:4.1.0'
+    implementation "io.jenetics:jenetics:$jenetics"
 
     // Jsondb // TODO: replace by micronaut technology
-    implementation 'io.jsondb:jsondb-core:1.0.85'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.5'
+    implementation "io.jsondb:jsondb-core:$jsondbVersion"
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
 
     // Phone Numbers
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
+    implementation "com.googlecode.libphonenumber:libphonenumber:$libphonenumberVersion"
 
     // CSV Import
-    implementation group: 'com.opencsv', name: 'opencsv', version: '4.0'
+    implementation "com.opencsv:opencsv:$opencsvVersion"
 
     // Google Gmail
-    implementation 'com.google.apis:google-api-services-gmail:v1-rev89-1.23.0'
-    implementation 'com.google.api-client:google-api-client:1.23.0'
-    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
-    implementation 'com.google.apis:google-api-services-gmail:v1-rev83-1.23.0'
-    implementation 'javax.mail:javax.mail-api:1.6.1'
-    implementation 'com.sun.mail:javax.mail:1.6.1'
+    implementation "com.google.apis:google-api-services-gmail:v1-rev89-1.23.0"
+    implementation "com.google.api-client:google-api-client:1.23.0"
+    implementation "com.google.oauth-client:google-oauth-client-jetty:1.23.0"
+    implementation "com.google.apis:google-api-services-gmail:v1-rev83-1.23.0"
+    implementation "javax.mail:javax.mail-api:$javaxMailVersion"
+    implementation "com.sun.mail:javax.mail:$javaxMailVersion"
 
 //    // MongoDB
 //    implementation 'org.litote.kmongo:kmongo:3.11.0'
 //    implementation group: 'org.mongodb', name: 'bson', version: '3.11.0'
 
     // Google Maps Services
-    implementation 'com.google.maps:google-maps-services:0.9.0'
+    implementation "com.google.maps:google-maps-services:$googleMapsVersion"
 
     // OpenStreetMaps Geocoding
-    implementation 'fr.dudie:nominatim-api:3.3'
+    implementation "fr.dudie:nominatim-api:$nominatimVersion"
 
     // Apache Commons
-    implementation group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
+    implementation "commons-validator:commons-validator:$apacheCommonsValidator"
 
     // Clikt // TODO: replace by micronaut technology
-    implementation 'com.github.ajalt:clikt:1.2.0'
+    implementation "com.github.ajalt:clikt:$cliktVersion"
 
 //    // Configuration // TODO: replace by micronaut technology
 //    implementation 'com.natpryce:konfig:1.6.9.0'
