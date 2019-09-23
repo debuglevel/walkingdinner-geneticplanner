@@ -2,8 +2,22 @@ package de.debuglevel.walkingdinner.rest.participant
 
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import java.util.*
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.Transient
 
-data class PhoneNumber(val number: String) {
+@Entity
+data class PhoneNumber(
+    val number: String,
+    @Id
+    @GeneratedValue
+    val id: UUID? = null
+) {
+
+    @delegate:Transient
+    @get:Transient
     private val formattedNumber: String by lazy {
         try {
             val phoneUtil = PhoneNumberUtil.getInstance()

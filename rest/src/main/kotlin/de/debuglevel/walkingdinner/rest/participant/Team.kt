@@ -6,15 +6,25 @@ import de.debuglevel.walkingdinner.rest.participant.location.Location
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
 import java.util.*
+import javax.persistence.*
 
-
+@Entity
 data class Team(
+    @OneToOne
     val cook1: Cook,
+    @OneToOne
     val cook2: Cook,
     val address: String,
+    @Enumerated(EnumType.STRING)
     val diet: Diet,
+
+    @ElementCollection()
+    @Enumerated(EnumType.STRING)
     val capabilities: List<Capability>,
+    @OneToOne
     var location: Location?,
+    @Id
+    @GeneratedValue
     val id: UUID? = null
 ) {
 

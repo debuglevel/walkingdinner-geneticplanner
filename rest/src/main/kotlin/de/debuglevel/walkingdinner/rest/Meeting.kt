@@ -1,11 +1,21 @@
 package de.debuglevel.walkingdinner.rest
 
 import de.debuglevel.walkingdinner.rest.participant.Team
+import java.util.*
 import java.util.stream.Collectors
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.OneToMany
 
+@Entity
 data class Meeting(
+    @OneToMany
     val teams: List<Team>,
-    val course: String
+    val course: String,
+    @Id
+    @GeneratedValue
+    val id: UUID? = null
 ) {
 
     fun getCookingTeam(): Team = teams.first()

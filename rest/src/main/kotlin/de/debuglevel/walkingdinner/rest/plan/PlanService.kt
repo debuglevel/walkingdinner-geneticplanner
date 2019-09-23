@@ -7,7 +7,8 @@ import javax.inject.Singleton
 
 @Singleton
 class PlanService(
-    @Property(name = "app.walkingdinner.planners.threads") val threadCount: Int
+    @Property(name = "app.walkingdinner.planners.threads") val threadCount: Int,
+    private val planRepository: PlanRepository
 ) {
     private val logger = KotlinLogging.logger {}
 
@@ -31,8 +32,17 @@ class PlanService(
 
     fun add(plan: Plan) {
         logger.debug { "Adding plan $plan..." }
-        plans[plan.id] = plan
+        plans[plan.id!!] = plan
         logger.debug { "Added plan $plan" }
+    }
+
+    fun addX(plan: Plan): Plan {
+        logger.debug { "Saving plan '$plan'..." }
+
+        val savedPlan = planRepository.save(plan)
+
+        logger.debug { "Saved person: $savedPlan" }
+        return plan
     }
 
     class PlanNotFoundException(planId: UUID) : Exception("Plan $planId not found")
