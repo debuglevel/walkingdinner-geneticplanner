@@ -34,7 +34,7 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
             meetings: $meetings
         """.trimIndent()
 
-        return Plan(description, meetings, UUID.randomUUID())
+        return Plan(UUID.randomUUID(), meetings, description)
     }
 
     private val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?

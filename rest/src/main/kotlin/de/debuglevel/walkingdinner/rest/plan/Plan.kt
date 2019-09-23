@@ -4,7 +4,7 @@ import de.debuglevel.walkingdinner.rest.Meeting
 import java.util.*
 
 data class Plan(
-    val additionalInformation: String,
+    val id: UUID,
     val meetings: Set<Meeting>,
-    val id: UUID
+    val additionalInformation: String
 )
