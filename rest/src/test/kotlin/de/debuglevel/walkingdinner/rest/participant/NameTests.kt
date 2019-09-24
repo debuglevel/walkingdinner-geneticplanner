@@ -1,15 +1,14 @@
-package de.debuglevel.walkingdinner.model.team
+package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.rest.participant.Name
+
 import org.assertj.core.api.Assertions
-
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class NameTest {
+class NameTests {
 
     @ParameterizedTest
     @MethodSource("nameProvider")

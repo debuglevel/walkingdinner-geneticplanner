@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class GeoUtilsTest {
+class LocationTests {
 
     @ParameterizedTest
     @MethodSource("locationProvider")
@@ -16,8 +16,8 @@ class GeoUtilsTest {
         // Arrange
 
         // Act
-        val distance1to2 = GeoUtils.calculateDistanceInKilometer(testData.location1, testData.location2)
-        val distance2to1 = GeoUtils.calculateDistanceInKilometer(testData.location2, testData.location1)
+        val distance1to2 = testData.location1.calculateDistance(testData.location2)
+        val distance2to1 = testData.location2.calculateDistance(testData.location1)
 
         // Assert
         assertThat(distance1to2).isCloseTo(testData.distance, within(0.01))

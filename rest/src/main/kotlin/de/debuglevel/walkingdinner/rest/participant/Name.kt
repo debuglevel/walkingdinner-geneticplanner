@@ -13,7 +13,6 @@ data class Name(
     @GeneratedValue
     val id: UUID? = null
 ) {
-
     @delegate:Transient
     @get:Transient
     val firstname: String by lazy { extractFirstname() }

@@ -1,9 +1,7 @@
-package de.debuglevel.walkingdinner.model.dietcompatibility
+package de.debuglevel.walkingdinner.rest.plan.dietcompatibility
 
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.*
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.HardCompatibility
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
@@ -11,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class HardCompatibilityTest {
+class HardCompatibilityTests {
 
     @ParameterizedTest
     @MethodSource("compatibleMeetingsProvider")

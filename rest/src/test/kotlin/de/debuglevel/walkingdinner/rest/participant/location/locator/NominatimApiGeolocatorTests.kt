@@ -9,7 +9,8 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class NominatimApiGeolocatorTest {
+class NominatimApiGeolocatorTests {
+    private val about11meters = 0.0001
 
     @ParameterizedTest
     @MethodSource("locationProvider")
@@ -21,8 +22,8 @@ class NominatimApiGeolocatorTest {
         val location = nominatimApiGeolocator.getLocation(testData.address)
 
         // Assert
-        assertThat(location.lat).isEqualTo(testData.expectedLocation.lat, within(0.000001))
-        assertThat(location.lng).isEqualTo(testData.expectedLocation.lng, within(0.000001))
+        assertThat(location.lat).isEqualTo(testData.expectedLocation.lat, within(about11meters))
+        assertThat(location.lng).isEqualTo(testData.expectedLocation.lng, within(about11meters))
     }
 
     fun locationProvider() = Stream.of(

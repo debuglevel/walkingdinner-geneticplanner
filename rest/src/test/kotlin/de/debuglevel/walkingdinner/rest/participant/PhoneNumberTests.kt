@@ -1,12 +1,12 @@
-package de.debuglevel.walkingdinner.model.team
+package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.rest.participant.PhoneNumber
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PhoneNumberTest {
+class PhoneNumberTests {
 
     @Test
     fun `phonenumber is formatted`() {

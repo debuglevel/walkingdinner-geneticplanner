@@ -1,6 +1,5 @@
-package de.debuglevel.walkingdinner.model.team
+package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.rest.participant.MailAddress
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.TestInstance
@@ -9,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class MailAddressTest {
+class MailAddressTests {
 
     @ParameterizedTest
     @MethodSource("validMailProvider")

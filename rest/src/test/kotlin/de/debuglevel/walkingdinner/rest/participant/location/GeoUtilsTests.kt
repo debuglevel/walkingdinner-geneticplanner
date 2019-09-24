@@ -1,14 +1,14 @@
 package de.debuglevel.walkingdinner.rest.participant.location
 
-import org.assertj.core.api.Assertions
-
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.within
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class LocationTest {
+class GeoUtilsTests {
 
     @ParameterizedTest
     @MethodSource("locationProvider")
@@ -16,12 +16,12 @@ class LocationTest {
         // Arrange
 
         // Act
-        val distance1to2 = testData.location1.calculateDistance(testData.location2)
-        val distance2to1 = testData.location2.calculateDistance(testData.location1)
+        val distance1to2 = GeoUtils.calculateDistanceInKilometer(testData.location1, testData.location2)
+        val distance2to1 = GeoUtils.calculateDistanceInKilometer(testData.location2, testData.location1)
 
         // Assert
-        Assertions.assertThat(distance1to2).isCloseTo(testData.distance, Assertions.within(0.01))
-        Assertions.assertThat(distance2to1).isEqualTo(testData.distance, Assertions.within(0.01))
+        assertThat(distance1to2).isCloseTo(testData.distance, within(0.01))
+        assertThat(distance2to1).isEqualTo(testData.distance, within(0.01))
     }
 
     fun locationProvider() = Stream.of(
