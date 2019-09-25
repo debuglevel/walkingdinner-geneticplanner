@@ -30,7 +30,7 @@ export class OrganisationService {
 
   /** GET organisation by id. Return `undefined` when id not found */
   getOrganisationNo404<Data>(id: string): Observable<Organisation> {
-    const url = `${this.organisationsUrl}/?id=${id}`;
+    const url = `${this.organisationsUrl}?id=${id}`;
     return this.http.get<Organisation[]>(url).pipe(
       map(organisations => organisations[0]), // returns a {0|1} element array
       tap(h => {
@@ -43,7 +43,7 @@ export class OrganisationService {
 
   /** GET organisation by id. Will 404 if id not found */
   getOrganisation(id: string): Observable<Organisation> {
-    const url = `${this.organisationsUrl}/${id}`;
+    const url = `${this.organisationsUrl}${id}`;
     return this.http.get<Organisation>(url).pipe(
       tap(_ => this.log(`fetched organisation id=${id}`)),
       catchError(this.handleError<Organisation>(`getOrganisation id=${id}`))
@@ -57,7 +57,7 @@ export class OrganisationService {
       return of([]);
     }
     return this.http
-      .get<Organisation[]>(`${this.organisationsUrl}/?name=${term}`)
+      .get<Organisation[]>(`${this.organisationsUrl}?name=${term}`)
       .pipe(
         tap(_ => this.log(`searched organisations matching "${term}"`)),
         catchError(this.handleError<Organisation[]>("searchOrganisations", []))
@@ -84,7 +84,7 @@ export class OrganisationService {
   ): Observable<Organisation> {
     const id =
       typeof organisation === "string" ? organisation : organisation.id;
-    const url = `${this.organisationsUrl}/${id}`;
+    const url = `${this.organisationsUrl}${id}`;
 
     return this.http.delete<Organisation>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted organisation id=${id}`)),

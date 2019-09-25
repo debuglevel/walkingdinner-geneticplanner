@@ -30,7 +30,7 @@ export class TeamService {
 
   /** GET team by id. Return `undefined` when id not found */
   getTeamNo404<Data>(id: string): Observable<Team> {
-    const url = `${this.teamsUrl}/?id=${id}`;
+    const url = `${this.teamsUrl}?id=${id}`;
     return this.http.get<Team[]>(url).pipe(
       map(teams => teams[0]), // returns a {0|1} element array
       tap(h => {
@@ -43,7 +43,7 @@ export class TeamService {
 
   /** GET team by id. Will 404 if id not found */
   getTeam(id: string): Observable<Team> {
-    const url = `${this.teamsUrl}/${id}`;
+    const url = `${this.teamsUrl}${id}`;
     return this.http.get<Team>(url).pipe(
       tap(_ => this.log(`fetched team id=${id}`)),
       catchError(this.handleError<Team>(`getTeam id=${id}`))
@@ -56,7 +56,7 @@ export class TeamService {
       // if not search term, return empty team array.
       return of([]);
     }
-    return this.http.get<Team[]>(`${this.teamsUrl}/?name=${term}`).pipe(
+    return this.http.get<Team[]>(`${this.teamsUrl}?name=${term}`).pipe(
       tap(_ => this.log(`searched teams matching "${term}"`)),
       catchError(this.handleError<Team[]>("searchTeams", []))
     );
@@ -75,7 +75,7 @@ export class TeamService {
   /** DELETE: delete the team from the server */
   deleteTeam(team: Team | string): Observable<Team> {
     const id = typeof team === "string" ? team : team.id;
-    const url = `${this.teamsUrl}/${id}`;
+    const url = `${this.teamsUrl}${id}`;
 
     return this.http.delete<Team>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted team id=${id}`)),

@@ -30,7 +30,7 @@ export class PlanService {
 
   /** GET plan by id. Return `undefined` when id not found */
   getPlanNo404<Data>(id: string): Observable<Plan> {
-    const url = `${this.plansUrl}/?id=${id}`;
+    const url = `${this.plansUrl}?id=${id}`;
     return this.http.get<Plan[]>(url).pipe(
       map(plans => plans[0]), // returns a {0|1} element array
       tap(h => {
@@ -43,7 +43,7 @@ export class PlanService {
 
   /** GET plan by id. Will 404 if id not found */
   getPlan(id: string): Observable<Plan> {
-    const url = `${this.plansUrl}/${id}`;
+    const url = `${this.plansUrl}${id}`;
     return this.http.get<Plan>(url).pipe(
       tap(_ => this.log(`fetched plan id=${id}`)),
       catchError(this.handleError<Plan>(`getPlan id=${id}`))
@@ -56,7 +56,7 @@ export class PlanService {
       // if not search term, return empty plan array.
       return of([]);
     }
-    return this.http.get<Plan[]>(`${this.plansUrl}/?name=${term}`).pipe(
+    return this.http.get<Plan[]>(`${this.plansUrl}?name=${term}`).pipe(
       tap(_ => this.log(`searched plans matching "${term}"`)),
       catchError(this.handleError<Plan[]>("searchPlans", []))
     );
@@ -75,7 +75,7 @@ export class PlanService {
   /** DELETE: delete the plan from the server */
   deletePlan(plan: Plan | string): Observable<Plan> {
     const id = typeof plan === "string" ? plan : plan.id;
-    const url = `${this.plansUrl}/${id}`;
+    const url = `${this.plansUrl}${id}`;
 
     return this.http.delete<Plan>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted plan id=${id}`)),

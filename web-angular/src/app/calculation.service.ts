@@ -34,7 +34,7 @@ export class CalculationService {
 
   /** GET calculation by id. Return `undefined` when id not found */
   getCalculationNo404<Data>(id: string): Observable<Calculation> {
-    const url = `${this.calculationsUrl}/?id=${id}`;
+    const url = `${this.calculationsUrl}?id=${id}`;
     return this.http.get<Calculation[]>(url).pipe(
       map(calculations => calculations[0]), // returns a {0|1} element array
       tap(h => {
@@ -47,7 +47,7 @@ export class CalculationService {
 
   /** GET calculation by id. Will 404 if id not found */
   getCalculation(id: string): Observable<Calculation> {
-    const url = `${this.calculationsUrl}/${id}`;
+    const url = `${this.calculationsUrl}${id}`;
     return this.http.get<Calculation>(url).pipe(
       tap(_ => this.log(`fetched calculation id=${id}`)),
       catchError(this.handleError<Calculation>(`getCalculation id=${id}`))
@@ -61,7 +61,7 @@ export class CalculationService {
       return of([]);
     }
     return this.http
-      .get<Calculation[]>(`${this.calculationsUrl}/?name=${term}`)
+      .get<Calculation[]>(`${this.calculationsUrl}?name=${term}`)
       .pipe(
         tap(_ => this.log(`searched calculations matching "${term}"`)),
         catchError(this.handleError<Calculation[]>("searchCalculations", []))
@@ -87,7 +87,7 @@ export class CalculationService {
     calculation: Calculation | string
   ): Observable<Calculation> {
     const id = typeof calculation === "string" ? calculation : calculation.id;
-    const url = `${this.calculationsUrl}/${id}`;
+    const url = `${this.calculationsUrl}${id}`;
 
     return this.http.delete<Calculation>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted calculation id=${id}`)),
