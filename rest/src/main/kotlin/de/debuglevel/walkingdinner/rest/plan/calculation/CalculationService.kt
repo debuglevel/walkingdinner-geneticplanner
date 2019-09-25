@@ -47,17 +47,26 @@ class CalculationService(
     }
 
     fun startCalculation(
-        surveyCsv: String,
+        surveyfile: String,
         populationsSize: Int,
         fitnessThreshold: Double,
         steadyFitness: Int,
         location: String
     ): Calculation {
-        val calculation = Calculation(UUID.randomUUID(), false, null)
+        val calculation = Calculation(
+            UUID.randomUUID(),
+            false,
+            surveyfile,
+            populationsSize,
+            fitnessThreshold,
+            steadyFitness,
+            location,
+            null
+        )
 
         val plannerTask = Callable<Plan> {
             try {
-                calculatePlan(surveyCsv, populationsSize, fitnessThreshold, steadyFitness, location, calculation)
+                calculatePlan(calculation)
             } catch (e: Exception) {
                 logger.error(e) { "Callable threw exception" }
                 throw e
@@ -71,11 +80,6 @@ class CalculationService(
     }
 
     private fun calculatePlan(
-        surveyCsv: String,
-        populationsSize: Int,
-        fitnessThreshold: Double,
-        steadyFitness: Int,
-        location: String,
         calculation: Calculation
     ): Plan {
         val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
@@ -84,14 +88,14 @@ class CalculationService(
             printIntermediary(it)
         }
 
-        val database = Database(surveyCsv, location)
+        val database = Database(calculation.surveyfile, calculation.location)
 
         val options = GeneticPlannerOptions(
             evolutionResultConsumer = consumers,
             teams = database.teams,
-            populationsSize = populationsSize,
-            fitnessThreshold = fitnessThreshold,
-            steadyFitness = steadyFitness
+            populationsSize = calculation.populationsSize,
+            fitnessThreshold = calculation.fitnessThreshold,
+            steadyFitness = calculation.steadyFitness
         )
 
         val plan = GeneticPlanner(options).plan()
