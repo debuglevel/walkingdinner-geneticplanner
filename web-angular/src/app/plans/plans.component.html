@@ -8,7 +8,7 @@
     <mat-card-content>
       <mat-nav-list>
         <mat-list-item *ngFor="let plan of plans">
-          <a matLine routerLink="/plans/{{ plan.id }}">{{ plan.name }}</a>
+          <a matLine routerLink="/plans/{{ plan.id }}">{{ plan.id }}</a>
           <button
             mat-icon-button
             matTooltip="lösche Plan"
