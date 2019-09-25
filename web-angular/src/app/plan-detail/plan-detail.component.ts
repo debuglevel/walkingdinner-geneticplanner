@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 
 import { Plan } from "../plan";
 import { PlanService } from "../plan.service";
+import { ReportService } from "../report.service";
 
 @Component({
   selector: "app-plan-detail",
@@ -16,6 +17,7 @@ export class PlanDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private planService: PlanService,
+    private reportService: ReportService,
     private location: Location
   ) {}
 
@@ -26,6 +28,11 @@ export class PlanDetailComponent implements OnInit {
   getPlan(): void {
     const id = this.route.snapshot.paramMap.get("id");
     this.planService.getPlan(id).subscribe(plan => (this.plan = plan));
+  }
+
+  gotoSummaryReport(): void {
+    const url = this.reportService.getSummaryReportUrl(this.plan.id);
+    window.location.href = url;
   }
 
   goBack(): void {
