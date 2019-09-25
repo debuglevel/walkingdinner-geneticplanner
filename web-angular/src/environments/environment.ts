@@ -6,7 +6,8 @@ export const environment = {
   production: false,
 
   // change to "false" to connect to real REST backend
-  useMockupDatabase: true,
+  // useMockupDatabase: true,
+  useMockupDatabase: false,
 };
 
 /*
