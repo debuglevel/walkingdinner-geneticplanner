@@ -26,18 +26,18 @@ import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from "./app.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
-import { OrganisationDetailComponent } from "./organisation-detail/organisation-detail.component";
-import { OrganisationsComponent } from "./organisations/organisations.component";
-import { OrganisationSearchComponent } from "./organisation-search/organisation-search.component";
 import { MessagesComponent } from "./messages/messages.component";
+import { OrganisationsComponent } from "./organisations/organisations.component";
+import { OrganisationDetailComponent } from "./organisation-detail/organisation-detail.component";
+import { OrganisationSearchComponent } from "./organisation-search/organisation-search.component";
 import { DinnersComponent } from "./dinners/dinners.component";
 import { DinnerDetailComponent } from "./dinner-detail/dinner-detail.component";
 import { TeamsComponent } from "./teams/teams.component";
 import { TeamDetailComponent } from "./team-detail/team-detail.component";
-import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
-import { PlansComponent } from "./plans/plans.component";
 import { CalculationsComponent } from "./calculations/calculations.component";
 import { CalculationDetailComponent } from "./calculation-detail/calculation-detail.component";
+import { PlansComponent } from "./plans/plans.component";
+import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
 
 @NgModule({
   imports: [
@@ -71,18 +71,18 @@ import { CalculationDetailComponent } from "./calculation-detail/calculation-det
   declarations: [
     AppComponent,
     DashboardComponent,
+    MessagesComponent,
     OrganisationsComponent,
     OrganisationDetailComponent,
-    MessagesComponent,
     OrganisationSearchComponent,
     DinnersComponent,
     DinnerDetailComponent,
     TeamsComponent,
     TeamDetailComponent,
-    PlanDetailComponent,
-    PlansComponent,
     CalculationsComponent,
     CalculationDetailComponent,
+    PlansComponent,
+    PlanDetailComponent,
   ],
   bootstrap: [AppComponent],
 })
