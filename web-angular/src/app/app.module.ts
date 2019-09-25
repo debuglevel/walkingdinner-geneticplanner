@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { environment } from "../environments/environment";
 
 // Material
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -61,9 +62,11 @@ import { CalculationDetailComponent } from "./calculation-detail/calculation-det
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-    //   dataEncapsulation: false,
-    // }),
+    environment.useMockupDatabase
+      ? HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+          dataEncapsulation: false,
+        })
+      : [],
   ],
   declarations: [
     AppComponent,
