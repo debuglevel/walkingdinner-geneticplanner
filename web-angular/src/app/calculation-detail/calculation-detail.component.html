@@ -69,6 +69,9 @@
         value="{{ calculation.planId }}"
       />
     </mat-form-field>
+    <a mat-stroked-button routerLink="/plans/{{ calculation.planId }}"
+      >Plan aufrufen</a
+    >
   </mat-card-content>
   <mat-card-actions>
     <button mat-stroked-button (click)="goBack()">ZURÜCK</button>
