@@ -16,6 +16,7 @@
     >
       <mat-sidenav
         #snav
+        [opened]="true"
         [mode]="mobileQuery.matches ? 'over' : 'side'"
         [fixedInViewport]="mobileQuery.matches"
         fixedTopGap="56"
