@@ -12,4 +12,13 @@ plugins {
 
     // Like --scan option to gradle; should be placed before any other plugins
     id 'com.gradle.build-scan'
+
+    // Release version with "gradle release"
+    id 'net.researchgate.release'
+}
+
+// Configuration of net.researchgate.release plugin
+release {
+    failOnCommitNeeded = false
+    failOnUnversionedFiles = false
 }
