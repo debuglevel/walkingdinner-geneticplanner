@@ -3,4 +3,8 @@ export class Calculation {
   calculationFinished: boolean;
   planId: string;
   surveyfile: string;
+  populationsSize: number;
+  fitnessThreshold: number;
+  steadyFitness: number;
+  location: string;
 }

@@ -6,6 +6,7 @@ import { catchError, map, tap } from "rxjs/operators";
 
 import { Calculation } from "./calculation";
 import { MessageService } from "./message.service";
+import { ConfigurationService } from "./configuration.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -13,12 +14,15 @@ const httpOptions = {
 
 @Injectable({ providedIn: "root" })
 export class CalculationService {
-  private calculationsUrl = "api/calculations"; // URL to web api
+  private calculationsUrl = "/plans/calculations/"; // URL to web api
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private configurationService: ConfigurationService
+  ) {
+    this.calculationsUrl = configurationService.getUri(this.calculationsUrl);
+  }
 
   /** GET calculations from the server */
   getCalculations(): Observable<Calculation[]> {
