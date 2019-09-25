@@ -29,6 +29,11 @@ export class ReportService {
     return url;
   }
 
+  getMailFileReportUrl(planId: string): string {
+    const url = `${this.reportsUrl}mails/${planId}`;
+    return url;
+  }
+
   /** GET summary report by plan id. Will 404 if id not found */
   getSummaryReport(planId: string): Observable<string> {
     const url = `${this.reportsUrl}${planId}`;

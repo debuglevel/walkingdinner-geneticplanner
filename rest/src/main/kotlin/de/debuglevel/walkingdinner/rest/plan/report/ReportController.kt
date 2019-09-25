@@ -28,6 +28,7 @@ class ReportController(private val reportService: ReportService) {
     }
 
     @Get("/mails/{planId}")
+    @Produces("application/zip")
     fun getAllMail(planId: UUID): ByteArray {
         logger.debug("Called getAllMail($planId)")
         val bytes = reportService.getAllMails(planId)

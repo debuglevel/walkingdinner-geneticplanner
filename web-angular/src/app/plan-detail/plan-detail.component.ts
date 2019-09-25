@@ -35,6 +35,11 @@ export class PlanDetailComponent implements OnInit {
     window.location.href = url;
   }
 
+  gotoMailFileReport(): void {
+    const url = this.reportService.getMailFileReportUrl(this.plan.id);
+    window.location.href = url;
+  }
+
   goBack(): void {
     this.location.back();
   }
