@@ -34,6 +34,19 @@ export class ReportService {
     return url;
   }
 
+  getGmailDraftsReportUrl(planId: string): string {
+    const url = `${this.reportsUrl}gmail/${planId}`;
+    return url;
+  }
+
+  postGmailDraftsReport(planId: string): Observable<string> {
+    const url = this.getGmailDraftsReportUrl(planId);
+    return this.http.post<string>(url, null, httpOptions).pipe(
+      tap((newReport: string) => this.log(`posted gmail drafts report w/`)),
+      catchError(this.handleError<string>("postGmailDraftsReport"))
+    );
+  }
+
   /** GET summary report by plan id. Will 404 if id not found */
   getSummaryReport(planId: string): Observable<string> {
     const url = `${this.reportsUrl}${planId}`;

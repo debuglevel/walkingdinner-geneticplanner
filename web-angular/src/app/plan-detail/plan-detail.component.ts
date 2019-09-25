@@ -40,6 +40,13 @@ export class PlanDetailComponent implements OnInit {
     window.location.href = url;
   }
 
+  createGmailDraftsReport(): void {
+    console.info("createGmailDraftsReport " + this.plan.id);
+    this.reportService
+      .postGmailDraftsReport(this.plan.id)
+      .subscribe(report => {});
+  }
+
   goBack(): void {
     this.location.back();
   }
