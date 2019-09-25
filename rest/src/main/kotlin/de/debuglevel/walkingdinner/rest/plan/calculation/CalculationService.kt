@@ -96,7 +96,7 @@ class CalculationService(
 
         val plan = GeneticPlanner(options).plan()
 
-        calculation.calculationFinished = true
+        calculation.finished = true
         calculation.plan = plan
         planService.add(plan)
 

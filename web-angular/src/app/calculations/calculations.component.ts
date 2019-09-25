@@ -47,7 +47,7 @@ export class CalculationsComponent implements OnInit {
     // TODO: do not hardcode these values (especially the location :-))
     this.calculationService
       .addCalculation({
-        calculationFinished: false,
+        finished: false,
         surveyfile,
         populationsSize: 200,
         fitnessThreshold: 0.001,

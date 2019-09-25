@@ -10,7 +10,7 @@ data class CalculationResponse(
     /**
      * Whether the calculation of the plan has finished or is still in progress
      */
-    val calculationFinished: Boolean,
+    val finished: Boolean,
     /**
      * UUID of the plan, once it is calculated
      */
@@ -19,7 +19,7 @@ data class CalculationResponse(
     constructor(calculation: Calculation) :
             this(
                 calculation.id,
-                calculation.calculationFinished,
+                calculation.finished,
                 calculation.plan?.id
             )
 }

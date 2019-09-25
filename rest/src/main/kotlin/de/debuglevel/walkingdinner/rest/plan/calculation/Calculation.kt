@@ -11,7 +11,7 @@ data class Calculation(
     /**
      * Whether the calculation of the plan has finished or is still in progress
      */
-    var calculationFinished: Boolean,
+    var finished: Boolean,
     /**
      * The plan, once it is calculated
      */

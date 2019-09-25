@@ -77,31 +77,31 @@ export class InMemoryDataService implements InMemoryDbService {
     const calculations = [
       {
         id: "f9549236-db01-41b9-96e4-ba4ff081d93f",
-        calculationFinished: true,
+        finished: true,
         planId: "90e950ca-1233-450c-af3d-4e85e4437970",
         surveyfile: "dGVzdA==",
       },
       {
         id: "9a3348a3-e8ed-495c-9e94-0664cbd9df95",
-        calculationFinished: true,
+        finished: true,
         planId: "ddf44ced-ac49-40d8-a9b1-a93b44e256ad",
         surveyfile: "dGVzdA==",
       },
       {
         id: "6bc193d3-22d5-4768-ae21-779193a5d18d",
-        calculationFinished: true,
+        finished: true,
         planId: "fbd6268c-7cf8-4250-b669-172304363a3c",
         surveyfile: "dGVzdA==",
       },
       {
         id: "663cbc6d-b04d-4b4d-9aca-76708a226527",
-        calculationFinished: true,
+        finished: true,
         planId: "b7bc550c-c1ea-41df-a715-92864bc1c841",
         surveyfile: "dGVzdA==",
       },
       {
         id: "ac5d67a2-8429-4e1a-a7fe-2d15f96f4237",
-        calculationFinished: false,
+        finished: false,
         surveyfile: "dGVzdA==",
       },
     ];

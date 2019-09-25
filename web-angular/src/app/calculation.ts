@@ -1,6 +1,6 @@
 export class Calculation {
   id: string;
-  calculationFinished: boolean;
+  finished: boolean;
   planId: string;
   surveyfile: string;
   populationsSize: number;

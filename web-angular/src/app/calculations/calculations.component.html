@@ -9,7 +9,7 @@
       <mat-nav-list>
         <mat-list-item *ngFor="let calculation of calculations">
           <a matLine routerLink="/calculations/{{ calculation.id }}"
-            >{{ calculation.id }} ({{ calculation.calculationFinished }})</a
+          >{{ calculation.id }} ({{ calculation.finished }})</a
           >
           <button
             mat-icon-button
