@@ -7,8 +7,8 @@ import java.util.function.Consumer
 
 data class GeneticPlannerOptions(
     val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?,
-    val populationsSize: Int = 200,
-    val fitnessThreshold: Double = 0.001,
-    val steadyFitness: Int = 40_000,
+    val populationsSize: Int,
+    val fitnessThreshold: Double,
+    val steadyFitness: Int,
     val teams: List<Team>
 )

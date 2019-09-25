@@ -19,24 +19,6 @@ import java.util.function.Consumer
 class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
     private val logger = KotlinLogging.logger {}
 
-    override fun plan(): Plan {
-        val evolutionResult = compute()
-
-        val courses = CoursesProblem(evolutionResult.bestPhenotype.genotype.gene.validAlleles)
-            .codec()
-            .decode(evolutionResult.bestPhenotype.genotype)
-        val meetings = courses.toMeetings()
-
-        val description = """
-            best generation: ${evolutionResult.generation}
-            total generations: ${evolutionResult.totalGenerations}
-            best fitness: ${evolutionResult.bestFitness}
-            meetings: $meetings
-        """.trimIndent()
-
-        return Plan(UUID.randomUUID(), meetings, description)
-    }
-
     private val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?
     private val teams = options.teams
 
@@ -52,6 +34,28 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
         }
 
         logger.debug("Created GeneticPlanner with options: $options")
+    }
+
+    override fun plan(): Plan {
+        logger.debug("Planning...")
+
+        val evolutionResult = compute()
+
+        val courses = CoursesProblem(evolutionResult.bestPhenotype.genotype.gene.validAlleles)
+            .codec()
+            .decode(evolutionResult.bestPhenotype.genotype)
+        val meetings = courses.toMeetings()
+
+        val description = """
+            best generation: ${evolutionResult.generation}
+            total generations: ${evolutionResult.totalGenerations}
+            best fitness: ${evolutionResult.bestFitness}
+            meetings: $meetings
+        """.trimIndent()
+
+        val plan = Plan(UUID.randomUUID(), meetings, description)
+        logger.debug("Planned: $plan")
+        return plan
     }
 
     private fun compute(): EvolutionResult<EnumGene<Team>, Double> {
