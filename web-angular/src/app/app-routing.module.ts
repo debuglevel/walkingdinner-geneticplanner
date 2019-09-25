@@ -10,6 +10,8 @@ import { TeamsComponent } from "./teams/teams.component";
 import { TeamDetailComponent } from "./team-detail/team-detail.component";
 import { PlansComponent } from "./plans/plans.component";
 import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
+import { CalculationsComponent } from "./calculations/calculations.component";
+import { CalculationDetailComponent } from "./calculation-detail/calculation-detail.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/dashboard", pathMatch: "full" },
@@ -45,6 +47,16 @@ const routes: Routes = [
     path: "plans/:id",
     component: PlanDetailComponent,
     data: { title: "Plan" },
+  },
+  {
+    path: "calculations",
+    component: CalculationsComponent,
+    data: { title: "Plan-Berechnungen" },
+  },
+  {
+    path: "calculations/:id",
+    component: CalculationDetailComponent,
+    data: { title: "Plan-Berechnung" },
   },
 ];
 

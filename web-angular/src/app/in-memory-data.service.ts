@@ -73,11 +73,39 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: "ddf44ced-ac49-40d8-a9b1-a93b44e256ad", name: "Plan 2" },
       { id: "fbd6268c-7cf8-4250-b669-172304363a3c", name: "Plan 3" },
       { id: "b7bc550c-c1ea-41df-a715-92864bc1c841", name: "Plan 4" },
-      { id: "255283ff-fc74-4ef5-90b1-8077077566b4", name: "Plan 5" },
-      { id: "b77a37fe-3a3b-4cb8-9157-c3762077926e", name: "Plan 6" },
-      { id: "23984c81-d1e8-46d9-991a-104cec548804", name: "Plan 7" },
     ];
-    return { organisations, dinners, teams, plans };
+    const calculations = [
+      {
+        id: "f9549236-db01-41b9-96e4-ba4ff081d93f",
+        calculationFinished: true,
+        planId: "90e950ca-1233-450c-af3d-4e85e4437970",
+        surveyfile: "dGVzdA==",
+      },
+      {
+        id: "9a3348a3-e8ed-495c-9e94-0664cbd9df95",
+        calculationFinished: true,
+        planId: "ddf44ced-ac49-40d8-a9b1-a93b44e256ad",
+        surveyfile: "dGVzdA==",
+      },
+      {
+        id: "6bc193d3-22d5-4768-ae21-779193a5d18d",
+        calculationFinished: true,
+        planId: "fbd6268c-7cf8-4250-b669-172304363a3c",
+        surveyfile: "dGVzdA==",
+      },
+      {
+        id: "663cbc6d-b04d-4b4d-9aca-76708a226527",
+        calculationFinished: true,
+        planId: "b7bc550c-c1ea-41df-a715-92864bc1c841",
+        surveyfile: "dGVzdA==",
+      },
+      {
+        id: "ac5d67a2-8429-4e1a-a7fe-2d15f96f4237",
+        calculationFinished: false,
+        surveyfile: "dGVzdA==",
+      },
+    ];
+    return { organisations, dinners, teams, plans, calculations };
   }
 
   // // Overrides the genId method to ensure that a organisation always has an id.

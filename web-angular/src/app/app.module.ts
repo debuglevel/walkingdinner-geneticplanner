@@ -35,6 +35,8 @@ import { TeamsComponent } from "./teams/teams.component";
 import { TeamDetailComponent } from "./team-detail/team-detail.component";
 import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
 import { PlansComponent } from "./plans/plans.component";
+import { CalculationsComponent } from "./calculations/calculations.component";
+import { CalculationDetailComponent } from "./calculation-detail/calculation-detail.component";
 
 @NgModule({
   imports: [
@@ -76,6 +78,8 @@ import { PlansComponent } from "./plans/plans.component";
     TeamDetailComponent,
     PlanDetailComponent,
     PlansComponent,
+    CalculationsComponent,
+    CalculationDetailComponent,
   ],
   bootstrap: [AppComponent],
 })

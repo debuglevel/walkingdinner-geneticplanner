@@ -10,15 +10,6 @@
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Name des Plans" [(ngModel)]="plan.name" />
     </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-      <input
-        matInput
-        placeholder="Base64 encoded survey file"
-        disabled
-        value="{{ plan.surveyfile }}"
-      />
-    </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
     <button mat-stroked-button (click)="goBack()">ZURÜCK</button>

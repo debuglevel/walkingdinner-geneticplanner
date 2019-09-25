@@ -1,0 +1,32 @@
+<mat-card *ngIf="calculation">
+  <mat-card-header>
+    <mat-card-title>{{ calculation.id }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="ID" disabled value="{{ calculation.id }}" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        placeholder="finished"
+        disabled
+        value="{{ calculation.calculationFinished }}"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        placeholder="Base64 encoded survey file"
+        disabled
+        value="{{ calculation.surveyfile }}"
+      />
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-stroked-button (click)="goBack()">ZURÜCK</button>
+    <button mat-stroked-button color="primary" (click)="save()">SICHERN</button>
+  </mat-card-actions>
+</mat-card>
