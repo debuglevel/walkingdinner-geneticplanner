@@ -25,7 +25,7 @@ export class ReportService {
   }
 
   getSummaryReportUrl(planId: string): string {
-    const url = `${this.reportsUrl}${planId}`;
+    const url = `${this.reportsUrl}summary/${planId}`;
     return url;
   }
 

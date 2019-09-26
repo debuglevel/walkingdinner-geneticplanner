@@ -12,7 +12,7 @@ import java.util.*
 class ReportController(private val reportService: ReportService) {
     private val logger = KotlinLogging.logger {}
 
-    @Get("/{planId}")
+    @Get("/summary/{planId}")
     @Produces(MediaType.TEXT_PLAIN)
     fun getOnePlaintext(planId: UUID): String {
         logger.debug("Called getOnePlaintext($planId)")
