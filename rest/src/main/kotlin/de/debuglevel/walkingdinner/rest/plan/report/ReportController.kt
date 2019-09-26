@@ -21,10 +21,9 @@ class ReportController(private val reportService: ReportService) {
     }
 
     @Post("/gmail/{planId}")
-    fun postOnePlaintext(planId: UUID): Set<String> {
+    fun postOnePlaintext(planId: UUID) {
         logger.debug("Called postOnePlaintext($planId)")
-        val draftIds = reportService.createGmailDrafts(planId)
-        return draftIds
+        reportService.createGmailDrafts(planId)
     }
 
     @Get("/mails/{planId}")

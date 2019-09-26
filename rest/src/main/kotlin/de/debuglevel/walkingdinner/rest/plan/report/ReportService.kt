@@ -7,6 +7,7 @@ import de.debuglevel.walkingdinner.rest.plan.report.teams.gmail.GmailDraftReport
 import de.debuglevel.walkingdinner.rest.plan.report.teams.mail.MailFileReportService
 import de.debuglevel.walkingdinner.rest.plan.report.teams.mail.MailService
 import de.debuglevel.walkingdinner.rest.plan.report.teams.summary.SummaryReporter
+import io.micronaut.scheduling.annotation.Async
 import mu.KotlinLogging
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class ReportService(
+open class ReportService(
     private val textReportService: TextReportService,
     private val summaryReporter: SummaryReporter,
     private val gmailDraftReportService: GmailDraftReportService,
@@ -31,11 +32,11 @@ class ReportService(
         return summaryReporter.generateReports(plan.meetings)
     }
 
-    fun createGmailDrafts(planId: UUID): Set<String> {
+    @Async
+    open fun createGmailDrafts(planId: UUID) {
         logger.debug { "Creating Gmail drafts for plan '$planId'..." }
         val plan = planService.get(planId)
         val drafts = gmailDraftReportService.generateReports(plan.meetings)
-        return drafts.map { it.id }.toSet()
     }
 
     fun getAllMails(planId: UUID): ByteArray {
