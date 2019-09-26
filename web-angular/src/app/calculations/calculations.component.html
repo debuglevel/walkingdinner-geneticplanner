@@ -9,7 +9,7 @@
       <mat-nav-list>
         <mat-list-item *ngFor="let calculation of calculations">
           <a matLine routerLink="/calculations/{{ calculation.id }}"
-          >{{ calculation.id }} ({{ calculation.finished }})</a
+            >{{ calculation.id }} ({{ calculation.finished }})</a
           >
           <button
             mat-icon-button
@@ -28,8 +28,8 @@
       <mat-card-title>Plan-Berechnung hinzufügen</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form class="example-form">
-        <!-- <mat-form-field class="example-full-width">
+      <form class="form">
+        <!-- <mat-form-field class="full-width">
           <input
             matInput
             placeholder="Name der Calculations"
@@ -37,7 +37,7 @@
           />
         </mat-form-field> -->
 
-        <!-- <mat-form-field class="example-full-width"> -->
+        <!-- <mat-form-field class="full-width"> -->
         <button mat-stroked-button (click)="inputFile.click()">
           Umfrage-Datei auswählen
         </button>
