@@ -29,7 +29,9 @@ open class ReportService(
     fun getSummary(planId: UUID): String {
         logger.debug { "Getting summary for plan '$planId'..." }
         val plan = planService.get(planId)
-        return summaryReporter.generateReports(plan.meetings)
+        val summary = summaryReporter.generateReports(plan.meetings)
+        logger.debug { "Got summary for plan '$planId'" }
+        return summary
     }
 
     @Async
@@ -37,6 +39,7 @@ open class ReportService(
         logger.debug { "Creating Gmail drafts for plan '$planId'..." }
         val plan = planService.get(planId)
         val drafts = gmailDraftReportService.generateReports(plan.meetings)
+        logger.debug { "Created Gmail drafts for plan '$planId'" }
     }
 
     fun getAllMails(planId: UUID): ByteArray {
