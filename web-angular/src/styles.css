@@ -2,3 +2,7 @@
 
 /* Material */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+mat-card {
+  margin: 1em;
+}
