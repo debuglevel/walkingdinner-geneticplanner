@@ -1,5 +1,6 @@
 package de.debuglevel.walkingdinner.rest.plan.report
 
+import de.debuglevel.walkingdinner.rest.plan.report.teams.gmail.GmailDraftsReport
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -20,10 +21,17 @@ class ReportController(private val reportService: ReportService) {
         return summary
     }
 
+    @Get("/gmail/{reportId}")
+    fun getOneGmailReport(reportId: UUID): GmailDraftsReport {
+        logger.debug("Called getOneGmailReport($reportId)")
+        // TODO: use a DTO instead of transferring all internals
+        return reportService.getGmailDrafts(reportId)
+    }
+
     @Post("/gmail/{planId}")
-    fun postOnePlaintext(planId: UUID) {
-        logger.debug("Called postOnePlaintext($planId)")
-        reportService.createGmailDrafts(planId)
+    fun postOneGmailReport(planId: UUID): GmailDraftsReport {
+        logger.debug("Called postOneGmailReport($planId)")
+        return reportService.createGmailDrafts(planId)
     }
 
     @Get("/mails/{planId}")

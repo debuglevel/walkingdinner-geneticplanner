@@ -31,7 +31,7 @@ open class ReportService(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    private val reports = mapOf<UUID, Report>()
+    private val reports = mutableMapOf<UUID, Report>()
 
     fun getSummary(planId: UUID): String {
         logger.debug { "Getting summary for plan '$planId'..." }
@@ -41,16 +41,28 @@ open class ReportService(
         return summary
     }
 
-    fun createGmailDrafts(planId: UUID) {
+    fun getGmailDrafts(reportId: UUID): GmailDraftsReport {
+        logger.debug { "Getting Gmail drafts for report '$reportId'..." }
+
+        // TODO: handle report-not-found
+        val gmailDraftsReport = reports[reportId] as GmailDraftsReport
+
+        logger.debug { "Got Gmail drafts for report '$reportId': $gmailDraftsReport" }
+        return gmailDraftsReport
+    }
+
+    fun createGmailDrafts(planId: UUID): GmailDraftsReport {
         logger.debug { "Publishing event to create Gmail drafts for plan '$planId'..." }
 
         val plan = planService.get(planId)
         val report = GmailDraftsReport(UUID.randomUUID(), plan)
+        reports[report.id!!] = report
 
         val createGmailDraftsEvent = CreateGmailDraftsEvent(report)
         eventPublisher.publishEvent(createGmailDraftsEvent)
 
-        logger.debug { "Published event to create Gmail drafts for plan '$planId'" }
+        logger.debug { "Published event to create Gmail drafts for plan '$planId': $report" }
+        return report
     }
 
     @EventListener
