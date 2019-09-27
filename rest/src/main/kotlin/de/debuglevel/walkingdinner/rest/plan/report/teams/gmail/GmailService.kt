@@ -153,6 +153,7 @@ class GmailService(
         val message = createMessage(mimeMessage)
         var draft = Draft()
         draft.message = message
+        // TODO: this could better be a BatchRequest
         draft = gmail.users().drafts().create(userId, draft).execute()
 
         logger.debug { "Created draft '${draft.id}'" }
