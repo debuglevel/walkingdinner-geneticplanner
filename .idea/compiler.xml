@@ -20,6 +20,8 @@
       <module name="report_test" target="1.8" />
       <module name="rest_main" target="1.8" />
       <module name="rest_test" target="1.8" />
+      <module name="web-angular_main" target="1.8" />
+      <module name="web-angular_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

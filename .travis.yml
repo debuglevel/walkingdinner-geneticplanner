@@ -31,6 +31,7 @@ deploy:
     file_glob: true
     file:
       - "**/build/distributions/*.tar"
+      - "web-angular/build/libs/*.zip"
 
     skip_cleanup: true
 

@@ -18,3 +18,9 @@ rootProject.name = 'walkingdinner'
 include 'rest'
 //include 'planners'
 //include 'models'
+
+// only include 'web-angular' project in Linux, as the node plugin fails in Windows
+import org.gradle.internal.os.OperatingSystem
+if (OperatingSystem.current().isLinux()) {
+    include 'web-angular'
+}
