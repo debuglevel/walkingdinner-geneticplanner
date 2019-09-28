@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
@@ -38,6 +38,12 @@ import { CalculationsComponent } from "./calculations/calculations.component";
 import { CalculationDetailComponent } from "./calculation-detail/calculation-detail.component";
 import { PlansComponent } from "./plans/plans.component";
 import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
+
+import { SettingsHttpService } from './settings.http.service';
+
+export function app_Init(settingsHttpService: SettingsHttpService) {
+  return () => settingsHttpService.initializeApp();
+}
 
 @NgModule({
   imports: [
@@ -83,6 +89,9 @@ import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
     CalculationDetailComponent,
     PlansComponent,
     PlanDetailComponent,
+  ],
+  providers: [
+      { provide: APP_INITIALIZER, useFactory: app_Init, deps: [SettingsHttpService], multi: true }
   ],
   bootstrap: [AppComponent],
 })

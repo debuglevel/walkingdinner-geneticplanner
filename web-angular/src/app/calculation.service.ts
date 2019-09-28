@@ -6,7 +6,7 @@ import { catchError, map, tap } from "rxjs/operators";
 
 import { Calculation } from "./calculation";
 import { MessageService } from "./message.service";
-import { ConfigurationService } from "./configuration.service";
+import { SettingsService } from "./settings.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -19,9 +19,9 @@ export class CalculationService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private configurationService: ConfigurationService
+    private settingsService: SettingsService
   ) {
-    this.calculationsUrl = configurationService.getUri(this.calculationsUrl);
+    this.calculationsUrl = settingsService.getUri(this.calculationsUrl);
   }
 
   /** GET calculations from the server */

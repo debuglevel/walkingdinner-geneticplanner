@@ -6,7 +6,7 @@ import { catchError, map, tap } from "rxjs/operators";
 
 import { Report } from "./report";
 import { MessageService } from "./message.service";
-import { ConfigurationService } from "./configuration.service";
+import { SettingsService } from "./settings.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -19,9 +19,9 @@ export class ReportService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private configurationService: ConfigurationService
+    private settingsService: SettingsService
   ) {
-    this.reportsUrl = configurationService.getUri(this.reportsUrl);
+    this.reportsUrl = settingsService.getUri(this.reportsUrl);
   }
 
   getSummaryReportUrl(planId: string): string {
