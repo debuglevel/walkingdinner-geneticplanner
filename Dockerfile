@@ -17,7 +17,7 @@ RUN ./gradlew build
 #FROM openjdk:11-jre # use OpenJDK 11 if desired
 FROM openjdk:8-jre-alpine
 WORKDIR /app
-COPY --from=builder /src/build/libs/*-all.jar /app/microservice.jar
+COPY --from=builder /src/rest/build/libs/*-all.jar /app/microservice.jar
 
 # set the default port to 80
 ENV MICRONAUT_SERVER_PORT 80

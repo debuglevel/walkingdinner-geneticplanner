@@ -41,7 +41,7 @@ apply plugin: 'org.hibernate.orm'
 
 // application plugin configuration
 applicationName = "Walking-Dinner Microservice"
-mainClassName = 'de.debuglevel.walkingdinner.ApplicationKt'
+mainClassName = 'de.debuglevel.walkingdinner.Application'
 
 repositories {
     jcenter()
