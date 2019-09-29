@@ -5,7 +5,6 @@ import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.CourseCompatibility
-import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateMultipleCookingTeams
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
 import io.jenetics.PermutationChromosome
@@ -93,6 +92,19 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
                     }
                 }
             }
+        }
+
+        private fun calculateMultipleCookingTeams(meetings: Set<Meeting>): Double {
+            val teamCookings = meetings.map { it.getCookingTeam() }
+                .groupBy { it }
+                .mapValues { it.value.count() }
+
+            val countMultipleCookingTeams = teamCookings.entries
+                .filter { kv -> kv.value > 1 }
+                .map { it.value }
+                .sum()
+
+            return countMultipleCookingTeams.toDouble()
         }
     }
 
