@@ -7,11 +7,7 @@ import fr.dudie.nominatim.client.JsonNominatimClient
 import fr.dudie.nominatim.client.request.NominatimSearchRequest
 import fr.dudie.nominatim.model.Address
 import mu.KotlinLogging
-import org.apache.http.conn.scheme.Scheme
-import org.apache.http.conn.scheme.SchemeRegistry
-import org.apache.http.conn.ssl.SSLSocketFactory
-import org.apache.http.impl.client.DefaultHttpClient
-import org.apache.http.impl.conn.SingleClientConnManager
+import org.apache.http.impl.client.HttpClientBuilder
 import java.text.DecimalFormat
 import javax.inject.Singleton
 import kotlin.concurrent.withLock
@@ -22,7 +18,8 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
 
     private val singleRequestLock = java.util.concurrent.locks.ReentrantLock()
 
-    private val nominatimClient = buildNominatimClient()
+    private val nominatimClient: JsonNominatimClient
+        get() = buildNominatimClient()
 
     private val cityLocation: Location
 
@@ -58,11 +55,7 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
     }
 
     private fun buildNominatimClient(): JsonNominatimClient {
-        val registry = SchemeRegistry()
-        registry.register(Scheme("https", SSLSocketFactory.getSocketFactory(), 443))
-        val connectionManager = SingleClientConnManager(null, registry)
-
-        val httpClient = DefaultHttpClient(connectionManager, null)
+        val httpClient = HttpClientBuilder.create().build()
 
         val baseUrl = "https://nominatim.openstreetmap.org/"
         val email = "debuglevel.de"
