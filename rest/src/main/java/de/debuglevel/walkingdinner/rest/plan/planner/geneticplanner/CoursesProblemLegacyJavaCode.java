@@ -5,19 +5,12 @@ import de.debuglevel.walkingdinner.rest.Meeting;
 import de.debuglevel.walkingdinner.rest.participant.Team;
 import de.debuglevel.walkingdinner.rest.participant.location.Location;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CoursesProblemLegacyJavaCode {
-    public static void addLocations(HashMap<Team, List<Location>> teamsLocations, Set<Meeting> meetings) {
-        for (Meeting meeting : meetings) {
-            for (Team team : meeting.getTeams()) {
-                List<Location> teamLocations = teamsLocations.computeIfAbsent(team, x -> new ArrayList<>());
-                teamLocations.add(meeting.getCookingTeam().getLocation());
-            }
-        }
-    }
-
     public static double calculateOverallDistance(Courses courses) {
         Set<Meeting> meetings = courses.toMeetings();
 

@@ -46,12 +46,12 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
             return locations[0].calculateDistance(locations[1]) + locations[1].calculateDistance(locations[2])
         }
 
-        fun getTeamLocations(courseMeetings: Map<String, Set<Meeting>>): HashMap<Team, List<Location>> {
-            val teamsLocations = HashMap<Team, List<Location>>()
+        fun getTeamLocations(courseMeetings: Map<String, Set<Meeting>>): HashMap<Team, MutableList<Location?>> {
+            val teamsLocations = HashMap<Team, MutableList<Location?>>()
 
-            CoursesProblemLegacyJavaCode.addLocations(teamsLocations, courseMeetings[Courses.course1name])
-            CoursesProblemLegacyJavaCode.addLocations(teamsLocations, courseMeetings[Courses.course2name])
-            CoursesProblemLegacyJavaCode.addLocations(teamsLocations, courseMeetings[Courses.course3name])
+            addLocations(teamsLocations, courseMeetings[Courses.course1name])
+            addLocations(teamsLocations, courseMeetings[Courses.course2name])
+            addLocations(teamsLocations, courseMeetings[Courses.course3name])
 
             return teamsLocations
         }
@@ -62,6 +62,22 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
                 .filter { m -> !CourseCompatibility.areCompatibleTeams(m) }
                 .count()
                 .toDouble()
+        }
+
+        private fun addLocations(teamsLocations: HashMap<Team, MutableList<Location?>>, meetings: Set<Meeting>?) {
+            if (meetings != null) {
+                for (meeting in meetings) {
+                    for (team in meeting.teams) {
+                        // get item in HashMap or create empty List if not already available
+                        val teamLocations =
+                            teamsLocations.computeIfAbsent(team) {
+                                mutableListOf()
+                            }
+
+                        teamLocations.add(meeting.getCookingTeam().location)
+                    }
+                }
+            }
         }
     }
 
