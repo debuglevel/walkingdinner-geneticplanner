@@ -6,7 +6,6 @@ import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.CourseCompatibility
 import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateMultipleCookingTeams
-import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.CoursesProblemLegacyJavaCode.calculateOverallDistance
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
 import io.jenetics.PermutationChromosome
@@ -42,11 +41,15 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
     }
 
     companion object {
-        fun calculateLocationsDistance(locations: List<Location>): Double {
-            return locations[0].calculateDistance(locations[1]) + locations[1].calculateDistance(locations[2])
+        private fun calculateLocationsDistance(locations: List<Location?>): Double {
+            val location0 = locations[0]!!
+            val location1 = locations[1]!!
+            val location2 = locations[2]!!
+
+            return location0.calculateDistance(location1) + location1.calculateDistance(location2)
         }
 
-        fun getTeamLocations(courseMeetings: Map<String, Set<Meeting>>): HashMap<Team, MutableList<Location?>> {
+        private fun getTeamLocations(courseMeetings: Map<String, List<Meeting>>): HashMap<Team, MutableList<Location?>> {
             val teamsLocations = HashMap<Team, MutableList<Location?>>()
 
             addLocations(teamsLocations, courseMeetings[Courses.course1name])
@@ -64,7 +67,19 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
                 .toDouble()
         }
 
-        private fun addLocations(teamsLocations: HashMap<Team, MutableList<Location?>>, meetings: Set<Meeting>?) {
+        fun calculateOverallDistance(courses: Courses): Double {
+            val meetings = courses.toMeetings()
+
+            val courseMeetings = meetings.groupBy { it.course }
+
+            val teamsLocations = CoursesProblem.getTeamLocations(courseMeetings)
+
+            return teamsLocations.values
+                .map { CoursesProblem.calculateLocationsDistance(it) }
+                .sum()
+        }
+
+        private fun addLocations(teamsLocations: HashMap<Team, MutableList<Location?>>, meetings: List<Meeting>?) {
             if (meetings != null) {
                 for (meeting in meetings) {
                     for (team in meeting.teams) {
