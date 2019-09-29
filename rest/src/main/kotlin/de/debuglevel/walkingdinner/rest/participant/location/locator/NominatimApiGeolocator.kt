@@ -23,6 +23,16 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
 
     private val cityLocation: Location
 
+    init {
+        logger.debug { "Initializing NominatimApiGeolocator..." }
+        val result = getNominatimAddress(city)
+        cityLocation = Location(
+            city,
+            result.longitude,
+            result.latitude
+        )
+    }
+
     override fun getLocation(address: String): Location {
         val result = getNominatimAddress("$address, $city")
 
@@ -42,16 +52,6 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
         val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, location)
 
         logger.debug("Geo-located team '$team' ${DecimalFormat("#.##").format(distanceToCity)}km from center by Nominatim API")
-    }
-
-    init {
-        logger.debug { "Initializing NominatimApiGeolocator..." }
-        val result = getNominatimAddress(city)
-        cityLocation = Location(
-            city,
-            result.longitude,
-            result.latitude
-        )
     }
 
     private fun buildNominatimClient(): JsonNominatimClient {
