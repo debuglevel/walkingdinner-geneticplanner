@@ -16,15 +16,10 @@ import mu.KotlinLogging
 import java.util.*
 import java.util.function.Consumer
 
-class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
+class GeneticPlanner(private val options: GeneticPlannerOptions) : Planner {
     private val logger = KotlinLogging.logger {}
 
     private val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?
-    private val teams = options.teams
-
-    private val populationsSize = options.populationsSize
-    private val fitnessThreshold = options.fitnessThreshold
-    private val steadyFitness = options.steadyFitness
 
     init {
         if (options.evolutionResultConsumer == null) {
@@ -61,14 +56,14 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
     private fun compute(): EvolutionResult<EnumGene<Team>, Double> {
         logger.debug("Computing plan...")
 
-        val problem = CoursesProblem(ISeq.of(this.teams))
+        val problem = CoursesProblem(ISeq.of(options.teams))
 
         // use single thread when optimizing performance
         //        final ExecutorService executor = Executors.newSingleThreadExecutor();
 
         val engine = Engine
             .builder<Courses, EnumGene<Team>, Double>(problem)
-            .populationSize(this.populationsSize)
+            .populationSize(options.populationsSize)
             .optimize(Optimize.MINIMUM)
             .alterers(
                 SwapMutator(0.15),
@@ -79,8 +74,8 @@ class GeneticPlanner(options: GeneticPlannerOptions) : Planner {
 
         val result: EvolutionResult<EnumGene<Team>, Double> = engine.stream()
             .limit(
-                Limits.byFitnessThreshold(this.fitnessThreshold).or(
-                    Limits.bySteadyFitness(this.steadyFitness)
+                Limits.byFitnessThreshold(options.fitnessThreshold).or(
+                    Limits.bySteadyFitness(options.steadyFitness)
                 )
             )
             .peek(evolutionResultConsumer)
