@@ -16,9 +16,5 @@ data class CalculationRequest(
     /**
      * Number of generations with constant fitness level to stop further calculations (for calculation with Genetic Algorithm)
      */
-    val steadyFitness: Int,
-    /**
-     * City name where the dinner is based on (to calculate distances correctly)
-     */
-    val location: String
+    val steadyFitness: Int
 )

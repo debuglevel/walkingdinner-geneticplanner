@@ -2,7 +2,7 @@ package de.debuglevel.walkingdinner.rest.plan.calculation
 
 import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
 import de.debuglevel.walkingdinner.rest.participant.Team
-import de.debuglevel.walkingdinner.rest.participant.importer.Database
+import de.debuglevel.walkingdinner.rest.participant.importer.DatabaseBuilder
 import de.debuglevel.walkingdinner.rest.plan.Plan
 import de.debuglevel.walkingdinner.rest.plan.PlanService
 import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlanner
@@ -22,7 +22,8 @@ import kotlin.math.roundToInt
 @Singleton
 class CalculationService(
     @Property(name = "app.walkingdinner.planners.threads") val threadCount: Int,
-    private val planService: PlanService
+    private val planService: PlanService,
+    private val databaseBuilder: DatabaseBuilder
 ) {
     private val logger = KotlinLogging.logger {}
 
@@ -50,8 +51,7 @@ class CalculationService(
         surveyfile: String,
         populationsSize: Int,
         fitnessThreshold: Double,
-        steadyFitness: Int,
-        location: String
+        steadyFitness: Int
     ): Calculation {
         val calculation = Calculation(
             UUID.randomUUID(),
@@ -60,7 +60,6 @@ class CalculationService(
             populationsSize,
             fitnessThreshold,
             steadyFitness,
-            location,
             null
         )
 
@@ -88,7 +87,7 @@ class CalculationService(
             printIntermediary(it)
         }
 
-        val database = Database(calculation.surveyfile, calculation.location)
+        val database = databaseBuilder.build(calculation.surveyfile)
 
         val options = GeneticPlannerOptions(
             evolutionResultConsumer = consumers,

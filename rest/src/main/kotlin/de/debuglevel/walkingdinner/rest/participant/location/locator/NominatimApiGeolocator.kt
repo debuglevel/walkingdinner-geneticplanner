@@ -9,9 +9,11 @@ import fr.dudie.nominatim.model.Address
 import mu.KotlinLogging
 import org.apache.http.impl.client.HttpClientBuilder
 import java.text.DecimalFormat
+import javax.inject.Singleton
 import kotlin.concurrent.withLock
 
-class NominatimApiGeolocator(private val city: String) : Geolocator {
+@Singleton
+class NominatimApiGeolocator : Geolocator {
     private val logger = KotlinLogging.logger {}
 
     private val singleRequestLock = java.util.concurrent.locks.ReentrantLock()
@@ -19,23 +21,20 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
     private val nominatimClient: JsonNominatimClient
         get() = buildNominatimClient()
 
-    private val cityLocation: Location
-
     init {
         logger.debug { "Initializing NominatimApiGeolocator..." }
-        val result = getNominatimAddress(city)
-        cityLocation = Location(
-            city,
-            result.longitude,
-            result.latitude
-        )
     }
 
-    override fun getLocation(address: String): Location {
-        val result = getNominatimAddress("$address, $city")
+    override fun getLocation(address: String?, city: String): Location {
+        val cityAddress = if (address.isNullOrBlank()) city else "$address, $city"
+        val result = try {
+            getNominatimAddress(cityAddress)
+        } catch (e: NoAddressesFoundException) {
+            getNominatimAddress(city)
+        }
 
         return Location(
-            address,
+            cityAddress,
             result.longitude,
             result.latitude
         )
@@ -44,8 +43,10 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
     override fun initializeTeamLocation(team: Team) {
         logger.debug("Geo-locating team '$team' by Nominatim API...")
 
-        val location = getLocation(team.address)
+        val location = getLocation(team.address, team.city)
         team.location = location
+
+        val cityLocation = getLocation(null, team.city)
 
         val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, location)
 
@@ -60,33 +61,34 @@ class NominatimApiGeolocator(private val city: String) : Geolocator {
         return JsonNominatimClient(baseUrl, httpClient, email)
     }
 
-    private fun getNominatimAddress(address: String): Address {
-        logger.debug("Searching address '$address' ...")
+    private fun getNominatimAddress(cityAddress: String): Address {
+        logger.debug("Searching address '$cityAddress'...")
 
-        val r = NominatimSearchRequest()
-        r.setQuery(address)
+        val searchRequest = NominatimSearchRequest()
+        searchRequest.setQuery(cityAddress)
 
         // OpenStreetMaps Nominatim API allows only 1 concurrent connection. Ensure this with a lock.
-        logger.debug("Waiting for lock to call NominatimClient for address '$address'...")
+        logger.debug("Waiting for lock to call NominatimClient for address '$cityAddress'...")
         val addresses = singleRequestLock.withLock {
-            logger.debug("Calling NominatimClient for address '$address'...")
-            val addresses = nominatimClient.search(r)
-            logger.debug("Calling NominatimClient for address '$address' done. Found ${addresses.size} results.")
+            logger.debug("Calling NominatimClient for address '$cityAddress'...")
+            val addresses = nominatimClient.search(searchRequest)
+            logger.debug("Called NominatimClient for address '$cityAddress': ${addresses.size} results.")
             addresses
         }
 
         if (addresses.isEmpty()) {
-            logger.warn { "No address found for '$address'; using town center instead." }
-            return getNominatimAddress(city)
-            //throw NoAddressesFound(address)
+            logger.warn { "No address found for '$cityAddress'" }
+            throw NoAddressesFoundException(cityAddress)
         }
 
         val result = addresses[0]
-        logger.debug("Using address: ${result.displayName}")
+
+        logger.debug("Searching address '$cityAddress': ${result.displayName}")
 
         // TODO: if available, prefer class="building"
         return result
     }
 
-    class NoAddressesFound(address: String) : Exception("No Nominatim API results found for address '$address'")
+    class NoAddressesFoundException(address: String) :
+        Exception("No Nominatim API results found for address '$address'")
 }

@@ -44,7 +44,7 @@ export class CalculationsComponent implements OnInit {
   add(): void {
     const surveyfile = this.fileToUploadBase64;
 
-    // TODO: do not hardcode these values (especially the location :-))
+    // TODO: do not hardcode these values
     this.calculationService
       .addCalculation({
         finished: false,
@@ -52,7 +52,6 @@ export class CalculationsComponent implements OnInit {
         populationsSize: 200,
         fitnessThreshold: 0.001,
         steadyFitness: 100,
-        location: "Bamberg",
       } as Calculation)
       .subscribe(calculation => {
         this.calculations.push(calculation);

@@ -5,6 +5,5 @@ export class Calculation {
   populationsSize: number;
   fitnessThreshold: number;
   steadyFitness: number;
-  location: string;
   planId: string;
 }

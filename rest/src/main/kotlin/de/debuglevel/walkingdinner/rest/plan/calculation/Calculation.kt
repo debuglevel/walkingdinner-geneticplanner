@@ -29,10 +29,6 @@ data class Calculation(
      */
     val steadyFitness: Int,
     /**
-     * City name where the dinner is based on (to calculate distances correctly)
-     */
-    val location: String,
-    /**
      * The plan, once it is calculated
      */
     var plan: Plan?

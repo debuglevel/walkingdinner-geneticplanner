@@ -5,24 +5,27 @@ import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
 
 
 // XXX: use nullable types as GSON could always produce null values in non-null types via reflection anyway.
-data class ParticipantDTO(val address: String?,
-                          val chef1: String?,
-                          val chef2: String?,
-                          val mail1: String?,
-                          val mail2: String?,
-                          val phone1: String?,
-                          val phone2: String?,
-                          val diet: Diet?,
-                          val veganVorspeise: Boolean?,
-                          val veganHauptgericht: Boolean?,
-                          val veganDessert: Boolean?,
-                          val vegetarischVorspeise: Boolean?,
-                          val vegetarischHauptgericht: Boolean?,
-                          val vegetarischDessert: Boolean?,
-                          val omnivorVorspeise: Boolean?,
-                          val omnivorHauptgericht: Boolean?,
-                          val omnivorDessert: Boolean?,
-                          val anmerkungen: String?) {
+data class ParticipantDTO(
+    val address: String?,
+    val chef1: String?,
+    val chef2: String?,
+    val mail1: String?,
+    val mail2: String?,
+    val phone1: String?,
+    val phone2: String?,
+    val diet: Diet?,
+    val veganVorspeise: Boolean?,
+    val veganHauptgericht: Boolean?,
+    val veganDessert: Boolean?,
+    val vegetarischVorspeise: Boolean?,
+    val vegetarischHauptgericht: Boolean?,
+    val vegetarischDessert: Boolean?,
+    val omnivorVorspeise: Boolean?,
+    val omnivorHauptgericht: Boolean?,
+    val omnivorDessert: Boolean?,
+    val anmerkungen: String?,
+    val city: String?
+) {
 
     private val capabilities: List<Capability>
         get() {
@@ -63,7 +66,9 @@ data class ParticipantDTO(val address: String?,
             address ?: throw IllegalArgumentException("address"),
             diet ?: throw IllegalArgumentException("diet"),
             capabilities,
-            null
+            null,
+            null,
+            city ?: throw IllegalArgumentException("city")
         )
     }
 }

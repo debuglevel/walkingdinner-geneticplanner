@@ -36,8 +36,7 @@ class CalculationController(private val calculationService: CalculationService) 
             surveyCsv,
             calculationRequest.populationsSize,
             calculationRequest.fitnessThreshold,
-            calculationRequest.steadyFitness,
-            calculationRequest.location
+            calculationRequest.steadyFitness
         )
 
         return CalculationResponse(calculation)

@@ -33,6 +33,9 @@ class TeamDTO {
     @CsvBindByName(column = "Adresse")
     lateinit var address: String
 
+    @CsvBindByName(column = "Stadt")
+    lateinit var city: String
+
     @CsvBindByName(column = "Diet")
     lateinit var dietString: String
 
@@ -48,7 +51,7 @@ class TeamDTO {
         val location = null
         val capabilities = this.capabilities.filterNotNull()
         val team =
-            Team(cook1, cook2, address, diet, capabilities, location)
+            Team(cook1, cook2, address, diet, capabilities, location, null, city)
 
         return team
     }

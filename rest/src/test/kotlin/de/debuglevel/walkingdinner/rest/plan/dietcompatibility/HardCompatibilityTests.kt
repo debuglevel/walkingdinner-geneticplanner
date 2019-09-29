@@ -57,7 +57,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -77,7 +79,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -97,7 +101,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "course"
@@ -124,7 +130,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -144,7 +152,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -164,7 +174,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "course"
@@ -190,7 +202,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -210,7 +224,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -230,7 +246,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "course"
@@ -260,7 +278,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -280,7 +300,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -300,7 +322,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "course"
@@ -327,7 +351,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -347,7 +373,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -367,7 +395,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "course"
@@ -393,7 +423,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -413,7 +445,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -433,7 +467,9 @@ class HardCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "course"

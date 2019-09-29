@@ -7,7 +7,9 @@ import de.debuglevel.walkingdinner.rest.participant.location.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import mu.KotlinLogging
 import java.text.DecimalFormat
+import javax.inject.Singleton
 
+@Singleton
 class GoogleApiGeolocator(private val city: String) : Geolocator {
     private val logger = KotlinLogging.logger {}
 
@@ -17,14 +19,16 @@ class GoogleApiGeolocator(private val city: String) : Geolocator {
 
     private val cityLocation: Location
 
-    override fun getLocation(address: String): Location {
+    override fun getLocation(address: String?, city: String): Location {
+        val cityAddress = if (address.isNullOrBlank()) city else "$address, $city"
+
         val result = GeocodingApi
             .geocode(geoCodingApi, "$address $city")
             .await()
             .first()
 
         return Location(
-            address,
+            cityAddress,
             result.geometry.location.lng,
             result.geometry.location.lat
         )
@@ -33,7 +37,7 @@ class GoogleApiGeolocator(private val city: String) : Geolocator {
     override fun initializeTeamLocation(team: Team) {
         logger.debug("Geo-locating $team by Google API...")
 
-        val location = getLocation(team.address)
+        val location = getLocation(team.address, team.city)
         team.location = location
 
         val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, location)

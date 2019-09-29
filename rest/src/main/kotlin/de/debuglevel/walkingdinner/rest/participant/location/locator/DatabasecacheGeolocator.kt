@@ -8,26 +8,26 @@ import mu.KotlinLogging
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.DecimalFormat
+import javax.inject.Singleton
 
-
-class DatabasecacheGeolocator(private val city: String) : Geolocator {
+@Singleton
+class DatabasecacheGeolocator(
+    private val nominatimApiGeolocator: NominatimApiGeolocator
+) : Geolocator {
     private val logger = KotlinLogging.logger {}
 
     private val fallbackGeolocator: Geolocator
 
     private lateinit var jsonDBTemplate: JsonDBTemplate
     private val locations = mutableListOf<Location>()
-    private val cityLocation: Location
 
     init {
         logger.debug { "Initializing DatabasecacheGeolocator..." }
 
         //this.fallbackGeolocator = GoogleApiGeolocator(this.city)
-        this.fallbackGeolocator = NominatimApiGeolocator(this.city)
+        this.fallbackGeolocator = nominatimApiGeolocator
 
         initializeJsondb()
-
-        cityLocation = getLocation("")
     }
 
     private fun initializeJsondb() {
@@ -50,14 +50,14 @@ class DatabasecacheGeolocator(private val city: String) : Geolocator {
         locations.addAll(jsonDBTemplate.findAll(Location::class.java))
     }
 
-    override fun getLocation(address: String): Location {
+    override fun getLocation(address: String?, city: String): Location {
         logger.debug { "Getting location for '$address' ..." }
 
         var location = locations.firstOrNull { it.address == address }
 
         if (location == null) {
             logger.debug("Location $address not found in caching database. Using fallback Geolocator...")
-            location = this.fallbackGeolocator.getLocation(address)
+            location = this.fallbackGeolocator.getLocation(address, city)
 
             addLocation(location)
         } else {
@@ -75,10 +75,12 @@ class DatabasecacheGeolocator(private val city: String) : Geolocator {
 
     override fun initializeTeamLocation(team: Team) {
         logger.debug("Geo-locating $team by caching database...")
-        val location = getLocation(team.address)
+        val location = getLocation(team.address, team.city)
         team.location = location
 
-        val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, location)
-        logger.debug("Geo-located $team ${DecimalFormat("#.##").format(distanceToCity)}km from center by caching database")
+        val cityLocation = getLocation(null, team.city)
+
+        val centerDistance = GeoUtils.calculateDistanceInKilometer(cityLocation, location)
+        logger.debug("Geo-located $team ${DecimalFormat("#.##").format(centerDistance)}km from town center by caching database")
     }
 }

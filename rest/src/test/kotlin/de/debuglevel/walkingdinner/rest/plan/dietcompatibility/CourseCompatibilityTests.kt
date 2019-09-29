@@ -57,7 +57,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(Capability.OmnivorVorspeise),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -77,7 +79,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -97,7 +101,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "Vorspeise"
@@ -124,7 +130,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(Capability.VeganHauptgericht),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -144,7 +152,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -164,7 +174,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "Hauptspeise"
@@ -190,7 +202,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(Capability.VeganDessert),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -210,7 +224,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -230,7 +246,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "Dessert"
@@ -260,7 +278,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(Capability.VegetarischVorspeise),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -280,7 +300,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -300,7 +322,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "Vorspeise"
@@ -327,7 +351,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(Capability.OmnivorHauptgericht, Capability.VegetarischHauptgericht),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -347,7 +373,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -367,7 +395,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegetarisch,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "Hauptspeise"
@@ -393,7 +423,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Omnivore,
                         listOf(Capability.VegetarischDessert),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -413,7 +445,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     ),
                     Team(
                         Cook(
@@ -433,7 +467,9 @@ class CourseCompatibilityTests {
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null
+                        null,
+                        null,
+                        "city"
                     )
                 ),
                 "Dessert"

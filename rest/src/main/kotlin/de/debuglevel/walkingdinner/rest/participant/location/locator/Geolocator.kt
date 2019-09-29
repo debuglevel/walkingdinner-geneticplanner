@@ -5,5 +5,5 @@ import de.debuglevel.walkingdinner.rest.participant.location.Location
 
 interface Geolocator {
     fun initializeTeamLocation(team: Team)
-    fun getLocation(address: String): Location
+    fun getLocation(address: String?, city: String): Location
 }

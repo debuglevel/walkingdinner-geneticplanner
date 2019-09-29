@@ -28,10 +28,6 @@ data class CalculationResponse(
      */
     val steadyFitness: Int,
     /**
-     * City name where the dinner is based on (to calculate distances correctly)
-     */
-    val location: String,
-    /**
      * UUID of the plan, once it is calculated
      */
     val planId: UUID?
@@ -44,7 +40,6 @@ data class CalculationResponse(
                 calculation.populationsSize,
                 calculation.fitnessThreshold,
                 calculation.steadyFitness,
-                calculation.location,
                 calculation.plan?.id
             )
 }

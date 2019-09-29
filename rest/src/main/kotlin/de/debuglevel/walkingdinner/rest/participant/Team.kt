@@ -25,7 +25,8 @@ data class Team(
     var location: Location?,
     @Id
     @GeneratedValue
-    val id: UUID? = null
+    val id: UUID? = null,
+    val city: String
 ) {
 
     override fun toString(): String {
