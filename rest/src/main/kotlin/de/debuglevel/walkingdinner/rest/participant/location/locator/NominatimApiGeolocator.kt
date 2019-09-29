@@ -9,10 +9,8 @@ import fr.dudie.nominatim.model.Address
 import mu.KotlinLogging
 import org.apache.http.impl.client.HttpClientBuilder
 import java.text.DecimalFormat
-import javax.inject.Singleton
 import kotlin.concurrent.withLock
 
-@Singleton
 class NominatimApiGeolocator(private val city: String) : Geolocator {
     private val logger = KotlinLogging.logger {}
 
