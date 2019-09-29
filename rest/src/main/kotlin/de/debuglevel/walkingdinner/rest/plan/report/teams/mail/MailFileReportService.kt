@@ -32,16 +32,19 @@ class MailFileReportService(
     }
 
     private fun buildMailFile(team: Team, text: String): MimeMessage {
+        logger.trace { "Generating mail file for team '$team'..." }
+
         val mailaddresses = setOf(team.cook1.mail.mail, team.cook2.mail.mail)
         val subject = "Walking Dinner"
 
         val mimeMessage = mailService.buildMimeMessage(
             to = mailaddresses,
-            from = "WHATEVER",
+            from = fromMailAddress,
             subject = subject,
             bodyText = text
         )
 
+        logger.trace { "Generated mail file for team '$team'." }
         return mimeMessage
     }
 }
