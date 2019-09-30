@@ -17,7 +17,6 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 import javax.inject.Singleton
 
-
 @Singleton
 open class ReportService(
     private val textReportService: TextReportService,
@@ -33,6 +32,7 @@ open class ReportService(
 
     private val reports = mutableMapOf<UUID, Report>()
 
+    // TODO: MIGHT better be placed in a SummaryService or something; same for the other functions
     fun getSummary(planId: UUID): String {
         logger.debug { "Getting summary for plan '$planId'..." }
         val plan = planService.get(planId)

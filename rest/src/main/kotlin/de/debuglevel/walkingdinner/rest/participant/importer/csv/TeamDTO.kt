@@ -10,7 +10,6 @@ import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.Phone
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
 
-
 class TeamDTO {
     @CsvCustomBindByName(column = "Koch1", converter = NameConverter::class)
     lateinit var name1: Name

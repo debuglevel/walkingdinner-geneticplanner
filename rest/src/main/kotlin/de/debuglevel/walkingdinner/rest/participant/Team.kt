@@ -1,6 +1,5 @@
 package de.debuglevel.walkingdinner.rest.participant
 
-
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
@@ -37,7 +36,7 @@ data class Team(
         fun toMeetings(teams: Iterable<Team>, courseName: String): Set<Meeting> {
             val meetings = mutableSetOf<Meeting>()
 
-            val meetingTeams: Array<Team?> = Array(3) { _ -> null }
+            val meetingTeams: Array<Team?> = Array(3) { null }
 
             for ((index, value) in teams.withIndex()) {
                 meetingTeams[index % 3] = value

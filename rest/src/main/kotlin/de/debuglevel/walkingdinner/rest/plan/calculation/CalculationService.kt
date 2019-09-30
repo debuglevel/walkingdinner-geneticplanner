@@ -1,6 +1,6 @@
 package de.debuglevel.walkingdinner.rest.plan.calculation
 
-import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
+import de.debuglevel.walkingdinner.rest.common.TimeMeasurement
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.importer.DatabaseBuilder
 import de.debuglevel.walkingdinner.rest.plan.Plan
@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 
 @Singleton
 class CalculationService(
-    @Property(name = "app.walkingdinner.planners.threads") val threadCount: Int,
+    @Property(name = "app.walkingdinner.planners.threads") private val threadCount: Int,
     private val planService: PlanService,
     private val databaseBuilder: DatabaseBuilder
 ) {
@@ -90,11 +90,11 @@ class CalculationService(
         val database = databaseBuilder.build(calculation.surveyfile)
 
         val options = GeneticPlannerOptions(
-            evolutionResultConsumer = consumers,
             teams = database.teams,
-            populationsSize = calculation.populationsSize,
             fitnessThreshold = calculation.fitnessThreshold,
-            steadyFitness = calculation.steadyFitness
+            steadyFitness = calculation.steadyFitness,
+            populationsSize = calculation.populationsSize,
+            evolutionResultConsumer = consumers
         )
 
         val plan = GeneticPlanner(options).plan()

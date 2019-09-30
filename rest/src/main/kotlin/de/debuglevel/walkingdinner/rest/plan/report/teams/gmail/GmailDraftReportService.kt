@@ -1,6 +1,5 @@
 package de.debuglevel.walkingdinner.rest.plan.report.teams.gmail
 
-
 import com.google.api.services.gmail.model.Draft
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.Team
@@ -20,9 +19,8 @@ class GmailDraftReportService(
         logger.trace { "Generating Gmail drafts..." }
 
         val reports = textReportService.generateReports(meetings)
-        val drafts = reports.map {
-            createDraft(it.team, it.text)
-        }
+        val drafts = reports
+            .map { createDraft(it.team, it.text) }
             .toSet()
 
         val draftIds = drafts

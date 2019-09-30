@@ -9,6 +9,7 @@ import mu.KotlinLogging
 import java.text.DecimalFormat
 import javax.inject.Singleton
 
+// TODO: does probably not really work anymore; should be aligned to NominatimApiGeolocator
 @Singleton
 class GoogleApiGeolocator(private val city: String) : Geolocator {
     private val logger = KotlinLogging.logger {}
@@ -18,6 +19,18 @@ class GoogleApiGeolocator(private val city: String) : Geolocator {
         .build()
 
     private val cityLocation: Location
+
+    init {
+        val result = GeocodingApi
+            .geocode(geoCodingApi, city)
+            .await()
+            .first()
+        cityLocation = Location(
+            city,
+            result.geometry.location.lng,
+            result.geometry.location.lat
+        )
+    }
 
     override fun getLocation(address: String?, city: String): Location {
         val cityAddress = if (address.isNullOrBlank()) city else "$address, $city"
@@ -43,17 +56,5 @@ class GoogleApiGeolocator(private val city: String) : Geolocator {
         val distanceToCity = GeoUtils.calculateDistanceInKilometer(cityLocation, location)
 
         logger.debug("Geo-located $team ${DecimalFormat("#.##").format(distanceToCity)}km from center by Google API")
-    }
-
-    init {
-        val result = GeocodingApi
-            .geocode(geoCodingApi, city)
-            .await()
-            .first()
-        cityLocation = Location(
-            city,
-            result.geometry.location.lng,
-            result.geometry.location.lat
-        )
     }
 }

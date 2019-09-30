@@ -23,5 +23,7 @@ data class Location(
         return "$address ($lat, $lng)"
     }
 
-    fun calculateDistance(location: Location): Double = GeoUtils.calculateDistanceInKilometer(this, location)
+    fun calculateDistance(location: Location): Double {
+        return GeoUtils.calculateDistanceInKilometer(this, location)
+    }
 }

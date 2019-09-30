@@ -21,11 +21,9 @@ class NominatimApiGeolocator : Geolocator {
     private val nominatimClient: JsonNominatimClient
         get() = buildNominatimClient()
 
-    init {
-        logger.debug { "Initializing NominatimApiGeolocator..." }
-    }
-
     override fun getLocation(address: String?, city: String): Location {
+        logger.debug { "Getting location for address '$address' in city '$city'..." }
+
         val cityAddress = if (address.isNullOrBlank()) city else "$address, $city"
         val result = try {
             getNominatimAddress(cityAddress)
@@ -33,11 +31,14 @@ class NominatimApiGeolocator : Geolocator {
             getNominatimAddress(city)
         }
 
-        return Location(
+        val location = Location(
             cityAddress,
             result.longitude,
             result.latitude
         )
+
+        logger.debug { "Got location for address '$address' in city '$city': $location" }
+        return location
     }
 
     override fun initializeTeamLocation(team: Team) {
@@ -54,11 +55,16 @@ class NominatimApiGeolocator : Geolocator {
     }
 
     private fun buildNominatimClient(): JsonNominatimClient {
+        logger.debug { "Building Nominatim client..." }
+
         val httpClient = HttpClientBuilder.create().build()
 
         val baseUrl = "https://nominatim.openstreetmap.org/"
         val email = "debuglevel.de"
-        return JsonNominatimClient(baseUrl, httpClient, email)
+        val jsonNominatimClient = JsonNominatimClient(baseUrl, httpClient, email)
+
+        logger.debug { "Built Nominatim client: $jsonNominatimClient" }
+        return jsonNominatimClient
     }
 
     private fun getNominatimAddress(cityAddress: String): Address {
@@ -82,10 +88,9 @@ class NominatimApiGeolocator : Geolocator {
         }
 
         val result = addresses[0]
-
-        logger.debug("Searching address '$cityAddress': ${result.displayName}")
-
         // TODO: if available, prefer class="building"
+
+        logger.debug("Searched address '$cityAddress': ${result.displayName}")
         return result
     }
 

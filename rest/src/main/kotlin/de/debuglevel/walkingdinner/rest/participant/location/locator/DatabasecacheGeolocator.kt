@@ -28,6 +28,8 @@ class DatabasecacheGeolocator(
         this.fallbackGeolocator = nominatimApiGeolocator
 
         initializeJsondb()
+
+        logger.debug { "Initialized DatabasecacheGeolocator" }
     }
 
     private fun initializeJsondb() {
@@ -48,6 +50,8 @@ class DatabasecacheGeolocator(
         }
 
         locations.addAll(jsonDBTemplate.findAll(Location::class.java))
+
+        logger.debug { "Initialized JsonDB" }
     }
 
     override fun getLocation(address: String?, city: String): Location {
@@ -61,16 +65,17 @@ class DatabasecacheGeolocator(
 
             addLocation(location)
         } else {
-            logger.debug("Location $address found in caching database.")
+            logger.debug("Got location for $address (found in caching database)")
         }
 
         return location
     }
 
     private fun addLocation(location: Location) {
-        logger.debug("Adding Location $location to caching database.")
+        logger.debug("Adding Location $location to caching database...")
         jsonDBTemplate.insert<Location>(location)
         locations.add(location)
+        logger.debug("Added Location $location to caching database")
     }
 
     override fun initializeTeamLocation(team: Team) {

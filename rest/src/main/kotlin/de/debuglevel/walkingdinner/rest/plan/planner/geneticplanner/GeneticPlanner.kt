@@ -22,13 +22,14 @@ class GeneticPlanner(private val options: GeneticPlannerOptions) : Planner {
     private val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?
 
     init {
+        logger.debug { "Initializing GeneticPlanner with options: $options..." }
         if (options.evolutionResultConsumer == null) {
             this.evolutionResultConsumer = Consumer { }
         } else {
             this.evolutionResultConsumer = options.evolutionResultConsumer
         }
 
-        logger.debug("Created GeneticPlanner with options: $options")
+        logger.debug { "Initialized GeneticPlanner" }
     }
 
     override fun plan(): Plan {
@@ -72,7 +73,7 @@ class GeneticPlanner(private val options: GeneticPlannerOptions) : Planner {
             //                .executor(executor)
             .build()
 
-        val result: EvolutionResult<EnumGene<Team>, Double> = engine.stream()
+        val evolutionResult: EvolutionResult<EnumGene<Team>, Double> = engine.stream()
             .limit(
                 Limits.byFitnessThreshold(options.fitnessThreshold).or(
                     Limits.bySteadyFitness(options.steadyFitness)
@@ -81,8 +82,7 @@ class GeneticPlanner(private val options: GeneticPlannerOptions) : Planner {
             .peek(evolutionResultConsumer)
             .collect(EvolutionResult.toBestEvolutionResult<EnumGene<Team>, Double>())
 
-        logger.debug("Computing plan finished...")
-
-        return result
+        logger.debug("Computed plan: $evolutionResult")
+        return evolutionResult
     }
 }

@@ -1,7 +1,6 @@
 package de.debuglevel.walkingdinner.rest
 
 import de.debuglevel.walkingdinner.rest.participant.Team
-import java.util.stream.Collectors
 
 data class Courses(
     val course1teams: Iterable<Team>,
@@ -16,9 +15,10 @@ data class Courses(
     }
 
     fun toMeetings(): Set<Meeting> {
-        return toCourseMeetings().values.stream()
-            .flatMap { it.stream() }
-            .collect(Collectors.toSet())
+        return toCourseMeetings()
+            .values
+            .flatten()
+            .toSet()
     }
 
     fun toCourseMeetings(): Map<String, Set<Meeting>> {

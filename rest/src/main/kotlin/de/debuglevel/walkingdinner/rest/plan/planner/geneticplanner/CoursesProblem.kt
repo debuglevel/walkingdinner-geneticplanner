@@ -4,7 +4,7 @@ import de.debuglevel.walkingdinner.rest.Courses
 import de.debuglevel.walkingdinner.rest.Meeting
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.location.Location
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.CourseCompatibility
+import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.CourseDietCompatibility
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
 import io.jenetics.PermutationChromosome
@@ -23,13 +23,14 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
             PermutationChromosome.of(teams)
         )
 
-        val decoder: Function<Genotype<EnumGene<Team>>, Courses> = Function { genotype: Genotype<EnumGene<Team>> ->
-            Courses(
-                genotype.getChromosome(0).toSeq().map { it.allele },
-                genotype.getChromosome(1).toSeq().map { it.allele },
-                genotype.getChromosome(2).toSeq().map { it.allele }
-            )
-        }
+        val decoder: Function<Genotype<EnumGene<Team>>, Courses> =
+            Function { genotype: Genotype<EnumGene<Team>> ->
+                Courses(
+                    genotype.getChromosome(0).toSeq().map { it.allele },
+                    genotype.getChromosome(1).toSeq().map { it.allele },
+                    genotype.getChromosome(2).toSeq().map { it.allele }
+                )
+            }
 
         val codec: Codec<Courses, EnumGene<Team>> = Codec.of<EnumGene<Team>, Courses>(
             encoding,
@@ -37,6 +38,23 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
         )
 
         return codec
+    }
+
+    override fun fitness(): Function<Courses, Double> {
+        return Function { courses ->
+            val courseMeetings = courses.toCourseMeetings()
+            val meetings = courseMeetings.entries.stream()
+                .flatMap { cm -> cm.value.stream() }
+                .collect(Collectors.toSet<Meeting>())
+
+            val d = (1 * calculateMultipleCookingTeams(meetings)
+                    + 1 * calculateIncompatibleTeams(courseMeetings.getValue(Courses.course1name))
+                    + 1 * calculateIncompatibleTeams(courseMeetings.getValue(Courses.course2name))
+                    + 1 * calculateIncompatibleTeams(courseMeetings.getValue(Courses.course3name))
+                    + 0.00001 * calculateOverallDistance(courses))
+
+            d
+        }
     }
 
     companion object {
@@ -61,7 +79,7 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
         fun calculateIncompatibleTeams(meetings: Set<Meeting>): Double {
             return meetings.stream()
                 //                .filter(m -> !HardCompatibility.INSTANCE.areCompatibleTeams(m))
-                .filter { m -> !CourseCompatibility.areCompatibleTeams(m) }
+                .filter { m -> !CourseDietCompatibility.areCompatibleTeams(m) }
                 .count()
                 .toDouble()
         }
@@ -105,23 +123,6 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
                 .sum()
 
             return countMultipleCookingTeams.toDouble()
-        }
-    }
-
-    override fun fitness(): Function<Courses, Double> {
-        return Function { courses ->
-            val courseMeetings = courses.toCourseMeetings()
-            val meetings = courseMeetings.entries.stream()
-                .flatMap { cm -> cm.value.stream() }
-                .collect(Collectors.toSet<Meeting>())
-
-            val d = (1 * calculateMultipleCookingTeams(meetings)
-                    + 1 * calculateIncompatibleTeams(courseMeetings.getValue(Courses.course1name))
-                    + 1 * calculateIncompatibleTeams(courseMeetings.getValue(Courses.course2name))
-                    + 1 * calculateIncompatibleTeams(courseMeetings.getValue(Courses.course3name))
-                    + 0.00001 * calculateOverallDistance(courses))
-
-            d
         }
     }
 }

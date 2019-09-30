@@ -12,5 +12,7 @@ data class MailAddress(
     @GeneratedValue
     val id: UUID? = null
 ) {
-    override fun toString(): String = mail
+    override fun toString(): String {
+        return mail
+    }
 }

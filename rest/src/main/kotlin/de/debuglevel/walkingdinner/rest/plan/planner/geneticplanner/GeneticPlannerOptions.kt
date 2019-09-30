@@ -6,9 +6,9 @@ import io.jenetics.engine.EvolutionResult
 import java.util.function.Consumer
 
 data class GeneticPlannerOptions(
-    val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?,
-    val populationsSize: Int,
+    val teams: List<Team>,
     val fitnessThreshold: Double,
     val steadyFitness: Int,
-    val teams: List<Team>
+    val populationsSize: Int,
+    val evolutionResultConsumer: Consumer<EvolutionResult<EnumGene<Team>, Double>>?
 )

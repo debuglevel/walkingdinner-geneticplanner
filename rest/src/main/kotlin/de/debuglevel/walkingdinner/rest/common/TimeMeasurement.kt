@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.cli.performance
+package de.debuglevel.walkingdinner.rest.common
 
 import mu.KotlinLogging
 import java.util.concurrent.atomic.AtomicLong
@@ -28,7 +28,7 @@ object TimeMeasurement {
                 val durationPerCall = nanosecondsSum / callsSum
                 val callsPerSecond = (callsSum / (nanosecondsSum / 1_000_000_000.0)).roundToInt()
 
-                println("Performance of '${measurement.id}' after $callsSum calls: ${durationPerCall} ns/call or ${callsPerSecond} calls/s")
+                println("Performance of '${measurement.id}' after $callsSum calls: $durationPerCall ns/call or $callsPerSecond calls/s")
             }
         }
     }

@@ -2,7 +2,7 @@
 //
 //import com.github.ajalt.clikt.core.CliktCommand
 //import com.github.ajalt.clikt.parameters.options.option
-//import de.debuglevel.walkingdinner.cli.performance.TimeMeasurement
+//import de.debuglevel.walkingdinner.rest.common.TimeMeasurement
 //import de.debuglevel.walkingdinner.rest.common.BuildVersion
 //import de.debuglevel.walkingdinner.rest.participant.Team
 //import de.debuglevel.walkingdinner.rest.participant.importer.Database

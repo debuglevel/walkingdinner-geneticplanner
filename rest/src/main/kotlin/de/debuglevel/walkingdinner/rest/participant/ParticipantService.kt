@@ -28,7 +28,6 @@ class ParticipantService {
             null,
             null,
             null
-
         )
     }
 
@@ -55,7 +54,6 @@ class ParticipantService {
                     null,
                     null,
                     null
-
                 )
             }
             .toSet()

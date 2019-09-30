@@ -1,6 +1,5 @@
 package de.debuglevel.walkingdinner.rest.plan.calculation
 
-//import spark.kotlin.RouteHandler
 import de.debuglevel.walkingdinner.rest.common.Base64String
 import de.debuglevel.walkingdinner.rest.common.toUUID
 import io.micronaut.http.annotation.Controller
