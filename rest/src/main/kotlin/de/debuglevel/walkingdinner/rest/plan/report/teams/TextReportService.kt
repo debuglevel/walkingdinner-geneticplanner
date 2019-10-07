@@ -1,9 +1,9 @@
 package de.debuglevel.walkingdinner.rest.plan.report.teams
 
-import de.debuglevel.walkingdinner.rest.Courses
 import de.debuglevel.walkingdinner.rest.Meeting
+import de.debuglevel.walkingdinner.rest.participant.Diet
 import de.debuglevel.walkingdinner.rest.participant.Team
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
+import de.debuglevel.walkingdinner.rest.plan.Courses
 import de.debuglevel.walkingdinner.rest.plan.report.Reporter
 import mu.KotlinLogging
 import org.jtwig.JtwigModel

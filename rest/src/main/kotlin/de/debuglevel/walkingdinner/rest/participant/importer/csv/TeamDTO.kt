@@ -7,8 +7,8 @@ import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.Capab
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.MailAddressConverter
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.NameConverter
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.PhoneNumberConverter
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
+import de.debuglevel.walkingdinner.rest.participant.location.Location
+import java.util.*
 
 class TeamDTO {
     @CsvCustomBindByName(column = "Koch1", converter = NameConverter::class)
@@ -42,15 +42,18 @@ class TeamDTO {
         get() = Diet.valueOf(dietString)
 
     @CsvCustomBindByName(column = "Capabilities", converter = CapabilitiesConverter::class)
-    val capabilities: List<Capability?> = listOf()
+    val cookingCapabilities: List<CookingCapability?> = listOf()
 
     fun toTeam(): Team {
         val cook1 = Cook(name1, mail1, phone1)
         val cook2 = Cook(name2, mail2, phone2)
-        val location = null
-        val capabilities = this.capabilities.filterNotNull()
-        val team =
-            Team(cook1, cook2, address, diet, capabilities, location, null, city)
+        val location: Location? = null
+        val capabilities = this.cookingCapabilities.filterNotNull()
+
+        val id =
+            UUID.randomUUID() // TODO / HACK: generate an ID as long there is no database backend; should/must be removed when teams are persisted
+
+        val team = Team(cook1, cook2, address, diet, capabilities, location, id, city)
 
         return team
     }

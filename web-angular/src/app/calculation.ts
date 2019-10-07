@@ -6,4 +6,6 @@ export class Calculation {
   fitnessThreshold: number;
   steadyFitness: number;
   planId: string;
+  begin: string;
+  end: string;
 }

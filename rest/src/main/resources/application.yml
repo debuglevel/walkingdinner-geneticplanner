@@ -1,8 +1,7 @@
 app:
   walkingdinner:
     planners:
-      # number of threads to use to calculate plan
-      threads: 4
+      url: http://localhost:8081
     reporters:
       mail:
         from-mail-address: "user@domain.invalid"
@@ -17,6 +16,15 @@ micronaut:
     port: 8080 # default: -1 (random port)
     cors:
       enabled: true # default: false
+  http:
+    # manual service discovery
+    services:
+      plan:
+        urls:
+          - http://localhost:8083/plans/
+      calculation:
+        urls:
+          - http://localhost:8083/calculations
   router:
     static-resources:
       # YAML file will be available at http://localhost:8080/swagger/walking-dinner-microservice-0.0.1.yml
@@ -31,6 +39,7 @@ micronaut:
 jackson:
   serialization:
     indentOutput: true
+    writeDatesAsTimestamps: false
 
 datasources:
   #  # Apache Derby

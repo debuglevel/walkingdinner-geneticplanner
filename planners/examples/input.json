@@ -1,0 +1,21 @@
+{
+  "id": "c6dfe06f-1e92-4387-aa4a-4a330eaa27fe",
+  "populationsSize": 200,
+  "fitnessThreshold": 0.001,
+  "steadyFitness": 100,
+  "teams": [
+    {
+      "id": "40dbe33f-b578-47bb-bd24-b50e72a9228d",
+      "diet": "Vegan",
+      "location": {
+        "lat": 50.890907,
+        "lng": 11.661747
+      },
+      "capabilities": [
+        "VeganVorspeise",
+        "VeganHauptgericht",
+        "VeganDessert"
+      ]
+    }
+  ]
+}

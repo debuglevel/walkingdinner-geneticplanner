@@ -9,7 +9,10 @@
       <mat-nav-list>
         <mat-list-item *ngFor="let calculation of calculations">
           <a matLine routerLink="/calculations/{{ calculation.id }}"
-            >{{ calculation.id }} ({{ calculation.finished }})</a
+          >{{ calculation.id }} ({{ calculation.finished }},
+            {{ calculation.begin | date: "yyyy-MM-dd HH:mm" }}&ndash;{{
+            calculation.end | date: "HH:mm"
+            }})</a
           >
           <button
             mat-icon-button

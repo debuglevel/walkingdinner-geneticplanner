@@ -33,8 +33,13 @@ class DatabaseBuilder(private val databasecacheGeolocator: DatabasecacheGeolocat
     private fun initializeTeamLocations(teams: List<Team>) {
         logger.debug { "Initializing team locations..." }
 
-        teams.parallelStream()
-            .forEach { databasecacheGeolocator.initializeTeamLocation(it) }
+        teams
+            //.parallelStream()
+            //.onEach { logger.debug("== Processing: city '${it.city}',\taddress '${it.address}'\t$it") }
+            .forEach {
+                //logger.debug("== Processing: city '${it.city}',\taddress '${it.address}'\t$it")
+                databasecacheGeolocator.initializeTeamLocation(it)
+            }
 
         logger.debug { "Initialized team locations" }
     }

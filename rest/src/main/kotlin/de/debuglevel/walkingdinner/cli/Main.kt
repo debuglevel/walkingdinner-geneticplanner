@@ -7,8 +7,8 @@
 //import de.debuglevel.walkingdinner.rest.participant.Team
 //import de.debuglevel.walkingdinner.rest.participant.importer.Database
 //import de.debuglevel.walkingdinner.rest.plan.Plan
-//import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlanner
-//import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlannerOptions
+//import de.debuglevel.walkingdinner.planners.geneticplanner.GeneticPlanner
+//import de.debuglevel.walkingdinner.planners.geneticplanner.GeneticPlannerOptions
 //import de.debuglevel.walkingdinner.rest.plan.report.teams.summary.SummaryReporter
 //import io.jenetics.EnumGene
 //import io.jenetics.engine.EvolutionResult

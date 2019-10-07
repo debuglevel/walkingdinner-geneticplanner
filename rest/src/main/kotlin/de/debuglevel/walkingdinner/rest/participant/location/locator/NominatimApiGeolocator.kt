@@ -1,7 +1,7 @@
 package de.debuglevel.walkingdinner.rest.participant.location.locator
 
+import de.debuglevel.walkingdinner.rest.common.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.Team
-import de.debuglevel.walkingdinner.rest.participant.location.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import fr.dudie.nominatim.client.JsonNominatimClient
 import fr.dudie.nominatim.client.request.NominatimSearchRequest
@@ -55,7 +55,7 @@ class NominatimApiGeolocator : Geolocator {
     }
 
     private fun buildNominatimClient(): JsonNominatimClient {
-        logger.debug { "Building Nominatim client..." }
+        logger.trace { "Building Nominatim client..." }
 
         val httpClient = HttpClientBuilder.create().build()
 
@@ -63,7 +63,7 @@ class NominatimApiGeolocator : Geolocator {
         val email = "debuglevel.de"
         val jsonNominatimClient = JsonNominatimClient(baseUrl, httpClient, email)
 
-        logger.debug { "Built Nominatim client: $jsonNominatimClient" }
+        logger.trace { "Built Nominatim client" }
         return jsonNominatimClient
     }
 

@@ -1,8 +1,5 @@
 package de.debuglevel.walkingdinner.rest.participant
 
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Capability
-import de.debuglevel.walkingdinner.rest.plan.dietcompatibility.Diet
-
 // XXX: use nullable types as GSON could always produce null values in non-null types via reflection anyway.
 data class ParticipantDTO(
     val address: String?,
@@ -26,18 +23,18 @@ data class ParticipantDTO(
     val city: String?
 ) {
 
-    private val capabilities: List<Capability>
+    private val cookingCapabilities: List<CookingCapability>
         get() {
-            val capabilities = hashMapOf<Capability, Boolean>()
-            capabilities[Capability.VeganVorspeise] = veganVorspeise ?: false
-            capabilities[Capability.VeganHauptgericht] = veganHauptgericht ?: false
-            capabilities[Capability.VeganDessert] = veganDessert ?: false
-            capabilities[Capability.VegetarischVorspeise] = vegetarischVorspeise ?: false
-            capabilities[Capability.VegetarischHauptgericht] = vegetarischHauptgericht ?: false
-            capabilities[Capability.VegetarischDessert] = vegetarischDessert ?: false
-            capabilities[Capability.OmnivorVorspeise] = omnivorVorspeise ?: false
-            capabilities[Capability.OmnivorHauptgericht] = omnivorHauptgericht ?: false
-            capabilities[Capability.OmnivorDessert] = omnivorDessert ?: false
+            val capabilities = hashMapOf<CookingCapability, Boolean>()
+            capabilities[CookingCapability.VeganVorspeise] = veganVorspeise ?: false
+            capabilities[CookingCapability.VeganHauptgericht] = veganHauptgericht ?: false
+            capabilities[CookingCapability.VeganDessert] = veganDessert ?: false
+            capabilities[CookingCapability.VegetarischVorspeise] = vegetarischVorspeise ?: false
+            capabilities[CookingCapability.VegetarischHauptgericht] = vegetarischHauptgericht ?: false
+            capabilities[CookingCapability.VegetarischDessert] = vegetarischDessert ?: false
+            capabilities[CookingCapability.OmnivorVorspeise] = omnivorVorspeise ?: false
+            capabilities[CookingCapability.OmnivorHauptgericht] = omnivorHauptgericht ?: false
+            capabilities[CookingCapability.OmnivorDessert] = omnivorDessert ?: false
 
             return capabilities.filter { it.value }.map { it.key }
         }
@@ -56,7 +53,7 @@ data class ParticipantDTO(
             ),
             address ?: throw IllegalArgumentException("address"),
             diet ?: throw IllegalArgumentException("diet"),
-            capabilities,
+            cookingCapabilities,
             null,
             null,
             city ?: throw IllegalArgumentException("city")

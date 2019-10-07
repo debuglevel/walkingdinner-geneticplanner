@@ -2,6 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/planners/de.debuglevel.walkingdinner-planners_main.iml" filepath="$PROJECT_DIR$/.idea/modules/planners/de.debuglevel.walkingdinner-planners_main.iml" group="walkingdinner/planners" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/planners/de.debuglevel.walkingdinner-planners_test.iml" filepath="$PROJECT_DIR$/.idea/modules/planners/de.debuglevel.walkingdinner-planners_test.iml" group="walkingdinner/planners" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest/de.debuglevel.walkingdinner-rest_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rest/de.debuglevel.walkingdinner-rest_main.iml" group="walkingdinner/rest" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest/de.debuglevel.walkingdinner-rest_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rest/de.debuglevel.walkingdinner-rest_test.iml" group="walkingdinner/rest" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/planners.iml" filepath="$PROJECT_DIR$/.idea/modules/planners.iml" group="walkingdinner/planners" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/planners/planners_main.iml" filepath="$PROJECT_DIR$/.idea/modules/planners/planners_main.iml" group="walkingdinner/planners" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/planners/planners_test.iml" filepath="$PROJECT_DIR$/.idea/modules/planners/planners_test.iml" group="walkingdinner/planners" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest/rest.iml" filepath="$PROJECT_DIR$/.idea/modules/rest/rest.iml" group="walkingdinner/rest" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest/rest_main.iml" filepath="$PROJECT_DIR$/.idea/modules/rest/rest_main.iml" group="walkingdinner/rest" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/rest/rest_test.iml" filepath="$PROJECT_DIR$/.idea/modules/rest/rest_test.iml" group="walkingdinner/rest" />

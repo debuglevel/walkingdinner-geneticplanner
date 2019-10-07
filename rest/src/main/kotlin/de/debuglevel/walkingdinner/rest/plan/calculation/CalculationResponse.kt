@@ -1,5 +1,6 @@
 package de.debuglevel.walkingdinner.rest.plan.calculation
 
+import java.time.LocalDateTime
 import java.util.*
 
 data class CalculationResponse(
@@ -30,7 +31,15 @@ data class CalculationResponse(
     /**
      * UUID of the plan, once it is calculated
      */
-    val planId: UUID?
+    val planId: UUID?,
+    /**
+     * When the calculation began
+     */
+    var begin: LocalDateTime? = null,
+    /**
+     * When the calculation finished
+     */
+    var end: LocalDateTime? = null
 ) {
     constructor(calculation: Calculation) :
             this(
@@ -40,6 +49,8 @@ data class CalculationResponse(
                 calculation.populationsSize,
                 calculation.fitnessThreshold,
                 calculation.steadyFitness,
-                calculation.plan?.id
+                calculation.plan?.id,
+                calculation.begin,
+                calculation.end
             )
 }

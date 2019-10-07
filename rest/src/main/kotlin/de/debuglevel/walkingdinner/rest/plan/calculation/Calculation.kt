@@ -1,6 +1,8 @@
 package de.debuglevel.walkingdinner.rest.plan.calculation
 
+import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.plan.Plan
+import java.time.LocalDateTime
 import java.util.*
 
 data class Calculation(
@@ -31,5 +33,21 @@ data class Calculation(
     /**
      * The plan, once it is calculated
      */
-    var plan: Plan?
+    var plan: Plan?,
+    /**
+     * Teams to calculate into the plan
+     */
+    val teams: List<Team>,
+    /**
+     * ID on calculation microservices
+     */
+    var calculationId: UUID? = null,
+    /**
+     * When the calculation began
+     */
+    var begin: LocalDateTime? = null,
+    /**
+     * When the calculation finished
+     */
+    var end: LocalDateTime? = null
 )

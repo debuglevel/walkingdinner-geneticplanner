@@ -1,7 +1,7 @@
 package de.debuglevel.walkingdinner.rest.participant.location.locator
 
+import de.debuglevel.walkingdinner.rest.common.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.Team
-import de.debuglevel.walkingdinner.rest.participant.location.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import io.jsondb.JsonDBTemplate
 import mu.KotlinLogging
@@ -55,9 +55,15 @@ class DatabasecacheGeolocator(
     }
 
     override fun getLocation(address: String?, city: String): Location {
-        logger.debug { "Getting location for '$address' ..." }
+        logger.debug { "Getting location for '$address' in city '$city' ..." }
 
-        var location = locations.firstOrNull { it.address == address }
+        // HACK: somehow handle the "address, city" concatenation and city lookup
+        //locations.forEach { logger.debug { "== '$it'" } }
+        var location = if (address != null) {
+            locations.firstOrNull { it.address == "$address, $city" }
+        } else {
+            locations.firstOrNull { it.address == city }
+        }
 
         if (location == null) {
             logger.debug("Location $address not found in caching database. Using fallback Geolocator...")
@@ -65,7 +71,7 @@ class DatabasecacheGeolocator(
 
             addLocation(location)
         } else {
-            logger.debug("Got location for $address (found in caching database)")
+            logger.debug("Got location for '$address' in city '$city' (found in caching database): $location")
         }
 
         return location
@@ -79,7 +85,7 @@ class DatabasecacheGeolocator(
     }
 
     override fun initializeTeamLocation(team: Team) {
-        logger.debug("Geo-locating $team by caching database...")
+        logger.debug("Geo-locating $team (city '${team.city}', address '${team.address}') by caching database...")
         val location = getLocation(team.address, team.city)
         team.location = location
 

@@ -1,13 +1,11 @@
 package de.debuglevel.walkingdinner.rest.plan
 
-import io.micronaut.context.annotation.Property
 import mu.KotlinLogging
 import java.util.*
 import javax.inject.Singleton
 
 @Singleton
 class PlanService(
-    @Property(name = "app.walkingdinner.planners.threads") val threadCount: Int,
     private val planRepository: PlanRepository
 ) {
     private val logger = KotlinLogging.logger {}

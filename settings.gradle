@@ -18,11 +18,14 @@ rootProject.name = 'walkingdinner'
 //include 'cli'
 println("settings.gradle: including rest...")
 include 'rest'
+println("settings.gradle: including planners...")
+include 'planners'
 //include 'planners'
 //include 'models'
 
 // only include 'web-angular' project in Linux, as the node plugin fails in Windows
 import org.gradle.internal.os.OperatingSystem
+
 println("settings.gradle: OperatingSystem.current() = " + OperatingSystem.current())
 if (OperatingSystem.current().isLinux()) {
     println("settings.gradle: including web-angular...")

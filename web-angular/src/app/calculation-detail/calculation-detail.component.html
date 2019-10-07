@@ -56,6 +56,24 @@
       <input
         disabled
         matInput
+        placeholder="Beginn der Berechnung"
+        value="{{ calculation.begin }}"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input
+        disabled
+        matInput
+        placeholder="Ende der Berechnung"
+        value="{{ calculation.end }}"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input
+        disabled
+        matInput
         placeholder="ID des Plans"
         value="{{ calculation.planId }}"
       />

@@ -1,39 +1,57 @@
 package de.debuglevel.walkingdinner.rest.plan.calculation
 
-import de.debuglevel.walkingdinner.rest.common.TimeMeasurement
-import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.importer.DatabaseBuilder
 import de.debuglevel.walkingdinner.rest.plan.Plan
 import de.debuglevel.walkingdinner.rest.plan.PlanService
-import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlanner
-import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlannerOptions
-import io.jenetics.EnumGene
-import io.jenetics.engine.EvolutionResult
-import io.jenetics.engine.EvolutionStatistics
-import io.micronaut.context.annotation.Property
+import de.debuglevel.walkingdinner.rest.plan.calculation.client.CalculationClient
+import de.debuglevel.walkingdinner.rest.plan.calculation.client.CalculationRequest
+import de.debuglevel.walkingdinner.rest.plan.calculation.client.TeamRequest
+import de.debuglevel.walkingdinner.rest.plan.client.PlanClient
 import mu.KotlinLogging
 import java.util.*
-import java.util.concurrent.Callable
-import java.util.concurrent.Executors
-import java.util.function.Consumer
 import javax.inject.Singleton
-import kotlin.math.roundToInt
 
 @Singleton
 class CalculationService(
-    @Property(name = "app.walkingdinner.planners.threads") private val threadCount: Int,
+    private val calculationClient: CalculationClient,
+    private val planClient: PlanClient,
     private val planService: PlanService,
     private val databaseBuilder: DatabaseBuilder
 ) {
     private val logger = KotlinLogging.logger {}
-
-    private val executor = Executors.newFixedThreadPool(threadCount)
 
     private val calculations = mutableMapOf<UUID, Calculation>()
 
     fun get(id: UUID): Calculation {
         logger.debug { "Getting calculation '$id'..." }
         val calculation = calculations.getOrElse(id) { throw CalculationNotFoundException(id) }
+
+        // if calculation has no plan yet, try to fetch it from the microservice
+        if (calculation.plan == null) {
+            logger.debug { "Calculation ${calculation.id} has no plan yet; fetching it from microservice..." }
+            val calculationResponse = calculationClient.getOne(calculation.calculationId!!)
+            logger.debug { "Received CalculationResponse: $calculationResponse..." }
+
+            calculation.finished = calculationResponse.finished
+            calculation.begin = calculationResponse.begin
+            calculation.end = calculationResponse.end
+
+            if (calculation.finished) {
+                logger.debug { "Calculation is finished on calculation microservice; fetching plan ${calculationResponse.planId!!} from microservice..." }
+                val planResponse = planClient.getOne(calculationResponse.planId!!)
+
+                val plan = Plan(
+                    id = planResponse.id, // TODO: will not work as soon as plan is saved; must be null then.
+                    meetings = planResponse.meetings.map { it.toMeeting(calculation.teams) }.toSet(),
+                    additionalInformation = "TODO"
+                )
+
+                planService.add(plan)
+
+                calculation.plan = plan
+            }
+        }
+
         logger.debug { "Got calculation: $calculation" }
         return calculation
     }
@@ -53,6 +71,9 @@ class CalculationService(
         fitnessThreshold: Double,
         steadyFitness: Int
     ): Calculation {
+        val database = databaseBuilder.build(surveyfile)
+        val teams = database.teams
+
         val calculation = Calculation(
             UUID.randomUUID(),
             false,
@@ -60,84 +81,26 @@ class CalculationService(
             populationsSize,
             fitnessThreshold,
             steadyFitness,
-            null
+            null,
+            teams
         )
-
-        val plannerTask = Callable<Plan> {
-            try {
-                calculatePlan(calculation)
-            } catch (e: Exception) {
-                logger.error(e) { "Callable threw exception" }
-                throw e
-            }
-        }
-
-        executor.submit(plannerTask)
 
         calculations[calculation.id] = calculation
-        return calculation
-    }
 
-    private fun calculatePlan(
-        calculation: Calculation
-    ): Plan {
-        val evolutionStatistics = EvolutionStatistics.ofNumber<Double>()
-        val consumers: Consumer<EvolutionResult<EnumGene<Team>, Double>>? = Consumer {
-            evolutionStatistics.accept(it)
-            printIntermediary(it)
-        }
-
-        val database = databaseBuilder.build(calculation.surveyfile)
-
-        val options = GeneticPlannerOptions(
-            teams = database.teams,
-            fitnessThreshold = calculation.fitnessThreshold,
-            steadyFitness = calculation.steadyFitness,
+        val calculationRequest = CalculationRequest(
             populationsSize = calculation.populationsSize,
-            evolutionResultConsumer = consumers
+            steadyFitness = calculation.steadyFitness,
+            fitnessThreshold = calculation.fitnessThreshold,
+            teams = database.teams.map { TeamRequest(it) }
         )
 
-        val plan = GeneticPlanner(options).plan()
+        logger.debug { "Sending CalculationRequest: $calculationRequest..." }
+        val calculationResponse = calculationClient.postOne(calculationRequest)
+        logger.debug { "Received CalculationResponse: $calculationResponse..." }
 
-        calculation.finished = true
-        calculation.plan = plan
-        planService.add(plan)
+        calculation.calculationId = calculationResponse.id
 
-        //processResults(result, evolutionStatistics)
-
-        return plan
-    }
-
-//    private fun processResults(
-//        result: EvolutionResult<EnumGene<Team>, Double>,
-//        evolutionStatistics: EvolutionStatistics<Double, DoubleMomentStatistics>?
-//    ) {
-//        println()
-//        println("Best in Generation: " + result.generation)
-//        println("Best with Fitness: " + result.bestFitness)
-//
-//        println()
-//        println(evolutionStatistics)
-//
-//        println()
-//        val courses = CoursesProblem(result.bestPhenotype.genotype.gene.validAlleles)
-//            .codec()
-//            .decode(result.bestPhenotype.genotype)
-//        val meetings = courses.toMeetings()
-//
-//        SummaryReporter().generateReports(meetings)
-////        GmailDraftReporter().generateReports(meetings)
-//    }
-
-    private fun printIntermediary(e: EvolutionResult<EnumGene<Team>, Double>) {
-        TimeMeasurement.add("evolveDuration", e.durations.evolveDuration.toNanos(), 500)
-
-        if (e.generation % 500 == 0L) {
-            // estimate current evolution speed by consider the current generation; which might be a bit inaccurate
-            val generationDuration = e.durations.evolveDuration.toNanos() / 1_000_000_000.0
-            val generationsPerSecond = (1 / generationDuration).roundToInt()
-            println("${generationsPerSecond} generations/s\t| Generation #${e.generation}\t| Best Fitness: ${e.bestFitness}")
-        }
+        return calculation
     }
 
     class CalculationNotFoundException(planId: UUID) : Exception("Plan $planId not found")

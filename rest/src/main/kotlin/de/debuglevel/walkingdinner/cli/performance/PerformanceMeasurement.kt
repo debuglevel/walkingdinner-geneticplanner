@@ -2,8 +2,8 @@
 //
 //import de.debuglevel.walkingdinner.rest.common.BuildVersion
 //import de.debuglevel.walkingdinner.rest.participant.importer.Database
-//import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlanner
-//import de.debuglevel.walkingdinner.rest.plan.planner.geneticplanner.GeneticPlannerOptions
+//import de.debuglevel.walkingdinner.planners.geneticplanner.GeneticPlanner
+//import de.debuglevel.walkingdinner.planners.geneticplanner.GeneticPlannerOptions
 //import java.nio.file.Paths
 //
 //fun main(args: Array<String>) {

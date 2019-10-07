@@ -26,6 +26,7 @@ class CsvTeamImporter(private val csv: String) : TeamImporter {
             val teamDTOs = csvToBean.parse()
 
             val teams = teamDTOs.map { it.toTeam() }
+            //teams.forEach { logger.debug("Imported team: address '${it.address}', city '${it.city}'") }
             logger.debug("Imported ${teams.size} teams")
 
             return teams

@@ -2,8 +2,8 @@ package de.debuglevel.walkingdinner.rest.participant.location.locator
 
 import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
+import de.debuglevel.walkingdinner.rest.common.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.Team
-import de.debuglevel.walkingdinner.rest.participant.location.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import mu.KotlinLogging
 import java.text.DecimalFormat
