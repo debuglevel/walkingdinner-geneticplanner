@@ -7,6 +7,8 @@ app:
 micronaut:
   application:
     name: planners
+    instance:
+      id: ${random.shortuuid}
   function:
     name: genetic-planner
   server:
@@ -23,6 +25,12 @@ micronaut:
   security:
     default: false
     #enabled: true
+
+consul:
+  client:
+    registration:
+      enabled: true
+    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
 
 jackson:
   serialization:

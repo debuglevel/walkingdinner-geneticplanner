@@ -5,8 +5,7 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
 import java.util.*
 
-@Client("calculation", path = "/calculations")
-//@Client("http://localhost:8081/calculations")
+@Client("planners", path = "/calculations")
 interface CalculationClient {
     @Get("/{calculationId}")
     fun getOne(calculationId: UUID): CalculationResponse

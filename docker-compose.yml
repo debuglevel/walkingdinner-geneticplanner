@@ -10,8 +10,12 @@ services:
     environment:
       # port 80 is actually already defined as default for docker as ENV in Dockerfile
       - MICRONAUT_SERVER_PORT=80
-      - MICRONAUT_HTTP_SERVICES_CALCULATION_URLS=http://planners:80/calculations
-      - MICRONAUT_HTTP_SERVICES_PLAN_URLS=http://planners:80/plans
+      # service must know its own hostname to publish it in service discovery
+      - MICRONAUT_SERVER_HOST=rest
+      # manual service discovery
+      #- MICRONAUT_HTTP_SERVICES_PLANNERS_URLS=http://planners:80
+      # service discovery and registration with Consul
+      - CONSUL_HOST=consul
   angular:
     build:
       context: web-angular
@@ -30,3 +34,13 @@ services:
     environment:
       # port 80 is actually already defined as default for docker as ENV in Dockerfile
       - MICRONAUT_SERVER_PORT=80
+      # service must know its own hostname to publish it in service discovery
+      - MICRONAUT_SERVER_HOST=planners
+      # service discovery and registration with Consul
+      - CONSUL_HOST=consul
+  # Service discovery with Consul
+  consul:
+    # as of 2019-10-09, micronaut only supports 1.2.x
+    image: consul:1.2.4
+    ports:
+      - "8500:8500"

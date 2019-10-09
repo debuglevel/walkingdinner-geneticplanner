@@ -12,19 +12,18 @@ app:
 micronaut:
   application:
     name: walkingdinner
+    instance:
+      id: ${random.shortuuid}
   server:
     port: 8080 # default: -1 (random port)
     cors:
       enabled: true # default: false
-  http:
-    # manual service discovery
-    services:
-      plan:
-        urls:
-          - http://localhost:8083/plans/
-      calculation:
-        urls:
-          - http://localhost:8083/calculations
+  #  http:
+  #    # manual service discovery
+  #    services:
+  #      planners:
+  #        urls:
+  #          - http://localhost:8083/
   router:
     static-resources:
       # YAML file will be available at http://localhost:8080/swagger/walking-dinner-microservice-0.0.1.yml
@@ -35,6 +34,12 @@ micronaut:
   security:
     default: false
     #enabled: true
+
+consul:
+  client:
+    registration:
+      enabled: true
+    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
 
 jackson:
   serialization:

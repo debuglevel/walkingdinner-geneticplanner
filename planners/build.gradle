@@ -119,6 +119,8 @@ dependencies {
 //    testImplementation "io.micronaut:micronaut-function-client"
 //    testRuntimeOnly "io.micronaut:micronaut-http-server-netty"
     implementation "io.micronaut:micronaut-function-web"
+    /// Service Discovery
+    implementation "io.micronaut:micronaut-discovery-client"
 
     // Swagger / OpenAPI
     kapt "io.micronaut.configuration:micronaut-openapi"
