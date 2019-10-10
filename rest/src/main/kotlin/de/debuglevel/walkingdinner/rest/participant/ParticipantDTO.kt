@@ -1,5 +1,6 @@
 package de.debuglevel.walkingdinner.rest.participant
 
+// TODO: variables should be in english
 // XXX: use nullable types as GSON could always produce null values in non-null types via reflection anyway.
 data class ParticipantDTO(
     val address: String?,

@@ -16,6 +16,7 @@ data class PhoneNumber(
     val id: UUID? = null
 ) {
 
+    // TODO: would probably not hurt anyone if we just format the number once and save it formatted instead of formatting it every time again
     @delegate:Transient
     @get:Transient
     private val formattedNumber: String by lazy {
