@@ -15,7 +15,7 @@ object TestDataCourseCompatibility {
                     Team(
                         UUID.randomUUID(),
                         Diet.Omnivore,
-                        listOf(CookingCapability.OmnivorVorspeise),
+                        listOf(CookingCapability.OmnivoreAppetizer),
                         Location(0.0, 0.0)
                     ),
                     Team(
@@ -41,12 +41,12 @@ object TestDataCourseCompatibility {
                     Team(
                         UUID.randomUUID(),
                         Diet.Vegan,
-                        listOf(CookingCapability.VeganHauptgericht),
+                        listOf(CookingCapability.VeganMaindish),
                         Location(0.0, 0.0)
                     ),
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         Location(0.0, 0.0)
                     ),
@@ -64,7 +64,7 @@ object TestDataCourseCompatibility {
                 listOf(
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(CookingCapability.VeganDessert),
                         Location(0.0, 0.0)
 
@@ -94,8 +94,8 @@ object TestDataCourseCompatibility {
                 listOf(
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
-                        listOf(CookingCapability.VegetarischVorspeise),
+                        Diet.Vegetarian,
+                        listOf(CookingCapability.VegetarianAppetizer),
                         Location(0.0, 0.0)
 
                     ),
@@ -121,7 +121,7 @@ object TestDataCourseCompatibility {
                     Team(
                         UUID.randomUUID(),
                         Diet.Omnivore,
-                        listOf(CookingCapability.OmnivorHauptgericht, CookingCapability.VegetarischHauptgericht),
+                        listOf(CookingCapability.OmnivoreMaindish, CookingCapability.VegetarianMaindish),
                         Location(0.0, 0.0)
                     ),
                     Team(
@@ -132,7 +132,7 @@ object TestDataCourseCompatibility {
                     ),
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         Location(0.0, 0.0)
                     )
@@ -145,7 +145,7 @@ object TestDataCourseCompatibility {
                     Team(
                         UUID.randomUUID(),
                         Diet.Omnivore,
-                        listOf(CookingCapability.VegetarischDessert),
+                        listOf(CookingCapability.VegetarianDessert),
                         Location(0.0, 0.0)
                     ),
                     Team(

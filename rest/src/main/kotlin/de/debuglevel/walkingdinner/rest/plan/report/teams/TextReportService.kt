@@ -56,7 +56,7 @@ open class TextReportService : Reporter {
             .minBy {
                 when (it) {
                     Diet.Vegan -> 1
-                    Diet.Vegetarisch -> 2
+                    Diet.Vegetarian -> 2
                     Diet.Omnivore -> 3
                     else -> 0
                 }

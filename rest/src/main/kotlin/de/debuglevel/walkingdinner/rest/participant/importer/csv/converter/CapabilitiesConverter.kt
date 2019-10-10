@@ -15,15 +15,15 @@ class CapabilitiesConverter<T> : AbstractBeanField<T>() {
         val answers = value.split(';')
 
         val capabilities = mapOf<String, CookingCapability>(
-            "Ich schaffe es, eine vegane Vorspeise zu machen." to CookingCapability.VeganVorspeise,
-            "Ich schaffe es, ein veganes Hauptgericht zu machen." to CookingCapability.VeganHauptgericht,
+            "Ich schaffe es, eine vegane Vorspeise zu machen." to CookingCapability.VeganAppetizer,
+            "Ich schaffe es, ein veganes Hauptgericht zu machen." to CookingCapability.VeganMaindish,
             "Ich schaffe es, ein veganes Dessert zu machen." to CookingCapability.VeganDessert,
-            "Ich schaffe es, eine vegetarische Vorspeise zu machen." to CookingCapability.VegetarischVorspeise,
-            "Ich schaffe es, ein vegetarisches Hauptgericht zu machen." to CookingCapability.VegetarischHauptgericht,
-            "Ich schaffe es, ein vegetarisches Dessert zu machen." to CookingCapability.VegetarischDessert,
-            "Ich schaffe es, eine omnivore Vorspeise zu machen." to CookingCapability.OmnivorVorspeise,
-            "Ich schaffe es, ein omnivores Hauptgericht zu machen." to CookingCapability.OmnivorHauptgericht,
-            "Ich schaffe es, ein omnivores Dessert zu machen." to CookingCapability.OmnivorDessert
+            "Ich schaffe es, eine vegetarische Vorspeise zu machen." to CookingCapability.VegetarianAppetizer,
+            "Ich schaffe es, ein vegetarisches Hauptgericht zu machen." to CookingCapability.VegetarianMaindish,
+            "Ich schaffe es, ein vegetarisches Dessert zu machen." to CookingCapability.VegetarianDessert,
+            "Ich schaffe es, eine omnivore Vorspeise zu machen." to CookingCapability.OmnivoreAppetizer,
+            "Ich schaffe es, ein omnivores Hauptgericht zu machen." to CookingCapability.OmnivoreMaindish,
+            "Ich schaffe es, ein omnivores Dessert zu machen." to CookingCapability.OmnivoreDessert
         )
 
         val teamCapabilities = answers

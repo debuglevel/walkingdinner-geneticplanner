@@ -26,15 +26,15 @@ data class ParticipantDTO(
     private val cookingCapabilities: List<CookingCapability>
         get() {
             val capabilities = hashMapOf<CookingCapability, Boolean>()
-            capabilities[CookingCapability.VeganVorspeise] = veganVorspeise ?: false
-            capabilities[CookingCapability.VeganHauptgericht] = veganHauptgericht ?: false
+            capabilities[CookingCapability.VeganAppetizer] = veganVorspeise ?: false
+            capabilities[CookingCapability.VeganMaindish] = veganHauptgericht ?: false
             capabilities[CookingCapability.VeganDessert] = veganDessert ?: false
-            capabilities[CookingCapability.VegetarischVorspeise] = vegetarischVorspeise ?: false
-            capabilities[CookingCapability.VegetarischHauptgericht] = vegetarischHauptgericht ?: false
-            capabilities[CookingCapability.VegetarischDessert] = vegetarischDessert ?: false
-            capabilities[CookingCapability.OmnivorVorspeise] = omnivorVorspeise ?: false
-            capabilities[CookingCapability.OmnivorHauptgericht] = omnivorHauptgericht ?: false
-            capabilities[CookingCapability.OmnivorDessert] = omnivorDessert ?: false
+            capabilities[CookingCapability.VegetarianAppetizer] = vegetarischVorspeise ?: false
+            capabilities[CookingCapability.VegetarianMaindish] = vegetarischHauptgericht ?: false
+            capabilities[CookingCapability.VegetarianDessert] = vegetarischDessert ?: false
+            capabilities[CookingCapability.OmnivoreAppetizer] = omnivorVorspeise ?: false
+            capabilities[CookingCapability.OmnivoreMaindish] = omnivorHauptgericht ?: false
+            capabilities[CookingCapability.OmnivoreDessert] = omnivorDessert ?: false
 
             return capabilities.filter { it.value }.map { it.key }
         }

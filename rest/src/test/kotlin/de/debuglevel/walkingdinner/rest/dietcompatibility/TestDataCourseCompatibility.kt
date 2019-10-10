@@ -26,7 +26,7 @@ object TestDataCourseCompatibility {
                         ),
                         "address",
                         Diet.Omnivore,
-                        listOf(CookingCapability.OmnivorVorspeise),
+                        listOf(CookingCapability.OmnivoreAppetizer),
                         null,
                         null,
                         "city"
@@ -99,7 +99,7 @@ object TestDataCourseCompatibility {
                         ),
                         "address",
                         Diet.Vegan,
-                        listOf(CookingCapability.VeganHauptgericht),
+                        listOf(CookingCapability.VeganMaindish),
                         null,
                         null,
                         "city"
@@ -120,7 +120,7 @@ object TestDataCourseCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         null,
                         null,
@@ -170,7 +170,7 @@ object TestDataCourseCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(CookingCapability.VeganDessert),
                         null,
                         null,
@@ -246,8 +246,8 @@ object TestDataCourseCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
-                        listOf(CookingCapability.VegetarischVorspeise),
+                        Diet.Vegetarian,
+                        listOf(CookingCapability.VegetarianAppetizer),
                         null,
                         null,
                         "city"
@@ -320,7 +320,7 @@ object TestDataCourseCompatibility {
                         ),
                         "address",
                         Diet.Omnivore,
-                        listOf(CookingCapability.OmnivorHauptgericht, CookingCapability.VegetarischHauptgericht),
+                        listOf(CookingCapability.OmnivoreMaindish, CookingCapability.VegetarianMaindish),
                         null,
                         null,
                         "city"
@@ -363,7 +363,7 @@ object TestDataCourseCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         null,
                         null,
@@ -392,7 +392,7 @@ object TestDataCourseCompatibility {
                         ),
                         "address",
                         Diet.Omnivore,
-                        listOf(CookingCapability.VegetarischDessert),
+                        listOf(CookingCapability.VegetarianDessert),
                         null,
                         null,
                         "city"

@@ -64,19 +64,19 @@ object TestDataHardCompatibility {
                 listOf(
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         Location(0.0, 0.0)
                     ),
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         Location(0.0, 0.0)
                     ),
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         Location(0.0, 0.0)
                     )
@@ -92,7 +92,7 @@ object TestDataHardCompatibility {
                 listOf(
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         Location(0.0, 0.0)
                     ),
@@ -129,7 +129,7 @@ object TestDataHardCompatibility {
                     ),
                     Team(
                         UUID.randomUUID(),
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         Location(0.0, 0.0)
                     )

@@ -36,7 +36,7 @@
 //                            ),
 //                            "Adamsstraße 42",
 //                            Diet.Omnivore,
-//                            listOf(Capability.OmnivorVorspeise),
+//                            listOf(Capability.OmnivoreAppetizer),
 //                            Location("Adamsstraße 42", 1.0, 1.0)
 //                        ),
 //                        Team(
@@ -101,7 +101,7 @@
 //                            ),
 //                            "Adamsstraße 42",
 //                            Diet.Omnivore,
-//                            listOf(Capability.OmnivorVorspeise),
+//                            listOf(Capability.OmnivoreAppetizer),
 //                            Location("Adamsstraße 42", 1.0, 1.0)
 //                        ),
 //                        Team(

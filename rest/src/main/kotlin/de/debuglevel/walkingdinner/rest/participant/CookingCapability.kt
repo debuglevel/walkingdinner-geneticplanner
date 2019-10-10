@@ -1,14 +1,13 @@
 package de.debuglevel.walkingdinner.rest.participant
 
-// TODO: should be labeled in english
 enum class CookingCapability {
-    VeganVorspeise,
-    VeganHauptgericht,
+    VeganAppetizer,
+    VeganMaindish,
     VeganDessert,
-    VegetarischVorspeise,
-    VegetarischHauptgericht,
-    VegetarischDessert,
-    OmnivorVorspeise,
-    OmnivorHauptgericht,
-    OmnivorDessert
+    VegetarianAppetizer,
+    VegetarianMaindish,
+    VegetarianDessert,
+    OmnivoreAppetizer,
+    OmnivoreMaindish,
+    OmnivoreDessert
 }

@@ -170,7 +170,7 @@ object TestDataHardCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         null,
                         null,
@@ -192,7 +192,7 @@ object TestDataHardCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         null,
                         null,
@@ -214,7 +214,7 @@ object TestDataHardCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         null,
                         null,
@@ -246,7 +246,7 @@ object TestDataHardCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         null,
                         null,
@@ -363,7 +363,7 @@ object TestDataHardCompatibility {
                             PhoneNumber("123")
                         ),
                         "address",
-                        Diet.Vegetarisch,
+                        Diet.Vegetarian,
                         listOf(),
                         null,
                         null,

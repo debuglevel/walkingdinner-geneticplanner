@@ -48,42 +48,42 @@ object CourseDietCompatibility : DietCompatibility {
             Diet.Vegan -> {
                 when (course) {
                     Courses.course1name ->
-                        return cookingCapabilities.contains(CookingCapability.VeganVorspeise)
+                        return cookingCapabilities.contains(CookingCapability.VeganAppetizer)
                     Courses.course2name ->
-                        return cookingCapabilities.contains(CookingCapability.VeganHauptgericht)
+                        return cookingCapabilities.contains(CookingCapability.VeganMaindish)
                     Courses.course3name ->
                         return cookingCapabilities.contains(CookingCapability.VeganDessert)
                 }
             }
 
-            Diet.Vegetarisch -> {
+            Diet.Vegetarian -> {
                 when (course) {
                     Courses.course1name ->
-                        return cookingCapabilities.contains(CookingCapability.VeganVorspeise) ||
-                                cookingCapabilities.contains(CookingCapability.VegetarischVorspeise)
+                        return cookingCapabilities.contains(CookingCapability.VeganAppetizer) ||
+                                cookingCapabilities.contains(CookingCapability.VegetarianAppetizer)
                     Courses.course2name ->
-                        return cookingCapabilities.contains(CookingCapability.VeganHauptgericht) ||
-                                cookingCapabilities.contains(CookingCapability.VegetarischHauptgericht)
+                        return cookingCapabilities.contains(CookingCapability.VeganMaindish) ||
+                                cookingCapabilities.contains(CookingCapability.VegetarianMaindish)
                     Courses.course3name ->
                         return cookingCapabilities.contains(CookingCapability.VeganDessert) ||
-                                cookingCapabilities.contains(CookingCapability.VegetarischDessert)
+                                cookingCapabilities.contains(CookingCapability.VegetarianDessert)
                 }
             }
 
             Diet.Omnivore -> {
                 when (course) {
                     Courses.course1name ->
-                        return cookingCapabilities.contains(CookingCapability.VeganVorspeise) ||
-                                cookingCapabilities.contains(CookingCapability.VegetarischVorspeise) ||
-                                cookingCapabilities.contains(CookingCapability.OmnivorVorspeise)
+                        return cookingCapabilities.contains(CookingCapability.VeganAppetizer) ||
+                                cookingCapabilities.contains(CookingCapability.VegetarianAppetizer) ||
+                                cookingCapabilities.contains(CookingCapability.OmnivoreAppetizer)
                     Courses.course2name ->
-                        return cookingCapabilities.contains(CookingCapability.VeganHauptgericht) ||
-                                cookingCapabilities.contains(CookingCapability.VegetarischHauptgericht) ||
-                                cookingCapabilities.contains(CookingCapability.OmnivorHauptgericht)
+                        return cookingCapabilities.contains(CookingCapability.VeganMaindish) ||
+                                cookingCapabilities.contains(CookingCapability.VegetarianMaindish) ||
+                                cookingCapabilities.contains(CookingCapability.OmnivoreMaindish)
                     Courses.course3name ->
                         return cookingCapabilities.contains(CookingCapability.VeganDessert) ||
-                                cookingCapabilities.contains(CookingCapability.VegetarischDessert) ||
-                                cookingCapabilities.contains(CookingCapability.OmnivorDessert)
+                                cookingCapabilities.contains(CookingCapability.VegetarianDessert) ||
+                                cookingCapabilities.contains(CookingCapability.OmnivoreDessert)
                 }
             }
         }
