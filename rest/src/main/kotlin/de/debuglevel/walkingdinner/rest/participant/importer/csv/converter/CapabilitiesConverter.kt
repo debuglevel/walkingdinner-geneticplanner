@@ -10,7 +10,7 @@ class CapabilitiesConverter<T> : AbstractBeanField<T>() {
 
     @Throws(CsvDataTypeMismatchException::class)
     override fun convert(value: String): Any? {
-//        println("Converting Capability-Answer to Capability-Enum: $value")
+        logger.trace { "Converting capability answers '$value' to capability enums..." }
 
         val answers = value.split(';')
 
@@ -27,17 +27,15 @@ class CapabilitiesConverter<T> : AbstractBeanField<T>() {
         )
 
         val teamCapabilities = answers
-            //.onEach { println("'${capabilities[it]}' derived from '$it'") }
+            //.onEach { logger.trace {"'${capabilities[it]}' derived from '$it'"} }
             .onEach {
                 if (!capabilities.contains(it)) {
-                    logger.error("Could not map answer '$it' to Capability.")
+                    logger.error("Could not map answer '$it' to capability enum.")
                 }
             }
             .map { capabilities[it] }
 
-//        println("Enum-Capabilities:")
-//        teamCapabilities.forEach { println(it) }
-//        println("")
+        logger.trace { "Converted capability answers '$value' to capability enums: ${teamCapabilities.joinToString(",")}" }
 
         return teamCapabilities
     }
