@@ -18,9 +18,9 @@ import de.debuglevel.walkingdinner.rest.plan.report.teams.mail.MailService
 import io.micronaut.context.annotation.Property
 import mu.KotlinLogging
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
+import java.nio.file.Path
 import javax.inject.Singleton
 import javax.mail.MessagingException
 import javax.mail.internet.MimeMessage
@@ -28,7 +28,8 @@ import javax.mail.internet.MimeMessage
 // see: https://developers.google.com/gmail/api/SendEmail.java
 @Singleton
 class GmailService(
-    @Property(name = "app.walkingdinner.reporters.gmail.credentials-folder") private val credentialsFolder: String,
+    @Property(name = "app.walkingdinner.data.base-path") private val dataBasepath: Path,
+    @Property(name = "app.walkingdinner.reporters.gmail.credentials-folder") private val credentialsFolder: Path,
     @Property(name = "app.walkingdinner.reporters.gmail.client-secret-file") private val clientSecretFile: String,
     private val mailService: MailService
 ) {
@@ -76,7 +77,7 @@ class GmailService(
         logger.trace { "Building authorization code flow..." }
         val authorizationCodeFlow = GoogleAuthorizationCodeFlow
             .Builder(netHttpTransport, jacksonFactory, clientSecrets, authorizationScopes)
-            .setDataStoreFactory(FileDataStoreFactory(File(credentialsFolder)))
+            .setDataStoreFactory(FileDataStoreFactory(dataBasepath.resolve(credentialsFolder).toFile()))
             .setAccessType("offline")
             .build()
 
