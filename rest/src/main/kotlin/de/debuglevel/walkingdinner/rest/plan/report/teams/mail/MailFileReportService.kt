@@ -22,9 +22,10 @@ class MailFileReportService(
         logger.trace { "Generating mail files..." }
 
         val reports = textReportService.generateReports(meetings)
-        val mimeMessages = reports.map {
-            buildMailFile(it.team, it.text)
-        }
+        val mimeMessages = reports
+            .map {
+                buildMailFile(it.team, it.text)
+            }
             .toSet()
 
         logger.trace { "Generated mail files" }
