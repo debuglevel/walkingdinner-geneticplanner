@@ -1,5 +1,8 @@
 app:
   walkingdinner:
+    data:
+      # base path to store any data
+      base-path: data
     planners:
       url: http://localhost:8081
     reporters:

@@ -16,6 +16,9 @@ services:
       #- MICRONAUT_HTTP_SERVICES_PLANNERS_URLS=http://planners:80
       # service discovery and registration with Consul
       - CONSUL_HOST=consul
+      - APP_WALKINGDINNER_DATA_BASEPATH=/data
+    volumes:
+      - walkingdinner-rest-data:/data
   angular:
     build:
       context: web-angular

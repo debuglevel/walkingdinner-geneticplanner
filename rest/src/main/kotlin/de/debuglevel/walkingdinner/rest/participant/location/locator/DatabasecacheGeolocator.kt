@@ -4,15 +4,17 @@ import de.debuglevel.walkingdinner.rest.common.GeoUtils
 import de.debuglevel.walkingdinner.rest.participant.Team
 import de.debuglevel.walkingdinner.rest.participant.location.Location
 import io.jsondb.JsonDBTemplate
+import io.micronaut.context.annotation.Property
 import mu.KotlinLogging
 import java.nio.file.Files
-import java.nio.file.Paths
+import java.nio.file.Path
 import java.text.DecimalFormat
 import javax.inject.Singleton
 
 @Singleton
 class DatabasecacheGeolocator(
-    private val nominatimApiGeolocator: NominatimApiGeolocator
+    private val nominatimApiGeolocator: NominatimApiGeolocator,
+    @Property(name = "app.walkingdinner.data.base-path") private val dataBasepath: Path
 ) : Geolocator {
     private val logger = KotlinLogging.logger {}
 
@@ -35,9 +37,11 @@ class DatabasecacheGeolocator(
     private fun initializeJsondb() {
         logger.debug { "Initializing JsonDB..." }
 
-        val databasePath = Paths.get("database")
+        val databasePath = dataBasepath.resolve("database-cache-geolocator")
+        logger.debug { "Using path '$databasePath'..." }
         if (!Files.exists(databasePath)) {
-            Files.createDirectory(databasePath)
+            logger.debug { "Creating directory '$databasePath' as it does not exist..." }
+            Files.createDirectories(databasePath)
         }
 
         val dbFilesLocation = databasePath.toString()
