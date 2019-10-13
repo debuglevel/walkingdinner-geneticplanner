@@ -21,12 +21,12 @@ micronaut:
     port: 8080 # default: -1 (random port)
     cors:
       enabled: true # default: false
-  #  http:
-  #    # manual service discovery
-  #    services:
-  #      planners:
-  #        urls:
-  #          - http://localhost:8083/
+  #http:
+  #  # manual service discovery
+  #  services:
+  #    planners:
+  #      urls:
+  #        - http://localhost:8083/
   router:
     static-resources:
       # YAML file will be available at http://localhost:8080/swagger/walking-dinner-microservice-0.0.1.yml

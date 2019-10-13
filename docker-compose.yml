@@ -51,3 +51,6 @@ services:
     image: consul:1.2.4
     ports:
       - "8500:8500"
+
+volumes:
+  walkingdinner-rest-data:
