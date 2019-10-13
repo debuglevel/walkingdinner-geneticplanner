@@ -40,6 +40,8 @@ micronaut:
 
 consul:
   client:
+    discovery:
+      enabled: true
     registration:
       enabled: true
     defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
