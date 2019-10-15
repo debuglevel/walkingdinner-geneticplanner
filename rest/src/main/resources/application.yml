@@ -21,7 +21,7 @@ micronaut:
     port: 8080 # default: -1 (random port)
     cors:
       enabled: true # default: false
-  #http:
+  http:
   #  # manual service discovery
   #  services:
   #    planners:
