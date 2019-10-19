@@ -23,7 +23,7 @@ open class CalculationService(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    private val calculations = mutableMapOf<UUID, Calculation>()
+    private val calculations = mutableMapOf<UUID, Calculation>() // TODO: remove and replace by persistence stuff
 
     @Transactional
     open fun get(id: UUID): Calculation {

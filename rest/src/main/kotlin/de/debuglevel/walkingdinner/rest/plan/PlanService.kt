@@ -10,7 +10,7 @@ class PlanService(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    private val plans = mutableMapOf<UUID, Plan>()
+    private val plans = mutableMapOf<UUID, Plan>() // TODO: remove and replace by persistence stuff
 
     fun get(id: UUID): Plan {
         logger.debug { "Getting plan '$id'..." }
