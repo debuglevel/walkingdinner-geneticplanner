@@ -1,24 +1,25 @@
 package de.debuglevel.walkingdinner.rest.participant
 
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToOne
+import javax.persistence.*
 
 @Entity
 data class Cook(
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     val name: Name,
-    @OneToOne
+
+    @OneToOne(cascade = [CascadeType.ALL])
     val mail: MailAddress,
-    @OneToOne
+
+    @OneToOne(cascade = [CascadeType.ALL])
     val phoneNumber: PhoneNumber,
+
     @Id
     @GeneratedValue
     val id: UUID? = null
 ) {
     override fun toString(): String {
-        return "$name ($mail, $phoneNumber)"
+        //return "$name ($mail, $phoneNumber)"
+        return "Cook(id=$id)"
     }
 }

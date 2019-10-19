@@ -30,6 +30,10 @@ data class PhoneNumber(
     }
 
     override fun toString(): String {
-        return formattedNumber
+        return try {
+            formattedNumber
+        } catch (e: Exception) {
+            number
+        }
     }
 }

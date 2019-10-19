@@ -53,4 +53,8 @@ data class CalculationResponse(
                 calculation.begin,
                 calculation.end
             )
+
+    override fun toString(): String {
+        return "CalculationResponse(id=$id, planId=$planId)"
+    }
 }

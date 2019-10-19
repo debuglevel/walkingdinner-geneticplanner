@@ -28,20 +28,13 @@ class PlanService(
         return plans
     }
 
-    fun add(plan: Plan) {
-        logger.debug { "Adding plan $plan..." }
-        plans[plan.id!!] = plan
-        logger.debug { "Added plan $plan" }
-    }
-
-    // TODO: replace above add() in-memory database with saving to real database
-    fun addX(plan: Plan): Plan {
+    fun add(plan: Plan): Plan {
         logger.debug { "Saving plan '$plan'..." }
 
         val savedPlan = planRepository.save(plan)
 
-        logger.debug { "Saved person: $savedPlan" }
-        return plan
+        logger.debug { "Saved plan: $savedPlan" }
+        return savedPlan
     }
 
     class PlanNotFoundException(planId: UUID) : Exception("Plan $planId not found")

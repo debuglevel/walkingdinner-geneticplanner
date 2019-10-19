@@ -50,4 +50,8 @@ data class Calculation(
      * When the calculation finished
      */
     var end: LocalDateTime? = null
-)
+) {
+    override fun toString(): String {
+        return "Calculation(id=$id)"
+    }
+}

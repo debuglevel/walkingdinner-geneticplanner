@@ -78,7 +78,8 @@ class DatabasecacheGeolocator(
             logger.debug("Got location for '$address' in city '$city' (found in caching database): $location")
         }
 
-        return location
+        //return location
+        return location.copy() // kind of HACK: create a new object, as this otherwise interferes with already existing and persistent database objects
     }
 
     private fun addLocation(location: Location) {

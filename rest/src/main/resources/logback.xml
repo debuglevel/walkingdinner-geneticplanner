@@ -9,12 +9,12 @@
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n
-            </pattern>
+            <!--            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n-->
+            <!--            </pattern>-->
 
             <!-- Do NOT use this formatter on production because the %L line number outputter is slow; use the above pattern instead. -->
-            <!-- <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}:%L) - %msg%n
-            </pattern> -->
+            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}:%L) - %msg%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -24,6 +24,8 @@
 
     <logger name="io.micronaut.http.client" level="DEBUG"/>
     <logger name="io.micronaut.http.server" level="DEBUG"/>
-    <logger name="io.micronaut.data.query" level="DEBUG"/>
+    <!--    <logger name="io.micronaut.data.query" level="TRACE"/>-->
+    <!--    <logger name="io.micronaut.data" level="TRACE"/>-->
+    <!--    <logger name="org.hibernate" level="DEBUG"/>-->
     <logger name="de.debuglevel" level="DEBUG"/>
 </configuration>

@@ -6,26 +6,32 @@ import javax.persistence.*
 
 @Entity
 data class Team(
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     val cook1: Cook,
-    @OneToOne
+
+    @OneToOne(cascade = [CascadeType.ALL])
     val cook2: Cook,
+
     val address: String,
+
     @Enumerated(EnumType.STRING)
     val diet: Diet,
 
     @ElementCollection()
     @Enumerated(EnumType.STRING)
     val cookingCapabilities: List<CookingCapability>,
-    @OneToOne
+
+    @OneToOne(cascade = [CascadeType.ALL])
     var location: Location?,
+
     @Id
     @GeneratedValue
     val id: UUID? = null,
+
     val city: String
 ) {
-
     override fun toString(): String {
-        return "Team $id: $cook1 & $cook2 ($diet; $location)"
+        return "Team(id=$id)"
     }
+
 }

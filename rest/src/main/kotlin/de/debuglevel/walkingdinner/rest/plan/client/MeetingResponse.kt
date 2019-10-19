@@ -17,7 +17,7 @@ data class MeetingResponse(
                 }
             },
             course = this.course,
-            id = this.id
+            id = null
         )
     }
 }

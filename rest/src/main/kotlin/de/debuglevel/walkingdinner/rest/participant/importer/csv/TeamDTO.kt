@@ -8,7 +8,6 @@ import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.MailA
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.NameConverter
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.PhoneNumberConverter
 import de.debuglevel.walkingdinner.rest.participant.location.Location
-import java.util.*
 
 class TeamDTO {
     @CsvCustomBindByName(column = "Koch1", converter = NameConverter::class)
@@ -50,8 +49,7 @@ class TeamDTO {
         val location: Location? = null
         val capabilities = this.cookingCapabilities.filterNotNull()
 
-        val id =
-            UUID.randomUUID() // TODO / HACK: generate an ID as long there is no database backend; should/must be removed when teams are persisted
+        val id = null
 
         val team = Team(cook1, cook2, address, diet, capabilities, location, id, city)
 

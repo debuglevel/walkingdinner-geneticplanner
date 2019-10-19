@@ -2,16 +2,15 @@ package de.debuglevel.walkingdinner.rest
 
 import de.debuglevel.walkingdinner.rest.participant.Team
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.OneToMany
+import javax.persistence.*
 
 @Entity
 data class Meeting(
-    @OneToMany
+    @ManyToMany(cascade = [CascadeType.ALL])
     val teams: List<Team>,
+
     val course: String,
+
     @Id
     @GeneratedValue
     val id: UUID? = null
