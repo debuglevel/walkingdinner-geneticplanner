@@ -17,7 +17,7 @@ data class Team(
     @Enumerated(EnumType.STRING)
     val diet: Diet,
 
-    @ElementCollection()
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     val cookingCapabilities: List<CookingCapability>,
 

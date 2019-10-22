@@ -43,7 +43,7 @@ data class CalculationResponse(
 ) {
     constructor(calculation: Calculation) :
             this(
-                calculation.id,
+                calculation.id!!,
                 calculation.finished,
                 calculation.surveyfile,
                 calculation.populationsSize,

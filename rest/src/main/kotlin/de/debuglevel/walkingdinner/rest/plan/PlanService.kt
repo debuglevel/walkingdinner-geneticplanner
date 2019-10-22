@@ -10,29 +10,23 @@ class PlanService(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    private val plans = mutableMapOf<UUID, Plan>() // TODO: remove and replace by persistence stuff
-
     fun get(id: UUID): Plan {
         logger.debug { "Getting plan '$id'..." }
-        val plan = plans.getOrElse(id) { throw PlanNotFoundException(id) }
+        val plan = planRepository.findById(id).orElseThrow { PlanNotFoundException(id) }
         logger.debug { "Got plan: $plan" }
         return plan
     }
 
     fun getAll(): Set<Plan> {
         logger.debug { "Getting all plans..." }
-        val plans = plans
-            .map { get(it.key) }
-            .toSet()
+        val plans = planRepository.findAll().toSet()
         logger.debug { "Got all plans" }
         return plans
     }
 
     fun add(plan: Plan): Plan {
         logger.debug { "Saving plan '$plan'..." }
-
         val savedPlan = planRepository.save(plan)
-
         logger.debug { "Saved plan: $savedPlan" }
         return savedPlan
     }

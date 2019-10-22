@@ -68,21 +68,22 @@ datasources:
   #    password: ''
   #    schema-generate: CREATE_DROP
   #    dialect: HSQL
-  # H2 in-memory
+  #  # H2 in-memory
+  #  default:
+  #    url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+  #    driverClassName: org.h2.Driver
+  #    username: sa
+  #    password: ''
+  #    schema-generate: CREATE_DROP
+  # H2 persistent
   default:
-    url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:./data/micronaut-data/h2;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: sa
     password: ''
     schema-generate: CREATE_DROP
-  #  # H2 persistent
-  #default:
-  #  url: jdbc:h2:./data/micronaut-data/h2;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-  #  driverClassName: org.h2.Driver
-  #  username: sa
-  #  password: ''
-  #  schema-generate: CREATE_DROP
-  #  dialect: H2
+    #schema-generate: UPDATE
+    dialect: H2
 
 jpa:
   default:

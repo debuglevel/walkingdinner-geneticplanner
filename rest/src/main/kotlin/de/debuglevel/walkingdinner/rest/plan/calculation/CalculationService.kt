@@ -19,16 +19,15 @@ open class CalculationService(
     private val planClient: PlanClient,
     private val planService: PlanService,
     private val teamService: TeamService,
-    private val databaseBuilder: DatabaseBuilder
+    private val databaseBuilder: DatabaseBuilder,
+    private val calculationRepository: CalculationRepository
 ) {
     private val logger = KotlinLogging.logger {}
-
-    private val calculations = mutableMapOf<UUID, Calculation>() // TODO: remove and replace by persistence stuff
 
     @Transactional
     open fun get(id: UUID): Calculation {
         logger.debug { "Getting calculation '$id'..." }
-        val calculation = calculations.getOrElse(id) { throw CalculationNotFoundException(id) }
+        val calculation = calculationRepository.findById(id).orElseThrow { CalculationNotFoundException(id) }
 
         // if calculation has no plan yet, try to fetch it from the microservice
         if (calculation.plan == null) {
@@ -62,16 +61,18 @@ open class CalculationService(
         return calculation
     }
 
-    fun getAll(): Set<Calculation> {
+    @Transactional
+    open fun getAll(): Set<Calculation> {
         logger.debug { "Getting all calculations..." }
-        val calculations = calculations
-            .map { get(it.key) }
+        val calculations = calculationRepository.findAll()
+            .map { get(it.id!!) }
             .toSet()
         logger.debug { "Got calculations: $calculations" }
         return calculations
     }
 
-    fun startCalculation(
+    @Transactional
+    open fun startCalculation(
         surveyfile: String,
         populationsSize: Int,
         fitnessThreshold: Double,
@@ -83,7 +84,7 @@ open class CalculationService(
         val savedTeams = database.teams.map { teamService.add(it) }
 
         val calculation = Calculation(
-            UUID.randomUUID(),
+            null,
             false,
             surveyfile,
             populationsSize,
@@ -93,12 +94,12 @@ open class CalculationService(
             savedTeams
         )
 
-        calculations[calculation.id] = calculation
+        val savedCalculation = calculationRepository.save(calculation)
 
         val calculationRequest = CalculationRequest(
-            populationsSize = calculation.populationsSize,
-            steadyFitness = calculation.steadyFitness,
-            fitnessThreshold = calculation.fitnessThreshold,
+            populationsSize = savedCalculation.populationsSize,
+            steadyFitness = savedCalculation.steadyFitness,
+            fitnessThreshold = savedCalculation.fitnessThreshold,
             teams = database.teams.map { TeamRequest(it) }
         )
 
@@ -106,9 +107,10 @@ open class CalculationService(
         val calculationResponse = calculationClient.postOne(calculationRequest)
         logger.debug { "Received CalculationResponse: $calculationResponse..." }
 
-        calculation.calculationId = calculationResponse.id
+        // TODO: here a save() is needed; I'm not sure why I don't just save() the calculation afterwards...
+        savedCalculation.calculationId = calculationResponse.id
 
-        return calculation
+        return savedCalculation
     }
 
     class CalculationNotFoundException(planId: UUID) : Exception("Plan $planId not found")

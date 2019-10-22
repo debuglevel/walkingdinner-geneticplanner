@@ -10,7 +10,7 @@ data class Plan(
     @GeneratedValue
     val id: UUID? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val meetings: Set<Meeting>,
 
     val additionalInformation: String

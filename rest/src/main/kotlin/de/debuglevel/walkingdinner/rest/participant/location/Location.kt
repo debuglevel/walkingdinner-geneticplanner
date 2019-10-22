@@ -9,9 +9,13 @@ import javax.persistence.GeneratedValue
 @Entity
 @Document(collection = "locations", schemaVersion = "1.0")
 data class Location(
-    @Id var address: String,
+    @Id
+    var address: String,
+
     var lng: Double,
+
     var lat: Double,
+
     @javax.persistence.Id
     @GeneratedValue
     val id: UUID? = null

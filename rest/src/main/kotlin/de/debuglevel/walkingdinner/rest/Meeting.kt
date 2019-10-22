@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 data class Meeting(
-    @ManyToMany(cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val teams: List<Team>,
 
     val course: String,
