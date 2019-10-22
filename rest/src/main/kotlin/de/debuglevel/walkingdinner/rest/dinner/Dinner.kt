@@ -8,12 +8,16 @@ import javax.persistence.Id
 
 @Entity
 data class Dinner(
-    val name: String,
-    val begin: LocalDateTime,
-//    val teams: Set<Team>,
-//    val plans: Set<Plan>,
-    // TODO: a location (i.e. a city) would probably also useful
     @Id
     @GeneratedValue
-    val id: UUID? = null
+    val id: UUID? = null,
+
+    val name: String,
+
+//    val teams: Set<Team>,
+
+//    val plans: Set<Plan>,
+
+    // TODO: a location (i.e. a city) would probably also useful
+    val begin: LocalDateTime
 )

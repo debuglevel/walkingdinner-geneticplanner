@@ -7,11 +7,11 @@ import javax.persistence.Id
 
 @Entity
 data class Name(
-    val name: String,
-
     @Id
     @GeneratedValue
-    val id: UUID? = null
+    val id: UUID? = null,
+
+    val name: String
 ) {
     val firstname = extractFirstname()
 

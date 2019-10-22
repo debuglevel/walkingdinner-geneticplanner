@@ -6,6 +6,10 @@ import javax.persistence.*
 
 @Entity
 data class Team(
+    @Id
+    @GeneratedValue
+    val id: UUID? = null,
+
     @OneToOne(cascade = [CascadeType.ALL])
     val cook1: Cook,
 
@@ -23,10 +27,6 @@ data class Team(
 
     @OneToOne(cascade = [CascadeType.ALL])
     var location: Location?,
-
-    @Id
-    @GeneratedValue
-    val id: UUID? = null,
 
     val city: String
 ) {

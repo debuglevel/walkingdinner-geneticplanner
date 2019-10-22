@@ -7,9 +7,11 @@ import javax.persistence.Id
 
 @Entity
 data class Organisation(
-    val name: String,
-    //val dinners: Set<Dinner>,
     @Id
     @GeneratedValue
-    val id: UUID? = null
+    val id: UUID? = null,
+
+    //val dinners: Set<Dinner>,
+
+    val name: String
 )

@@ -37,7 +37,7 @@ class DinnerController(private val dinnerService: DinnerService) {
         logger.debug("Called postOne()")
 
         return try {
-            val dinner = Dinner(dinnerRequest.name, dinnerRequest.beginDateTime)
+            val dinner = Dinner(name = dinnerRequest.name, begin = dinnerRequest.beginDateTime)
             val savedDinner = dinnerService.save(dinner)
             HttpResponse.created(DinnerResponse(savedDinner.id, savedDinner.name, savedDinner.begin))
         } catch (e: ElementNotFoundException) {

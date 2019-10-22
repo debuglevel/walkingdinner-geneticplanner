@@ -16,7 +16,7 @@ class MailAddressTests {
         // Arrange
 
         // Act
-        val mail = MailAddress(testData.mail)
+        val mail = MailAddress(mail = testData.mail)
 
         // Assert
         assertThat(mail.toString()).isEqualTo(testData.mail)
@@ -28,7 +28,7 @@ class MailAddressTests {
         // Arrange
 
         // Act && Assert
-        assertDoesNotThrow { MailAddress(testData.mail) }
+        assertDoesNotThrow { MailAddress(mail = testData.mail) }
     }
 
     fun validMailProvider() = Stream.of(

@@ -10,10 +10,11 @@ import javax.persistence.Transient
 
 @Entity
 data class PhoneNumber(
-    val number: String,
     @Id
     @GeneratedValue
-    val id: UUID? = null
+    val id: UUID? = null,
+
+    val number: String
 ) {
 
     // TODO: would probably not hurt anyone if we just format the number once and save it formatted instead of formatting it every time again

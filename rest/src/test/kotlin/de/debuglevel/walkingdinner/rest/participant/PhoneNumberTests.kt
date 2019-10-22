@@ -13,7 +13,7 @@ class PhoneNumberTests {
         // Arrange
 
         // Act
-        val formattedPhonenumber = PhoneNumber("0951123456")
+        val formattedPhonenumber = PhoneNumber(number = "0951123456")
 
         // Assert
         Assertions.assertThat(formattedPhonenumber.toString()).isEqualTo("+49 951 123456")

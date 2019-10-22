@@ -16,7 +16,7 @@ class NameTests {
         // Arrange
 
         // Act
-        val name = Name(testData.name)
+        val name = Name(name = testData.name)
 
         // Assert
         Assertions.assertThat(name.firstname).isEqualTo(testData.expectedFirstname)
@@ -28,7 +28,7 @@ class NameTests {
         // Arrange
 
         // Act
-        val name = Name(testData.name)
+        val name = Name(name = testData.name)
 
         // Assert
         Assertions.assertThat(name.lastname).isEqualTo(testData.expectedLastname)
@@ -40,7 +40,7 @@ class NameTests {
         // Arrange
 
         // Act
-        val name = Name(testData.name)
+        val name = Name(name = testData.name)
 
         // Assert
         Assertions.assertThat(name.abbreviatedName).isEqualTo(testData.expectedAbbreviatedName)

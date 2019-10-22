@@ -37,7 +37,7 @@ class OrganisationController(private val organisationService: OrganisationServic
         logger.debug("Called postOne()")
 
         return try {
-            val organisation = Organisation(organisationRequest.name)
+            val organisation = Organisation(name = organisationRequest.name)
             val savedOrganisation = organisationService.save(organisation)
             HttpResponse.created(OrganisationResponse(savedOrganisation.id, savedOrganisation.name))
         } catch (e: ElementNotFoundException) {

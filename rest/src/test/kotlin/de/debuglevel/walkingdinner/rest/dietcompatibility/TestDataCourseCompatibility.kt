@@ -10,68 +10,68 @@ object TestDataCourseCompatibility {
             Meeting(
                 listOf(
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(CookingCapability.OmnivoreAppetizer),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null,
                         null,
                         "city"
                     )
@@ -83,68 +83,68 @@ object TestDataCourseCompatibility {
             Meeting(
                 listOf(
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegan,
                         listOf(CookingCapability.VeganMaindish),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegetarian,
                         listOf(),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null,
                         null,
                         "city"
                     )
@@ -155,68 +155,68 @@ object TestDataCourseCompatibility {
             Meeting(
                 listOf(
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegetarian,
                         listOf(CookingCapability.VeganDessert),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null,
                         null,
                         "city"
                     )
@@ -231,68 +231,68 @@ object TestDataCourseCompatibility {
             Meeting(
                 listOf(
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegetarian,
                         listOf(CookingCapability.VegetarianAppetizer),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegan,
                         listOf(),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(),
-                        null,
                         null,
                         "city"
                     )
@@ -304,68 +304,68 @@ object TestDataCourseCompatibility {
             Meeting(
                 listOf(
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(CookingCapability.OmnivoreMaindish, CookingCapability.VegetarianMaindish),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegan,
                         listOf(),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegetarian,
                         listOf(),
-                        null,
                         null,
                         "city"
                     )
@@ -376,68 +376,68 @@ object TestDataCourseCompatibility {
             Meeting(
                 listOf(
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Omnivore,
                         listOf(CookingCapability.VegetarianDessert),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegan,
                         listOf(),
                         null,
-                        null,
                         "city"
                     ),
                     Team(
+                        null,
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         Cook(
-                            Name(
-                                "cook"
+                            name = Name(
+                                name = "cook"
                             ),
-                            MailAddress("mail"),
-                            PhoneNumber("123")
+                            mail = MailAddress(mail = "mail"),
+                            phoneNumber = PhoneNumber(number = "123")
                         ),
                         "address",
                         Diet.Vegan,
                         listOf(),
-                        null,
                         null,
                         "city"
                     )

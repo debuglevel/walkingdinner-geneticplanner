@@ -7,6 +7,6 @@ import de.debuglevel.walkingdinner.rest.participant.Name
 class NameConverter<T> : AbstractBeanField<T>() {
     @Throws(CsvDataTypeMismatchException::class)
     override fun convert(value: String): Any? {
-        return Name(value)
+        return Name(name = value)
     }
 }

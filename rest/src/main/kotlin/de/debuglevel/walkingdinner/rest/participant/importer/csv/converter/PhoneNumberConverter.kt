@@ -7,6 +7,6 @@ import de.debuglevel.walkingdinner.rest.participant.PhoneNumber
 class PhoneNumberConverter<T> : AbstractBeanField<T>() {
     @Throws(CsvDataTypeMismatchException::class)
     override fun convert(value: String): Any? {
-        return PhoneNumber(value)
+        return PhoneNumber(number = value)
     }
 }

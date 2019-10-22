@@ -5,6 +5,10 @@ import javax.persistence.*
 
 @Entity
 data class Cook(
+    @Id
+    @GeneratedValue
+    val id: UUID? = null,
+
     @OneToOne(cascade = [CascadeType.ALL])
     val name: Name,
 
@@ -12,11 +16,7 @@ data class Cook(
     val mail: MailAddress,
 
     @OneToOne(cascade = [CascadeType.ALL])
-    val phoneNumber: PhoneNumber,
-
-    @Id
-    @GeneratedValue
-    val id: UUID? = null
+    val phoneNumber: PhoneNumber
 ) {
     override fun toString(): String {
         //return "$name ($mail, $phoneNumber)"
