@@ -1,8 +1,6 @@
 package de.debuglevel.walkingdinner.rest.plan
 
-import de.debuglevel.walkingdinner.rest.Meeting
 import io.micronaut.test.annotation.MicronautTest
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import javax.inject.Inject
 
@@ -13,9 +11,9 @@ class PlanServiceTests {
     @Inject
     lateinit var planService: PlanService
 
-    @Test
-    fun addX() {
-        val plan = Plan(null, setOf<Meeting>(), "test")
-        planService.addX(plan)
-    }
+//    @Test
+//    fun addX() {
+//        val plan = Plan(null, setOf<Meeting>(), "test")
+//        planService.addX(plan)
+//    }
 }
