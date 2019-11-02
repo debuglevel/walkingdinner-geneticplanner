@@ -1,23 +1,23 @@
 package de.debuglevel.walkingdinner.rest.organisation
 
 import de.debuglevel.walkingdinner.rest.common.ElementNotFoundException
-import de.debuglevel.walkingdinner.rest.common.toUUID
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import mu.KotlinLogging
+import java.util.*
 
 @Controller("/organisations")
 class OrganisationController(private val organisationService: OrganisationService) {
     private val logger = KotlinLogging.logger {}
 
     @Get("/{organisationId}")
-    fun getOne(organisationId: String): HttpResponse<OrganisationResponse> {
+    fun getOne(organisationId: UUID): HttpResponse<OrganisationResponse> {
         logger.debug("Called getOne($organisationId)")
 
         return try {
-            val organisation = organisationService.get(organisationId.toUUID())
+            val organisation = organisationService.get(organisationId)
             HttpResponse.ok(OrganisationResponse(organisation.id, organisation.name))
         } catch (e: ElementNotFoundException) {
             HttpResponse.notFound<OrganisationResponse>()
@@ -44,28 +44,4 @@ class OrganisationController(private val organisationService: OrganisationServic
             HttpResponse.badRequest<OrganisationResponse>()
         }
     }
-
-//    fun getOneHtml(): RouteHandler.() -> String {
-//        return {
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "organisation/show.html.mustache"))
-//        }
-//    }
-
-//    fun getListHtml(): RouteHandler.() -> String {
-//        return {
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "organisation/list.html.mustache"))
-//        }
-//    }
-
-    /*
-    fun getAddFormHtml(): RouteHandler.() -> String {
-        return {
-            logger.debug("Got GET request on '/participants'")
-
-            val model = HashMap<String, Any>()
-            MustacheTemplateEngine().render(ModelAndView(model, "participant/add.html.mustache"))
-        }
-    }*/
 }

@@ -1,20 +1,20 @@
 package de.debuglevel.walkingdinner.rest.plan.calculation
 
 import de.debuglevel.walkingdinner.rest.common.Base64String
-import de.debuglevel.walkingdinner.rest.common.toUUID
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import mu.KotlinLogging
+import java.util.*
 
 @Controller("/plans/calculations")
 class CalculationController(private val calculationService: CalculationService) {
     private val logger = KotlinLogging.logger {}
 
     @Get("/{calculationId}")
-    fun getOne(calculationId: String): CalculationResponse {
+    fun getOne(calculationId: UUID): CalculationResponse {
         logger.debug("Called getOne($calculationId)")
-        val calculation = calculationService.get(calculationId.toUUID())
+        val calculation = calculationService.get(calculationId)
         return CalculationResponse(calculation)
     }
 
