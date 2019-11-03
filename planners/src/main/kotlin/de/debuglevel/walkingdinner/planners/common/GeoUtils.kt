@@ -26,12 +26,12 @@ object GeoUtils {
         return if (distance != null) {
             distance
         } else {
-            val latDistance = Math.toRadians(source.lat - destination.lat)
-            val lngDistance = Math.toRadians(source.lng - destination.lng)
+            val latDistance = Math.toRadians(source.latitude - destination.latitude)
+            val lngDistance = Math.toRadians(source.longitude - destination.longitude)
 
             val a =
-                sin(latDistance / 2) * sin(latDistance / 2) + (cos(Math.toRadians(source.lat)) * cos(
-                    Math.toRadians(destination.lat)
+                sin(latDistance / 2) * sin(latDistance / 2) + (cos(Math.toRadians(source.latitude)) * cos(
+                    Math.toRadians(destination.latitude)
                 )
                         * sin(lngDistance / 2) * sin(lngDistance / 2))
 

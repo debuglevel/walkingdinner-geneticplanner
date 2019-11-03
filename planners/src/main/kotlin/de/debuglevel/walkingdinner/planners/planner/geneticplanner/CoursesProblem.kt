@@ -4,6 +4,7 @@ import de.debuglevel.walkingdinner.planners.Courses
 import de.debuglevel.walkingdinner.planners.Location
 import de.debuglevel.walkingdinner.planners.Meeting
 import de.debuglevel.walkingdinner.planners.Team
+import de.debuglevel.walkingdinner.planners.common.GeoUtils
 import de.debuglevel.walkingdinner.planners.dietcompatibility.CourseDietCompatibility
 import io.jenetics.EnumGene
 import io.jenetics.Genotype
@@ -73,7 +74,8 @@ class CoursesProblem(private val teams: ISeq<Team>) : Problem<Courses, EnumGene<
             val location1 = locations[1]!!
             val location2 = locations[2]!!
 
-            return location0.calculateDistance(location1) + location1.calculateDistance(location2)
+            return GeoUtils.calculateDistanceInKilometer(location0, location1) +
+                    GeoUtils.calculateDistanceInKilometer(location1, location2)
         }
 
         private fun getTeamLocations(courseMeetings: Map<String, List<Meeting>>): HashMap<Team, MutableList<Location?>> {
