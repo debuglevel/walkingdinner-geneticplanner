@@ -11,7 +11,7 @@ data class MeetingResponse(
 
 fun Meeting.toMeetingResponse(): MeetingResponse {
     return MeetingResponse(
-        id = UUID.randomUUID(), // TODO: stupid idea, because this is not be idempotent
+        id = UUID.randomUUID(), // TODO: stupid idea, because this is not idempotent
         teams = this.teams.map { it.toTeamResponse() },
         course = this.course
     )
