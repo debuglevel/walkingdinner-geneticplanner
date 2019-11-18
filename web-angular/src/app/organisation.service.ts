@@ -6,6 +6,7 @@ import { catchError, map, tap } from "rxjs/operators";
 
 import { Organisation } from "./organisation";
 import { MessageService } from "./message.service";
+import { SettingsService } from "./settings.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -13,12 +14,15 @@ const httpOptions = {
 
 @Injectable({ providedIn: "root" })
 export class OrganisationService {
-  private organisationsUrl = "api/organisations"; // URL to web api
+  private organisationsUrl = "/organisations/"; // URL to web api
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private settingsService: SettingsService
+  ) {
+    this.organisationsUrl = settingsService.getUri(this.organisationsUrl);
+  }
 
   /** GET organisations from the server */
   getOrganisations(): Observable<Organisation[]> {
