@@ -18,7 +18,7 @@ class OrganisationController(private val organisationService: OrganisationServic
 
         return try {
             val organisation = organisationService.get(organisationId)
-            HttpResponse.ok(OrganisationResponse(organisation.id, organisation.name))
+            HttpResponse.ok(OrganisationResponse(organisation))
         } catch (e: ElementNotFoundException) {
             HttpResponse.notFound<OrganisationResponse>()
         }
@@ -28,7 +28,7 @@ class OrganisationController(private val organisationService: OrganisationServic
     fun getList(): Set<OrganisationResponse> {
         logger.debug("Called getList()")
         return organisationService.getAll().map {
-            OrganisationResponse(it.id, it.name)
+            OrganisationResponse(it)
         }.toSet()
     }
 
@@ -39,7 +39,7 @@ class OrganisationController(private val organisationService: OrganisationServic
         return try {
             val organisation = Organisation(name = organisationRequest.name)
             val savedOrganisation = organisationService.save(organisation)
-            HttpResponse.created(OrganisationResponse(savedOrganisation.id, savedOrganisation.name))
+            HttpResponse.created(OrganisationResponse(savedOrganisation))
         } catch (e: ElementNotFoundException) {
             HttpResponse.badRequest<OrganisationResponse>()
         }
