@@ -4,7 +4,7 @@ app:
       # base path to store any data
       base-path: data
     planners:
-      url: http://localhost:8081
+      url: http://localhost:8083
     reporters:
       mail:
         from-mail-address: "user@domain.invalid"
@@ -18,7 +18,7 @@ micronaut:
     instance:
       id: ${random.shortuuid}
   server:
-    port: 8080 # default: -1 (random port)
+    port: 8081 # default: -1 (random port)
     cors:
       enabled: true # default: false
   http:

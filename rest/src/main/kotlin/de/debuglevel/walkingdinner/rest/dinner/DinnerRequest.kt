@@ -5,5 +5,15 @@ import java.time.LocalDateTime
 data class DinnerRequest(
     val name: String,
 
-    val beginDateTime: LocalDateTime
-)
+    val city: String,
+
+    val begin: LocalDateTime
+) {
+    fun toDinner(): Dinner {
+        return Dinner(
+            name = this.name,
+            city = this.city,
+            begin = this.begin
+        )
+    }
+}

@@ -18,7 +18,7 @@ class DinnerController(private val dinnerService: DinnerService) {
 
         return try {
             val dinner = dinnerService.get(dinnerId)
-            HttpResponse.ok(DinnerResponse(dinner.id, dinner.name, dinner.begin))
+            HttpResponse.ok(DinnerResponse(dinner))
         } catch (e: ElementNotFoundException) {
             HttpResponse.notFound<DinnerResponse>()
         }
@@ -27,45 +27,20 @@ class DinnerController(private val dinnerService: DinnerService) {
     @Get("/")
     fun getList(): Set<DinnerResponse> {
         logger.debug("Called getList()")
-        return dinnerService.getAll().map {
-            DinnerResponse(it.id, it.name, it.begin)
-        }.toSet()
+        val dinners = dinnerService.getAll()
+        return dinners.map { DinnerResponse(it) }.toSet()
     }
 
     @Post("/")
     fun postOne(dinnerRequest: DinnerRequest): HttpResponse<DinnerResponse> {
         logger.debug("Called postOne()")
 
-        return try {
-            val dinner = Dinner(name = dinnerRequest.name, begin = dinnerRequest.beginDateTime)
+		return try {
+            val dinner = dinnerRequest.toDinner()
             val savedDinner = dinnerService.save(dinner)
-            HttpResponse.created(DinnerResponse(savedDinner.id, savedDinner.name, savedDinner.begin))
+            HttpResponse.created(DinnerResponse(savedDinner))
         } catch (e: ElementNotFoundException) {
             HttpResponse.badRequest<DinnerResponse>()
         }
     }
-
-    //    fun getOneHtml(): RouteHandler.() -> String {
-//        return {
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "dinner/show.html.mustache"))
-//        }
-//    }
-
-//    fun getListHtml(): RouteHandler.() -> String {
-//        return {
-//            val model = HashMap<String, Any>()
-//            MustacheTemplateEngine().render(ModelAndView(model, "dinner/list.html.mustache"))
-//        }
-//    }
-
-    /*
-    fun getAddFormHtml(): RouteHandler.() -> String {
-        return {
-            logger.debug("Got GET request on '/participants'")
-
-            val model = HashMap<String, Any>()
-            MustacheTemplateEngine().render(ModelAndView(model, "participant/add.html.mustache"))
-        }
-    }*/
 }

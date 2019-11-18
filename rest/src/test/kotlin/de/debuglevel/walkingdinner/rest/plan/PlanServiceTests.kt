@@ -11,9 +11,18 @@ class PlanServiceTests {
     @Inject
     lateinit var planService: PlanService
 
+<<<<<<< HEAD
 //    @Test
 //    fun addX() {
 //        val plan = Plan(null, setOf<Meeting>(), "test")
 //        planService.addX(plan)
 //    }
+=======
+    /*
+    @Test
+    fun addX() {
+        val plan = Plan(null, setOf<Meeting>(), "test")
+        planService.addX(plan)
+    }*/
+>>>>>>> feature-dinners
 }

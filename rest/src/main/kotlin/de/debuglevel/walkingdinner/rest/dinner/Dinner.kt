@@ -1,10 +1,10 @@
 package de.debuglevel.walkingdinner.rest.dinner
 
+import de.debuglevel.walkingdinner.rest.participant.Team
+import de.debuglevel.walkingdinner.rest.plan.calculation.Calculation
 import java.time.LocalDateTime
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Dinner(
@@ -14,10 +14,17 @@ data class Dinner(
 
     val name: String,
 
-//    val teams: Set<Team>,
+    @OneToMany(cascade = [CascadeType.ALL])
+    val teams: Set<Team> = setOf(),
 
-//    val plans: Set<Plan>,
+    @OneToMany(cascade = [CascadeType.ALL])
+    val calculations: Set<Calculation> = setOf(),
 
-    // TODO: a location (i.e. a city) would probably also useful
+    val city: String,
+
     val begin: LocalDateTime
-)
+) {
+    override fun toString(): String {
+        return "Dinner(id=$id, name='$name', city='$city', begin=$begin)"
+    }
+}

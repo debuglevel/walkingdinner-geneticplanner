@@ -8,7 +8,10 @@
     <mat-card-content>
       <mat-nav-list>
         <mat-list-item *ngFor="let dinner of dinners">
-          <a matLine routerLink="/dinners/{{ dinner.id }}">{{ dinner.name }}</a>
+          <a matLine routerLink="/dinners/{{ dinner.id }}"
+            >{{ dinner.name }} in {{ dinner.city }} am
+            {{ dinner.begin | date: "yyyy-MM-dd HH:mm" }} ({{ dinner.id }})</a
+          >
           <button
             mat-icon-button
             matTooltip="lösche Dinner"
@@ -30,13 +33,30 @@
         <mat-form-field class="full-width">
           <input matInput placeholder="Name des Dinners" #dinnerName />
         </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            #dinnerBegin
+            matInput
+            placeholder="Beginn (Datum und Uhrzeit) [2019-11-03T22:01:16.566]"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input #dinnerCity matInput placeholder="Stadt" />
+        </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
       <!-- (click) passes input value to add() and then clears the input -->
       <button
         mat-stroked-button
-        (click)="add(dinnerName.value); dinnerName.value = ''"
+        (click)="
+          add(dinnerName.value, dinnerBegin.value, dinnerCity.value);
+          dinnerName.value = '';
+          dinnerBegin.value = '';
+          dinnerCity.value = ''
+        "
       >
         HINZUFÜGEN
       </button>

@@ -23,14 +23,18 @@ export class DinnersComponent implements OnInit {
       .subscribe(dinners => (this.dinners = dinners));
   }
 
-  add(name: string): void {
+  add(name: string, begin: string, city: string): void {
     name = name.trim();
     if (!name) {
       return;
     }
-    this.dinnerService.addDinner({ name } as Dinner).subscribe(dinner => {
-      this.dinners.push(dinner);
-    });
+    const id = null;
+
+    this.dinnerService
+      .addDinner({ id, name, begin, city } as Dinner)
+      .subscribe(dinner => {
+        this.dinners.push(dinner);
+      });
   }
 
   delete(dinner: Dinner): void {
