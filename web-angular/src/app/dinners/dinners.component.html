@@ -34,11 +34,13 @@
           <input matInput placeholder="Name des Dinners" #dinnerName />
         </mat-form-field>
 
+        <!-- type="datetime-local" does add a native control on some browsers and it actual formats it in a way which the Jackspn decoder understands; no Angular Material support however. -->
         <mat-form-field class="full-width">
           <input
             #dinnerBegin
             matInput
             placeholder="Beginn (Datum und Uhrzeit) [2019-11-03T22:01:16.566]"
+            type="datetime-local"
           />
         </mat-form-field>
 
