@@ -81,7 +81,7 @@ open class CalculationService(
         val database = databaseBuilder.build(surveyfile)
         val teams = database.teams
 
-        val savedTeams = database.teams.map { teamService.add(it) }
+        val savedTeams = database.teams.map { teamService.save(it) }
 
         val calculation = Calculation(
             null,

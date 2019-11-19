@@ -19,18 +19,14 @@ class TeamService(
 
     fun getAll(): Set<Team> {
         logger.debug { "Getting all teams..." }
-        val teams = teamRepository
-            .findAll()
-            .toSet()
+        val teams = teamRepository.findAll().toSet()
         logger.debug { "Got all teams" }
         return teams
     }
 
-    fun add(team: Team): Team {
+    fun save(team: Team): Team {
         logger.debug { "Saving team '$team'..." }
-
         val savedTeam = teamRepository.save(team)
-
         logger.debug { "Saved team: $savedTeam" }
         return savedTeam
     }

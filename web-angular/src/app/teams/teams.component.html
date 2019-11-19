@@ -8,7 +8,9 @@
     <mat-card-content>
       <mat-nav-list>
         <mat-list-item *ngFor="let team of teams">
-          <a matLine routerLink="/teams/{{ team.id }}">{{ team.name }}</a>
+          <a matLine routerLink="/teams/{{ team.id }}"
+            >{{ team.chef1 }} &amp; {{ team.chef2 }} ({{ team.address }})</a
+          >
           <button
             mat-icon-button
             matTooltip="lösche Team"
@@ -28,7 +30,70 @@
     <mat-card-content>
       <form class="form">
         <mat-form-field class="full-width">
-          <input matInput placeholder="Name des Teams" #teamName />
+          <input matInput placeholder="Adresse" #teamAddress />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name von Koch 1" #teamChef1 />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name von Koch 2" #teamChef2 />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Mail von Koch 1" #teamMail1 />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Mail von Koch 2" #teamMail2 />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Telefonnummer von Koch 1" #teamPhone1 />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Telefonnummer von Koch 2" #teamPhone2 />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            placeholder="Diet (Vegan|Vegetarian|Omnivore)"
+            #teamDiet
+          />
+        </mat-form-field>
+
+        <mat-checkbox #teamVeganAppetizer
+          >veganer Appetizer schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamVeganMaindish
+          >vegane Hauptspeise schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamVeganDessert
+          >veganer Dessert schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamVegetarianAppetizer
+          >vegetarischer Appetizer schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamVegetarianMaindish
+          >vegetarischer Hauptspeise schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamVegetarianDessert
+          >vegetarischer Dessert schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamOmnivoreAppetizer
+          >omnivore Appetizer schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamOmnivoreMaindish
+          >omnivore Hauptspeise schaff ich</mat-checkbox
+        >
+        <mat-checkbox #teamOmnivoreDessert
+          >omnivore Dessert schaff ich</mat-checkbox
+        >
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Stadt" #teamCity />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Notizen" #teamNotes />
         </mat-form-field>
       </form>
     </mat-card-content>
@@ -36,7 +101,30 @@
       <!-- (click) passes input value to add() and then clears the input -->
       <button
         mat-stroked-button
-        (click)="add(teamName.value); teamName.value = ''"
+        (click)="
+          add(
+            teamAddress.value,
+            teamChef1.value,
+            teamChef1.value,
+            teamMail1.value,
+            teamMail2.value,
+            teamPhone1.value,
+            teamPhone2.value,
+            teamCity.value,
+            teamNotes.value,
+            teamVeganAppetizer.checked,
+            teamVeganMaindish.checked,
+            teamVeganDessert.checked,
+            teamVegetarianAppetizer.checked,
+            teamVegetarianMaindish.checked,
+            teamVegetarianDessert.checked,
+            teamOmnivoreAppetizer.checked,
+            teamOmnivoreMaindish.checked,
+            teamOmnivoreDessert.checked,
+            teamDiet.value
+          );
+          teamAddress.value = ''
+        "
       >
         HINZUFÜGEN
       </button>

@@ -1,6 +1,5 @@
 export class Team {
   id: string;
-  name: string;
   address: string;
   chef1: string;
   chef2: string;
@@ -8,7 +7,7 @@ export class Team {
   mail2: string;
   phone1: string;
   phone2: string;
-  //diet: Diet?;
+  diet: string;
   veganAppetizer: boolean;
   veganMaindish: boolean;
   veganDessert: boolean;
@@ -19,4 +18,5 @@ export class Team {
   omnivoreMaindish: boolean;
   omnivoreDessert: boolean;
   notes: string;
+  city: string;
 }
