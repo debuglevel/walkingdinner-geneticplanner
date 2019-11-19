@@ -11,31 +11,31 @@ data class ParticipantDTO(
     val phone1: String?,
     val phone2: String?,
     val diet: Diet?,
-    val veganVorspeise: Boolean?,
-    val veganHauptgericht: Boolean?,
+    val veganAppetizer: Boolean?,
+    val veganMaindish: Boolean?,
     val veganDessert: Boolean?,
-    val vegetarischVorspeise: Boolean?,
-    val vegetarischHauptgericht: Boolean?,
-    val vegetarischDessert: Boolean?,
-    val omnivorVorspeise: Boolean?,
-    val omnivorHauptgericht: Boolean?,
-    val omnivorDessert: Boolean?,
-    val anmerkungen: String?,
+    val vegetarianAppetizer: Boolean?,
+    val vegetarianMaindish: Boolean?,
+    val vegetarianDessert: Boolean?,
+    val omnivoreAppetizer: Boolean?,
+    val omnivoreMaindish: Boolean?,
+    val omnivoreDessert: Boolean?,
+    val notes: String?,
     val city: String?
 ) {
 
     private val cookingCapabilities: List<CookingCapability>
         get() {
             val capabilities = hashMapOf<CookingCapability, Boolean>()
-            capabilities[CookingCapability.VeganAppetizer] = veganVorspeise ?: false
-            capabilities[CookingCapability.VeganMaindish] = veganHauptgericht ?: false
+            capabilities[CookingCapability.VeganAppetizer] = veganAppetizer ?: false
+            capabilities[CookingCapability.VeganMaindish] = veganMaindish ?: false
             capabilities[CookingCapability.VeganDessert] = veganDessert ?: false
-            capabilities[CookingCapability.VegetarianAppetizer] = vegetarischVorspeise ?: false
-            capabilities[CookingCapability.VegetarianMaindish] = vegetarischHauptgericht ?: false
-            capabilities[CookingCapability.VegetarianDessert] = vegetarischDessert ?: false
-            capabilities[CookingCapability.OmnivoreAppetizer] = omnivorVorspeise ?: false
-            capabilities[CookingCapability.OmnivoreMaindish] = omnivorHauptgericht ?: false
-            capabilities[CookingCapability.OmnivoreDessert] = omnivorDessert ?: false
+            capabilities[CookingCapability.VegetarianAppetizer] = vegetarianAppetizer ?: false
+            capabilities[CookingCapability.VegetarianMaindish] = vegetarianMaindish ?: false
+            capabilities[CookingCapability.VegetarianDessert] = vegetarianDessert ?: false
+            capabilities[CookingCapability.OmnivoreAppetizer] = omnivoreAppetizer ?: false
+            capabilities[CookingCapability.OmnivoreMaindish] = omnivoreMaindish ?: false
+            capabilities[CookingCapability.OmnivoreDessert] = omnivoreDessert ?: false
 
             return capabilities.filter { it.value }.map { it.key }
         }

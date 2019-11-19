@@ -9,14 +9,14 @@ export class Team {
   phone1: string;
   phone2: string;
   //diet: Diet?;
-  veganVorspeise: boolean;
-  veganHauptgericht: boolean;
+  veganAppetizer: boolean;
+  veganMaindish: boolean;
   veganDessert: boolean;
-  vegetarischVorspeise: boolean;
-  vegetarischHauptgericht: boolean;
-  vegetarischDessert: boolean;
-  omnivorVorspeise: boolean;
-  omnivorHauptgericht: boolean;
-  omnivorDessert: boolean;
-  anmerkungen: string;
+  vegetarianAppetizer: boolean;
+  vegetarianMaindish: boolean;
+  vegetarianDessert: boolean;
+  omnivoreAppetizer: boolean;
+  omnivoreMaindish: boolean;
+  omnivoreDessert: boolean;
+  notes: string;
 }
