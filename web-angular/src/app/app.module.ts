@@ -18,6 +18,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
+import { MatSelectModule } from "@angular/material/select";
 
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./in-memory-data.service";
@@ -39,7 +40,7 @@ import { CalculationDetailComponent } from "./calculation-detail/calculation-det
 import { PlansComponent } from "./plans/plans.component";
 import { PlanDetailComponent } from "./plan-detail/plan-detail.component";
 
-import { SettingsHttpService } from './settings.http.service';
+import { SettingsHttpService } from "./settings.http.service";
 
 export function app_Init(settingsHttpService: SettingsHttpService) {
   return () => settingsHttpService.initializeApp();
@@ -64,6 +65,7 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatSelectModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -91,7 +93,12 @@ export function app_Init(settingsHttpService: SettingsHttpService) {
     PlanDetailComponent,
   ],
   providers: [
-      { provide: APP_INITIALIZER, useFactory: app_Init, deps: [SettingsHttpService], multi: true }
+    {
+      provide: APP_INITIALIZER,
+      useFactory: app_Init,
+      deps: [SettingsHttpService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

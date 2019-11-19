@@ -52,12 +52,21 @@
           <input matInput placeholder="Telefonnummer von Koch 2" #teamPhone2 />
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <!-- <mat-form-field class="full-width">
           <input
             matInput
             placeholder="Diet (Vegan|Vegetarian|Omnivore)"
             #teamDiet
           />
+        </mat-form-field> -->
+
+        <mat-form-field class="full-width">
+          <mat-label>Diet</mat-label>
+          <mat-select #teamDiet>
+            <mat-option value="Vegan">Ich bin Veganer</mat-option>
+            <mat-option value="Vegetarian">Ich bin Vegetarier</mat-option>
+            <mat-option value="Omnivore">Ich bin Omnivor</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-checkbox #teamVeganAppetizer
