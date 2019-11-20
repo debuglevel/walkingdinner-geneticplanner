@@ -1,9 +1,8 @@
 package de.debuglevel.walkingdinner.rest.organisation
 
+import de.debuglevel.walkingdinner.rest.participant.MailAddress
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Organisation(
@@ -12,6 +11,9 @@ data class Organisation(
     val id: UUID? = null,
 
     //val dinners: Set<Dinner>,
+
+    @OneToOne(cascade = [CascadeType.ALL])
+    val mail: MailAddress,
 
     val name: String
 )

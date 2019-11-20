@@ -36,13 +36,20 @@
             #organisationName
           />
         </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Mail" #organisationMail />
+        </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
       <!-- (click) passes input value to add() and then clears the input -->
       <button
         mat-stroked-button
-        (click)="add(organisationName.value); organisationName.value = ''"
+        (click)="
+          add(organisationName.value, organisationMail.value);
+          organisationName.value = ''
+        "
       >
         HINZUFÜGEN
       </button>

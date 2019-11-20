@@ -23,13 +23,13 @@ export class OrganisationsComponent implements OnInit {
       .subscribe(organisations => (this.organisations = organisations));
   }
 
-  add(name: string): void {
+  add(name: string, mail: string): void {
     name = name.trim();
     if (!name) {
       return;
     }
     this.organisationService
-      .addOrganisation({ name } as Organisation)
+      .addOrganisation({ name, mail } as Organisation)
       .subscribe(organisation => {
         this.organisations.push(organisation);
       });
