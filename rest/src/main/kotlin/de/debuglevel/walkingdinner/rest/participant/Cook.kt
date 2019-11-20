@@ -1,5 +1,7 @@
 package de.debuglevel.walkingdinner.rest.participant
 
+import de.debuglevel.walkingdinner.rest.MailAddress
+import de.debuglevel.walkingdinner.rest.PhoneNumber
 import java.util.*
 import javax.persistence.*
 

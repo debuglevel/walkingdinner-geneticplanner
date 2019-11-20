@@ -1,4 +1,4 @@
-package de.debuglevel.walkingdinner.rest.participant
+package de.debuglevel.walkingdinner.rest
 
 import java.util.*
 import javax.persistence.Entity

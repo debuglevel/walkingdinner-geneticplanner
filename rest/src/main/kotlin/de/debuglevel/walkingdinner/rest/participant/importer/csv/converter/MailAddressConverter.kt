@@ -2,7 +2,7 @@ package de.debuglevel.walkingdinner.rest.participant.importer.csv.converter
 
 import com.opencsv.bean.AbstractBeanField
 import com.opencsv.exceptions.CsvDataTypeMismatchException
-import de.debuglevel.walkingdinner.rest.participant.MailAddress
+import de.debuglevel.walkingdinner.rest.MailAddress
 
 class MailAddressConverter<T> : AbstractBeanField<T>() {
     @Throws(CsvDataTypeMismatchException::class)

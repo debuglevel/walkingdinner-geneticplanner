@@ -1,6 +1,8 @@
 package de.debuglevel.walkingdinner.rest.dietcompatibility
 
+import de.debuglevel.walkingdinner.rest.MailAddress
 import de.debuglevel.walkingdinner.rest.Meeting
+import de.debuglevel.walkingdinner.rest.PhoneNumber
 import de.debuglevel.walkingdinner.rest.participant.*
 import java.util.stream.Stream
 

@@ -1,7 +1,12 @@
 package de.debuglevel.walkingdinner.rest.dietcompatibility
 
+import de.debuglevel.walkingdinner.rest.MailAddress
 import de.debuglevel.walkingdinner.rest.Meeting
-import de.debuglevel.walkingdinner.rest.participant.*
+import de.debuglevel.walkingdinner.rest.PhoneNumber
+import de.debuglevel.walkingdinner.rest.participant.Cook
+import de.debuglevel.walkingdinner.rest.participant.Diet
+import de.debuglevel.walkingdinner.rest.participant.Name
+import de.debuglevel.walkingdinner.rest.participant.Team
 import java.util.stream.Stream
 
 object TestDataHardCompatibility {

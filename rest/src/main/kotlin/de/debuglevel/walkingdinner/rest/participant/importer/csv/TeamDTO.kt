@@ -2,6 +2,8 @@ package de.debuglevel.walkingdinner.rest.participant.importer.csv
 
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvCustomBindByName
+import de.debuglevel.walkingdinner.rest.MailAddress
+import de.debuglevel.walkingdinner.rest.PhoneNumber
 import de.debuglevel.walkingdinner.rest.participant.*
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.CapabilitiesConverter
 import de.debuglevel.walkingdinner.rest.participant.importer.csv.converter.MailAddressConverter
